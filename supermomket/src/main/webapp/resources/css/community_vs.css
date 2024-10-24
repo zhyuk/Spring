@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+main {
+    width: 100%;
+    height: fit-content;
+    margin-top: 50px;
+    border: solid 1px red;
+}
+
+section div.inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    border: solid 1px blue;
+}
+
+section#index div.inner button.write-btn {
+    float: right;
+    width: 60px;
+    height: 30px;
+    margin: 0 0 30px 0;
+    border: 1px solid black;
+}
+
+section#index div.inner table {
+    width: 100%;
+    font-size: 18px;
+    border-collapse: collapse;
+    border: solid 1px green;
+}
+
+section#index div.inner table tr {
+    height: 50px;
+    border-bottom: 2px solid #000;
+}
+
+section#index div.inner table td {
+    text-align: center;
+}
+
+section#index div.inner table th:nth-of-type(1) {
+    width: 100px;
+}
+
+section#index div.inner table th:nth-of-type(2) {
+    width: 750px;
+}
+
+section#index div.inner table th:nth-of-type(3) {
+    width: 200px;
+}
+
+section#index div.inner table th:nth-of-type(4) {
+    width: 250px;
+}
+
+/* 글 작성 페이지 */
+section#write div.inner form {
+    width: 100%;
+}
+
+section#write div.inner form .input-group {
+    width: 100%;
+    margin-top: 15px;
+    ;
+    padding-bottom: 15px;
+}
+
+section#write div.inner form .input-group input[type='text'] {
+    width: 100%;
+    height: 30px;
+}
+
+section#write div.inner form .input-group textarea {
+    width: 100%;
+    height: 250px;
+}
+
+section#write div.inner form .btn-area {
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* 글 세부 페이지 */
+section#info div.inner div.container {
+    width: 100%;
+    padding: 20px;
+}
+
+section#info div.inner div.container .text-group {
+    width: 100%;
+    padding: 0 60px;
+    border-bottom: solid 2px #000;
+}
+
+section#info div.inner div.container .text-group p {
+    display: inline-block;
+}
+
+section#info div.inner div.container .text-group p.title {
+    float: left;
+    font-size: 28px;
+}
+
+section#info div.inner div.container .text-group p.date {
+    float: right;
+    font-size: 20px;
+}
+
+section#info div.inner div.container .text-group p.writer {
+    float: left;
+}
+
+section#info div.inner div.container .text-group .btn-area {
+    float: right;
+}
+
+section#info div.inner div.container .text-group .img-box img {
+    max-width: 450px;
+}
+
+section#info div.inner div.container .text-group pre {
+    font-size: 18px;
+}
+
+section#info div.inner>.btn-area {
+    text-align: center;
+}

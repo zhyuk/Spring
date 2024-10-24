@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FaqDAO">
+
+	<select id="getSomething" resultType="faq">
+		SELECT
+		columnname1,
+		columnname2,
+		columnname3
+		FROM tablename1
+		WHERE columnname1 = #{value}
+	</select>
+
+	<select id="allselet" resultMap="faq">
+		SELECT * FROM faq
+	</select>
+
+	<insert id="insertfaq" >
+		INSERT INTO FAQ (FAQ_NO, FAQ_Q, FAQ_A,FAQ_CLASS)
+		VALUES(#{faq_no},#{faq_q},#{faq_a},#{faq_class})
+	</insert>
+
+	<update id="updatefaq" >
+		UPDATE FAQ
+		SET
+		FAQ_Q=#{faq_q}
+		FAQ_A=#{faq_a}
+		WHERE
+		FAQ_NO = #{faq_no}
+	</update>
+
+	<delete id="deletefaq">
+		DELETE FROM FAQ WHERE
+		FAQ_NO = #{faq_no}
+	</delete>
+
+</mapper>

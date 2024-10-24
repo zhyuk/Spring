@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VsDAO">
+
+	<select id="getBoardList" resultType="vs">
+		SELECT * FROM COMMUNITY_VS
+		ORDER BY VS_NO DESC;
+	</select>
+
+	<insert id="insertBoard">
+		INSERT INTO COMMUNITY_VS (VS_TITLE, VS_WRITER,
+		VS_CONTENT, VS_DATE, VS_IMG1, VS_IMG2) VALUES (#{vs_title},
+		#{vs_writer}, #{vs_content}, current_date, #{filename1},
+		#{filename2});
+	</insert>
+
+	<!-- 글 상세보기 -->
+	<select id="getBoardInfo" resultType="vs">
+		SELECT * FROM community_vs
+		WHERE vs_no = #{vs_no};
+	</select>
+
+	<!-- 글 수정 -->
+	<update id="updateBoard">
+		UPDATE COMMUNITY_VS SET VS_TITLE = #{vs_title}, VS_CONTENT = #{vs_content},
+		VS_DATE = CURRENT_DATE, VS_IMG1 = #{vs_img1}, VS_IMG2 = #{vs_img2}
+		WHERE VS_NO = #{vs_no};
+	</update>
+
+
+</mapper>

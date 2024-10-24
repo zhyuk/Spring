@@ -1,0 +1,180 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+}
+
+#wrap {
+	width: 100%;
+	max-width: 2560px;
+	/* border: solid 1px red; */
+}
+
+.clear {
+	clear: both;
+}
+
+.m-menu {
+	display: none;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 60px;
+	padding: 0 60px;
+	font-size: 20px;
+	background: lightgray;
+}
+
+header .logo-box {
+	float: left;
+	width: 150px;
+	margin-right: 60px;
+	/* border: solid 1px red; */
+}
+
+header .logo-box img {
+	width: 100%;
+	cursor: pointer;
+}
+
+header .main-menu {
+	display: flex;
+	float: left;
+}
+
+header .main-menu li {
+	margin-right: 30px;
+	cursor: pointer;
+}
+
+header .login-box {
+	margin-left: auto;
+}
+
+header .login-box p {
+	display: inline;
+	cursor: pointer;
+}
+
+header .login-box button {
+	width: 50px;
+	height: 50px;
+	background: transparent;
+	border: solid 1px #000;
+	border: none;
+}
+
+header .login-box i {
+	font-size: 28px;
+	cursor: pointer;
+}
+
+header .login-menu {
+	float: right;
+	width: 50px;
+	height: 50px;
+	margin-left: auto;
+	font-size: 28px;
+	/* border: solid 1px red; */
+	background: transparent;
+}
+
+header .ham-box {
+	position: relative;
+	float: right;
+	width: 50px;
+	height: 50px;
+	margin-left: auto;
+	margin-right: 10px;
+	/* border: solid 1px red; */
+}
+
+header .ham-box span:nth-of-type(1) {
+	top: 25%;
+}
+
+header .ham-box span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: block;
+	width: 45px;
+	height: 5px;
+	background: black;
+	transform: translate(-50%, -50%);
+}
+
+header .ham-box span:nth-of-type(3) {
+	top: 75%;
+}
+
+div#m-nav {
+	width: 100%;
+	display: none;
+}
+
+div#m-nav ul {
+	background-color: #D9D9D9;
+}
+
+div#m-nav ul li {
+	width: 100%;
+	height: 60px;
+	font-size: 20px;
+	text-align: center;
+	line-height: 60px;
+	border: solid 1px black;
+}
+
+div#m-nav button.login-btn {
+	display: block;
+	margin: 0 auto;
+	margin-top: 15px;
+	background: transparent;
+	border: none;
+	font-size: 16px;
+}
+
+div#m-nav div {
+	margin: 0 auto;
+	margin-top: 15px;
+	text-align: center;
+}
+
+div#m-nav div p {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+div#m-nav div button {
+	font-size: 16px;
+	border: none;
+	background: none;
+}
+
+@media screen and (max-width: 768px) {
+	header {
+		padding: 0 20px;
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.m-menu {
+		display: block;
+	}
+	header {
+		padding: 0;
+	}
+	header .main-menu, header .login-box {
+		display: none;
+	}
+}
