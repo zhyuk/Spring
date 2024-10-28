@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.VsimgVO;
 
 @Repository
 public class Community_vsDAO {
@@ -34,5 +35,17 @@ public class Community_vsDAO {
 	public int updateBoard(Community_vsVO vo) {
 		System.out.println("DAO 클래스 updateBoard 실행");
 		return mybatis.update("VsDAO.updateBoard", vo);
+	}
+	
+	// 글 삭제
+	public int deleteBoard(Community_vsVO vo) {
+		System.out.println("DAO 클래스 deleteBoard 실행");
+		return mybatis.delete("VsDAO.deleteBoard", vo);
+	}
+	
+	// 투표결과 저장
+	public int insertVote(VsimgVO vo) {
+		System.out.println("DAO 클래스 insertVote 실행");
+		return mybatis.insert("VsDAO.insertVote", vo);
 	}
 }

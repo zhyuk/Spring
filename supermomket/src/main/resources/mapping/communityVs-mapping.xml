@@ -12,22 +12,33 @@
 	<insert id="insertBoard">
 		INSERT INTO COMMUNITY_VS (VS_TITLE, VS_WRITER,
 		VS_CONTENT, VS_DATE, VS_IMG1, VS_IMG2) VALUES (#{vs_title},
-		#{vs_writer}, #{vs_content}, current_date, #{filename1},
-		#{filename2});
+		#{vs_writer}, #{vs_content}, current_date, #{vs_img1},
+		#{vs_img2});
 	</insert>
 
 	<!-- 글 상세보기 -->
 	<select id="getBoardInfo" resultType="vs">
-		SELECT * FROM community_vs
+		SELECT * FROM COMMUNITY_VS
 		WHERE vs_no = #{vs_no};
 	</select>
 
 	<!-- 글 수정 -->
 	<update id="updateBoard">
-		UPDATE COMMUNITY_VS SET VS_TITLE = #{vs_title}, VS_CONTENT = #{vs_content},
-		VS_DATE = CURRENT_DATE, VS_IMG1 = #{vs_img1}, VS_IMG2 = #{vs_img2}
+		UPDATE COMMUNITY_VS SET VS_TITLE = #{vs_title},
+		VS_CONTENT = #{vs_content},
+		VS_DATE = CURRENT_DATE, VS_IMG1 =
+		#{vs_img1}, VS_IMG2 = #{vs_img2}
 		WHERE VS_NO = #{vs_no};
 	</update>
 
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard">
+		DELETE FROM COMMUNITY_VS WHERE VS_NO = #{vs_no};
+	</delete>
+	
+	<!-- 투표결과 작성 -->
+	<insert id="insertVote">
+	INSERT INTO VSIMG VALUES (#{vs_no}, #{v_selector}, #{v_no});
+	</insert>
 
 </mapper>

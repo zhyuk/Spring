@@ -7,6 +7,10 @@ main {
     border: solid 1px red;
 }
 
+textarea {
+    resize: none;
+}
+
 section div.inner {
     max-width: 1300px;
     margin: 0 auto;
@@ -89,7 +93,7 @@ section#info div.inner div.container {
 
 section#info div.inner div.container .text-group {
     width: 100%;
-    padding: 0 60px;
+    /* padding: 0 60px; */
     border-bottom: solid 2px #000;
 }
 
@@ -115,6 +119,11 @@ section#info div.inner div.container .text-group .btn-area {
     float: right;
 }
 
+section#info div.inner div.container .text-group .img-box {
+    display: flex;
+    justify-content: space-between;
+}
+
 section#info div.inner div.container .text-group .img-box img {
     max-width: 450px;
 }
@@ -124,5 +133,33 @@ section#info div.inner div.container .text-group pre {
 }
 
 section#info div.inner>.btn-area {
+    text-align: center;
+}
+
+/* 글 수정 페이지 */
+section#modify div.inner form {
+    width: 100%;
+}
+
+section#modify div.inner form .input-group {
+    width: 100%;
+    margin-top: 15px;
+    ;
+    padding-bottom: 15px;
+}
+
+section#modify div.inner form .input-group input[type='text'] {
+    width: 100%;
+    height: 30px;
+}
+
+section#modify div.inner form .input-group textarea {
+    width: 100%;
+    height: 250px;
+}
+
+section#modify div.inner form .btn-area {
+    width: 100%;
+    margin-top: 30px;
     text-align: center;
 }

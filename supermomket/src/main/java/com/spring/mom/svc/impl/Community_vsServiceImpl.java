@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.mom.dao.Community_vsDAO;
 import com.spring.mom.svc.Community_vsService;
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.VsimgVO;
 
 @Service
 public class Community_vsServiceImpl implements Community_vsService {
@@ -40,6 +41,18 @@ public class Community_vsServiceImpl implements Community_vsService {
 	public int updateBoard(Community_vsVO vo) {
 		System.out.println("SVC 클래스 updateBoard() 실행");
 		return dao.updateBoard(vo);
+	}
+
+	@Override
+	public int deleteBoard(Community_vsVO vo) {
+		System.out.println("SVC 클래스 deleteBoard() 실행");
+		return dao.deleteBoard(vo);
+	}
+
+	@Override
+	public int insertVote(VsimgVO vo) {
+		System.out.println("SVC 클래스 insertVote() 실행");
+		return dao.insertVote(vo);
 	}
 
 }

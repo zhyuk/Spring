@@ -23,7 +23,7 @@
 						<th>작성일자</th>
 					</tr>
 					<c:forEach items="${boardList}" var="board">
-						<tr onclick="selBoard(${board.vs_no})">
+						<tr onclick="selBoard(${board.vs_no})" class="pointer">
 							<td>${board.vs_no}</td>
 							<td>${board.vs_title}</td>
 							<td>${board.vs_writer}</td>

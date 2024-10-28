@@ -26,7 +26,7 @@
 
 										<div class="btn-area">
 											<button onclick="updateBoard(${board.vs_no})">수정</button>
-											<button>삭제</button>
+											<button onclick="deleteBoard(${board.vs_no})">삭제</button>
 										</div>
 
 										<div class="clear"></div>
@@ -34,8 +34,8 @@
 
 									<div class="text-group">
 										<div class="img-box">
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}">
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}">
+											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}" onclick="leftAjax(${board.vs_no})">
+											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}" onclick="rightAjax(${board.vs_no})">
 										</div>
 
 										<pre>${board.vs_content}</pre>
