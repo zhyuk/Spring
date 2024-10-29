@@ -55,6 +55,20 @@ header .main-menu li {
 	cursor: pointer;
 }
 
+header .sub-menu {
+	position: absolute;
+	top: 60px;
+	left: 460px;
+	display: flex;
+	align-items: center;
+	height: 40px;
+	background: beige;
+}
+
+header .sub-menu li {
+	margin: 0 15px;
+}
+
 header .login-box {
 	margin-left: auto;
 }

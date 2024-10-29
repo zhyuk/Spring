@@ -35,10 +35,55 @@
 	<delete id="deleteBoard">
 		DELETE FROM COMMUNITY_VS WHERE VS_NO = #{vs_no};
 	</delete>
-	
+
 	<!-- 투표결과 작성 -->
 	<insert id="insertVote">
-	INSERT INTO VSIMG VALUES (#{vs_no}, #{v_selector}, #{v_no});
+		INSERT INTO VSIMG VALUES (#{vs_no}, #{v_selector}, #{v_no});
 	</insert>
+
+	<!-- 투표결과 수정 -->
+	<update id="updateVote">
+		UPDATE VSIMG SET V_NO = #{v_no} WHERE VS_NO =
+		#{vs_no} AND V_SELECTOR = #{v_selector}
+	</update>
+
+	<!-- 투표결과 존재여부 -->
+	<select id="getVote" resultType="vote">
+		SELECT * FROM VSIMG WHERE
+		V_SELECTOR = #{v_selector} AND VS_NO = #{vs_no}
+	</select>
+	
+	<!-- 왼쪽사진의 전체 투표수 가져오기 -->
+	<select id="getLeftVote" resultType="int">
+		SELECT COUNT(*) FROM VSIMG WHERE VS_NO = #{vs_no} AND V_NO = 1;
+	</select>
+	
+	<!-- 오른쪽사진의 전체 투표수 가져오기 -->
+	<select id="getRightVote" resultType="int">
+		SELECT COUNT(*) FROM VSIMG WHERE VS_NO = #{vs_no} AND V_NO = 2;
+	</select>
+
+	<!-- 댓글 조회 -->
+	<select id="getComment" resultType="commentVs">
+		SELECT * FROM comment_vs
+		WHERE vs_no = #{vs_no} ORDER BY vs_cno desc;
+	</select>
+
+	<!-- 댓글 작성 -->
+	<insert id="insertComment">
+		INSERT INTO COMMENT_VS (VS_NO, VS_WRITER, VS_DATE,
+		VS_COMMENT)VALUES(#{vs_no}, #{vs_writer}, CURRENT_DATE,
+		#{vs_comment});
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment">
+		UPDATE COMMENT_VS SET VS_COMMENT = #{vs_comment} WHERE VS_NO = #{vs_no} AND VS_CNO = #{vs_cno};
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no} AND VS_CNO = #{vs_cno};
+	</delete>
 
 </mapper>

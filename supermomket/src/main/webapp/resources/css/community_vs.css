@@ -4,7 +4,7 @@ main {
     width: 100%;
     height: fit-content;
     margin-top: 50px;
-    border: solid 1px red;
+    /* border: solid 1px red; */
 }
 
 textarea {
@@ -14,7 +14,11 @@ textarea {
 section div.inner {
     max-width: 1300px;
     margin: 0 auto;
-    border: solid 1px blue;
+    /* border: solid 1px blue; */
+}
+
+section div.inner table {
+    border: solid 1px green;
 }
 
 section#index div.inner button.write-btn {
@@ -22,19 +26,18 @@ section#index div.inner button.write-btn {
     width: 60px;
     height: 30px;
     margin: 0 0 30px 0;
-    border: 1px solid black;
+    border: solid 1px green;
 }
 
 section#index div.inner table {
     width: 100%;
     font-size: 18px;
     border-collapse: collapse;
-    border: solid 1px green;
 }
 
 section#index div.inner table tr {
     height: 50px;
-    border-bottom: 2px solid #000;
+    border-bottom: solid 1px gray;
 }
 
 section#index div.inner table td {
@@ -94,7 +97,7 @@ section#info div.inner div.container {
 section#info div.inner div.container .text-group {
     width: 100%;
     /* padding: 0 60px; */
-    border-bottom: solid 2px #000;
+    /* border: solid 1px green */
 }
 
 section#info div.inner div.container .text-group p {
@@ -136,6 +139,10 @@ section#info div.inner>.btn-area {
     text-align: center;
 }
 
+section#info div.inner .comment input[name="vs_comment"]{
+    display: none;
+}
+
 /* 글 수정 페이지 */
 section#modify div.inner form {
     width: 100%;
@@ -156,6 +163,39 @@ section#modify div.inner form .input-group input[type='text'] {
 section#modify div.inner form .input-group textarea {
     width: 100%;
     height: 250px;
+}
+
+section#modify div.inner form .input-group .img_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+section#modify div.inner form .input-group .img_box img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+}
+
+section#modify div.inner form .input-group .img_box .close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+}
+
+section#modify div.inner form .input-group .img_select {
+    display: none;
 }
 
 section#modify div.inner form .btn-area {

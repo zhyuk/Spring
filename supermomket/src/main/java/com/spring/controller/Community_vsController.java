@@ -2,6 +2,8 @@ package com.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.mom.svc.Community_vsService;
+import com.spring.mom.vo.Comment_vsVO;
 import com.spring.mom.vo.Community_vsVO;
 import com.spring.mom.vo.VsimgVO;
 
@@ -22,6 +26,7 @@ public class Community_vsController {
 	@Autowired
 	private Community_vsService svc;
 
+	// VS 인덱스 페이지
 	@RequestMapping("/vs_index.do")
 	public String getBoardList(Community_vsVO vo, Model model) {
 		System.out.println("컨트롤러 실행");
@@ -80,11 +85,14 @@ public class Community_vsController {
 
 	// 글 상세보기
 	@RequestMapping("/vs_info.do")
-	public String selectBoardInfo(Community_vsVO vo, Model model) {
+	public String selectBoardInfo(Community_vsVO vo, Comment_vsVO commentVO, VsimgVO vsVO, Model model) {
 		System.out.println("/vs_info.do 서블릿 실행");
 		System.out.println(vo.getVs_no());
-		System.out.println("VO를 가져와요: " + svc.getBoardInfo(vo));
+//		System.out.println("VO를 가져와요: " + svc.getBoardInfo(vo));
 		model.addAttribute("boardList", svc.getBoardInfo(vo));
+		model.addAttribute("commentList", svc.getComment(commentVO));
+		model.addAttribute("leftResult", svc.getLeftVote(vsVO));
+		model.addAttribute("rightResult", svc.getRightVote(vsVO));
 		return "community_vs/community_vs_info";
 	}
 
@@ -155,12 +163,50 @@ public class Community_vsController {
 		return "redirect:vs_index.do";
 	}
 
+	// 투표 입력
+	@ResponseBody
 	@PostMapping("/vs_vote.do")
-	public void insertVote(VsimgVO vo) {
+	public int insertVote(VsimgVO vo) {
 		System.out.println(vo.getV_no());
 		System.out.println(vo.getVs_no());
-
-		svc.insertVote(vo);
+		int result = svc.insertVote(vo);
+		
+		return result;
+	}
+	
+	// 댓글 작성
+	@ResponseBody
+	@RequestMapping("/vs_comment_insert.do")
+	public String insertComment(Comment_vsVO vo) {
+		System.out.println("/vs_comment_insert.do 서블릿 실행");
+		System.out.println(vo);
+		
+		int result = svc.insertComment(vo);
+		if (result > 0) {
+			return "OK";
+		}else {
+			return "ERROR";
+		}
 	}
 
+	// 댓글 수정
+	@ResponseBody
+	@RequestMapping("/vs_comment_update.do")
+	public int updateComment(Comment_vsVO vo) {
+		System.out.println("/vs_comment_update.do 서블릿 실행");
+		System.out.println(vo);
+		int result = svc.updateComment(vo);
+		
+		return result;
+	}
+	
+	// 댓글 삭제
+	@ResponseBody
+	@RequestMapping("/vs_comment_delete.do")
+	public int deleteComment(Comment_vsVO vo) {
+		System.out.println("/vs_comment_delete.do 서블릿 실행");
+		System.out.println(vo);
+		int result = svc.deleteComment(vo);
+		return result;
+	}
 }

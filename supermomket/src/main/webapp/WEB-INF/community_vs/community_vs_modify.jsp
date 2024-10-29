@@ -25,9 +25,16 @@
 
 									<div class="input-group">
 										
-										<button type="button">이미지 보기</button>
-										<button type="button">이미지 수정</button>
-										<input type="file" id="img1_button" class="inputData" name="vs_img1_file">
+										<button type="button" id="img1_view_btn">이미지 보기</button>
+										<div id="img1_box" class="img_box">
+											<button type="button" id="img1_close" class="close">X</button>
+											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}">
+										</div>
+										<button type="button" id="img1_select_btn">이미지 수정</button>
+
+										<div id="img1_select" class="img_select">
+											<input type="file" id="img1_button" class="inputData" name="vs_img1_file" disabled>
+										</div>
 
 										<!-- <input type="file" class="inputData" name="vs_img2_file"> -->
 									</div>
@@ -49,6 +56,37 @@
 				</div> <!-- menu.jsp 내 <div id="wrap> 닫는 태그 -->
 				<script src="${pageContext.request.contextPath}/resources/js/community_vs.js"></script>
 				<script src="${pageContext.request.contextPath}/resources/js/community_vs_write.js"></script>
+				<script>
+					const img_box = $(".img_box");
+					const img1_view_btn = document.getElementById("img1_view_btn");
+					const img1_box = document.getElementById("img1_box");
+					const img1_close = document.getElementById("img1_close");
+					const img1_select_btn = document.getElementById("img1_select_btn");
+
+					img1_view_btn.addEventListener("click", function(){
+						img_box.each((index, item)=> {
+							// console.log(item);
+							item.style.display = "none";
+						});
+						img1_box.style.display = "block";
+					});
+
+					img1_close.addEventListener("click", function(){
+						img1_box.style.display = "none";
+					});
+
+					img1_select_btn.addEventListener("click", ()=> {
+						$("#img1_select").toggle();
+
+						console.log($("#img1_select").css("display"));
+						if($("#img1_select").css("display") == "none"){
+							$("#img1_button").attr("disabled", true);
+						} else {
+							$("#img1_button").attr("disabled", false);
+						}
+					});
+
+				</script>
 
 
 		</body>

@@ -6,6 +6,8 @@
 	<typeAliases>
 		<typeAlias type="com.spring.mom.vo.FaqVO" alias="faq"></typeAlias>
 		<typeAlias type="com.spring.mom.vo.Community_vsVO" alias="vs"/>
+		<typeAlias type="com.spring.mom.vo.VsimgVO" alias="vote"/>
+		<typeAlias type="com.spring.mom.vo.Comment_vsVO" alias="commentVs"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapping/communityVs-mapping.xml" />
