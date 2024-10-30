@@ -2,8 +2,7 @@ package com.spring.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +29,18 @@ public class Community_vsController {
 	@RequestMapping("/vs_index.do")
 	public String getBoardList(Community_vsVO vo, Model model) {
 		System.out.println("컨트롤러 실행");
+		
 		model.addAttribute("boardList", svc.getBoardList(vo));
 		return "community_vs/community_vs_index";
+	}
+	
+	// 관리자페이지
+	@RequestMapping("/vs_admin.do")
+	public String getBoardListAdmin(Community_vsVO vo, Model model) {
+		System.out.println("관리자 VS 페이지 이동");
+		model.addAttribute("boardList", svc.getBoardList(vo));
+		
+		return "community_vs/community_vs_admin";
 	}
 
 	// 글 작성 페이지로 이동
@@ -133,6 +142,23 @@ public class Community_vsController {
 				System.out.println("Filename1: " + vo.getVs_img1());
 				System.out.println("Filename2: " + vo.getVs_img2());
 			}
+		} else if (img1 == null && img2 == null) {
+			System.out.println(vo);
+			
+		} else if (img1 == null) {
+			if (!img2.isEmpty()) {
+				vo.setVs_img2(img2.getOriginalFilename());
+				img2.transferTo(new File(uploadPath + vo.getVs_img2()));
+
+				System.out.println("Filename2: " + vo.getVs_img2());
+			}
+		} else if (img2 == null) {
+			if (!img1.isEmpty()) {
+				vo.setVs_img1(img1.getOriginalFilename());
+				img1.transferTo(new File(uploadPath + vo.getVs_img1()));
+
+				System.out.println("Filename1: " + vo.getVs_img1());
+			}
 		}
 
 		System.out.println(vo);
@@ -166,47 +192,66 @@ public class Community_vsController {
 	// 투표 입력
 	@ResponseBody
 	@PostMapping("/vs_vote.do")
-	public int insertVote(VsimgVO vo) {
+	public Integer[] insertVote(VsimgVO vo) {
 		System.out.println(vo.getV_no());
 		System.out.println(vo.getVs_no());
+
+		Integer[] resultarr = new Integer[2];
+
 		int result = svc.insertVote(vo);
 		
-		return result;
+		if (result > 0) {
+			resultarr[0] =svc.getLeftVote(vo);
+			resultarr[1] =svc.getRightVote(vo);
+		}
+
+		return resultarr;
 	}
-	
+
 	// 댓글 작성
 	@ResponseBody
 	@RequestMapping("/vs_comment_insert.do")
-	public String insertComment(Comment_vsVO vo) {
+	public List<Comment_vsVO> insertComment(Comment_vsVO vo) {
 		System.out.println("/vs_comment_insert.do 서블릿 실행");
 		System.out.println(vo);
-		
+		List<Comment_vsVO> commentList = null;
+
 		int result = svc.insertComment(vo);
-		if (result > 0) {
-			return "OK";
-		}else {
-			return "ERROR";
+		if(result > 0) {
+			commentList = svc.getComment(vo);
 		}
+		return commentList;
 	}
 
 	// 댓글 수정
 	@ResponseBody
 	@RequestMapping("/vs_comment_update.do")
-	public int updateComment(Comment_vsVO vo) {
+	public List<Comment_vsVO> updateComment(Comment_vsVO vo) {
 		System.out.println("/vs_comment_update.do 서블릿 실행");
 		System.out.println(vo);
+		List<Comment_vsVO> commentList = null;
 		int result = svc.updateComment(vo);
+//		int result = 1;
 		
-		return result;
+		if(result > 0) {
+			commentList = svc.getComment(vo);
+		}
+		return commentList;
 	}
-	
+
 	// 댓글 삭제
 	@ResponseBody
 	@RequestMapping("/vs_comment_delete.do")
-	public int deleteComment(Comment_vsVO vo) {
+	public List<Comment_vsVO> deleteComment(Comment_vsVO vo) {
 		System.out.println("/vs_comment_delete.do 서블릿 실행");
 		System.out.println(vo);
+		List<Comment_vsVO> commentList = null;
 		int result = svc.deleteComment(vo);
-		return result;
+//		int result = 1;
+		
+		if(result > 0) {
+			commentList = svc.getComment(vo);
+		}
+		return commentList;
 	}
 }

@@ -10,9 +10,17 @@
 				<ul class="main-menu">
 					<li>중고거래</li>
 					<li>새상품</li>
-					<li>커뮤니티</li>
+					<li class="nav-community">커뮤니티</li>
 					<li>FAQ</li>
 					<li>마이페이지</li>
+					<li><a href="/vs_admin.do">관리자 로그인</a></li>
+				</ul>
+				
+				<ul class="sub-menu">
+					<li>육아정보</li>
+					<li>놀이터</li>
+					<li>쇼핑정보</li>
+					<li><a href="/vs_index.do">VS</a></li>
 				</ul>
 			</nav>
 
@@ -79,3 +87,23 @@
 				</c:choose>
 			</nav>
 		</div>
+		
+		<script>
+	    document.getElementsByClassName("nav-community")[0].addEventListener("mouseover", function () {
+	        console.log("마우스 올림");
+	        document.getElementsByClassName("sub-menu")[0].style.display = "flex";
+	    });
+
+	    document.getElementsByClassName("nav-community")[0].addEventListener("mouseout", function () {
+	        console.log("마우스 내림");
+	        document.getElementsByClassName("sub-menu")[0].style.display = "none";
+	    });
+
+	    document.getElementsByClassName("sub-menu")[0].addEventListener("mouseover", function () {
+	        document.getElementsByClassName("sub-menu")[0].style.display = "flex";
+	    });
+
+	    document.getElementsByClassName("sub-menu")[0].addEventListener("mouseout", function () {
+	        document.getElementsByClassName("sub-menu")[0].style.display = "none";
+	    });
+		</script>

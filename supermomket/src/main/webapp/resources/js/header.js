@@ -7,7 +7,7 @@ window.onload = function () {
             document.getElementById("m-nav").style.display = "none";
         }
     });
-    
+
     $(".ham-box").click(() => {
         $("#m-nav").toggle();
     });

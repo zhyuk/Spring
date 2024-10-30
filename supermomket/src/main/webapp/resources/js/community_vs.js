@@ -1,74 +1,52 @@
-window.onload = function () {
-};
-
-function writeBoard() {
-    location.href = "/vs_write.do";
-}
-
-
-function selBoard(seq) {
-    location.href = "/vs_info.do?vs_no=" + seq;
-}
-
+// 글 목록으로 이동
 function BoardIndex() {
     location.href = "/vs_index.do";
 }
 
+// 상세 글 보기
+function selBoard(seq) {
+    location.href = "/vs_info.do?vs_no=" + seq;
+}
+
+// 글 작성
+function writeBoard() {
+    location.href = "/vs_write.do";
+}
+
+// 글 수정
 function updateBoard(seq) {
     location.href = "/vs_update.do?vs_no=" + seq;
 }
 
+// 글 삭제
 function deleteBoard(seq) {
     if (confirm("정말 삭제하시겠습니까?")) {
         location.href = "/vs_delete.do?vs_no=" + seq;
     }
 }
 
-// 왼쪽 사진 투표 기능
-function leftAjax(seq) {
+// 투표 기능
+function vote(seq, v_no) {
     console.log("왼쪽 사진 누름")
-    if (confirm("1번에 투표하시겠습니까?")) {
+    if (confirm(v_no + "번에 투표하시겠습니까?")) {
         $.ajax({
             type: "POST",
             url: "/vs_vote.do",
             data: {
                 vs_no: seq,
-                v_no: 1
+                v_no: v_no
             },
             cache: false,
             success: function (data) {
-                if (data > 0) {
-                    alert("수정되었습니다.");
-                    location.reload();
-                }
+                console.log(data);
+
+                $("li.leftResult").text("투표 수 : " + data[0]);
+                $("li.rightResult").text("투표 수 : " + data[1]);
             },
             error: function (error) { }
         });
     }
 
-}
-
-// 오른쪽 사진 투표 기능
-function rightAjax(seq) {
-    console.log("오른쪽 사진 누름");
-    if (confirm("2번에 투표하시겠습니까?")) {
-        $.ajax({
-            type: "POST",
-            url: "/vs_vote.do",
-            data: {
-                vs_no: seq,
-                v_no: 2
-            },
-            cache: false,
-            success: function (data) {
-                if (data > 0) {
-                    alert("수정되었습니다.");
-                    location.reload();
-                }
-            },
-            error: function (error) { }
-        });
-    }
 }
 
 // 댓글 작성
@@ -77,6 +55,10 @@ function insertComment() {
     // console.log(vs_no);
     let vs_comment = $("input[name=vs_comment]").val();
     // console.log(vs_comment);
+
+    if (vs_comment == "") {
+        alert("댓글을 입력하세요.");
+    }
 
     if (vs_no != "" && vs_comment != "") {
         $.ajax({
@@ -88,8 +70,30 @@ function insertComment() {
             },
             cache: false,
             success: function (data) {
-                if (data == "OK") {
-                    console.log("ajax 댓글 작성 성공");
+                $("input[name=vs_comment]").val("");
+                console.log(data);
+                console.log("data.length: " + data.length);
+                console.log(data[0].vs_no);
+                $("#comment_area").html("");
+
+                for (let i = 0; i < data.length; i++) {
+                    const commentBox = `
+                        <div class='comment_box'>
+                            <div class='comment_info'>
+                                <p class='writer'>
+                                    ${data[i].vs_writer} <button>답글쓰기</button>
+                                </p>
+                                <p class='date'>${data[i].vs_date}</p>
+                            </div>
+                            <pre class='comment'>${data[i].vs_comment}</pre>
+                            <input type='text' name='vs_comment' class='comment_input' value='${data[i].vs_comment}'>
+                            <div class='comment_btn'>
+                                <button type='button' onclick='updateComment(${data[i].vs_no}, ${data[i].vs_cno})'>수정</button>
+                                <button type='button' onclick='deleteComment(${data[i].vs_no}, ${data[i].vs_cno})'>삭제</button>
+                            </div>
+                        </div>
+                    `;
+                    $("#comment_area").append(commentBox);
                 }
             },
             error: function (error) {
@@ -104,11 +108,14 @@ function insertComment() {
 function updateComment(vs_no, vs_cno) {
     // console.log(vs_no);
     // console.log(vs_cno);
+    // console.log($(event.target).closest('.comment_btn').siblings('.comment_input'));
+    // console.log($(event.target).closest('.comment_btn').siblings('pre.comment'));
 
-    $('input[name="vs_comment"]').toggle();
+    $(event.target).closest('.comment_btn').siblings('.comment_input').toggle();
+    $(event.target).closest('.comment_btn').siblings('pre.comment').toggle();
     // console.log($("#vs_comment").css("display"));
 
-    if ($("#vs_comment").css("display") == "none") {
+    if ($(event.target).closest('.comment_btn').siblings('.comment_input').css("display") == "none") {
         if (confirm("댓글을 수정하시겠습니까?")) {
             $.ajax({
                 type: "POST",
@@ -116,12 +123,33 @@ function updateComment(vs_no, vs_cno) {
                 data: {
                     vs_no: vs_no,
                     vs_cno: vs_cno,
-                    vs_comment: $("#vs_comment").val()
+                    vs_comment: $(event.target).closest('.comment_btn').siblings('.comment_input').val()
                 },
                 cache: false,
                 success: function (data) {
-                    if (data > 0) {
-                        location.reload();
+                    console.log(data);
+                    console.log("data.length: " + data.length);
+                    console.log(data[0].vs_no);
+                    $("#comment_area").html("");
+
+                    for (let i = 0; i < data.length; i++) {
+                        const commentBox = `
+                            <div class='comment_box'>
+                                <div class='comment_info'>
+                                    <p class='writer'>
+                                        ${data[i].vs_writer} <button>답글쓰기</button>
+                                    </p>
+                                    <p class='date'>${data[i].vs_date}</p>
+                                </div>
+                                <pre class='comment'>${data[i].vs_comment}</pre>
+                                <input type='text' name='vs_comment' class='comment_input' value='${data[i].vs_comment}'>
+                                <div class='comment_btn'>
+                                    <button type='button' onclick='updateComment(${data[i].vs_no}, ${data[i].vs_cno})'>수정</button>
+                                    <button type='button' onclick='deleteComment(${data[i].vs_no}, ${data[i].vs_cno})'>삭제</button>
+                                </div>
+                            </div>
+                        `;
+                        $("#comment_area").append(commentBox);
                     }
                 },
             });
@@ -142,11 +170,32 @@ function deleteComment(vs_no, vs_cno) {
             },
             cache: false,
             success: function (data) {
-                if (data > 0) {
-                    location.reload();
+                console.log(data);
+                console.log("data.length: " + data.length);
+                console.log(data[0].vs_no);
+                $("#comment_area").html("");
+
+                for (let i = 0; i < data.length; i++) {
+                    const commentBox = `
+                        <div class='comment_box'>
+                            <div class='comment_info'>
+                                <p class='writer'>
+                                    ${data[i].vs_writer} <button>답글쓰기</button>
+                                </p>
+                                <p class='date'>${data[i].vs_date}</p>
+                            </div>
+                            <pre class='comment'>${data[i].vs_comment}</pre>
+                            <input type='text' name='vs_comment' class='comment_input' value='${data[i].vs_comment}'>
+                            <div class='comment_btn'>
+                                <button type='button' onclick='updateComment(${data[i].vs_no}, ${data[i].vs_cno})'>수정</button>
+                                <button type='button' onclick='deleteComment(${data[i].vs_no}, ${data[i].vs_cno})'>삭제</button>
+                            </div>
+                        </div>
+                    `;
+                    $("#comment_area").append(commentBox);
                 }
+
             },
         });
     }
-
 }

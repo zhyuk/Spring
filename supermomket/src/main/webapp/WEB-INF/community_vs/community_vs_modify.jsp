@@ -25,18 +25,29 @@
 
 									<div class="input-group">
 										
-										<button type="button" id="img1_view_btn">이미지 보기</button>
+										<button type="button" id="img1_view_btn" class="img_view_btn">이미지 보기</button>
 										<div id="img1_box" class="img_box">
-											<button type="button" id="img1_close" class="close">X</button>
+											<button type="button" id="img1_close" class="close pointer">X</button>
 											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}">
+											<input type="hidden" name="vs_img1" value="${board.vs_img1}">
 										</div>
-										<button type="button" id="img1_select_btn">이미지 수정</button>
+										<button type="button" id="img1_select_btn" class="img_select_btn">이미지 수정</button>
 
 										<div id="img1_select" class="img_select">
-											<input type="file" id="img1_button" class="inputData" name="vs_img1_file" disabled>
+											<input type="file" id="img1_button" name="vs_img1_file" disabled>
 										</div>
 
-										<!-- <input type="file" class="inputData" name="vs_img2_file"> -->
+										<button type="button" id="img2_view_btn" class="img_view_btn">이미지 보기</button>
+										<div id="img2_box" class="img_box">
+											<button type="button" id="img2_close" class="close pointer">X</button>
+											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}">
+											<input type="hidden" name="vs_img2" value="${board.vs_img2}">
+										</div>
+										<button type="button" id="img2_select_btn" class="img_select_btn">이미지 수정</button>
+
+										<div id="img2_select" class="img_select">
+											<input type="file" id="img2_button" name="vs_img2_file" disabled>
+										</div>
 									</div>
 
 									<div class="input-group">
@@ -57,35 +68,36 @@
 				<script src="${pageContext.request.contextPath}/resources/js/community_vs.js"></script>
 				<script src="${pageContext.request.contextPath}/resources/js/community_vs_write.js"></script>
 				<script>
-					const img_box = $(".img_box");
-					const img1_view_btn = document.getElementById("img1_view_btn");
-					const img1_box = document.getElementById("img1_box");
-					const img1_close = document.getElementById("img1_close");
-					const img1_select_btn = document.getElementById("img1_select_btn");
+					$(".img_view_btn").click(function(){
+						// console.log($(this).attr("id"));
 
-					img1_view_btn.addEventListener("click", function(){
-						img_box.each((index, item)=> {
-							// console.log(item);
-							item.style.display = "none";
-						});
-						img1_box.style.display = "block";
-					});
-
-					img1_close.addEventListener("click", function(){
-						img1_box.style.display = "none";
-					});
-
-					img1_select_btn.addEventListener("click", ()=> {
-						$("#img1_select").toggle();
-
-						console.log($("#img1_select").css("display"));
-						if($("#img1_select").css("display") == "none"){
-							$("#img1_button").attr("disabled", true);
+						if($(this).attr("id") == "img1_view_btn"){
+							// console.log("이미지 1");
+							$("#img1_box").show();
 						} else {
-							$("#img1_button").attr("disabled", false);
+							// console.log("이미지 2");
+							$("#img2_box").show();
 						}
 					});
 
+					$(".close").click(function(){
+						$(".img_box").hide();
+					});
+
+					$(".img_select_btn").click(function(){
+
+						if($(this).attr("id") == "img1_select_btn"){
+							console.log("이미지 1 수정");
+							$("#img1_box input").attr("disabled", true);
+							$("#img1_select input").attr("disabled", false);
+							$("#img1_select").show();
+						} else {
+							console.log("이미지 2 수정");
+							$("#img2_box input").attr("disabled", true);
+							$("#img2_select input").attr("disabled", false);
+							$("#img2_select").show();
+						}
+					});
 				</script>
 
 

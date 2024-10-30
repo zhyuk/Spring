@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+a {
+    text-decoration: none;
+}
+
 main {
     width: 100%;
     height: fit-content;
@@ -91,7 +95,7 @@ section#write div.inner form .btn-area {
 /* 글 세부 페이지 */
 section#info div.inner div.container {
     width: 100%;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 section#info div.inner div.container .text-group {
@@ -104,34 +108,77 @@ section#info div.inner div.container .text-group p {
     display: inline-block;
 }
 
-section#info div.inner div.container .text-group p.title {
+section#info div.inner div.container .board_info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-top: solid 2px #000;
+}
+
+
+section#info div.inner div.container .board_info p.title {
     float: left;
+    width: calc(100% - 150px);
     font-size: 28px;
 }
 
-section#info div.inner div.container .text-group p.date {
-    float: right;
+section#info div.inner div.container .board_info p.date {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 150px;
+    text-align: right;
     font-size: 20px;
+    transform: translate(0, -50%);
+    /* border: solid 1px red; */
 }
 
-section#info div.inner div.container .text-group p.writer {
+section#info div.inner div.container .board_info p.writer {
     float: left;
+    font-size: 18px;
 }
 
 section#info div.inner div.container .text-group .btn-area {
-    float: right;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+}
+
+section#info div.inner div.container .board_content_box {
+    height: fit-content;
+    padding: 10px 0;
+    background: beige;
+    border-top: solid 2px #000;
+
 }
 
 section#info div.inner div.container .text-group .img-box {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 section#info div.inner div.container .text-group .img-box img {
-    max-width: 450px;
+    width: 50%;
+    max-width: 500px;
+}
+
+section#info div.inner div.container .text-group .vote_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+}
+
+section#info div.inner div.container .text-group .vote_box li {
+    width: 50%;
+    text-align: center;
 }
 
 section#info div.inner div.container .text-group pre {
+    margin-top: 30px;
     font-size: 18px;
 }
 
@@ -139,8 +186,80 @@ section#info div.inner>.btn-area {
     text-align: center;
 }
 
-section#info div.inner .comment input[name="vs_comment"]{
+section#info div.inner .fm_comment_write {
+    width: 100%;
+    margin-bottom: 15px;
+    padding-top: 15px;
+    border-top: solid 2px #000;
+}
+
+section#info div.inner .fm_comment_write input {
+    width: calc(100% - 50px);
+    height: 50px;
+}
+
+section#info div.inner .fm_comment_write button {
+    width: 50px;
+    height: 50px;
+    float: right;
+}
+
+section#info div.inner #comment_area {
+    width: 100%;
+    /*     border: solid 1px red; */
+}
+
+section#info div.inner #comment_area .comment_box {
+    height: fit-content;
+    padding: 10px 0;
+    border-bottom: solid 1px gray;
+}
+
+section#info div.inner #comment_area p,
+section#info div.inner #comment_area pre {
+    display: inline-block;
+    font-size: 16px;
+}
+
+section#info div.inner #comment_area div.comment_info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+section#info div.inner #comment_area p.writer {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+section#info div.inner #comment_area p.date {
+    position: absolute;
+    right: 0;
+    font-size: 14px;
+}
+
+section#info div.inner #comment_area pre {
+    width: calc(100% - 100px);
+    height: fit-content;
+    padding: 0 10px;
+    font-size: 16px;
+    /*     border: solid 1px blue; */
+}
+
+section#info div.inner #comment_area .comment_btn {
+    float: right;
+}
+
+section#info div.inner #comment_area input[name="vs_comment"] {
     display: none;
+    width: calc(100% - 100px);
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+section#info div.inner .board_list_btn {
+    margin-top: 30px;
 }
 
 /* 글 수정 페이지 */
@@ -202,4 +321,25 @@ section#modify div.inner form .btn-area {
     width: 100%;
     margin-top: 30px;
     text-align: center;
+}
+
+/* 관리자 페이지 */
+section#admin .button_list {
+    float: right;
+    margin-bottom: 30px;
+}
+
+section#admin div.inner table {
+    width: 100%;
+    text-align: center;
+    border: solid 1px red;
+    border-collapse: collapse;
+}
+
+section#admin div.inner table tr {
+    border: solid 1px black;
+}
+
+section#admin img {
+    width: 300px;
 }
