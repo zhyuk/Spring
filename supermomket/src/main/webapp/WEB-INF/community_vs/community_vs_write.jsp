@@ -18,8 +18,13 @@
 								</div>
 
 								<div class="input-group">
-									<input type="file" class="inputData" name="vs_img1_file">
-									<input type="file" class="inputData" name="vs_img2_file">
+									<input type="file" class="inputData" name="vs_img1_file" onchange="readURL(this)">
+									<input type="file" class="inputData" name="vs_img2_file" onchange="readURL(this)">
+								</div>
+								
+								<div class="input-group">
+									<img id="img1_preview" class="preview_img">
+									<img id="img2_preview" class="preview_img">
 								</div>
 
 								<div class="input-group">

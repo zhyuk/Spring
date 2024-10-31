@@ -22,11 +22,13 @@
 
 								<div class="text-group board_info">
 									<p class="writer">${board.vs_writer}</p>
-
+									
+									<c:if test="${sessionScope.userNickName == board.vs_writer || sessionScope.userRole == 'admin'}">
 									<div class="btn-area">
 										<button onclick="updateBoard(${board.vs_no})">수정</button>
 										<button onclick="deleteBoard(${board.vs_no})">삭제</button>
 									</div>
+									</c:if>
 
 									<div class="clear"></div>
 								</div>
@@ -60,17 +62,20 @@
 								<c:forEach items="${commentList}" var="comment">
 									<div class="comment_box">
 										<div class="comment_info">
-											<p class="writer">${comment.vs_writer} <button>답글쓰기</button></p>
+											<p class="writer">${comment.vs_writer}</p>
+											<button class="recomment_btn">답글쓰기</button>
 											<p class="date">${comment.vs_date }</p>
 										</div>
 										<pre class="comment">${comment.vs_comment}</pre>
 										<input type="text" name="vs_comment" class="comment_input"
 											value="${comment.vs_comment}">
 										<div class="comment_btn">
-											<button type="button"
-												onclick="updateComment(${comment.vs_no}, ${comment.vs_cno})">수정</button>
-											<button type="button"
-												onclick="deleteComment(${comment.vs_no}, ${comment.vs_cno})">삭제</button>
+										
+										<c:if test="${sessionScope.userNickName == comment.vs_writer || sessionScope.userRole == 'admin'}">
+										<button type="button" class="updateCommentButton" onclick="updateComment(${comment.vs_no}, ${comment.vs_cno})">수정</button>
+										<button type="button" class="deleteCommentButton" onclick="deleteComment(${comment.vs_no}, ${comment.vs_cno})">삭제</button>
+										<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>
+										</c:if>
 										</div>
 										<!-- 									<div class="recomment_box"> -->
 										<!-- 										<input type="text" name="vs_recomment" class="recomment"> -->

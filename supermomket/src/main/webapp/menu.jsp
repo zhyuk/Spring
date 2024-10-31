@@ -13,7 +13,6 @@
 					<li class="nav-community">커뮤니티</li>
 					<li>FAQ</li>
 					<li>마이페이지</li>
-					<li><a href="/vs_admin.do">관리자 로그인</a></li>
 				</ul>
 				
 				<ul class="sub-menu">

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<%@ include file="../../header.jsp" %>
-
+	<%@ include file="../admin/header.jsp" %>
 
 			<head>
 				<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community_vs.css">
@@ -9,7 +8,7 @@
 			</head>
 
 			<body>
-				<%@ include file="../../menu.jsp" %>
+				<%@ include file="../admin/menu.jsp" %>
 					<main>
 						<section id="admin">
 							<div class="inner">
@@ -20,7 +19,7 @@
 								
 								<table>
 									<tr>
-										<th><input type="checkbox" id="all_check pointer" name="all_check"></th>
+										<th><input type="checkbox" id="all_check" class="pointer" name="all_check"></th>
 										<th>번호</th>
 										<th>제목</th>
 										<th>작성자</th>
@@ -55,13 +54,12 @@
 					</main>
 					</div>
 					<!-- menu.jsp 내 <div id="wrap> 닫는 태그 -->
-					<script src="${pageContext.request.contextPath}/resources/js/community_vs.js"></script>
 					<script>
 						$("#all_check").click(function () {
 							let result = false;
-							console.log($(".check"));
+// 							console.log($(".check"));
 							$(".check").each(function (index, item) {
-								console.log($(item).prop("checked"));
+// 								console.log($(item).prop("checked"));
 								if ($(item).prop("checked") == true) {
 									result = true;
 								}

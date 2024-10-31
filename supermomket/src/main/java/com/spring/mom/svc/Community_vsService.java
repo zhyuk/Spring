@@ -8,12 +8,20 @@ import com.spring.mom.vo.VsimgVO;
 
 public interface Community_vsService {
 
-	List<Community_vsVO> getBoardList(Community_vsVO vo);
+	// 관리자용 글 목록 조회
+	List<Community_vsVO> getBoardAdmin(Community_vsVO vo);
 	
-	int insertBoard(Community_vsVO vo);
+	// 글 전체목록 조회
+	List<Community_vsVO> getBoardList(Community_vsVO vo);
 	
 	// 글 상세보기
 	List<Community_vsVO> getBoardInfo(Community_vsVO vo);
+	
+	// 글 갯수 조회
+	int countBoard(Community_vsVO vo);
+	
+	// 글 작성
+	int insertBoard(Community_vsVO vo);
 	
 	// 글 수정
 	int updateBoard(Community_vsVO vo);

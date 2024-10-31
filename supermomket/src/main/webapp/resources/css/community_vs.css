@@ -64,6 +64,18 @@ section#index div.inner table th:nth-of-type(4) {
     width: 250px;
 }
 
+section#index div.inner .pagination {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+section#index div.inner .pagination li {
+    margin: 0 15px;
+    font-size: 20px;
+}
+
 /* 글 작성 페이지 */
 section#write div.inner form {
     width: 100%;
@@ -233,6 +245,10 @@ section#info div.inner #comment_area p.writer {
     font-weight: bold;
 }
 
+section#info div.inner #comment_area button.recomment_btn {
+    margin-left: 10px;
+}
+
 section#info div.inner #comment_area p.date {
     position: absolute;
     right: 0;
@@ -256,6 +272,10 @@ section#info div.inner #comment_area input[name="vs_comment"] {
     width: calc(100% - 100px);
     padding: 0 10px;
     font-size: 16px;
+}
+
+section#info div.inner #comment_area .comment_btn .updateCancelButton {
+    display: none;
 }
 
 section#info div.inner .board_list_btn {
@@ -340,6 +360,42 @@ section#admin div.inner table tr {
     border: solid 1px black;
 }
 
+section#admin div.inner table tr:nth-child(even) {
+    height: 50px;
+}
+
+section#admin div.inner table tr input {
+    width: 100%;
+    text-align: center;
+}
+
 section#admin img {
     width: 300px;
+}
+
+
+
+/* 모바일버전 */
+@media screen and (max-width: 425px) {
+    .mobile {
+        /* 천성으로 적용 */
+        display: initial;
+    }
+    
+    /* 세부 글 보기 */
+    section#info div.inner div.container .board_info p.title {
+        font-size: 20px;
+    }
+
+    section#info div.inner div.container .board_info p.date {
+        font-size: 14px;
+    }
+    
+    section#info div.inner div.container .text-group .img-box {
+        flex-direction: column;
+    }
+
+    section#info div.inner div.container .text-group .img-box img {
+        width: 100%;
+    }
 }
