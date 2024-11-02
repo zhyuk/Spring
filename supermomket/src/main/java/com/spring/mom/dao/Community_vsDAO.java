@@ -22,6 +22,12 @@ public class Community_vsDAO {
 		return mybatis.selectList("VsDAO.getBoardListAdmin", vo);
 	}
 	
+	// 관리자용 글 수정
+	public int updateBoardAdmin(Community_vsVO vo) {
+//		System.out.println("DAO 클래스 updateBoardAdmin() 실행");
+		return mybatis.update("VsDAO.updateBoardAdmin", vo);
+	}
+	
 	// 글 목록조회
 	public List<Community_vsVO> getBoardList(Community_vsVO vo) {
 //		System.out.println("DAO 클래스 getBoardList() 실행");
@@ -81,6 +87,12 @@ public class Community_vsDAO {
 			return mybatis.update("VsDAO.updateVote", vo);
 		}
 	}
+	
+	// 모든 투표결과 삭제
+	public int deleteAllVote(VsimgVO vo) {
+//		System.out.println("DAO 클래스 deleteAllVote() 실행");
+		return mybatis.delete("VsDAO.deleteAllVote", vo);
+	}
 
 	// 댓글 조회
 	public List<Comment_vsVO> getComment(Comment_vsVO vo) {
@@ -104,5 +116,11 @@ public class Community_vsDAO {
 	public int deleteComment(Comment_vsVO vo) {
 //		System.out.println("DAO 클래스 deleteComment() 실행");
 		return mybatis.delete("VsDAO.deleteComment", vo);
+	}
+	
+	// 모든 댓글 삭제
+	public int deleteAllComment(Comment_vsVO vo) {
+//		System.out.println("DAO 클래스 deleteAllComment() 실행");
+		return mybatis.delete("VsDAO.deleteAllComment", vo);
 	}
 }

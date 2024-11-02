@@ -4,7 +4,7 @@ public class Comment_vsVO {
 
 	private int vs_no;
 	private int vs_cno;
-	private String vs_writer = "테스트계정";
+	private String vs_writer;
 	private String vs_date;
 	private String vs_comment;
 

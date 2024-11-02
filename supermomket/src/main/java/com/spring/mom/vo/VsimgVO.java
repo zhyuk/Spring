@@ -2,7 +2,7 @@ package com.spring.mom.vo;
 
 public class VsimgVO {
 	private int vs_no;
-	private String v_selector = "test1";
+	private String v_selector;
 	private int v_no;
 
 	public int getVs_no() {

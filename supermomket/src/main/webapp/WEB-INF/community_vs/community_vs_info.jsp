@@ -23,7 +23,7 @@
 								<div class="text-group board_info">
 									<p class="writer">${board.vs_writer}</p>
 									
-									<c:if test="${sessionScope.userNickName == board.vs_writer || sessionScope.userRole == 'admin'}">
+									<c:if test="${sessionScope.userId == board.vs_writer}">
 									<div class="btn-area">
 										<button onclick="updateBoard(${board.vs_no})">수정</button>
 										<button onclick="deleteBoard(${board.vs_no})">삭제</button>
@@ -71,7 +71,7 @@
 											value="${comment.vs_comment}">
 										<div class="comment_btn">
 										
-										<c:if test="${sessionScope.userNickName == comment.vs_writer || sessionScope.userRole == 'admin'}">
+										<c:if test="${userId != null && userId == comment.vs_writer}">
 										<button type="button" class="updateCommentButton" onclick="updateComment(${comment.vs_no}, ${comment.vs_cno})">수정</button>
 										<button type="button" class="deleteCommentButton" onclick="deleteComment(${comment.vs_no}, ${comment.vs_cno})">삭제</button>
 										<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>

@@ -24,6 +24,13 @@ public class Community_vsServiceImpl implements Community_vsService {
 		return dao.getBoardAdmin(vo);
 	}
 	
+	// 관리자용 글 수정
+	@Override
+	public int updateBoardAdmin(Community_vsVO vo) {
+//		System.out.println("SVC 클래스 updateBoardAdmin() 실행");
+		return dao.updateBoardAdmin(vo);
+	}
+	
 	// 글 목록 조회
 	@Override
 	public List<Community_vsVO> getBoardList(Community_vsVO vo) {
@@ -65,6 +72,34 @@ public class Community_vsServiceImpl implements Community_vsService {
 //		System.out.println("SVC 클래스 deleteBoard() 실행");
 		return dao.deleteBoard(vo);
 	}
+	
+	// 투표정보 저장
+	@Override
+	public int insertVote(VsimgVO vo) {
+//		System.out.println("SVC 클래스 insertVote() 실행");
+		return dao.insertVote(vo);
+	}
+
+	// 투표정보 조회
+	@Override
+	public int getLeftVote(VsimgVO vo) {
+//		System.out.println("SVC 클래스 getLeftVote() 실행");
+		return dao.getLeftVote(vo);
+	}
+
+	// 투표정보 조회
+	@Override
+	public int getRightVote(VsimgVO vo) {
+//		System.out.println("SVC 클래스 getRightVote() 실행");
+		return dao.getRightVote(vo);
+	}
+
+	// 모든 투표결과 삭제
+	@Override
+	public int deleteAllVote(VsimgVO vo) {
+//		System.out.println("SVC 클래스 deleteAllVote() 실행");
+		return dao.deleteAllVote(vo);
+	}
 
 	// 댓글 조회
 	@Override
@@ -93,26 +128,13 @@ public class Community_vsServiceImpl implements Community_vsService {
 //		System.out.println("SVC 클래스 deleteComment() 실행");
 		return dao.deleteComment(vo);
 	}
-	
-	// 투표정보 저장
+
+	// 모든 댓글 삭제
 	@Override
-	public int insertVote(VsimgVO vo) {
-//		System.out.println("SVC 클래스 insertVote() 실행");
-		return dao.insertVote(vo);
+	public int deleteAllComment(Comment_vsVO vo) {
+//		System.out.println("SVC 클래스 deleteAllComment() 실행");
+		return dao.deleteAllComment(vo);
 	}
 
-	// 투표정보 조회
-	@Override
-	public int getLeftVote(VsimgVO vo) {
-//		System.out.println("SVC 클래스 getLeftVote() 실행");
-		return dao.getLeftVote(vo);
-	}
-
-	// 투표정보 조회
-	@Override
-	public int getRightVote(VsimgVO vo) {
-//		System.out.println("SVC 클래스 getRightVote() 실행");
-		return dao.getRightVote(vo);
-	}
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserDAO">
+
+	<select id="getUser" resultType="user">
+		SELECT * FROM USER WHERE u_id=#{u_id} AND u_pw= #{u_pw}
+	</select>
+	
+	<insert id="joinUser">
+		INSERT INTO user (u_id, u_pw, u_name, u_nickname, u_email, u_pno, u_address) VALUES (#{u_id}, #{u_pw}, #{u_name}, #{u_nickname}, #{u_email}, #{u_pno}, #{u_address} )
+	</insert>
+
+	<select id="checkUserId" resultType="int">
+	    SELECT COUNT(*) FROM USER WHERE u_id=#{u_id}
+	</select>
+	
+	<select id="checkUserNn" resultType="int">
+	    SELECT COUNT(*) FROM USER WHERE u_nickname=#{u_nickname}
+	</select>
+</mapper>

@@ -11,6 +11,9 @@ public interface Community_vsService {
 	// 관리자용 글 목록 조회
 	List<Community_vsVO> getBoardAdmin(Community_vsVO vo);
 	
+	// 관리자용 글 수정
+	int updateBoardAdmin(Community_vsVO vo);
+	
 	// 글 전체목록 조회
 	List<Community_vsVO> getBoardList(Community_vsVO vo);
 	
@@ -38,6 +41,9 @@ public interface Community_vsService {
 	// 투표결과 저장
 	int insertVote(VsimgVO vo);
 	
+	// 모든 투표결과 삭제
+	int deleteAllVote(VsimgVO vo);
+	
 	// 댓글 조회
 	List<Comment_vsVO> getComment(Comment_vsVO vo);
 	
@@ -49,4 +55,7 @@ public interface Community_vsService {
 	
 	// 댓글 삭제
 	int deleteComment(Comment_vsVO vo);
+	
+	// 모든 댓글 삭제
+	int deleteAllComment(Comment_vsVO vo);
 }

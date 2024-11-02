@@ -18,9 +18,8 @@ window.onload = function () {
       event.preventDefault(); // 제출 방지
       alert("모든 입력창은 필수입력요소입니다.");
     } else {
-      if(confirm("수정하시겠습니까?")){
+
         alert("성공");
-      }
     }
   });
 };
@@ -34,8 +33,6 @@ function readURL(input) {
       document.getElementById('img1_preview').src = e.target.result;
     };
     reader.readAsDataURL(input.files[0]);
-  } else {
-    document.getElementById('img1_preview').src = "";
   }
 
   if (input.getAttribute("name") == 'vs_img2_file' && input.files && input.files[0]) {
@@ -44,7 +41,5 @@ function readURL(input) {
       document.getElementById('img2_preview').src = e.target.result;
     };
     reader.readAsDataURL(input.files[0]);
-  } else {
-    document.getElementById('img2_preview').src = "";
   }
 }

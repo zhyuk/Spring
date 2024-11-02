@@ -91,4 +91,13 @@ public class UserVO {
 	public void setU_email(String u_email) {
 		this.u_email = u_email;
 	}
+
+	@Override
+	public String toString() {
+		return "UserVO [u_id=" + u_id + ", u_pw=" + u_pw + ", u_name=" + u_name + ", u_nickname=" + u_nickname
+				+ ", u_address=" + u_address + ", u_pno=" + u_pno + ", u_date=" + u_date + ", u_secession="
+				+ u_secession + ", u_role=" + u_role + ", u_email=" + u_email + "]";
+	}
+	
+	
 }

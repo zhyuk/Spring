@@ -4,12 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.spring.mom.vo.FaqVO" alias="faq"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.spring.mom.vo.Community_vsVO" alias="vs"/>
 		<typeAlias type="com.spring.mom.vo.VsimgVO" alias="vote"/>
 		<typeAlias type="com.spring.mom.vo.Comment_vsVO" alias="commentVs"/>
 	</typeAliases>
 	<mappers>
+		<mapper resource="mapping/user-mapping.xml" />
 		<mapper resource="mapping/communityVs-mapping.xml" />
 	</mappers>
 </configuration>

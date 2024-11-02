@@ -22,7 +22,10 @@
 					</select> 
 					<input type="search" name="searchKeyword">
 					<button type="submit" onclick="searchBoard()">검색</button>
+					
+				<c:if test="${sessionScope.userId != null}">
 				<button class="write-btn" onclick="writeBoard()">글쓰기</button>
+				</c:if>
 				<table>
 					<tr>
 						<th>번호</th>

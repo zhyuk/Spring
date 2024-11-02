@@ -19,6 +19,13 @@
 		COMMUNITY_VS
 		ORDER BY VS_NO DESC
 	</select>
+	
+	<!-- 관리자용 글 수정 -->
+	<update id="updateBoardAdmin">
+		UPDATE COMMUNITY_VS SET VS_TITLE = #{vs_title},
+		VS_CONTENT = #{vs_content}
+		WHERE VS_NO = #{vs_no};
+	</update>
 
 	<!-- 글 작성 -->
 	<insert id="insertBoard">
@@ -83,6 +90,11 @@
 		SELECT COUNT(*) FROM VSIMG
 		WHERE VS_NO = #{vs_no} AND V_NO = 2;
 	</select>
+	
+	<!-- 모든 투표 삭제 -->
+	<delete id="deleteAllVote">
+		DELETE FROM VSIMG WHERE VS_NO = #{vs_no};
+	</delete>
 
 	<!-- 댓글 조회 -->
 	<select id="getComment" resultType="commentVs">
@@ -107,6 +119,11 @@
 	<delete id="deleteComment">
 		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no} AND
 		VS_CNO = #{vs_cno};
+	</delete>
+	
+	<!-- 모든 댓글 삭제 -->
+	<delete id="deleteAllComment">
+		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no}
 	</delete>
 
 </mapper>

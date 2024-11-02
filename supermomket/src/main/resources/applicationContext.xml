@@ -25,17 +25,15 @@
 	</bean>
 
 	<!-- MyBatis -->
-	<bean id="sqlSessionFactory"
+	<bean id="sqlsession"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation"
-			value="classpath:mybatis-config.xml" />
+			value="classpath:mybatis-config.xml"></property>
 	</bean>
 
-	<bean id="sqlSessionTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlsession"></constructor-arg>
 	</bean>
-
 
 </beans>

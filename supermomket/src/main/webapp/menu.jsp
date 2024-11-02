@@ -27,14 +27,14 @@
 
 			<div class="login-box">
 				<c:choose>
-					<c:when test="${userid eq null }">
-						<p>로그인</p>
+					<c:when test="${userId eq null }">
+						<p class="login-btn"><a href="login.jsp">로그인</a></p>
 					</c:when>
 
 					<c:otherwise>
-						<p><%=session.getAttribute("username")%>님
+						<p><%=session.getAttribute("userId")%>님
 						</p>
-						<p>로그아웃</p>
+						<p class="login-btn"><a href="/logout.do">로그아웃</a></p>
 						<button>
 							<i class="fa-regular fa-envelope"></i>
 						</button>
@@ -45,7 +45,7 @@
 				</c:choose>
 			</div>
 
-			<c:if test="${userid ne null }">
+			<c:if test="${userId ne null }">
 				<button class="m-menu login-menu">
 					<i class="fa-regular fa-envelope"></i>
 				</button>
@@ -72,14 +72,14 @@
 					<li>마이페이지</li>
 				</ul>
 				<c:choose>
-					<c:when test="${userid eq null }">
-						<button class="login-btn">로그인</button>
+					<c:when test="${userId eq null }">
+						<p class="login-btn"><a href="login.jsp">로그인</a></p>
 					</c:when>
 					<c:otherwise>
 						<div>
-							<p><%=session.getAttribute("username")%>님
+							<p><%=session.getAttribute("userId")%>님
 							</p>
-							<button>로그아웃</button>
+							<p class="login-btn"><a href="/logout.do">로그아웃</a></p>
 						</div>
 					</c:otherwise>
 
