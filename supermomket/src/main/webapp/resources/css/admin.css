@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    float: left;
+    text-align: center;
+    background: gray;
+}
+
+aside .logo-box {
+    width: 100%;
+    /* border: solid 1px red; */
+}
+
+aside .logo-box img {
+    width: 100%;
+}
+
+aside nav {
+    margin-top: 60px;
+}
+
+aside nav ul {
+    width: 100%;
+    height: fit-content;
+}
+
+aside nav ul li {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    /* border: solid 1px red; */
+}
+
+aside nav ul.sub-menu {
+    display: none;
+}
+
+main {
+    width: calc(100% - 300px) !important;
+    float: right !important;
+}
+
+/* 관리자 페이지 */
+section#admin .button_list {
+    float: right;
+    margin-bottom: 30px;
+}
+
+section#admin div.inner table {
+    width: 100%;
+    text-align: center;
+    border: solid 1px red;
+    border-collapse: collapse;
+}
+
+section#admin div.inner table tr,
+section#admin div.inner table tr th,
+section#admin div.inner table tr td {
+    border: solid 1px black;
+}
+
+section#admin div.inner table tr:nth-child(even) {
+    height: 50px;
+}
+
+section#admin div.inner table tr td:nth-of-type(1) {
+    width: 50px;
+}
+
+section#admin div.inner table tr input[type=text] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    text-align: center;
+}
+
+section#admin div.inner table tr td img {
+    width: 100%;
+}
+
+section#admin div.inner table tr input:read-only {
+    outline: none;
+}

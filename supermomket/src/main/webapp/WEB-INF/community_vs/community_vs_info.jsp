@@ -58,12 +58,19 @@
 							</div>
 							</c:forEach>
 
+							<c:if test="${userId == null || userId == ''}">
+								<script>
+									$("input[name=vs_comment]").prop("disabled", true);
+									$("input[name=vs_comment]").prop("placeholder", "댓글 권한이 없습니다.");
+								</script>
+							</c:if>
+
 							<div id="comment_area">
 								<c:forEach items="${commentList}" var="comment">
 									<div class="comment_box">
 										<div class="comment_info">
 											<p class="writer">${comment.vs_writer}</p>
-											<button class="recomment_btn">답글쓰기</button>
+											<button class="recomment_btn" onclick="viewRecomment(${comment.vs_no})">답글보기</button>
 											<p class="date">${comment.vs_date }</p>
 										</div>
 										<pre class="comment">${comment.vs_comment}</pre>
@@ -77,10 +84,12 @@
 										<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>
 										</c:if>
 										</div>
-										<!-- 									<div class="recomment_box"> -->
-										<!-- 										<input type="text" name="vs_recomment" class="recomment"> -->
-										<!-- 										<button>답글쓰기</button> -->
-										<!-- 									</div> -->
+										
+										<!-- DB에 대댓글번호 컬럼 추가 후 해당 컬럼의 값으로 변경해야함. -->
+										<div class="recomment_box${comment.vs_no} recomment_box">
+											<input type="text" name="vs_recomment" class="recomment">
+											<button>답글쓰기</button>
+										</div>
 									</div>
 								</c:forEach>
 							</div>

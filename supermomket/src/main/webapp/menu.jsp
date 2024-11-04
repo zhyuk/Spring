@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<div id="wrap">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<div id="wrap">
 		<header>
 			<div class="logo-box">
 				<img src="" alt="로고">
@@ -14,7 +13,7 @@
 					<li>FAQ</li>
 					<li>마이페이지</li>
 				</ul>
-				
+
 				<ul class="sub-menu">
 					<li>육아정보</li>
 					<li>놀이터</li>
@@ -32,7 +31,8 @@
 					</c:when>
 
 					<c:otherwise>
-						<p><%=session.getAttribute("userId")%>님
+						<p>
+							<%=session.getAttribute("userId")%>님
 						</p>
 						<p class="login-btn"><a href="/logout.do">로그아웃</a></p>
 						<button>
@@ -77,7 +77,8 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							<p><%=session.getAttribute("userId")%>님
+							<p>
+								<%=session.getAttribute("userId")%>님
 							</p>
 							<p class="login-btn"><a href="/logout.do">로그아웃</a></p>
 						</div>
@@ -86,23 +87,13 @@
 				</c:choose>
 			</nav>
 		</div>
-		
+
 		<script>
-	    document.getElementsByClassName("nav-community")[0].addEventListener("mouseover", function () {
-	        console.log("마우스 올림");
-	        document.getElementsByClassName("sub-menu")[0].style.display = "flex";
-	    });
-
-	    document.getElementsByClassName("nav-community")[0].addEventListener("mouseout", function () {
-	        console.log("마우스 내림");
-	        document.getElementsByClassName("sub-menu")[0].style.display = "none";
-	    });
-
-	    document.getElementsByClassName("sub-menu")[0].addEventListener("mouseover", function () {
-	        document.getElementsByClassName("sub-menu")[0].style.display = "flex";
-	    });
-
-	    document.getElementsByClassName("sub-menu")[0].addEventListener("mouseout", function () {
-	        document.getElementsByClassName("sub-menu")[0].style.display = "none";
-	    });
+			document.getElementsByClassName("nav-community")[0].addEventListener("click", function () {
+				if (document.getElementsByClassName("sub-menu")[0].style.display != "flex") {
+					document.getElementsByClassName("sub-menu")[0].style.display = "flex";
+				} else {
+					document.getElementsByClassName("sub-menu")[0].style.display = "none";
+				}
+			});
 		</script>

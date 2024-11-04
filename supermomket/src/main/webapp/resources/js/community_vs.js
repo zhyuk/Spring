@@ -67,12 +67,14 @@ function insertComment() {
     // console.log(vs_no);
     let vs_comment = $("input[name=vs_comment]").val();
     // console.log(vs_comment);
+    let vs_commentValue = $("input[name=vs_comment]").prop("disabled");
+    // console.log($("input[name=vs_comment]").prop("disabled"));
 
-    if (vs_comment == "") {
+    if (vs_comment == "" && !vs_commentValue) {
         alert("댓글을 입력하세요.");
     }
 
-    if (vs_no != "" && vs_comment != "") {
+    if (vs_no != "" && vs_comment != "" && !vs_commentValue) {
         $.ajax({
             type: "POST",
             url: "/vs_comment_insert.do",
@@ -81,34 +83,34 @@ function insertComment() {
                 vs_comment: vs_comment
             },
             cache: false,
-            success: function (data) {
-                $("input[name=vs_comment]").val("");
-                console.log(data);
-                console.log("data.length: " + data.length);
+            success: function (res) {
+                console.log('res.userId: ', res.userId);
+                let data = res.commentList;
+                //console.log("data.length: " + data.length);
                 if (data.length > 0) {
                     console.log(data[0].vs_no);
                     $("#comment_area").html("");
                     for (let i = 0; i < data.length; i++) {
-                        const commentBox = `
-                    <div class='comment_box'>
-                        <div class='comment_info'>
-                            <p class='writer'>${data[i].vs_writer}</p>
-                            <button class="recomment_btn">답글쓰기</button>
-                            <p class='date'>${data[i].vs_date}</p>
-                        </div>
-                        <pre class='comment'>${data[i].vs_comment}</pre>
-                        <input type='text' name='vs_comment' class='comment_input' value='${data[i].vs_comment}'>
-                        <div class='comment_btn'>
-                            <button type='button' class="updateCommentButton" onclick='updateComment(${data[i].vs_no}, ${data[i].vs_cno})'>수정</button>
-                            <button type='button' class="deleteCommentButton" onclick='deleteComment(${data[i].vs_no}, ${data[i].vs_cno})'>삭제</button>
-                            <button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>
-                        </div>
-                    </div>
-                `;
+                        let commentBox = "";
+                        let vs_writer = data[i].vs_writer;
+                        commentBox += "<div class='comment_box'>"
+                        commentBox += "<div class='comment_info'>"
+                        commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
+                        commentBox += "<button class='recomment_btn'>답글쓰기</button>"
+                        commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
+                        commentBox += "</div>"
+                        commentBox += "<pre class='comment'>" + data[i].vs_comment + "</pre>"
+                        commentBox += "<input type='text' name='vs_comment' class='comment_input' value='" + data[i].vs_comment + "'>";
+                        if (res.userId != null && res.userId != '' && res.userId == vs_writer) {
+                            commentBox += "<div class='comment_btn'>"
+                                + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                + " </div>"
+                        }
+                        commentBox += "</div>";
                         $("#comment_area").append(commentBox);
                     }
-                } else if (data.length == 0) {
-                    $("#comment_area").html("");
                 }
             },
             error: function (error) {
@@ -147,38 +149,31 @@ function updateComment(vs_no, vs_cno) {
                     console.log('res.userId: ', res.userId);
                     let data = res.commentList;
                     //console.log("data.length: " + data.length);
-  					//////////////////////////////////////
                     if (data.length > 0) {
                         console.log(data[0].vs_no);
                         $("#comment_area").html("");
                         for (let i = 0; i < data.length; i++) {
-                            let commentBox =""; 
+                            let commentBox = "";
                             let vs_writer = data[i].vs_writer;
-                          //* *************  
-                           //     "<div class='comment_box'>
-                           //         <div class='comment_info'>
-                           //             <p class='writer'>${data[i].vs_writer}</p>
-                            //            <button class="recomment_btn">답글쓰기</button>
-                            //            <p class='date'>${data[i].vs_date}</p>
-                            //        </div>
-                             //       <pre class='comment'>${data[i].vs_comment}</pre>
-                            //        <input type='text' name='vs_comment' class='comment_input' value='${data[i].vs_comment}'>";
-							//************** /
-							//if(!(res.userId==null || res.userId =='' )){
-							if(res.userId == vs_writer){
-    commentBox +="<div class='comment_btn'>"
-     +"<button type='button' class='updateCommentButton' onclick='updateComment(${data[i].vs_no}, ${data[i].vs_cno})'>수정</button>"
-    +"<button type='button' class='deleteCommentButton' onclick='deleteComment(${data[i].vs_no}, ${data[i].vs_cno})'>삭제</button>"
-      +"<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
-           +" </div>"
-							}
-                            commentBox +="</div>";
+                            commentBox += "<div class='comment_box'>"
+                            commentBox += "<div class='comment_info'>"
+                            commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
+                            commentBox += "<button class='recomment_btn'>답글쓰기</button>"
+                            commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
+                            commentBox += "</div>"
+                            commentBox += "<pre class='comment'>" + data[i].vs_comment + "</pre>"
+                            commentBox += "<input type='text' name='vs_comment' class='comment_input' value='" + data[i].vs_comment + "'>";
+                            if (res.userId != null && res.userId != '' && res.userId == vs_writer) {
+                                commentBox += "<div class='comment_btn'>"
+                                    + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                    + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                    + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                    + " </div>"
+                            }
+                            commentBox += "</div>";
                             $("#comment_area").append(commentBox);
                         }
-                    } else {
-                        $("#comment_area").html("");
                     }
-                    //////////////////////////////////////
                 },
             });
         }
@@ -205,36 +200,44 @@ function deleteComment(vs_no, vs_cno) {
                 vs_cno: vs_cno
             },
             cache: false,
-            success: function (data) {
-                // console.log(data);
-                // console.log("data.length: " + data.length);
-
+            success: function (res) {
+                console.log('res.userId: ', res.userId);
+                let data = res.commentList;
+                //console.log("data.length: " + data.length);
                 if (data.length > 0) {
                     console.log(data[0].vs_no);
                     $("#comment_area").html("");
                     for (let i = 0; i < data.length; i++) {
-                        const commentBox = `
-                    <div class='comment_box'>
-                        <div class='comment_info'>
-                            <p class='writer'>${data[i].vs_writer}</p>
-                            <button class="recomment_btn">답글쓰기</button>
-                            <p class='date'>${data[i].vs_date}</p>
-                        </div>
-                        <pre class='comment'>${data[i].vs_comment}</pre>
-                        <input type='text' name='vs_comment' class='comment_input' value='${data[i].vs_comment}'>
-                        <div class='comment_btn'>
-                            <button type='button' class="updateCommentButton" onclick='updateComment(${data[i].vs_no}, ${data[i].vs_cno})'>수정</button>
-                            <button type='button' class="deleteCommentButton" onclick='deleteComment(${data[i].vs_no}, ${data[i].vs_cno})'>삭제</button>
-                            <button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>
-                        </div>
-                    </div>
-                `;
+                        let commentBox = "";
+                        let vs_writer = data[i].vs_writer;
+                        commentBox += "<div class='comment_box'>"
+                        commentBox += "<div class='comment_info'>"
+                        commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
+                        commentBox += "<button class='recomment_btn'>답글쓰기</button>"
+                        commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
+                        commentBox += "</div>"
+                        commentBox += "<pre class='comment'>" + data[i].vs_comment + "</pre>"
+                        commentBox += "<input type='text' name='vs_comment' class='comment_input' value='" + data[i].vs_comment + "'>";
+                        if (res.userId != null && res.userId != '' && res.userId == vs_writer) {
+                            commentBox += "<div class='comment_btn'>"
+                                + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                + " </div>"
+                        }
+                        commentBox += "</div>";
                         $("#comment_area").append(commentBox);
                     }
-                } else if (data.length == 0) {
-                    $("#comment_area").html("");
                 }
             },
         });
     }
+}
+
+// 답글 보기
+function viewRecomment(seq) {
+    let className = ".recomment_box" + seq;
+    // console.log(className);
+
+    $(className).toggle();
 }

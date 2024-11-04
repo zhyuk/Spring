@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>관리자 로그인 페이지</p>
+	<p><b>관리자 로그인 페이지 로직구현 필요</b></p>
 	<a href="/admin_index.do">로그인 완료</a>
 </body>
 </html>

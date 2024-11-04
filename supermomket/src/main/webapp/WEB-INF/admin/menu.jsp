@@ -1,23 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<aside>
-    <div class="logo-box">
-        <img src="" alt="로고이미지">
-    </div>
+    <aside>
+        <div class="logo-box">
+            <img src="" alt="로고이미지">
+        </div>
 
-    <nav>
-        <ul>
-            <li class="main-menu">중고거래</li>
-            <li class="main-menu">새상품</li>
-            <li id="community_nav" class="main-menu">커뮤니티</li>
-            <li class="community_sub-menu">정보</li>
-            <li class="community_sub-menu">정보</li>
-            <li class="community_sub-menu">정보</li>
-            <li class="community_sub-menu"><a href="/vs_admin.do">VS</a></li>
-            <li class="main-menu">FAQ</li>
-            <li class="main-menu">마이페이지</li>
-        </ul>
-    </nav>
-    
-    <button><a href="/admin_logout.do">로그아웃</a></button>
-</aside>
+        <nav class="pointer">
+            <ul>
+                <li class="main-menu"><a href="#">중고거래</a></li>
+                <li class="main-menu"><a href="#">새상품</a></li>
+                <li id="community_nav" class="main-menu">커뮤니티</li>
+                <ul class="sub-menu">    
+					<li class="community_sub_menu"><a href="#">육아정보</a></li>
+					<li class="community_sub_menu"><a href="#">놀이터</a></li>
+					<li class="community_sub_menu"><a href="#">쇼핑정보</a></li>
+                    <li class="community_sub_menu"><a href="/vs_admin.do">VS</a></li>
+                </ul>
+                <li class="main-menu"><a href="#">FAQ</a></li>
+                <li class="main-menu"><a href="#">마이페이지</a></li>
+            </ul>
+        </nav>
+
+        <button><a href="/admin_logout.do">로그아웃</a></button>
+
+
+        <script>
+            $("#community_nav").click(function () {
+                $(".sub-menu").toggle();
+            });
+        </script>
+    </aside>

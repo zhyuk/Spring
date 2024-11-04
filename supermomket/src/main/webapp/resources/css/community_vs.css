@@ -278,6 +278,11 @@ section#info div.inner #comment_area .comment_btn .updateCancelButton {
     display: none;
 }
 
+section#info div.inner .recomment_box {
+	display: none;
+	padding-left: 50px;
+}
+
 section#info div.inner .board_list_btn {
     margin-top: 30px;
 }
@@ -342,38 +347,6 @@ section#modify div.inner form .btn-area {
     margin-top: 30px;
     text-align: center;
 }
-
-/* 관리자 페이지 */
-section#admin .button_list {
-    float: right;
-    margin-bottom: 30px;
-}
-
-section#admin div.inner table {
-    width: 100%;
-    text-align: center;
-    border: solid 1px red;
-    border-collapse: collapse;
-}
-
-section#admin div.inner table tr {
-    border: solid 1px black;
-}
-
-section#admin div.inner table tr:nth-child(even) {
-    height: 50px;
-}
-
-section#admin div.inner table tr input {
-    width: 100%;
-    text-align: center;
-}
-
-section#admin img {
-    width: 300px;
-}
-
-
 
 /* 모바일버전 */
 @media screen and (max-width: 425px) {
