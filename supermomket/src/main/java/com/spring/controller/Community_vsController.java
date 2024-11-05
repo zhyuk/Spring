@@ -153,7 +153,7 @@ public class Community_vsController {
 			}
 		}
 
-		System.out.println(vo);
+//		System.out.println(vo);
 
 		int result = svc.insertBoard(vo);
 
@@ -173,6 +173,7 @@ public class Community_vsController {
 //		System.out.println(vo.getVs_no());
 		model.addAttribute("boardList", svc.getBoardInfo(vo));
 		model.addAttribute("commentList", svc.getComment(commentVO));
+		model.addAttribute("recommentList", svc.getComment(commentVO));
 		model.addAttribute("leftResult", svc.getLeftVote(vsVO));
 		model.addAttribute("rightResult", svc.getRightVote(vsVO));
 		return "community_vs/community_vs_info";
@@ -262,13 +263,33 @@ public class Community_vsController {
 	public String deleteBoard(Community_vsVO vo, VsimgVO vvo, Comment_vsVO cvo) {
 //		System.out.println("/vs_delete.do 서블릿 실행");
 //		System.out.println(vo.getVs_no());
-
+		
+		// 삭제할 글의 정보 가져오기
+		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
+		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
+		String img1 = "";
+		String img2 = "";
+		
+		for (Community_vsVO delVO : deleteInfo) {
+			img1 = delVO.getVs_img1();
+		    img2 = delVO.getVs_img2();
+		}
+		
+		
 		int result = svc.deleteBoard(vo);
 
 		if (result > 0) {
 			svc.deleteAllComment(cvo);
 			svc.deleteAllVote(vvo);
-//			System.out.println("글 삭제 성공");
+//			System.out.println("글 삭제 성공"); 
+
+			// 서버에 저장된 이미지 파일 삭제
+			File deleteFile1 = new File(uploadPath + img1);
+			File deleteFile2 = new File(uploadPath + img2);
+			deleteFile1.delete();
+			deleteFile2.delete();
+			
+			
 		} else {
 //			System.out.println("글 삭제 실패");
 		}
@@ -316,10 +337,11 @@ public class Community_vsController {
 		if (result > 0) {
 			commentList = svc.getComment(vo);
 		}
-
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);
+		map.put("recommentList", commentList);
 		return map;
 	}
 
@@ -338,10 +360,11 @@ public class Community_vsController {
 		if (result > 0) {
 			commentList = svc.getComment(vo);
 		}
-
+	
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);
+		map.put("recommentList", commentList);
 		return map;
 	}
 
@@ -363,6 +386,34 @@ public class Community_vsController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);
+		map.put("recommentList", commentList);
+		return map;
+	}
+	
+	// 답글 작성
+	@ResponseBody
+	@RequestMapping("/vs_recomment_insert.do")
+	public Map<String, Object> insertRecomment(Comment_vsVO vo, HttpSession session){
+		
+		if (session.getAttribute("userId") != null) {
+			vo.setVs_writer((String) session.getAttribute("userId"));
+		}
+
+		String userId = (String) session.getAttribute("userId");
+		List<Comment_vsVO> commentList = null;
+		
+//		System.out.println(vo);
+		
+		int result = svc.insertRecomment(vo);
+		
+		if (result > 0) {
+			commentList = svc.getComment(vo);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("commentList", commentList);
+		map.put("recommentList", commentList);
 		return map;
 	}
 }

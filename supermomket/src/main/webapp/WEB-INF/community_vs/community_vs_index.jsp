@@ -23,21 +23,21 @@
 					<input type="search" name="searchKeyword">
 					<button type="submit" onclick="searchBoard()">검색</button>
 					
-				<c:if test="${sessionScope.userId != null}">
+				<c:if test="${userId != null}">
 				<button class="write-btn" onclick="writeBoard()">글쓰기</button>
 				</c:if>
 				<table>
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
-						<th>작성자</th>
+						<th class="mobile-hide">작성자</th>
 						<th>작성일자</th>
 					</tr>
 					<c:forEach items="${boardList}" var="board">
 						<tr onclick="selBoard(${board.vs_no})" class="pointer">
 							<td>${board.vs_rownumber}</td>
 							<td>${board.vs_title}</td>
-							<td>${board.vs_writer}</td>
+							<td class="mobile-hide">${board.vs_writer}</td>
 							<td>${board.vs_date}</td>
 						</tr>
 					</c:forEach>

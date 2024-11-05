@@ -15,6 +15,17 @@ textarea {
     resize: none;
 }
 
+button#ScrollTop {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	border: none;
+	background: aqua;
+}
+
 section div.inner {
     max-width: 1300px;
     margin: 0 auto;
@@ -104,6 +115,21 @@ section#write div.inner form .btn-area {
     text-align: center;
 }
 
+section#write div.inner form .preview_box {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+section#write div.inner form .preview_box div {
+	width: 50%;
+}
+
+section#write div.inner form .preview_box img {
+	width: 100%;
+	object-fit: contain;
+}
+
 /* 글 세부 페이지 */
 section#info div.inner div.container {
     width: 100%;
@@ -174,17 +200,17 @@ section#info div.inner div.container .text-group .img-box {
 
 section#info div.inner div.container .text-group .img-box img {
     width: 50%;
-    max-width: 500px;
+    object-fit: contain;
 }
 
 section#info div.inner div.container .text-group .vote_box {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
+    margin-top: 20px;
     text-align: center;
 }
 
 section#info div.inner div.container .text-group .vote_box li {
+	float: left;
     width: 50%;
     text-align: center;
 }
@@ -240,7 +266,7 @@ section#info div.inner #comment_area div.comment_info {
     margin-bottom: 10px;
 }
 
-section#info div.inner #comment_area p.writer {
+section#info div.inner #comment_area .comment_info p.writer {
     font-size: 18px;
     font-weight: bold;
 }
@@ -249,13 +275,13 @@ section#info div.inner #comment_area button.recomment_btn {
     margin-left: 10px;
 }
 
-section#info div.inner #comment_area p.date {
+section#info div.inner #comment_area .comment_info p.date {
     position: absolute;
     right: 0;
     font-size: 14px;
 }
 
-section#info div.inner #comment_area pre {
+section#info div.inner #comment_area .comment_info pre {
     width: calc(100% - 100px);
     height: fit-content;
     padding: 0 10px;
@@ -278,9 +304,40 @@ section#info div.inner #comment_area .comment_btn .updateCancelButton {
     display: none;
 }
 
-section#info div.inner .recomment_box {
+section#info div.inner .recomment_area {
 	display: none;
-	padding-left: 50px;
+	width: calc(100% - 30px);
+	margin: 10px 0 0 30px;
+/* 	border: solid 1px red; */
+}
+
+section#info div.inner .recomment_area input {
+	width: calc(100% - 50px);
+	height: 30px;
+}
+
+section#info div.inner .recomment_area > button {
+	width: 50px;
+	height: 30px;
+	float: right;
+}
+
+section#info div.inner .recomment_area .recomment_info {
+	margin-top: 10px;
+}
+
+section#info div.inner .recomment_area .recomment_info p.writer {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+section#info div.inner .recomment_area .recomment_info p.date {
+	float: right;
+	font-size: 16px;
+}
+
+section#info div.inner .recomment_area pre.comment {
+	margin-top: 5px;
 }
 
 section#info div.inner .board_list_btn {
@@ -353,6 +410,19 @@ section#modify div.inner form .btn-area {
     .mobile {
         /* 천성으로 적용 */
         display: initial;
+    }
+    
+    section div.inner {
+    	padding: 0 10px;
+    }
+    
+    .mobile-hide {
+    	display: none;
+    }
+    
+	/* 글 목록페이지 */
+    section#index div.inner table {
+    	font-size: 14px;
     }
     
     /* 세부 글 보기 */

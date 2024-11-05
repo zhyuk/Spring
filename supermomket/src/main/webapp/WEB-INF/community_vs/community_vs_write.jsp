@@ -22,9 +22,9 @@
 									<input type="file" class="inputData" name="vs_img2_file" onchange="readURL(this)">
 								</div>
 								
-								<div class="input-group">
-									<img id="img1_preview" class="preview_img">
-									<img id="img2_preview" class="preview_img">
+								<div class="preview_box">
+									<div><img id="img1_preview" class="preview_img"></div>
+									<div><img id="img2_preview" class="preview_img"></div>
 								</div>
 
 								<div class="input-group">

@@ -98,8 +98,8 @@
 
 	<!-- 댓글 조회 -->
 	<select id="getComment" resultType="commentVs">
-		SELECT * FROM comment_vs
-		WHERE vs_no = #{vs_no} ORDER BY vs_cno desc;
+		SELECT * FROM COMMENT_VS
+		WHERE VS_NO = #{vs_no} ORDER BY vs_cno DESC;
 	</select>
 
 	<!-- 댓글 작성 -->
@@ -125,5 +125,13 @@
 	<delete id="deleteAllComment">
 		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no}
 	</delete>
+	
+	<!-- 답글 작성 -->
+	<insert id="insertReComment">
+		INSERT INTO COMMENT_VS (VS_NO, VS_WRITER, VS_DATE,
+		VS_COMMENT, VS_RCNO)VALUES(#{vs_no}, #{vs_writer}, CURRENT_DATE,
+		#{vs_comment}, #{vs_rcno});
+	</insert>
+	
 
 </mapper>

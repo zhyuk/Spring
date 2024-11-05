@@ -65,12 +65,18 @@
 		<div id="m-nav" class="m-menu">
 			<nav>
 				<ul>
-					<li>중고거래</li>
-					<li>새상품</li>
-					<li>커뮤니티</li>
-					<li>FAQ</li>
-					<li>마이페이지</li>
-				</ul>
+                <li class="main-menu"><a href="#">중고거래</a></li>
+                <li class="main-menu"><a href="#">새상품</a></li>
+                <li id="community_nav" class="main-menu">커뮤니티</li>
+                <ul class="sub-menu">    
+					<li class="community_sub_menu"><a href="#">육아정보</a></li>
+					<li class="community_sub_menu"><a href="#">놀이터</a></li>
+					<li class="community_sub_menu"><a href="#">쇼핑정보</a></li>
+                    <li class="community_sub_menu"><a href="/vs_index.do">VS</a></li>
+                </ul>
+                <li class="main-menu"><a href="#">FAQ</a></li>
+                <li class="main-menu"><a href="#">마이페이지</a></li>
+            </ul>
 				<c:choose>
 					<c:when test="${userId eq null }">
 						<p class="login-btn"><a href="login.jsp">로그인</a></p>
@@ -96,4 +102,8 @@
 					document.getElementsByClassName("sub-menu")[0].style.display = "none";
 				}
 			});
+			
+            $("#community_nav").click(function () {
+                $(".sub-menu").toggle();
+            });
 		</script>

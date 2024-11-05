@@ -123,4 +123,10 @@ public class Community_vsDAO {
 //		System.out.println("DAO 클래스 deleteAllComment() 실행");
 		return mybatis.delete("VsDAO.deleteAllComment", vo);
 	}
+	
+	// 답글 작성
+	public int insertRecomment(Comment_vsVO vo) {
+//		System.out.println("DAO 클래스 insertRecomment() 실행");
+		return mybatis.insert("VsDAO.insertReComment", vo);
+	}
 }

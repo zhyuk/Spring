@@ -100,7 +100,7 @@ public class Community_vsServiceImpl implements Community_vsService {
 //		System.out.println("SVC 클래스 deleteAllVote() 실행");
 		return dao.deleteAllVote(vo);
 	}
-
+	
 	// 댓글 조회
 	@Override
 	public List<Comment_vsVO> getComment(Comment_vsVO vo) {
@@ -136,5 +136,10 @@ public class Community_vsServiceImpl implements Community_vsService {
 		return dao.deleteAllComment(vo);
 	}
 
-
+	// 답글 작성
+	@Override
+	public int insertRecomment(Comment_vsVO vo) {
+//		System.out.println("SVC 클래스 insertRecomment() 실행");
+		return dao.insertRecomment(vo);
+	}
 }

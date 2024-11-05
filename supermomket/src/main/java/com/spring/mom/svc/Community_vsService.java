@@ -58,4 +58,7 @@ public interface Community_vsService {
 	
 	// 모든 댓글 삭제
 	int deleteAllComment(Comment_vsVO vo);
+	
+	// 답글 작성
+	int insertRecomment(Comment_vsVO vo);
 }

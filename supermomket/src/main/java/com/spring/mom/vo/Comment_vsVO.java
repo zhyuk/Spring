@@ -7,6 +7,7 @@ public class Comment_vsVO {
 	private String vs_writer;
 	private String vs_date;
 	private String vs_comment;
+	private int vs_rcno;
 
 	public int getVs_no() {
 		return vs_no;
@@ -48,10 +49,18 @@ public class Comment_vsVO {
 		this.vs_comment = vs_comment;
 	}
 
+	public int getVs_rcno() {
+		return vs_rcno;
+	}
+
+	public void setVs_rcno(int vs_rcno) {
+		this.vs_rcno = vs_rcno;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment_vsVO [vs_no=" + vs_no + ", vs_cno=" + vs_cno + ", vs_writer=" + vs_writer + ", vs_date="
-				+ vs_date + ", vs_comment=" + vs_comment + "]";
+				+ vs_date + ", vs_comment=" + vs_comment + ", vs_rcno=" + vs_rcno + "]";
 	}
 
 }
