@@ -1,5 +1,4 @@
 $(function () {
-
     // ScrollTop
     function scrollToTop() {
         window.scrollTo({
@@ -12,24 +11,17 @@ $(function () {
     button.addEventListener('click', scrollToTop);
 });
 
-
 // 글 목록으로 이동
 function BoardIndex() {
-    location.href = "/vs_index.do";
+    document.hideFrm.action = "/vs_index.do";
+    document.hideFrm.method = "post";
+    document.hideFrm.submit();
+    // location.href = "/vs_index.do";
 }
 
 // 상세 글 보기
-function selBoard(seq) {
-    location.href = "/vs_info.do?vs_no=" + seq;
-}
-
-// 글 검색
-function searchBoard() {
-    const searchCondition = $("select[name='searchSelect'").val();
-    const searchKeyword = $("input[name='searchKeyword'").val();
-    // console.log("분류선택: " + searchCondition);
-    // console.log("키워드: " + searchKeyword);
-    location.href = "/vs_index.do?searchCondition=" + searchCondition + "&searchKeyword=" + searchKeyword;
+function selBoard(seq, condition, keyword, nowpage) {
+    location.href = "/vs_info.do?vs_no=" + seq + '&searchCondition=' + condition + '&searchKeyword=' + keyword + '&nowPage=' + nowpage;
 }
 
 // 글 작성
@@ -38,14 +30,17 @@ function writeBoard() {
 }
 
 // 글 수정
-function updateBoard(seq) {
-    location.href = "/vs_update.do?vs_no=" + seq;
+function updateBoard(seq, condition, keyword, nowpage) {
+    location.href = "/vs_update.do?vs_no=" + seq + '&searchCondition=' + condition + '&searchKeyword=' + keyword + '&nowPage=' + nowpage;
 }
 
 // 글 삭제
 function deleteBoard(seq) {
     if (confirm("정말 삭제하시겠습니까?")) {
-        location.href = "/vs_delete.do?vs_no=" + seq;
+        document.hideFrm.action = "/vs_index.do";
+        document.hideFrm.method = "post";
+        document.hideFrm.submit();
+        // location.href = "/vs_delete.do?vs_no=" + seq;
     }
 }
 
@@ -70,7 +65,6 @@ function vote(seq, v_no) {
             error: function (error) { }
         });
     }
-
 }
 
 // 댓글 작성
@@ -96,6 +90,7 @@ function insertComment() {
             },
             cache: false,
             success: function (res) {
+                $("input[name=vs_comment]").val("");
                 console.log('res.userId: ', res.userId);
                 let data = res.commentList;
                 let recommentList = res.recommentList;
@@ -160,8 +155,6 @@ function insertComment() {
             }
         });
     }
-
-
 }
 
 // 댓글 수정
@@ -376,6 +369,7 @@ function insertRecomment(vs_no, vs_rcno) {
                 },
                 cache: false,
                 success: function (res) {
+                    $(className).val("")
                     console.log('res.userId: ', res.userId);
                     let data = res.commentList;
                     let recommentList = res.recommentList;
@@ -441,5 +435,4 @@ function insertRecomment(vs_no, vs_rcno) {
             });
         }
     }
-
 }

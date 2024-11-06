@@ -44,6 +44,9 @@ public interface Community_vsService {
 	// 모든 투표결과 삭제
 	int deleteAllVote(VsimgVO vo);
 	
+	// 댓글 갯수 조회
+	int countComment(Comment_vsVO vo);
+	
 	// 댓글 조회
 	List<Comment_vsVO> getComment(Comment_vsVO vo);
 	

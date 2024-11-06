@@ -93,6 +93,12 @@ public class Community_vsDAO {
 //		System.out.println("DAO 클래스 deleteAllVote() 실행");
 		return mybatis.delete("VsDAO.deleteAllVote", vo);
 	}
+	
+	// 댓글 갯수
+	public int countComment(Comment_vsVO vo) {
+		System.out.println("DAO 클래스 countComment() 실행");
+		return mybatis.selectOne("VsDAO.countComment", vo);
+	}
 
 	// 댓글 조회
 	public List<Comment_vsVO> getComment(Comment_vsVO vo) {

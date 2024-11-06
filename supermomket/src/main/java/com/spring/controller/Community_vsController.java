@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,13 +34,28 @@ public class Community_vsController {
 	@Autowired
 	private Community_vsService svc;
 
+	// 글목록 검색 옵션
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap() {
+		Map<String, String> conditionMap = new HashMap<String, String>();
+		conditionMap.put("내용", "content");
+		conditionMap.put("제목", "title");
+		return conditionMap;
+	}
+
 	// VS 인덱스 페이지
 	@RequestMapping("/vs_index.do")
-	public String getBoardList(Community_vsVO vo, PagingVO pv,
+	public String getBoardList(Community_vsVO vo, PagingVO pv, Comment_vsVO cvo,
 			@RequestParam(value = "nowPage", required = false) String nowPage, Model model) {
 //		System.out.println("/vs_index.do 컨트롤러 실행");		
 //		System.out.println("searchCondition: " + pv.getSearchCondition());
 //		System.out.println("searchKeyword: " + pv.getSearchKeyword());
+
+		if (vo.getSearchCondition() == null)
+			vo.setSearchCondition("title");
+
+		if (vo.getSearchKeyword() == null)
+			vo.setSearchKeyword("");
 
 		String cntPerPage = "10";
 
@@ -54,6 +70,8 @@ public class Community_vsController {
 		vo.setStart(pv.getStart());
 		vo.setListcnt(Integer.parseInt(cntPerPage));
 
+		model.addAttribute("searchKeyword", vo.getSearchKeyword());
+		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("boardList", svc.getBoardList(vo));
 		return "community_vs/community_vs_index";
 	}
@@ -61,7 +79,7 @@ public class Community_vsController {
 	// 관리자페이지
 	@RequestMapping("/vs_admin.do")
 	public String getBoardListAdmin(Community_vsVO vo, Model model) {
-		System.out.println("관리자 페이지 이동");
+//		System.out.println("관리자 페이지 이동");
 		model.addAttribute("boardList", svc.getBoardAdmin(vo));
 		return "community_vs/community_vs_admin";
 	}
@@ -70,8 +88,8 @@ public class Community_vsController {
 	@RequestMapping("/vs_admin_update.do")
 	@ResponseBody
 	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Model model) {
-		System.out.println("/vs_admin_update.do 서블릿 실행");
-		System.out.println(vo);
+//		System.out.println("/vs_admin_update.do 서블릿 실행");
+//		System.out.println(vo);
 		List<Community_vsVO> boardList = null;
 
 		int result = svc.updateBoardAdmin(vo);
@@ -88,8 +106,8 @@ public class Community_vsController {
 	@RequestMapping("/vs_admin_delete.do")
 	@ResponseBody
 	public List<Community_vsVO> deleteBoardAdmin(Community_vsVO vo, Model model) {
-		System.out.println("/vs_admin_delete.do 서블릿 실행");
-		System.out.println(vo);
+//		System.out.println("/vs_admin_delete.do 서블릿 실행");
+//		System.out.println(vo);
 		List<Community_vsVO> boardList = null;
 
 		int result = svc.deleteBoard(vo);
@@ -168,7 +186,8 @@ public class Community_vsController {
 
 	// 글 상세보기
 	@RequestMapping("/vs_info.do")
-	public String selectBoardInfo(Community_vsVO vo, Comment_vsVO commentVO, VsimgVO vsVO, Model model) {
+	public String selectBoardInfo(Community_vsVO vo, Comment_vsVO commentVO, VsimgVO vsVO, Model model,
+			@RequestParam(value = "nowPage", required = false) String nowPage) {
 //		System.out.println("/vs_info.do 서블릿 실행");
 //		System.out.println(vo.getVs_no());
 		model.addAttribute("boardList", svc.getBoardInfo(vo));
@@ -176,26 +195,55 @@ public class Community_vsController {
 		model.addAttribute("recommentList", svc.getComment(commentVO));
 		model.addAttribute("leftResult", svc.getLeftVote(vsVO));
 		model.addAttribute("rightResult", svc.getRightVote(vsVO));
+		model.addAttribute("searchCondition", vo.getSearchCondition());
+		model.addAttribute("searchKeyword", vo.getSearchKeyword());
+		model.addAttribute("nowPage", nowPage);
 		return "community_vs/community_vs_info";
 	}
 
 	// 글 수정페이지 이동
 	@GetMapping("/vs_update.do")
-	public String updateBoardInfo(Community_vsVO vo, Model model) {
+	public String updateBoardInfo(Community_vsVO vo, Model model,
+			@RequestParam(value = "nowPage", required = false) String nowPage) {
 //		System.out.println("/vs_update.do  GET 서블릿 실행");
 //		System.out.println(vo.getVs_no());
+//		System.out.println(nowPage);
 		model.addAttribute("boardList", svc.getBoardInfo(vo));
+		model.addAttribute("searchCondition", vo.getSearchCondition());
+		model.addAttribute("searchKeyword", vo.getSearchKeyword());
+		model.addAttribute("nowPage", nowPage);
 		return "community_vs/community_vs_modify";
 	}
 
 	// 글 수정
 	@PostMapping("/vs_update.do")
-	public String updateBoard(Community_vsVO vo, MultipartHttpServletRequest request)
+	public String updateBoard(Community_vsVO vo, MultipartHttpServletRequest request,
+			@RequestParam(value = "nowPage", required = false) String nowPage, Model model)
 			throws IllegalStateException, IOException {
 //		System.out.println("POST 방식의 /vs_update.do 서블릿 실행");
 //		System.out.println(vo);
 //		System.out.println(vo.getVs_no());
 		String url = "";
+
+		if (vo.getSearchCondition() == null)
+			vo.setSearchCondition("title");
+
+		if (vo.getSearchKeyword() == null)
+			vo.setSearchKeyword("");
+
+		// 수정할 글의 정보 가져오기
+		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
+		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
+		String getImgName1 = "";
+		String getImgName2 = "";
+
+		for (Community_vsVO delVO : deleteInfo) {
+			getImgName1 = delVO.getVs_img1();
+			getImgName2 = delVO.getVs_img2();
+		}
+
+		File removeImg1 = new File(uploadPath + getImgName1);
+		File removeImg2 = new File(uploadPath + getImgName2);
 
 		Date day = new java.util.Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -205,7 +253,6 @@ public class Community_vsController {
 		MultipartFile img1 = vo.getVs_img1_file();
 		MultipartFile img2 = vo.getVs_img2_file();
 
-		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
 		File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists())
 			uploadDir.mkdir();
@@ -220,6 +267,9 @@ public class Community_vsController {
 				img1.transferTo(new File(uploadPath + vo.getVs_img1()));
 				img2.transferTo(new File(uploadPath + vo.getVs_img2()));
 
+				removeImg1.delete();
+				removeImg2.delete();
+
 //				System.out.println("Filename1: " + vo.getVs_img1());
 //				System.out.println("Filename2: " + vo.getVs_img2());
 			}
@@ -232,6 +282,10 @@ public class Community_vsController {
 				vo.setVs_img2(Filename2);
 
 				img2.transferTo(new File(uploadPath + vo.getVs_img2()));
+
+				// 기존 이미지파일 삭제
+				removeImg2.delete();
+
 //				System.out.println("Filename2: " + vo.getVs_img2());
 			}
 		} else if (img2 == null) {
@@ -240,6 +294,9 @@ public class Community_vsController {
 				vo.setVs_img1(Filename1);
 
 				img1.transferTo(new File(uploadPath + vo.getVs_img1()));
+
+				// 기존 이미지파일 삭제
+				removeImg1.delete();
 //				System.out.println("Filename1: " + vo.getVs_img1());
 			}
 		}
@@ -250,7 +307,9 @@ public class Community_vsController {
 
 		if (result > 0) {
 //			System.out.println("글 수정 성공");
-
+			model.addAttribute("searchCondition", vo.getSearchCondition());
+			model.addAttribute("searchKeyword", vo.getSearchKeyword());
+			model.addAttribute("nowPage", nowPage);
 			url = "redirect:vs_info.do?vs_no=" + vo.getVs_no();
 		} else {
 //			System.out.println("글 수정 실패");
@@ -260,22 +319,22 @@ public class Community_vsController {
 
 	// 글 삭제
 	@GetMapping("/vs_delete.do")
-	public String deleteBoard(Community_vsVO vo, VsimgVO vvo, Comment_vsVO cvo) {
+	public String deleteBoard(Community_vsVO vo, VsimgVO vvo, Comment_vsVO cvo, Model model,
+			@RequestParam(value = "nowPage", required = false) String nowPage) {
 //		System.out.println("/vs_delete.do 서블릿 실행");
 //		System.out.println(vo.getVs_no());
-		
+
 		// 삭제할 글의 정보 가져오기
 		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
 		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
 		String img1 = "";
 		String img2 = "";
-		
+
 		for (Community_vsVO delVO : deleteInfo) {
 			img1 = delVO.getVs_img1();
-		    img2 = delVO.getVs_img2();
+			img2 = delVO.getVs_img2();
 		}
-		
-		
+
 		int result = svc.deleteBoard(vo);
 
 		if (result > 0) {
@@ -288,8 +347,11 @@ public class Community_vsController {
 			File deleteFile2 = new File(uploadPath + img2);
 			deleteFile1.delete();
 			deleteFile2.delete();
-			
-			
+
+			model.addAttribute("searchCondition", vo.getSearchCondition());
+			model.addAttribute("searchKeyword", vo.getSearchKeyword());
+			model.addAttribute("nowPage", nowPage);
+
 		} else {
 //			System.out.println("글 삭제 실패");
 		}
@@ -337,7 +399,7 @@ public class Community_vsController {
 		if (result > 0) {
 			commentList = svc.getComment(vo);
 		}
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);
@@ -360,7 +422,7 @@ public class Community_vsController {
 		if (result > 0) {
 			commentList = svc.getComment(vo);
 		}
-	
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);
@@ -374,42 +436,46 @@ public class Community_vsController {
 	public Map<String, Object> deleteComment(Comment_vsVO vo, HttpSession session) {
 //		System.out.println("/vs_comment_delete.do 서블릿 실행");
 //		System.out.println(vo);
+
+		int vs_rcno = vo.getVs_cno();
 		String userId = (String) session.getAttribute("userId");
 
 		List<Comment_vsVO> commentList = null;
 		int result = svc.deleteComment(vo);
 
 		if (result > 0) {
+			vo.setVs_rcno(vs_rcno);
+			svc.deleteComment(vo);
 			commentList = svc.getComment(vo);
 		}
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);
 		map.put("recommentList", commentList);
 		return map;
 	}
-	
+
 	// 답글 작성
 	@ResponseBody
 	@RequestMapping("/vs_recomment_insert.do")
-	public Map<String, Object> insertRecomment(Comment_vsVO vo, HttpSession session){
-		
+	public Map<String, Object> insertRecomment(Comment_vsVO vo, HttpSession session) {
+
 		if (session.getAttribute("userId") != null) {
 			vo.setVs_writer((String) session.getAttribute("userId"));
 		}
 
 		String userId = (String) session.getAttribute("userId");
 		List<Comment_vsVO> commentList = null;
-		
+
 //		System.out.println(vo);
-		
+
 		int result = svc.insertRecomment(vo);
-		
+
 		if (result > 0) {
 			commentList = svc.getComment(vo);
 		}
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("commentList", commentList);

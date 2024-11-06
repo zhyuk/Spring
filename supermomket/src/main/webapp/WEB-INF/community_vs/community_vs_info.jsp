@@ -27,8 +27,8 @@
 
 							<c:if test="${sessionScope.userId == board.vs_writer}">
 								<div class="btn-area">
-									<button onclick="updateBoard(${board.vs_no})">수정</button>
-									<button onclick="deleteBoard(${board.vs_no})">삭제</button>
+									<button onclick="updateBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">수정</button>
+									<button onclick="deleteBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">삭제</button>
 								</div>
 							</c:if>
 
@@ -43,8 +43,11 @@
 							<ul class="vote_box">
 								<li class="leftResult">투표 수 : ${leftResult}</li>
 								<li class="rightResult">투표 수 : ${rightResult}</li>
+								
+								<c:if test="${userId != null}">
 								<li><button onclick="vote(${board.vs_no}, 1)">투표하기</button></li>
 								<li><button onclick="vote(${board.vs_no}, 2)">투표하기</button></li>
+								</c:if>
 							</ul>
 							
 							<div class="clear"></div>
@@ -120,13 +123,15 @@
 					</script>
 				</c:if>
 
-
+				<form name="hideFrm" style="display:none;">
+					  <input type="hidden" name="nowPage" value="${nowPage}" >
+					  <input type="hidden" name="searchKeyword" value="${searchKeyword}" >
+					  <input type="hidden" name="searchCondition" value="${searchCondition}" >
+				</form>
 
 				<div class="btn-area board_list_btn">
 					<button onclick="BoardIndex()">목록보기</button>
 				</div>
-
-				<button id="ScrollTop">TOP</button>
 			</div>
 		</section>
 	</main>

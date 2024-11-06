@@ -10,6 +10,22 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: red;
+}
+
+a:link {
+    color: orange;
+}
+
+a:visited {
+    color: orange;
+}
+
+a:active{
+    color: blue;
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -47,11 +63,17 @@ aside nav ul li {
     height: 50px;
     font-size: 18px;
     line-height: 50px;
-    /* border: solid 1px red; */
+    border: solid 1px black;
 }
 
 aside nav ul.sub-menu {
     display: none;
+}
+
+aside button {
+    width: 65px;
+    height: 30px;
+    margin-top: 20px;
 }
 
 main {
@@ -65,6 +87,11 @@ section#admin .button_list {
     margin-bottom: 30px;
 }
 
+section#admin .button_list button {
+    width: 55px;
+    height: 30px;
+}
+
 section#admin div.inner table {
     width: 100%;
     text-align: center;
@@ -76,6 +103,10 @@ section#admin div.inner table tr,
 section#admin div.inner table tr th,
 section#admin div.inner table tr td {
     border: solid 1px black;
+}
+
+section#admin div.inner table tr:nth-of-type(1) {
+    height: 30px;
 }
 
 section#admin div.inner table tr:nth-child(even) {

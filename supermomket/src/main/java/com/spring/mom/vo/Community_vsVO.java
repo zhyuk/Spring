@@ -11,12 +11,16 @@ public class Community_vsVO {
 	private String vs_img1;
 	private String vs_img2;
 	private int vs_rownumber;
+	private int vs_count;
 
 	private MultipartFile vs_img1_file;
 	private MultipartFile vs_img2_file;
 
 	private int start;
 	private int listcnt;
+
+	private String searchCondition;
+	private String searchKeyword;
 
 	public int getVs_no() {
 		return vs_no;
@@ -112,6 +116,30 @@ public class Community_vsVO {
 
 	public void setVs_rownumber(int vs_rownumber) {
 		this.vs_rownumber = vs_rownumber;
+	}
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public int getVs_count() {
+		return vs_count;
+	}
+
+	public void setVs_count(int vs_count) {
+		this.vs_count = vs_count;
 	}
 
 	@Override

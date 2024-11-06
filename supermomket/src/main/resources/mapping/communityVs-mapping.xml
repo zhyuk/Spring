@@ -6,10 +6,14 @@
 
 	<!-- 글 목록 조회 -->
 	<select id="getBoardList" resultType="vs">
-		SELECT ROW_NUMBER()
-		OVER(ORDER BY VS_NO) AS VS_ROWNUMBER, vs_no, VS_TITLE, VS_WRITER,
-		VS_CONTENT, VS_DATE, VS_IMG1, VS_IMG2 FROM COMMUNITY_VS ORDER BY VS_NO
-		DESC
+		select row_number() over(order by community.vs_no) as vs_rownumber,
+		community.*,(select count(*) from comment_vs as comment where
+		community.vs_no = comment.vs_no) as vs_count 
+		from community_vs as community
+		where 1 = 1
+		<if test="searchCondition == 'title' "> AND vs_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND vs_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		order by community.vs_no desc
 		LIMIT #{listcnt} OFFSET #{start};
 	</select>
 
@@ -19,7 +23,7 @@
 		COMMUNITY_VS
 		ORDER BY VS_NO DESC
 	</select>
-	
+
 	<!-- 관리자용 글 수정 -->
 	<update id="updateBoardAdmin">
 		UPDATE COMMUNITY_VS SET VS_TITLE = #{vs_title},
@@ -44,7 +48,9 @@
 	<!-- 글 갯수 조회 -->
 	<select id="countBoard" resultType="int">
 		SELECT COUNT(*) FROM
-		community_vs;
+		community_vs WHERE 1 = 1
+		<if test="searchCondition == 'title' "> AND vs_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND vs_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
 	</select>
 
 	<!-- 글 수정 -->
@@ -90,11 +96,17 @@
 		SELECT COUNT(*) FROM VSIMG
 		WHERE VS_NO = #{vs_no} AND V_NO = 2;
 	</select>
-	
+
 	<!-- 모든 투표 삭제 -->
 	<delete id="deleteAllVote">
 		DELETE FROM VSIMG WHERE VS_NO = #{vs_no};
 	</delete>
+
+	<!-- 댓글 갯수 조회 -->
+	<select id="countComment" resultType="int">
+		SELECT COUNT(*) FROM
+		comment_vs WHERE vs_no = #{vs_no};
+	</select>
 
 	<!-- 댓글 조회 -->
 	<select id="getComment" resultType="commentVs">
@@ -118,20 +130,21 @@
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment">
 		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no} AND
-		VS_CNO = #{vs_cno};
+		<if test="vs_rcno == 0">VS_CNO = #{vs_cno};</if>
+		<if test="vs_rcno != 0 ">VS_RCNO = #{vs_rcno}</if>
 	</delete>
-	
+
 	<!-- 모든 댓글 삭제 -->
 	<delete id="deleteAllComment">
 		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no}
 	</delete>
-	
+
 	<!-- 답글 작성 -->
 	<insert id="insertReComment">
 		INSERT INTO COMMENT_VS (VS_NO, VS_WRITER, VS_DATE,
 		VS_COMMENT, VS_RCNO)VALUES(#{vs_no}, #{vs_writer}, CURRENT_DATE,
 		#{vs_comment}, #{vs_rcno});
 	</insert>
-	
+
 
 </mapper>

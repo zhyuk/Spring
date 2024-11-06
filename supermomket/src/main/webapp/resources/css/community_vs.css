@@ -4,6 +4,22 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: red;
+}
+
+a:link {
+    color: red;
+}
+
+a:visited {
+    color: green;
+}
+
+a:active{
+    color: blue;
+}
+
 main {
     width: 100%;
     height: fit-content;
@@ -15,15 +31,19 @@ textarea {
     resize: none;
 }
 
+pre {
+    font-family: "Malgun Gothic";
+}
+
 button#ScrollTop {
-	position: fixed;
-	bottom: 30px;
-	right: 30px;
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	border: none;
-	background: aqua;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: none;
+    background: aqua;
 }
 
 section div.inner {
@@ -33,14 +53,36 @@ section div.inner {
 }
 
 section div.inner table {
-    border: solid 1px green;
+    /* border: solid 1px green; */
+}
+
+section#index div.inner .search-form {
+    text-align: center;
+}
+
+section#index div.inner .search-form>* {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+section#index div.inner .search-form select {
+    height: 30px;
+}
+
+section#index div.inner .search-form input[name=searchKeyword] {
+    height: 30px;
+}
+
+section#index div.inner .search-form button.search-btn {
+    height: 30px;
+    padding: 0 5px;
 }
 
 section#index div.inner button.write-btn {
     float: right;
-    width: 60px;
+    width: 55px;
     height: 30px;
-    border: solid 1px green;
+    /* border: solid 1px green; */
 }
 
 section#index div.inner table {
@@ -57,6 +99,19 @@ section#index div.inner table tr {
 
 section#index div.inner table td {
     text-align: center;
+}
+
+section#index div.inner table td.title {
+    position: relative;
+}
+
+section#index div.inner table td.title span.comment-span {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-left: 10px;
+    font-size: 16px;
+    color: red;
 }
 
 section#index div.inner table th:nth-of-type(1) {
@@ -84,7 +139,16 @@ section#index div.inner .pagination {
 
 section#index div.inner .pagination li {
     margin: 0 15px;
+    padding: 0 10px;
     font-size: 20px;
+    background: lightgray;
+    color: red;
+    border-radius: 5px;
+    /* border: solid 1px red; */
+}
+
+section#index div.inner .pagination li.active {
+    color: black;
 }
 
 /* 글 작성 페이지 */
@@ -116,18 +180,18 @@ section#write div.inner form .btn-area {
 }
 
 section#write div.inner form .preview_box {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 section#write div.inner form .preview_box div {
-	width: 50%;
+    width: 50%;
 }
 
 section#write div.inner form .preview_box img {
-	width: 100%;
-	object-fit: contain;
+    width: 100%;
+    object-fit: contain;
 }
 
 /* 글 세부 페이지 */
@@ -184,10 +248,15 @@ section#info div.inner div.container .text-group .btn-area {
     transform: translate(0, -50%);
 }
 
+section#info div.inner div.container .text-group .btn-area button {
+    width: 40px;
+    height: 30px;
+}
+
 section#info div.inner div.container .board_content_box {
     height: fit-content;
     padding: 10px 0;
-    background: beige;
+    /* background: beige; */
     border-top: solid 2px #000;
 
 }
@@ -210,9 +279,19 @@ section#info div.inner div.container .text-group .vote_box {
 }
 
 section#info div.inner div.container .text-group .vote_box li {
-	float: left;
+    float: left;
     width: 50%;
     text-align: center;
+}
+
+section#info div.inner div.container .text-group .vote_box li:nth-of-type(3),
+section#info div.inner div.container .text-group .vote_box li:nth-of-type(4) {
+    margin-top: 10px;
+}
+
+section#info div.inner div.container .text-group .vote_box li button {
+    width: 65px;
+    height: 30px;
 }
 
 section#info div.inner div.container .text-group pre {
@@ -296,7 +375,7 @@ section#info div.inner #comment_area .comment_btn {
 section#info div.inner #comment_area input[name="vs_comment"] {
     display: none;
     width: calc(100% - 100px);
-    padding: 0 10px;
+    /*     padding: 0 10px; */
     font-size: 16px;
 }
 
@@ -305,43 +384,49 @@ section#info div.inner #comment_area .comment_btn .updateCancelButton {
 }
 
 section#info div.inner .recomment_area {
-	display: none;
-	width: calc(100% - 30px);
-	margin: 10px 0 0 30px;
-/* 	border: solid 1px red; */
+    display: none;
+    width: calc(100% - 30px);
+    margin: 10px 0 0 30px;
+    /* 	border: solid 1px red; */
 }
 
 section#info div.inner .recomment_area input {
-	width: calc(100% - 50px);
-	height: 30px;
+    width: calc(100% - 50px);
+    height: 30px;
 }
 
-section#info div.inner .recomment_area > button {
-	width: 50px;
-	height: 30px;
-	float: right;
+section#info div.inner .recomment_area>button {
+    width: 50px;
+    height: 30px;
+    float: right;
 }
 
 section#info div.inner .recomment_area .recomment_info {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 section#info div.inner .recomment_area .recomment_info p.writer {
-	font-size: 16px;
-	font-weight: bold;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 section#info div.inner .recomment_area .recomment_info p.date {
-	float: right;
-	font-size: 16px;
+    float: right;
+    font-size: 16px;
 }
 
 section#info div.inner .recomment_area pre.comment {
-	margin-top: 5px;
+    margin-top: 5px;
 }
 
 section#info div.inner .board_list_btn {
     margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+section#info div.inner .board_list_btn button {
+    width: 65px;
+    height: 30px;
 }
 
 /* 글 수정 페이지 */
@@ -352,8 +437,12 @@ section#modify div.inner form {
 section#modify div.inner form .input-group {
     width: 100%;
     margin-top: 15px;
-    ;
     padding-bottom: 15px;
+}
+
+section#modify div.inner form .input-group > button {
+    width: 100px;
+    height: 30px;
 }
 
 section#modify div.inner form .input-group input[type='text'] {
@@ -405,26 +494,57 @@ section#modify div.inner form .btn-area {
     text-align: center;
 }
 
+section#modify div.inner form .btn-area button {
+    width: 45px;
+    height: 30px;
+}
+
 /* 모바일버전 */
 @media screen and (max-width: 425px) {
     .mobile {
         /* 천성으로 적용 */
         display: initial;
     }
-    
+
     section div.inner {
-    	padding: 0 10px;
+        padding: 0 10px;
     }
-    
+
     .mobile-hide {
-    	display: none;
+        display: none;
     }
-    
-	/* 글 목록페이지 */
+
+    /* 글 목록페이지 */
+    section#index div.inner .search-form select {
+        width: 55px;
+        height: 30px;
+    }
+
+    section#index div.inner .search-form input[name=searchKeyword] {
+        width: calc(100% - 130px);
+        height: 30px;
+    }
+
+    section#index div.inner .search-form button.search-btn {
+        width: 55px;
+        height: 30px;
+        padding: 0 5px;
+    }
+
+    section#index div.inner button.write-btn {
+        margin-top: 10px;
+        margin-right: 4px;
+    }
+
     section#index div.inner table {
-    	font-size: 14px;
+        font-size: 16px;
     }
-    
+
+    section#index div.inner table td.number,
+    section#index div.inner table td.date {
+        font-size: 14px;
+    }
+
     /* 세부 글 보기 */
     section#info div.inner div.container .board_info p.title {
         font-size: 20px;
@@ -433,7 +553,7 @@ section#modify div.inner form .btn-area {
     section#info div.inner div.container .board_info p.date {
         font-size: 14px;
     }
-    
+
     section#info div.inner div.container .text-group .img-box {
         flex-direction: column;
     }
