@@ -2,7 +2,7 @@
 
     <aside>
         <div class="logo-box">
-            <img src="" alt="로고이미지">
+            <a href="/admin_index.do"><img src="" alt="로고이미지"></a>
         </div>
 
         <nav class="pointer">

@@ -1,38 +1,20 @@
 @charset "UTF-8";
 
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    color: red;
-}
-
-a:link {
-    color: red;
-}
-
-a:visited {
-    color: green;
-}
-
-a:active{
-    color: blue;
-}
-
-main {
-    width: 100%;
-    height: fit-content;
-    margin-top: 50px;
-    /* border: solid 1px red; */
-}
-
 textarea {
+    font-family: "Malgun Gothic";
     resize: none;
 }
 
 pre {
     font-family: "Malgun Gothic";
+}
+
+button {
+    height: 30px;
+    padding: 0 5px;
+    background: #DDAF9C;
+    border-radius: 5px;
+    border: none;
 }
 
 button#ScrollTop {
@@ -43,7 +25,7 @@ button#ScrollTop {
     height: 50px;
     border-radius: 100%;
     border: none;
-    background: aqua;
+    background: #DDAF9C;
 }
 
 section div.inner {
@@ -56,6 +38,7 @@ section div.inner table {
     /* border: solid 1px green; */
 }
 
+/* 인덱스 페이지 */
 section#index div.inner .search-form {
     text-align: center;
 }
@@ -94,7 +77,11 @@ section#index div.inner table {
 
 section#index div.inner table tr {
     height: 50px;
-    border-bottom: solid 1px gray;
+    border-bottom: solid 2px black;
+}
+
+section#index div.inner table tr:nth-of-type(1) {
+	background: #DDAF9C
 }
 
 section#index div.inner table td {
@@ -141,7 +128,6 @@ section#index div.inner .pagination li {
     margin: 0 15px;
     padding: 0 10px;
     font-size: 20px;
-    background: lightgray;
     color: red;
     border-radius: 5px;
     /* border: solid 1px red; */
@@ -310,9 +296,10 @@ section#info div.inner .fm_comment_write {
     border-top: solid 2px #000;
 }
 
-section#info div.inner .fm_comment_write input {
+section#info div.inner .fm_comment_write textarea {
     width: calc(100% - 50px);
     height: 50px;
+    padding: 5px;
 }
 
 section#info div.inner .fm_comment_write button {
@@ -351,6 +338,7 @@ section#info div.inner #comment_area .comment_info p.writer {
 }
 
 section#info div.inner #comment_area button.recomment_btn {
+	padding: 0 5px;
     margin-left: 10px;
 }
 
@@ -372,7 +360,11 @@ section#info div.inner #comment_area .comment_btn {
     float: right;
 }
 
-section#info div.inner #comment_area input[name="vs_comment"] {
+section#info div.inner #comment_area .comment_btn button {
+	padding: 0 5px;
+}
+
+section#info div.inner #comment_area textarea[name="vs_comment"] {
     display: none;
     width: calc(100% - 100px);
     /*     padding: 0 10px; */
@@ -390,7 +382,7 @@ section#info div.inner .recomment_area {
     /* 	border: solid 1px red; */
 }
 
-section#info div.inner .recomment_area input {
+section#info div.inner .recomment_area textarea {
     width: calc(100% - 50px);
     height: 30px;
 }
@@ -440,7 +432,7 @@ section#modify div.inner form .input-group {
     padding-bottom: 15px;
 }
 
-section#modify div.inner form .input-group > button {
+section#modify div.inner form .input-group>button {
     width: 100px;
     height: 30px;
 }
@@ -488,6 +480,21 @@ section#modify div.inner form .input-group .img_select {
     display: none;
 }
 
+section#modify div.inner form .preview_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+section#modify div.inner form .preview_box div {
+    width: 50%;
+}
+
+section#modify div.inner form .preview_box img {
+    width: 100%;
+    object-fit: contain;
+}
+
 section#modify div.inner form .btn-area {
     width: 100%;
     margin-top: 30px;
@@ -497,6 +504,66 @@ section#modify div.inner form .btn-area {
 section#modify div.inner form .btn-area button {
     width: 45px;
     height: 30px;
+}
+
+/* 관리자 페이지 */
+section#admin .button_list {
+    float: right;
+    margin-bottom: 30px;
+}
+
+section#admin .button_list button {
+    width: 55px;
+    height: 30px;
+}
+
+section#admin div.inner table {
+    width: 100%;
+    text-align: center;
+    border: solid 1px red;
+    border-collapse: collapse;
+}
+
+section#admin div.inner table tr,
+section#admin div.inner table tr th,
+section#admin div.inner table tr td {
+    border: solid 1px black;
+}
+
+section#admin div.inner table tr:nth-of-type(1) {
+    height: 30px;
+}
+
+section#admin div.inner table tr:nth-child(even) {
+    height: 50px;
+}
+
+section#admin div.inner table tr td:nth-of-type(1) {
+    width: 50px;
+}
+
+section#admin div.inner table tr input[type=text] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    text-align: center;
+}
+
+section#admin div.inner table tr textarea {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    font-family: "Malgun Gothic";
+    border: none;
+    vertical-align: middle;
+}
+
+section#admin div.inner table tr td img {
+    width: 100%;
+}
+
+section#admin div.inner table tr input:read-only {
+    outline: none;
 }
 
 /* 모바일버전 */

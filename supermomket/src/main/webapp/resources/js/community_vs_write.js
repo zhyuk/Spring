@@ -26,7 +26,7 @@ window.onload = function () {
 
 // 이미지 미리보기
 function readURL(input) {
-  console.log(input.getAttribute("name"));
+  // console.log(input.getAttribute("name"));
   if (input.getAttribute("name") == 'vs_img1_file' && input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {

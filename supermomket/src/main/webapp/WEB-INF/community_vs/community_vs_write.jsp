@@ -33,8 +33,8 @@
 								</div>
 
 								<div class="btn-area">
-									<button type="submit" id="btn">등록</button>
-									<button type="button" onclick="location.href = '/vs_index.do'">취소</button>
+									<button type="submit" id="btn" class="pointer">등록</button>
+									<button type="button" class="pointer" onclick="location.href = '/vs_index.do'">취소</button>
 								</div>
 							</form>
 						</div>

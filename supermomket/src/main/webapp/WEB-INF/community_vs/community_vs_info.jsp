@@ -27,8 +27,8 @@
 
 							<c:if test="${sessionScope.userId == board.vs_writer}">
 								<div class="btn-area">
-									<button onclick="updateBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">수정</button>
-									<button onclick="deleteBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">삭제</button>
+									<button class="pointer" onclick="updateBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">수정</button>
+									<button class="pointer" onclick="deleteBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">삭제</button>
 								</div>
 							</c:if>
 
@@ -45,8 +45,8 @@
 								<li class="rightResult">투표 수 : ${rightResult}</li>
 								
 								<c:if test="${userId != null}">
-								<li><button onclick="vote(${board.vs_no}, 1)">투표하기</button></li>
-								<li><button onclick="vote(${board.vs_no}, 2)">투표하기</button></li>
+								<li><button class="pointer" onclick="vote(${board.vs_no}, 1)">투표하기</button></li>
+								<li><button class="pointer" onclick="vote(${board.vs_no}, 2)">투표하기</button></li>
 								</c:if>
 							</ul>
 							
@@ -56,16 +56,16 @@
 					</div>
 
 					<div class="fm_comment_write">
-						<input type="text" name="vs_comment" placeholder="댓글 입력">
+						<textarea name="vs_comment" placeholder="댓글 입력"></textarea>
 						<input type="hidden" name="vs_no" value="${board.vs_no}">
-						<button onclick="insertComment()">작성</button>
+						<button class="pointer" onclick="insertComment()">작성</button>
 					</div>
 				</c:forEach>
 
 				<c:if test="${userId == null || userId == ''}">
 					<script>
-						$("input[name=vs_comment]").prop("disabled", true);
-						$("input[name=vs_comment]").prop("placeholder", "댓글 권한이 없습니다.");
+						$("textarea[name=vs_comment]").prop("disabled", true);
+						$("textarea[name=vs_comment]").prop("placeholder", "댓글 권한이 없습니다.");
 					</script>
 				</c:if>
 
@@ -75,21 +75,25 @@
 							<div class="comment_box">
 								<div class="comment_info">
 									<p class="writer">${comment.vs_writer}</p>
-									<button class="recomment_btn" onclick="viewRecomment(${comment.vs_cno})">답글보기</button>
+									<button class="recomment_btn pointer" onclick="viewRecomment(${comment.vs_cno})">답글보기</button>
 									<p class="date">${comment.vs_date }</p>
 								</div>
+								<div class="clear"></div>
 								<pre class="comment comment${comment.vs_cno}">${comment.vs_comment}</pre>
-								<input type="text" name="vs_comment" class="comment_input comment_input${comment.vs_cno}" value="${comment.vs_comment}">
+								<textarea name="vs_comment" class="comment_input comment_input${comment.vs_cno}">${comment.vs_comment}</textarea>
+<%-- 								<input type="text" name="vs_comment" class="comment_input comment_input${comment.vs_cno}" value="${comment.vs_comment}"> --%>
 								<div class="comment_btn">
 									<c:if test="${userId != null && userId == comment.vs_writer}">
-										<button type="button" class="updateCommentButton" onclick="updateComment(${comment.vs_no}, ${comment.vs_cno})">수정</button>
-										<button type="button" class="deleteCommentButton" onclick="deleteComment(${comment.vs_no}, ${comment.vs_cno})">삭제</button>
-										<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>
+										<button type="button" class="updateCommentButton pointer" onclick="updateComment(${comment.vs_no}, ${comment.vs_cno})">수정</button>
+										<button type="button" class="deleteCommentButton pointer" onclick="deleteComment(${comment.vs_no}, ${comment.vs_cno})">삭제</button>
+										<button type="button" class="updateCancelButton pointer" onclick="updateCommentCancel()">취소</button>
 									</c:if>
 								</div>
+								<div class="clear"></div>
 
 								<div class="recomment_area${comment.vs_cno} recomment_area">
-									<input type="text" name="vs_recomment" class="recomment_input recomment_input${comment.vs_cno}" placeholder="답글 입력">
+									<textarea name="vs_recomment" class="recomment_input recomment_input${comment.vs_cno}" placeholder="답글 입력"></textarea>
+<%-- 									<input type="text" name="vs_recomment" class="recomment_input recomment_input${comment.vs_cno}" placeholder="답글 입력"> --%>
 									<button onclick="insertRecomment(${comment.vs_no},${comment.vs_cno})">작성</button>
 
 									<c:forEach items="${recommentList}" var="recomment">
@@ -99,7 +103,8 @@
 												<p class="date">${recomment.vs_date }</p>
 											</div>
 											<pre class="comment comment${recomment.vs_cno}">${recomment.vs_comment}</pre>
-											<input type="text" name="vs_comment" class="comment_input comment_input${recomment.vs_cno}" value="${recomment.vs_comment}">
+											<textarea name="vs_comment" class="comment_input comment_input${recomment.vs_cno}" >${recomment.vs_comment}</textarea>
+<%-- 											<input type="text" name="vs_comment" class="comment_input comment_input${recomment.vs_cno}" value="${recomment.vs_comment}"> --%>
 											<div class="comment_btn">
 												<c:if test="${userId != null && userId == recomment.vs_writer}">
 													<button type="button" class="updateCommentButton" onclick="updateComment(${comment.vs_no}, ${recomment.vs_cno})">수정</button>
@@ -130,7 +135,7 @@
 				</form>
 
 				<div class="btn-area board_list_btn">
-					<button onclick="BoardIndex()">목록보기</button>
+					<button class="pointer" onclick="BoardIndex()">목록보기</button>
 				</div>
 			</div>
 		</section>

@@ -2,7 +2,7 @@
 	<div id="wrap">
 		<header>
 			<div class="logo-box">
-				<img src="" alt="로고">
+				<a href="index.jsp"><img src="" alt="로고"></a>
 			</div>
 
 			<nav>
@@ -27,14 +27,18 @@
 			<div class="login-box">
 				<c:choose>
 					<c:when test="${userId eq null }">
-						<p class="login-btn"><a href="login.jsp">로그인</a></p>
+						<p class="login-btn">
+							<a href="login.jsp">로그인</a>
+						</p>
 					</c:when>
 
 					<c:otherwise>
 						<p>
 							<%=session.getAttribute("userId")%>님
 						</p>
-						<p class="login-btn"><a href="/logout.do">로그아웃</a></p>
+						<p class="login-btn">
+							<a href="/logout.do">로그아웃</a>
+						</p>
 						<button>
 							<i class="fa-regular fa-envelope"></i>
 						</button>
@@ -65,28 +69,32 @@
 		<div id="m-nav" class="m-menu">
 			<nav>
 				<ul>
-                <li class="main-menu"><a href="#">중고거래</a></li>
-                <li class="main-menu"><a href="#">새상품</a></li>
-                <li id="community_nav" class="main-menu">커뮤니티</li>
-                <ul class="sub-menu">    
-					<li class="community_sub_menu"><a href="#">육아정보</a></li>
-					<li class="community_sub_menu"><a href="#">놀이터</a></li>
-					<li class="community_sub_menu"><a href="#">쇼핑정보</a></li>
-                    <li class="community_sub_menu"><a href="/vs_index.do">고민거리</a></li>
-                </ul>
-                <li class="main-menu"><a href="#">FAQ</a></li>
-                <li class="main-menu"><a href="#">마이페이지</a></li>
-            </ul>
+					<li class="main-menu"><a href="#">중고거래</a></li>
+					<li class="main-menu"><a href="#">새상품</a></li>
+					<li id="community_nav" class="main-menu">커뮤니티</li>
+					<ul class="sub-menu">
+						<li class="community_sub_menu"><a href="#">육아정보</a></li>
+						<li class="community_sub_menu"><a href="#">놀이터</a></li>
+						<li class="community_sub_menu"><a href="#">쇼핑정보</a></li>
+						<li class="community_sub_menu"><a href="/vs_index.do">고민거리</a></li>
+					</ul>
+					<li class="main-menu"><a href="#">FAQ</a></li>
+					<li class="main-menu"><a href="#">마이페이지</a></li>
+				</ul>
 				<c:choose>
 					<c:when test="${userId eq null }">
-						<p class="login-btn"><a href="login.jsp">로그인</a></p>
+						<p class="login-btn">
+							<a href="login.jsp">로그인</a>
+						</p>
 					</c:when>
 					<c:otherwise>
 						<div>
 							<p>
 								<%=session.getAttribute("userId")%>님
 							</p>
-							<p class="login-btn"><a href="/logout.do">로그아웃</a></p>
+							<p class="login-btn">
+								<a href="/logout.do">로그아웃</a>
+							</p>
 						</div>
 					</c:otherwise>
 
@@ -95,15 +103,27 @@
 		</div>
 
 		<script>
-			document.getElementsByClassName("nav-community")[0].addEventListener("click", function () {
-				if (document.getElementsByClassName("sub-menu")[0].style.display != "flex") {
-					document.getElementsByClassName("sub-menu")[0].style.display = "flex";
-				} else {
-					document.getElementsByClassName("sub-menu")[0].style.display = "none";
-				}
+
+			window.addEventListener("resize", () => {
+				let width = window.innerWidth;
+
+
 			});
-			
-            $("#community_nav").click(function () {
-                $(".sub-menu").toggle();
-            });
+
+			if (window.innerWidth > 425) {
+				document.getElementsByClassName("nav-community")[0].addEventListener("click", function () {
+					// console.log(window.getComputedStyle(document.getElementsByClassName("sub-menu")[0]).display);
+
+					if (window.getComputedStyle(document.getElementsByClassName("sub-menu")[0]).display == "none") {
+						document.getElementsByClassName("sub-menu")[0].style.display = "flex";
+					} else {
+						document.getElementsByClassName("sub-menu")[0].style.display = "none";
+					}
+				});
+			} else {
+				
+			}
+
+
+
 		</script>

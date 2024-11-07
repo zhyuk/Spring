@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<%@ include file="../../header.jsp" %>
@@ -23,13 +24,16 @@
 									</select>
 									<input type="search" name="searchKeyword" placeholder="검색어를 입력하세요."
 										value="${searchKeyword}">
-									<button class="search-btn" type="submit">검색</button>
+									<button class="search-btn pointer" type="submit">검색</button>
 								</div>
 								</form>
 
 								<c:if test="${userId != null}">
-									<button class="write-btn" onclick="writeBoard()">글쓰기</button>
+									<button class="write-btn pointer" onclick="writeBoard()">글쓰기</button>
 								</c:if>
+								
+								<div class="clear"></div>
+								
 								<table>
 									<tr>
 										<th>번호</th>

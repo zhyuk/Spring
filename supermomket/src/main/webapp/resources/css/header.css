@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap'); */
 
 * {
 	margin: 0;
@@ -26,6 +26,27 @@
 	cursor: pointer;
 }
 
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:active{
+    color: blue;
+}
+
 header {
 	display: flex;
 	align-items: center;
@@ -33,7 +54,7 @@ header {
 	height: 60px;
 	padding: 0 60px;
 	font-size: 20px;
-	background: lightgray;
+	background: #DDAF9C;
 }
 
 header .logo-box {
@@ -51,13 +72,19 @@ header .logo-box img {
 header .main-menu {
 	display: flex;
 	float: left;
+	font-weight: 500;
 }
 
 header .main-menu li {
 	height: 60px;
-	margin-right: 30px;
+	padding: 0 15px;
 	line-height: 60px;
 	cursor: pointer;
+}
+
+
+header .main-menu li:hover {
+	background: #BE8168;
 }
 
 header .sub-menu {
@@ -68,14 +95,19 @@ header .sub-menu {
 	align-items: center;
 	width: 100%;
 	height: 40px;
-	padding-left: 460px;
-	background: beige;
-	transition: height 2s ease;
+	padding-left: 470px;
+	background: #F6C4B0;
 }
 
 header .sub-menu li {
-	margin: 0 15px;
+	height: 100%;
+	padding: 0 10px;
+	line-height: 40px;
 	cursor: pointer;
+}
+
+header .sub-menu li:hover {
+	background: #BE8168;
 }
 
 header .login-box {
@@ -183,6 +215,27 @@ div#m-nav div button {
 	background: none;
 }
 
+
+main {
+    width: 100%;
+    min-height: calc(100vh - 250px);
+    height: fit-content;
+    margin-top: 50px;
+    /* border: solid 1px red; */
+}
+
+
+footer {
+	width: 100%;
+	height: 100px;
+	margin-top: 40px;
+	background: #DDAF9C;
+}
+
+footer .inner {
+	padding: 10px 30px;
+}
+
 @media screen and (max-width: 768px) {
 	header {
 		padding: 0 20px;
@@ -203,13 +256,4 @@ div#m-nav div button {
 	header .login-box {
 		display: none;
 	}
-}
-
-
-
-footer {
-	width: 100%;
-	height: 100px;
-	margin-top: 50px;
-	background: lightgray;
 }

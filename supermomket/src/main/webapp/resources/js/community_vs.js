@@ -11,6 +11,26 @@ $(function () {
     button.addEventListener('click', scrollToTop);
 });
 
+// 이미지 미리보기
+function readURL(input) {
+    //console.log(input.getAttribute("name"));
+    if (input.getAttribute("name") == 'vs_img1_file' && input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('img1_preview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    if (input.getAttribute("name") == 'vs_img2_file' && input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('img2_preview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 // 글 목록으로 이동
 function BoardIndex() {
     document.hideFrm.action = "/vs_index.do";
@@ -57,7 +77,7 @@ function vote(seq, v_no) {
             },
             cache: false,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
 
                 $("li.leftResult").text("투표 수 : " + data[0]);
                 $("li.rightResult").text("투표 수 : " + data[1]);
@@ -71,10 +91,10 @@ function vote(seq, v_no) {
 function insertComment() {
     let vs_no = $("input[name=vs_no]").val();
     // console.log(vs_no);
-    let vs_comment = $("input[name=vs_comment]").val();
+    let vs_comment = $("textarea[name=vs_comment]").val();
     // console.log(vs_comment);
-    let vs_commentValue = $("input[name=vs_comment]").prop("disabled");
-    // console.log($("input[name=vs_comment]").prop("disabled"));
+    let vs_commentValue = $("textarea[name=vs_comment]").prop("disabled");
+    // console.log($("textarea[name=vs_comment]").prop("disabled"));
 
     if (vs_comment == "" && !vs_commentValue) {
         alert("댓글을 입력하세요.");
@@ -90,16 +110,14 @@ function insertComment() {
             },
             cache: false,
             success: function (res) {
-                $("input[name=vs_comment]").val("");
-                console.log('res.userId: ', res.userId);
+                $("textarea[name=vs_comment]").val("");
+                // console.log('res.userId: ', res.userId);
                 let data = res.commentList;
                 let recommentList = res.recommentList;
-                console.log(data.length);
-                console.log(recommentList);
-
+                // console.log(data.length);
+                // console.log(recommentList);
                 if (data.length > 0) {
                     $("#comment_area").html("");
-
                     for (let i = 0; i < data.length; i++) {
                         let commentBox = "";
                         let writer = data[i].vs_writer;
@@ -111,23 +129,25 @@ function insertComment() {
                             commentBox += "<div class='comment_box'>"
                             commentBox += "<div class='comment_info'>"
                             commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
-                            commentBox += "<button class='recomment_btn' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
+                            commentBox += "<button class='recomment_btn pointer' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
                             commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
                             commentBox += "</div>"
                             commentBox += "<pre class='comment comment" + data[i].vs_cno + "'>" + data[i].vs_comment + "</pre>"
-                            commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
+                            commentBox += "<textarea name='vs_comment' class='comment_input comment_input" + data[i].vs_cno + "'>" + data[i].vs_comment + '</textarea>'
+                            // commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
 
                             if (res.userId != null && res.userId != '' && res.userId == writer) {
                                 commentBox += "<div class='comment_btn'>"
-                                    + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
-                                    + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
-                                    + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                    + "<button type='button' class='updateCommentButton pointer' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                    + "<button type='button' class='deleteCommentButton pointer' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                    + "<button type='button' class='updateCancelButton pointer' onclick='updateCommentCancel()'>취소</button>"
                                     + " </div>"
                             }
 
                             commentBox += '<div class="recomment_area' + data[i].vs_cno + ' recomment_area">'
-                            commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
-                            commentBox += '<button onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
+                            commentBox += '<textarea name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력"></textarea>'
+                            // commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
+                            commentBox += '<button class="pointer" onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
 
                             for (let i = 0; i < recommentList.length; i++) {
                                 if (commentNum == recommentList[i].vs_rcno) {
@@ -136,13 +156,14 @@ function insertComment() {
                                     commentBox += '<p class="date">' + recommentList[i].vs_date + '</p>'
                                     commentBox += '</div>'
                                     commentBox += '<pre class="comment comment' + recommentList[i].vs_cno + '">' + recommentList[i].vs_comment + '</pre>'
-                                    commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
+                                    commentBox += '<textarea name="vs_comment" class="comment_input comment_input' + recommentList.vs_cno + '">' + recommentList.vs_comment + '</textarea>'
+                                    // commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
 
                                     if (res.userId != null && res.userId != '' && res.userId == recommentList[i].vs_writer) {
                                         commentBox += '<div class="comment_btn">'
-                                        commentBox += '<button type="button" class="updateCommentButton" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
-                                        commentBox += '<button type="button" class="deleteCommentButton" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
-                                        commentBox += '<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>'
+                                        commentBox += '<button type="button" class="updateCommentButton pointer" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
+                                        commentBox += '<button type="button" class="deleteCommentButton pointer" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
+                                        commentBox += '<button type="button" class="updateCancelButton pointer" onclick="updateCommentCancel()">취소</button>'
                                         commentBox += '</div>'
                                     }
                                 }
@@ -151,6 +172,8 @@ function insertComment() {
                         commentBox += '</div></div>'
                         $("#comment_area").append(commentBox);
                     }
+                } else {
+                    $("#comment_area").html("");
                 }
             }
         });
@@ -188,44 +211,45 @@ function updateComment(vs_no, vs_cno) {
                 },
                 cache: false,
                 success: function (res) {
-                    console.log('res.userId: ', res.userId);
+                    // console.log('res.userId: ', res.userId);
                     let data = res.commentList;
                     let recommentList = res.recommentList;
-                    console.log(data.length);
-                    console.log(recommentList);
+                    // console.log(data.length);
+                    // console.log(recommentList);
 
                     if (data.length > 0) {
                         $("#comment_area").html("");
-
                         for (let i = 0; i < data.length; i++) {
                             let commentBox = "";
                             let writer = data[i].vs_writer;
                             let recomment = data[i].vs_rcno;
                             let commentNum = data[i].vs_cno;
                             // console.log("data[i].vs_rcno: " + recomment);
-
+    
                             if (recomment == 0) {
                                 commentBox += "<div class='comment_box'>"
                                 commentBox += "<div class='comment_info'>"
                                 commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
-                                commentBox += "<button class='recomment_btn' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
+                                commentBox += "<button class='recomment_btn pointer' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
                                 commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
                                 commentBox += "</div>"
                                 commentBox += "<pre class='comment comment" + data[i].vs_cno + "'>" + data[i].vs_comment + "</pre>"
-                                commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
-
+                                commentBox += "<textarea name='vs_comment' class='comment_input comment_input" + data[i].vs_cno + "'>" + data[i].vs_comment + '</textarea>'
+                                // commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
+    
                                 if (res.userId != null && res.userId != '' && res.userId == writer) {
                                     commentBox += "<div class='comment_btn'>"
-                                        + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
-                                        + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
-                                        + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                        + "<button type='button' class='updateCommentButton pointer' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                        + "<button type='button' class='deleteCommentButton pointer' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                        + "<button type='button' class='updateCancelButton pointer' onclick='updateCommentCancel()'>취소</button>"
                                         + " </div>"
                                 }
-
+    
                                 commentBox += '<div class="recomment_area' + data[i].vs_cno + ' recomment_area">'
-                                commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
-                                commentBox += '<button onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
-
+                                commentBox += '<textarea name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력"></textarea>'
+                                // commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
+                                commentBox += '<button class="pointer" onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
+    
                                 for (let i = 0; i < recommentList.length; i++) {
                                     if (commentNum == recommentList[i].vs_rcno) {
                                         commentBox += '<div class="recomment_info">'
@@ -233,13 +257,14 @@ function updateComment(vs_no, vs_cno) {
                                         commentBox += '<p class="date">' + recommentList[i].vs_date + '</p>'
                                         commentBox += '</div>'
                                         commentBox += '<pre class="comment comment' + recommentList[i].vs_cno + '">' + recommentList[i].vs_comment + '</pre>'
-                                        commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
-
+                                        commentBox += '<textarea name="vs_comment" class="comment_input comment_input' + recommentList.vs_cno + '">' + recommentList.vs_comment + '</textarea>'
+                                        // commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
+    
                                         if (res.userId != null && res.userId != '' && res.userId == recommentList[i].vs_writer) {
                                             commentBox += '<div class="comment_btn">'
-                                            commentBox += '<button type="button" class="updateCommentButton" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
-                                            commentBox += '<button type="button" class="deleteCommentButton" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
-                                            commentBox += '<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>'
+                                            commentBox += '<button type="button" class="updateCommentButton pointer" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
+                                            commentBox += '<button type="button" class="deleteCommentButton pointer" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
+                                            commentBox += '<button type="button" class="updateCancelButton pointer" onclick="updateCommentCancel()">취소</button>'
                                             commentBox += '</div>'
                                         }
                                     }
@@ -248,6 +273,8 @@ function updateComment(vs_no, vs_cno) {
                             commentBox += '</div></div>'
                             $("#comment_area").append(commentBox);
                         }
+                    } else {
+                        $("#comment_area").html("");
                     }
                 }
             });
@@ -276,15 +303,13 @@ function deleteComment(vs_no, vs_cno) {
             },
             cache: false,
             success: function (res) {
-                console.log('res.userId: ', res.userId);
+                // console.log('res.userId: ', res.userId);
                 let data = res.commentList;
                 let recommentList = res.recommentList;
-                console.log(data.length);
-                console.log(recommentList);
-
+                // console.log(data.length);
+                // console.log(recommentList);
                 if (data.length > 0) {
                     $("#comment_area").html("");
-
                     for (let i = 0; i < data.length; i++) {
                         let commentBox = "";
                         let writer = data[i].vs_writer;
@@ -296,23 +321,25 @@ function deleteComment(vs_no, vs_cno) {
                             commentBox += "<div class='comment_box'>"
                             commentBox += "<div class='comment_info'>"
                             commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
-                            commentBox += "<button class='recomment_btn' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
+                            commentBox += "<button class='recomment_btn pointer' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
                             commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
                             commentBox += "</div>"
                             commentBox += "<pre class='comment comment" + data[i].vs_cno + "'>" + data[i].vs_comment + "</pre>"
-                            commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
+                            commentBox += "<textarea name='vs_comment' class='comment_input comment_input" + data[i].vs_cno + "'>" + data[i].vs_comment + '</textarea>'
+                            // commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
 
                             if (res.userId != null && res.userId != '' && res.userId == writer) {
                                 commentBox += "<div class='comment_btn'>"
-                                    + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
-                                    + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
-                                    + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                    + "<button type='button' class='updateCommentButton pointer' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                    + "<button type='button' class='deleteCommentButton pointer' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                    + "<button type='button' class='updateCancelButton pointer' onclick='updateCommentCancel()'>취소</button>"
                                     + " </div>"
                             }
 
                             commentBox += '<div class="recomment_area' + data[i].vs_cno + ' recomment_area">'
-                            commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
-                            commentBox += '<button onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
+                            commentBox += '<textarea name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력"></textarea>'
+                            // commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
+                            commentBox += '<button class="pointer" onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
 
                             for (let i = 0; i < recommentList.length; i++) {
                                 if (commentNum == recommentList[i].vs_rcno) {
@@ -321,13 +348,14 @@ function deleteComment(vs_no, vs_cno) {
                                     commentBox += '<p class="date">' + recommentList[i].vs_date + '</p>'
                                     commentBox += '</div>'
                                     commentBox += '<pre class="comment comment' + recommentList[i].vs_cno + '">' + recommentList[i].vs_comment + '</pre>'
-                                    commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
+                                    commentBox += '<textarea name="vs_comment" class="comment_input comment_input' + recommentList.vs_cno + '">' + recommentList.vs_comment + '</textarea>'
+                                    // commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
 
                                     if (res.userId != null && res.userId != '' && res.userId == recommentList[i].vs_writer) {
                                         commentBox += '<div class="comment_btn">'
-                                        commentBox += '<button type="button" class="updateCommentButton" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
-                                        commentBox += '<button type="button" class="deleteCommentButton" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
-                                        commentBox += '<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>'
+                                        commentBox += '<button type="button" class="updateCommentButton pointer" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
+                                        commentBox += '<button type="button" class="deleteCommentButton pointer" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
+                                        commentBox += '<button type="button" class="updateCancelButton pointer" onclick="updateCommentCancel()">취소</button>'
                                         commentBox += '</div>'
                                     }
                                 }
@@ -336,6 +364,8 @@ function deleteComment(vs_no, vs_cno) {
                         commentBox += '</div></div>'
                         $("#comment_area").append(commentBox);
                     }
+                } else {
+                    $("#comment_area").html("");
                 }
             }
         });
@@ -370,44 +400,46 @@ function insertRecomment(vs_no, vs_rcno) {
                 cache: false,
                 success: function (res) {
                     $(className).val("")
-                    console.log('res.userId: ', res.userId);
+                    // console.log('res.userId: ', res.userId);
                     let data = res.commentList;
                     let recommentList = res.recommentList;
-                    console.log(data.length);
-                    console.log(recommentList);
+                    // console.log(data.length);
+                    // console.log(recommentList);
 
+                    $("#comment_area").html("");
                     if (data.length > 0) {
                         $("#comment_area").html("");
-
                         for (let i = 0; i < data.length; i++) {
                             let commentBox = "";
                             let writer = data[i].vs_writer;
                             let recomment = data[i].vs_rcno;
                             let commentNum = data[i].vs_cno;
                             // console.log("data[i].vs_rcno: " + recomment);
-
+    
                             if (recomment == 0) {
                                 commentBox += "<div class='comment_box'>"
                                 commentBox += "<div class='comment_info'>"
                                 commentBox += "<p class='writer'>" + data[i].vs_writer + "</p>"
-                                commentBox += "<button class='recomment_btn' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
+                                commentBox += "<button class='recomment_btn pointer' onclick='viewRecomment(" + data[i].vs_cno + ")'>답글보기</button>"
                                 commentBox += "<p class='date'>" + data[i].vs_date + "</p>"
                                 commentBox += "</div>"
                                 commentBox += "<pre class='comment comment" + data[i].vs_cno + "'>" + data[i].vs_comment + "</pre>"
-                                commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
-
+                                commentBox += "<textarea name='vs_comment' class='comment_input comment_input" + data[i].vs_cno + "'>" + data[i].vs_comment + '</textarea>'
+                                // commentBox += "<input type='text' name='vs_comment' class='comment_input" + data[i].vs_cno + "' value='" + data[i].vs_comment + "'>";
+    
                                 if (res.userId != null && res.userId != '' && res.userId == writer) {
                                     commentBox += "<div class='comment_btn'>"
-                                        + "<button type='button' class='updateCommentButton' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
-                                        + "<button type='button' class='deleteCommentButton' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
-                                        + "<button type='button' class='updateCancelButton' onclick='updateCommentCancel()'>취소</button>"
+                                        + "<button type='button' class='updateCommentButton pointer' onclick='updateComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>수정</button>"
+                                        + "<button type='button' class='deleteCommentButton pointer' onclick='deleteComment(" + data[i].vs_no + "," + data[i].vs_cno + ")'>삭제</button>"
+                                        + "<button type='button' class='updateCancelButton pointer' onclick='updateCommentCancel()'>취소</button>"
                                         + " </div>"
                                 }
-
+    
                                 commentBox += '<div class="recomment_area' + data[i].vs_cno + ' recomment_area">'
-                                commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
-                                commentBox += '<button onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
-
+                                commentBox += '<textarea name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력"></textarea>'
+                                // commentBox += '<input type="text" name="vs_recomment" class="recomment_input recomment_input' + data[i].vs_cno + '" placeholder="답글 입력">'
+                                commentBox += '<button class="pointer" onclick="insertRecomment(' + data[i].vs_no + ',' + data[i].vs_cno + ')">작성</button>'
+    
                                 for (let i = 0; i < recommentList.length; i++) {
                                     if (commentNum == recommentList[i].vs_rcno) {
                                         commentBox += '<div class="recomment_info">'
@@ -415,13 +447,14 @@ function insertRecomment(vs_no, vs_rcno) {
                                         commentBox += '<p class="date">' + recommentList[i].vs_date + '</p>'
                                         commentBox += '</div>'
                                         commentBox += '<pre class="comment comment' + recommentList[i].vs_cno + '">' + recommentList[i].vs_comment + '</pre>'
-                                        commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
-
+                                        commentBox += '<textarea name="vs_comment" class="comment_input comment_input' + recommentList.vs_cno + '">' + recommentList.vs_comment + '</textarea>'
+                                        // commentBox += '<input type="text" name="vs_comment" class="comment_input' + recommentList[i].vs_cno + '" value="' + recommentList[i].vs_comment + '">'
+    
                                         if (res.userId != null && res.userId != '' && res.userId == recommentList[i].vs_writer) {
                                             commentBox += '<div class="comment_btn">'
-                                            commentBox += '<button type="button" class="updateCommentButton" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
-                                            commentBox += '<button type="button" class="deleteCommentButton" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
-                                            commentBox += '<button type="button" class="updateCancelButton" onclick="updateCommentCancel()">취소</button>'
+                                            commentBox += '<button type="button" class="updateCommentButton pointer" onclick="updateComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">수정</button>'
+                                            commentBox += '<button type="button" class="deleteCommentButton pointer" onclick="deleteComment(' + data[i].vs_no + ',' + recommentList[i].vs_cno + ')">삭제</button>'
+                                            commentBox += '<button type="button" class="updateCancelButton pointer" onclick="updateCommentCancel()">취소</button>'
                                             commentBox += '</div>'
                                         }
                                     }
@@ -430,6 +463,8 @@ function insertRecomment(vs_no, vs_rcno) {
                             commentBox += '</div></div>'
                             $("#comment_area").append(commentBox);
                         }
+                    } else {
+                        $("#comment_area").html("");
                     }
                 }
             });

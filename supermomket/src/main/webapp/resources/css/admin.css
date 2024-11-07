@@ -1,133 +1,92 @@
 @charset "UTF-8";
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 a:hover {
-    color: red;
+	color: red;
 }
 
 a:link {
-    color: orange;
+	color: black;
 }
 
 a:visited {
-    color: orange;
+	color: black;
 }
 
-a:active{
-    color: blue;
+a:active {
+	color: blue;
 }
 
 .pointer {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 aside {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    float: left;
-    text-align: center;
-    background: gray;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 100vh;
+	float: left;
+	text-align: center;
+	background: #DDAF9C;
 }
 
 aside .logo-box {
-    width: 100%;
-    /* border: solid 1px red; */
+	width: 100%;
+	/* border: solid 1px red; */
 }
 
 aside .logo-box img {
-    width: 100%;
+	width: 100%;
 }
 
 aside nav {
-    margin-top: 60px;
+	margin-top: 60px;
 }
 
 aside nav ul {
-    width: 100%;
-    height: fit-content;
+	width: 100%;
+	height: fit-content;
 }
 
 aside nav ul li {
-    height: 50px;
-    font-size: 18px;
-    line-height: 50px;
-    border: solid 1px black;
+	height: 50px;
+	font-size: 18px;
+	line-height: 50px;
+}
+
+aside nav ul li a {
+	display: block;
+}
+
+aside nav ul li:hover {
+	background: #BE8168;
 }
 
 aside nav ul.sub-menu {
-    display: none;
+	display: none;
 }
 
 aside button {
-    width: 65px;
-    height: 30px;
-    margin-top: 20px;
+	height: 30px;
+	margin-top: 20px;
+	font-size: 16px;
+	border: none;
+	background: transparent;
 }
 
 main {
-    width: calc(100% - 300px) !important;
-    float: right !important;
-}
-
-/* 관리자 페이지 */
-section#admin .button_list {
-    float: right;
-    margin-bottom: 30px;
-}
-
-section#admin .button_list button {
-    width: 55px;
-    height: 30px;
-}
-
-section#admin div.inner table {
-    width: 100%;
-    text-align: center;
-    border: solid 1px red;
-    border-collapse: collapse;
-}
-
-section#admin div.inner table tr,
-section#admin div.inner table tr th,
-section#admin div.inner table tr td {
-    border: solid 1px black;
-}
-
-section#admin div.inner table tr:nth-of-type(1) {
-    height: 30px;
-}
-
-section#admin div.inner table tr:nth-child(even) {
-    height: 50px;
-}
-
-section#admin div.inner table tr td:nth-of-type(1) {
-    width: 50px;
-}
-
-section#admin div.inner table tr input[type=text] {
-    width: 100%;
-    height: 50px;
-    border: none;
-    text-align: center;
-}
-
-section#admin div.inner table tr td img {
-    width: 100%;
-}
-
-section#admin div.inner table tr input:read-only {
-    outline: none;
+	width: calc(100% - 300px) !important;
+	float: right !important;
+	margin-top: 50px;
 }

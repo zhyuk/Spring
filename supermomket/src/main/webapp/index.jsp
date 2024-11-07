@@ -2,6 +2,8 @@
 <%@ include file="header.jsp" %>
 <body>
 	<%@ include file="menu.jsp" %>
+	<main>
+	</main>
 	</div>
 	<%@ include file="footer.jsp" %>
 </body>
