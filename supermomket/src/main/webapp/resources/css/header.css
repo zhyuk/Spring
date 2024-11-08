@@ -5,7 +5,8 @@
 	padding: 0;
 	box-sizing: border-box;
 	list-style: none;
-/* 	font-family: "Pretendard Variable"; */
+	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+	/* 	font-family: "Pretendard Variable"; */
 }
 
 #wrap {
@@ -26,25 +27,18 @@
 	cursor: pointer;
 }
 
+:root {
+	--color-black: #2D2626;
+	--color-dark-main: #655353;
+	--color-red-main: #98563C;
+	--color-main: #BE8168;
+	--color-dark-cream: #DEC7A8;
+	--color-cream: #E5D6BF;
+	--color-white: #FFF7F3;
+}
 
 a {
-    text-decoration: none;
-}
-
-a:hover {
-    color: red;
-}
-
-a:link {
-    color: black;
-}
-
-a:visited {
-    color: black;
-}
-
-a:active{
-    color: blue;
+	text-decoration: none;
 }
 
 header {
@@ -54,7 +48,10 @@ header {
 	height: 60px;
 	padding: 0 60px;
 	font-size: 20px;
-	background: #DDAF9C;
+	font-weight: 500;
+	color: var(--color-cream);
+	background: var(--color-main);
+	/* 	background: #DDAF9C; */
 }
 
 header .logo-box {
@@ -72,7 +69,6 @@ header .logo-box img {
 header .main-menu {
 	display: flex;
 	float: left;
-	font-weight: 500;
 }
 
 header .main-menu li {
@@ -84,7 +80,11 @@ header .main-menu li {
 
 
 header .main-menu li:hover {
-	background: #BE8168;
+	background: var(--color-red-main);
+}
+
+header li a, header li a:link, header li a:visited {
+	color: var(--color-main);
 }
 
 header .sub-menu {
@@ -96,7 +96,8 @@ header .sub-menu {
 	width: 100%;
 	height: 40px;
 	padding-left: 470px;
-	background: #F6C4B0;
+	color: var(--color-main);
+	background: var(--color-cream);
 }
 
 header .sub-menu li {
@@ -107,7 +108,7 @@ header .sub-menu li {
 }
 
 header .sub-menu li:hover {
-	background: #BE8168;
+	background: var(--color-red-main);
 }
 
 header .login-box {
@@ -123,7 +124,7 @@ header .login-box button {
 	width: 50px;
 	height: 50px;
 	background: transparent;
-	border: solid 1px #000;
+	border: solid 1px var(--color-black);
 	border: none;
 }
 
@@ -163,7 +164,7 @@ header .ham-box span {
 	display: block;
 	width: 45px;
 	height: 5px;
-	background: black;
+	background: var(--color-cream);
 	transform: translate(-50%, -50%);
 }
 
@@ -217,19 +218,19 @@ div#m-nav div button {
 
 
 main {
-    width: 100%;
-    min-height: calc(100vh - 250px);
-    height: fit-content;
-    margin-top: 50px;
-    /* border: solid 1px red; */
+	width: 100%;
+	min-height: calc(100vh - 150px);
+	height: fit-content;
+	margin-top: 50px;
+	/* border: solid 1px red; */
 }
 
 
 footer {
 	width: 100%;
-	height: 100px;
-	margin-top: 40px;
-	background: #DDAF9C;
+	height: 40px;
+	/* 	margin-top: 20px; */
+	background: var(--color-main);
 }
 
 footer .inner {

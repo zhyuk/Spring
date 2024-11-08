@@ -10,6 +10,8 @@
 
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
 			<script src="https://kit.fontawesome.com/4dde698614.js" crossorigin="anonymous"></script>
+			
+			<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 
 			<!-- 관리자용 CSS -->
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
