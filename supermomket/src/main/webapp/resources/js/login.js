@@ -1,26 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const savedId = localStorage.getItem("savedId");
-    const saveIdCheckbox = document.querySelector('input[name="SaveID"]');
-
-    if (savedId) {
-        document.querySelector('input[name="u_id"]').value = savedId;
-        saveIdCheckbox.checked = true; 
-    }
-
-    // 로그인 폼 제출 이벤트 처리
-    const loginForm = document.getElementById("loginForm");
-    loginForm.addEventListener("submit", function(event) {
-        const userId = document.querySelector('input[name="u_id"]').value;
-
-        if (saveIdCheckbox.checked) {
-            localStorage.setItem("savedId", userId);
-        } else {
-            localStorage.removeItem("savedId");
-        }
-    });
-});
-
-
 const idInput = document.getElementById('uid');
 const idImg = document.getElementById('idimg');
 const pwInput = document.getElementById('upw');
@@ -49,3 +26,16 @@ document.getElementById('eye').addEventListener('click', function () {
     const img = this.querySelector('img');
     img.src = passwordType === 'password' ? 'resources/img/login/ceye.png' : 'resources/img/login/eye.png'; 
 });
+
+window.onload = function() {
+    const sessionUserId = sessionStorage.getItem('userId');
+    if (sessionUserId) {
+        sessionStorage.removeItem('userId');
+        window.location.href = 'login.do';
+    }
+};
+
+window.onload = function() {
+    document.getElementById('uid').value = '';
+    document.getElementById('upw').value = '';
+};

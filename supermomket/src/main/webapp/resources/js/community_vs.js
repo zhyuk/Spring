@@ -6,9 +6,15 @@ $(function () {
             behavior: 'smooth'
         });
     }
-    // 버튼 클릭 시 화면 맨 위로 스크롤하는 이벤트 핸들러
-    var button = document.getElementById('ScrollTop');
-    button.addEventListener('click', scrollToTop);
+    // var button = document.getElementById('ScrollTop');
+    // button.addEventListener('click', scrollToTop);
+
+    var button = $('#ScrollTop');
+    button.click(scrollToTop);
+
+    $('link[href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"]').remove();
+    $('link[href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"]').remove();
+    $('script[src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"]').remove();
 });
 
 // 이미지 미리보기
@@ -57,10 +63,10 @@ function updateBoard(seq, condition, keyword, nowpage) {
 // 글 삭제
 function deleteBoard(seq) {
     if (confirm("정말 삭제하시겠습니까?")) {
+        location.href = "/vs_delete.do?vs_no=" + seq;
         document.hideFrm.action = "/vs_index.do";
-        document.hideFrm.method = "post";
-        document.hideFrm.submit();
-        // location.href = "/vs_delete.do?vs_no=" + seq;
+    	document.hideFrm.method = "post";
+   		document.hideFrm.submit();
     }
 }
 
@@ -102,7 +108,7 @@ function insertComment() {
 
     if (vs_commentValue) {
         alert("로그인 후 댓글을 작성할 수 있습니다.");
-        location.href="/login.jsp";
+        location.href = "/login.do";
     }
 
     if (vs_no != "" && vs_comment != "" && !vs_commentValue) {
@@ -400,11 +406,20 @@ function viewRecomment(seq) {
 // 답글 작성
 function insertRecomment(vs_no, vs_rcno) {
     let className = ".recomment_input" + vs_rcno;
+    let status = $(className).prop("disabled");
     // console.log($(className).val());
+    // console.log(status);
 
-    if ($(className).val() == null || $(className).val() == "") {
+    if ($(className).val() == "" && !status) {
         alert("내용을 입력하세요.");
-    } else {
+    }
+
+    if (status) {
+        alert("로그인 후 댓글을 작성할 수 있습니다.");
+        location.href = "/login.do";
+    }
+
+    if ($(className).val() != null && $(className).val() != "" && !status) {
         if (confirm("답글을 입력하시겠습니까?")) {
             $.ajax({
                 type: "POST",

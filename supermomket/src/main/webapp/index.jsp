@@ -3,7 +3,7 @@
 <body>
 	<%@ include file="menu.jsp" %>
 	<main>
+		<div class=inner></div>
 	</main>
-	</div>
 	<%@ include file="footer.jsp" %>
-</body>
+</body> 

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProductDAO">
+
+	<!-- 특정 상품을 가져오는 쿼리 (상품 번호로 검색) -->
+	<select id="getProductById" parameterType="int"
+		resultType="com.spring.mom.vo.ProductVO">
+		SELECT
+		p_no,
+		p_callno,
+		p_count,
+		p_class,
+		p_name,
+		p_price,
+		p_dr,
+		ROUND(p_price * (1 - p_dr / 100), 0) AS p_discount,
+		p_img,
+		p_good,
+		p_stock,
+		p_view,
+		p_brand,
+		p_delivery,
+		p_made,
+		d_content,
+		d_info
+		FROM product
+		INNER JOIN p_detail ON product.p_no = p_detail.d_no
+		WHERE p_no = #{p_no}
+	</select>
+
+	<!-- 모든 상품을 가져오는 쿼리 (사용되지 않음) -->
+	<!-- <select id="getAllProducts" resultMap="ProductResultMap"> SELECT p_no, 
+		p_callno, p_count, p_class, p_name, p_price, p_dr, ROUND(p_price * (1 - p_dr 
+		/ 100), 0) AS p_discount, p_img, p_content, p_good, p_stock, p_view FROM 
+		product </select> -->
+
+	<!-- 새로운 상품을 삽입하는 쿼리 -->
+	<insert id="insertProduct"
+		parameterType="com.spring.mom.vo.ProductVO">
+		INSERT INTO product (p_callno, p_count, p_class, p_name, p_price, p_dr,
+		p_img, p_content, p_good, p_stock, p_view)
+		VALUES (#{p_callno}, #{p_count}, #{p_class}, #{p_name}, #{p_price}, #{p_dr},
+		#{p_img}, #{p_content}, #{p_good}, #{p_stock}, #{p_view})
+	</insert>
+
+	<!-- 상품을 업데이트하는 쿼리 -->
+	<update id="updateProduct"
+		parameterType="com.spring.mom.vo.ProductVO">
+		UPDATE product
+		SET p_callno = #{p_callno},
+		p_count = #{p_count},
+		p_class = #{p_class},
+		p_name = #{p_name},
+		p_price = #{p_price},
+		p_dr = #{p_dr},
+		p_img = #{p_img},
+		p_content = #{p_content},
+		p_good = #{p_good},
+		p_stock = #{p_stock},
+		p_view = #{p_view}
+		WHERE p_no = #{p_no}
+	</update>
+
+	<!-- 상품을 삭제하는 쿼리 -->
+	<delete id="deleteProduct" parameterType="int">
+		DELETE FROM product WHERE p_no = #{p_no}
+	</delete>
+
+	<!-- 상품을 페이징, 정렬, 카테고리, 검색 필터링하여 가져오는 쿼리 -->
+	<select id="getProductsByPage" resultType="product">
+		SELECT
+		p_no, p_callno, p_count, p_class, p_name, p_price, p_dr,
+		ROUND(p_price * (1 - p_dr / 100), 0) AS p_discount,
+		p_img, p_content, p_good, p_stock, p_view, review_avg
+		FROM product
+		LEFT JOIN 
+		    (SELECT c_no AS C_NO, ROUND(AVG(c_avg), 1) AS review_avg FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_avg
+		ON product.p_no = review_avg.C_NO
+		<where>
+			<if test="category != null">
+				p_class = #{category}
+			</if>
+			<if test="searchQuery != null and searchQuery != ''">
+				AND p_name LIKE CONCAT('%', #{searchQuery}, '%')
+			</if>
+		</where>
+		<choose>
+			<when test="sortType == '최신순'">
+				ORDER BY p_callno DESC
+			</when>
+			<when test="sortType == '낮은가격순'">
+				ORDER BY p_discount ASC
+			</when>
+			<when test="sortType == '높은가격순'">
+				ORDER BY p_discount DESC
+			</when>
+			<when test="sortType == '인기순'">
+				ORDER BY p_view DESC
+			</when>
+			<otherwise>
+				ORDER BY p_no DESC
+			</otherwise>
+		</choose>
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<!-- 특정 카테고리의 전체 상품 수를 가져오는 쿼리 -->
+	<select id="getProductCountByCategory" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		<where>
+			<if test="category != null">
+				p_class = #{category}
+			</if>
+			<if test="searchQuery != null and searchQuery != ''">
+				AND p_name LIKE CONCAT('%', #{searchQuery}, '%')
+			</if>
+		</where>
+	</select>
+
+<insert id="setReview" parameterType="com.spring.mom.vo.ReviewVO">
+    INSERT INTO review (c_no, c_id, c_text, c_avg, c_img, c_delete)  <!-- c_delete 추가 -->
+    VALUES (#{c_no}, #{c_id}, #{c_text}, #{c_avg}, #{c_img}, #{c_delete})
+</insert>
+
+
+<!-- 리뷰 중복 확인 쿼리 - 특정 상품과 사용자에 대해 c_delete가 'n'인 리뷰가 존재하는지 확인 -->
+<select id="checkIfReviewExists" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM review WHERE c_no = #{p_no} AND c_id = #{c_id} AND c_delete = 'n'
+</select>
+
+<!-- 논리적 리뷰 삭제 쿼리 - 리뷰의 c_delete를 'y'로 업데이트하여 논리적으로 삭제 -->
+<select id="getReviewsByProductId" parameterType="int" resultType="com.spring.mom.vo.ReviewVO">
+    SELECT c_id, c_text, c_img, c_avg, created_at
+    FROM review
+    WHERE c_no = #{p_no} AND c_delete = 'n' <!-- 활성 상태의 리뷰만 조회 -->
+</select>
+
+<update id="deleteReviewById" parameterType="map">
+    UPDATE review SET c_delete = #{c_delete} WHERE c_id = #{reviewId}
+</update>
+
+
+
+
+</mapper>

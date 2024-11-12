@@ -43,6 +43,11 @@ public class Community_vsController {
 		return conditionMap;
 	}
 
+	// 윈도우 OS용
+//	String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
+	// 맥 OS용
+	String uploadPath = "/Users/jihyuk/Documents/swork/supermomket/src/main/webapp/resources/img/vs/";
+
 	// VS 인덱스 페이지
 	@RequestMapping("/vs_index.do")
 	public String getBoardList(Community_vsVO vo, PagingVO pv, Comment_vsVO cvo,
@@ -87,16 +92,16 @@ public class Community_vsController {
 	// 관리자 글 수정
 	@RequestMapping("/vs_admin_update.do")
 	@ResponseBody
-	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Model model) {
+	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Comment_vsVO cvo, Model model) {
 //		System.out.println("/vs_admin_update.do 서블릿 실행");
 //		System.out.println(vo);
+
 		List<Community_vsVO> boardList = null;
 
 		int result = svc.updateBoardAdmin(vo);
 
 		if (result > 0) {
 			boardList = svc.getBoardAdmin(vo);
-
 		}
 
 		return boardList;
@@ -105,20 +110,63 @@ public class Community_vsController {
 	// 관리자 글 삭제
 	@RequestMapping("/vs_admin_delete.do")
 	@ResponseBody
-	public List<Community_vsVO> deleteBoardAdmin(Community_vsVO vo, Model model) {
+	public List<Community_vsVO> deleteBoardAdmin(Community_vsVO vo,VsimgVO vvo, Comment_vsVO cvo,  Model model) {
 //		System.out.println("/vs_admin_delete.do 서블릿 실행");
 //		System.out.println(vo);
+		
 		List<Community_vsVO> boardList = null;
+		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
+		String img1 = "";
+		String img2 = "";
+
+		for (Community_vsVO delVO : deleteInfo) {
+			img1 = delVO.getVs_img1();
+			img2 = delVO.getVs_img2();
+		}
 
 		int result = svc.deleteBoard(vo);
 
 		if (result > 0) {
+			svc.deleteAllComment(cvo);
+			svc.deleteAllVote(vvo);
+
+			// 서버에 저장된 이미지 파일 삭제
+			File deleteFile1 = new File(uploadPath + img1);
+			File deleteFile2 = new File(uploadPath + img2);
+			deleteFile1.delete();
+			deleteFile2.delete();
+			
 			boardList = svc.getBoardAdmin(vo);
-
 		}
-
 		return boardList;
+	}
 
+	// 관리자 댓글 조회
+	@RequestMapping("/vs_admin_getComment.do")
+	@ResponseBody
+	public List<Comment_vsVO> getCommentAdmin(Comment_vsVO vo) {
+		List<Comment_vsVO> commentList = svc.getComment(vo);
+		return commentList;
+	}
+	
+	// 관리자 댓글 삭제
+	@RequestMapping("/vs_admin_deleteComment.do")
+	@ResponseBody
+	public List<Comment_vsVO> deleteCommentAdmin(Comment_vsVO vo){
+		List<Comment_vsVO> commentList = null;
+//		System.out.println(vo);
+		
+		int vs_rcno = vo.getVs_cno();
+		
+		int result = svc.deleteComment(vo);
+		
+		if(result > 0) {
+			vo.setVs_rcno(vs_rcno);
+			svc.deleteComment(vo);
+			commentList = svc.getComment(vo);
+		}
+		
+		return commentList;
 	}
 
 	// 글 작성 페이지로 이동
@@ -136,8 +184,8 @@ public class Community_vsController {
 //		System.out.println(vo);
 //		System.out.println("session.getAttribute('userId') : " + (String)session.getAttribute("userId"));
 
-		if (session.getAttribute("userId") != null) {
-			vo.setVs_writer((String) session.getAttribute("userId"));
+		if (session.getAttribute("userNickname") != null) {
+			vo.setVs_writer((String) session.getAttribute("userNickname"));
 		}
 
 		Date day = new java.util.Date();
@@ -151,7 +199,6 @@ public class Community_vsController {
 //		System.out.println(img1);
 //		System.out.println(img2);
 
-		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
 		File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists())
 			uploadDir.mkdir();
@@ -233,7 +280,6 @@ public class Community_vsController {
 
 		// 수정할 글의 정보 가져오기
 		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
-		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
 		String getImgName1 = "";
 		String getImgName2 = "";
 
@@ -326,7 +372,6 @@ public class Community_vsController {
 
 		// 삭제할 글의 정보 가져오기
 		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
-		String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
 		String img1 = "";
 		String img2 = "";
 
@@ -340,7 +385,7 @@ public class Community_vsController {
 		if (result > 0) {
 			svc.deleteAllComment(cvo);
 			svc.deleteAllVote(vvo);
-//			System.out.println("글 삭제 성공"); 
+//			System.out.println("글 삭제 성공");
 
 			// 서버에 저장된 이미지 파일 삭제
 			File deleteFile1 = new File(uploadPath + img1);
@@ -365,8 +410,8 @@ public class Community_vsController {
 //		System.out.println(vo.getV_no());
 //		System.out.println(vo.getVs_no());
 
-		if (session.getAttribute("userId") != null) {
-			vo.setV_selector((String) session.getAttribute("userId"));
+		if (session.getAttribute("userNickname") != null) {
+			vo.setV_selector((String) session.getAttribute("userNickname"));
 		}
 
 		Integer[] resultarr = new Integer[2];
@@ -388,11 +433,11 @@ public class Community_vsController {
 //		System.out.println("/vs_comment_insert.do 서블릿 실행");
 //		System.out.println(vo);
 
-		if (session.getAttribute("userId") != null) {
-			vo.setVs_writer((String) session.getAttribute("userId"));
+		if (session.getAttribute("userNickname") != null) {
+			vo.setVs_writer((String) session.getAttribute("userNickname"));
 		}
 
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userNickname");
 		List<Comment_vsVO> commentList = null;
 		int result = svc.insertComment(vo);
 
@@ -414,7 +459,7 @@ public class Community_vsController {
 //		System.out.println("/vs_comment_update.do 서블릿 실행");
 //		System.out.println(vo);
 
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userNickname");
 
 		List<Comment_vsVO> commentList = null;
 		int result = svc.updateComment(vo);
@@ -438,7 +483,7 @@ public class Community_vsController {
 //		System.out.println(vo);
 
 		int vs_rcno = vo.getVs_cno();
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userNickname");
 
 		List<Comment_vsVO> commentList = null;
 		int result = svc.deleteComment(vo);
@@ -461,11 +506,11 @@ public class Community_vsController {
 	@RequestMapping("/vs_recomment_insert.do")
 	public Map<String, Object> insertRecomment(Comment_vsVO vo, HttpSession session) {
 
-		if (session.getAttribute("userId") != null) {
-			vo.setVs_writer((String) session.getAttribute("userId"));
+		if (session.getAttribute("userNickname") != null) {
+			vo.setVs_writer((String) session.getAttribute("userNickname"));
 		}
 
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userNickname");
 		List<Comment_vsVO> commentList = null;
 
 //		System.out.println(vo);

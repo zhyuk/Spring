@@ -10,11 +10,16 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
 <script src="https://kit.fontawesome.com/4dde698614.js" crossorigin="anonymous"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
+<script src="${pageContext.request.contextPath}/resources/js/community.js"></script> 
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/test.css"> --%>
 
 
 

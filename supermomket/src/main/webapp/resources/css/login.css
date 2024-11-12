@@ -61,48 +61,13 @@ body {
 	cursor: pointer;
 }
 
-.login-container label {
-	margin: 10px auto;
-	float: left;
-	font-size: 15px;
-	display: flex;
-}
-
-input[type="checkbox"] {
-    -webkit-appearance: none; 
-    width: 15px; 
-    height: 15px;
-    border: 1px solid #000; 
-    border-radius: 50px;
-    outline: none; 
-    margin-left: 10px;
-    margin-right: 5px;
-    position: relative; 
-}
-
-input[type="checkbox"]:checked {
-    background: #000;
-}
-
-input[type="checkbox"]:checked::after {
-	content: '';
-	position: absolute;
-	left: 4px; 
-	top: 2px;
-	width: 3px;
-	height: 7px; 
-	border: solid white; 
-	border-width: 0 2px 2px 0;
-	transform: rotate(45deg); 
-}
-
 .login-container input[type="submit"] {
 	width: 100%;
 	padding: 10px;
-	background-color: #333;
-	color: white;
+	background-color: #DDAF9C;
+	color: black;
 	border: none;
-	border-radius: 4px;
+	border-radius: 10px;
 	cursor: pointer;
 	font-size: 18px;
 }
@@ -120,8 +85,6 @@ input[type="checkbox"]:checked::after {
 }
 
 .kakao-login {
-	width: 100%;
+	width: 80%;
 	margin-top: 20px;
-	display: block;
-	justify-content: center;
 }

@@ -1,5 +1,9 @@
 package com.spring.mom.vo;
 
+import java.util.Arrays;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class TradeVO {
 	private int t_no;
 	private String t_writer;
@@ -10,6 +14,42 @@ public class TradeVO {
 	private String t_condition;
 	private String t_date;
 	private String t_img;
+	private MultipartFile[] t_image;
+	private String searchCondition; 
+	private String searchKeyword;
+	private int t_cnt;
+
+	public int getT_cnt() {
+		return t_cnt;
+	}
+
+	public void setT_cnt(int t_cnt) {
+		this.t_cnt = t_cnt;
+	}
+
+	public MultipartFile[] getT_image() {
+		return t_image;
+	}
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public void setT_image(MultipartFile[] t_image) {
+		this.t_image = t_image;
+	}
 
 	public int getT_no() {
 		return t_no;
@@ -81,6 +121,14 @@ public class TradeVO {
 
 	public void setT_img(String t_img) {
 		this.t_img = t_img;
+	}
+
+	@Override
+	public String toString() {
+		return "TradeVO [t_no=" + t_no + ", t_writer=" + t_writer + ", t_product=" + t_product + ", t_price=" + t_price
+				+ ", t_class=" + t_class + ", t_content=" + t_content + ", t_condition=" + t_condition + ", t_date="
+				+ t_date + ", t_img=" + t_img + ", t_image=" + Arrays.toString(t_image) + ", searchCondition="
+				+ searchCondition + ", searchKeyword=" + searchKeyword + ", t_cnt=" + t_cnt + "]";
 	}
 
 }

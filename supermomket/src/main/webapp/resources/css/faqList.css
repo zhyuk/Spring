@@ -1,0 +1,201 @@
+@charset "UTF-8";
+
+/* 전체 폰트 설정 */
+body {
+    font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+    color: black; /* 기본 텍스트 색상 */
+}
+
+main{
+	margin-top:50px;
+	justify-items:center;
+	margin-bottom:20px;
+	
+	
+}
+
+/* 메인 div 스타일 */
+.cartu_maindiv {
+	width:90%;
+	margin:0px;
+    background-color: #DDAF9C; /* main color */
+    padding: 20px;
+    border-radius: 5px;
+    width: 60%;
+    margin: 0 auto;
+	border: none;
+}
+
+#faq_btndiv{
+
+	margin-bottom: 5px;
+	
+}
+
+
+/* 검색 폼(분류 선택 및 검색 창)을 우측 정렬 */
+.form-inline {
+    display: flex;
+    justify-content: flex-end; /* 우측 정렬 */
+    align-items: center; /* 수직 정렬 */
+    gap: 10px; /* 분류 선택과 검색 창 간격 추가 */
+    margin-bottom: 20px; /* 아래 여백 추가 */
+}
+
+/* 테이블 기본 스타일 */
+.faquserList_table {
+    width: 95%; /* 테이블 너비 */
+    border-collapse: collapse; /* 셀 간격 제거 */
+    margin-top: 20px; /* 상단 여백 */
+    background-color: #ffffff; /* 테이블 배경색 흰색 */
+    color: black; /* 텍스트 색상 검정 */
+}
+
+/* 테이블 헤더 스타일 */
+.faquserList_table th {
+    font-weight: bold; /* 진한 글씨체 */
+    background-color: #f8f8f8; /* 헤더 배경 흰색 */
+    color: black; /* 헤더 텍스트 색상 검정 */
+    padding: 10px;
+    text-align:center;
+    border-bottom: none;
+}
+
+/* 테이블 데이터 셀 스타일 */
+.faquserList_table td {
+    text-align: center; /* 가로 중앙 정렬 */
+    vertical-align: middle; /* 세로 중앙 정렬 */
+    padding: 10px; /* 셀 간격 */
+    color: black; /* 텍스트 색상 검정 */
+}
+
+/* 클릭 가능한 셀에 포인터 커서 */
+.cartu_tdtop.clickable,
+.cartu_tdmiddle.clickable {
+    cursor: pointer; /* 포인터 커서 */
+}
+/* 분류 열의 텍스트 줄바꿈 방지 */
+.cartu_tdtop {
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+/* 버튼 스타일 */
+button, .cart_pagebtn a {
+    background-color: #DDAF9C; /* main color */
+    color: black; /* point color */
+    border: none;
+    border-radius: 10px; /* 버튼 둥근 테두리 */
+    padding: 8px 16px;
+    font-family: inherit; /* 전체 폰트와 일치 */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 부드러운 호버 효과 */
+}
+
+/* 버튼 호버 스타일 */
+button:hover, .cart_pagebtn a:hover {
+    background-color: #BE8168; /* sub color (hover) */
+    color: white; /* 호버 시 텍스트 색상 흰색 */
+}
+
+/* 페이지 버튼 활성화 상태 */
+.cart_pagebtn a.active {
+    background-color: #004085;
+    color: #fff; /* 흰색 텍스트 */
+    cursor: default;
+}
+
+/* 페이지 네비게이션 버튼 */
+.cart_pagebtn {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.cart_pagebtn li {
+    margin: 0 5px;
+}
+
+.cart_pagebtn a {
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 드롭다운 메뉴 우측 정렬 */
+.cartu_selectdiv {
+    display: flex;
+    justify-content: flex-end; /* 우측 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-bottom: 10px;
+}
+
+/* 테이블을 중앙에 배치 */
+.cartu_tablediv {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+}
+
+/* 답변 행 스타일 */
+.answer-row {
+    display: none; /* 처음에 숨겨진 상태 */
+    background-color: #f8f8f8; /* 살짝 진한 흰색 배경 */
+    justify-content: center; /* 가로 중앙 정렬 */
+}
+
+.answer-content {
+    padding: 10px;
+    color: black; /* 텍스트 색상 검정 */
+    word-break: break-word; /* 긴 단어가 있을 때 줄바꿈 */
+    white-space: normal; /* 텍스트가 줄바꿈될 때 공간을 유지 */
+    overflow-wrap: break-word; /* 텍스트가 길 때 줄바꿈 */
+}
+
+/* 468px 이하 화면에서 검색 폼 스타일 조정 */
+@media (max-width: 785px) {
+    .form-inline {
+        display: flex;
+        gap: 5px; /* 각 요소 간격을 줄임 */
+    }
+
+    /* 셀렉트 박스와 검색 필드 크기 조정 */
+    .cartu_selectdiv select {
+        width: 40%; /* 셀렉트 박스 너비 절반 */
+        padding: 6px; /* 패딩 조정 */
+        font-size: 12px; /* 폰트 크기 조정 */
+    }
+
+    /* 검색어 입력 필드 */
+    .cartu_selectdiv input[type="text"] {
+        width: 100%; /* 검색어 입력 필드는 전체 너비 */
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    /* 검색 버튼 크기 조정 */
+    .cartu_selectdiv button {
+        width: 40%; /* 검색 버튼 너비 절반 */
+        padding: 6px; /* 패딩 조정 */
+        font-size: 12px;
+        background-color: #BE8168; /* 서브 컬러 */
+        color: white;
+        border-radius: 5px; /* 버튼 둥글게 */
+    }
+}
+
+/* 모달 기본 스타일 */
+.modal {
+  display: none;  /* 기본적으로 모달은 숨겨져 있음 */
+  position: fixed;  /* 화면에 고정 */
+  z-index: 1;  /* 다른 콘텐츠보다 위에 표시 */
+  left: 0;
+  top: 0;
+  width: 100%;  /* 전체 화면 */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 배경 어두운 투명도 */
+  overflow: auto;
+}
+
+

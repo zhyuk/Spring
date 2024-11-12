@@ -11,9 +11,14 @@ public class UserDAOMybatis {
 	@Autowired
 	SqlSessionTemplate mybatis;
 	
-	public UserVO getUser(UserVO vo) {
-		return (UserVO) mybatis.selectOne("UserDAO.getUser", vo);
+	
+	public UserVO getUserById(String userId) {
+	    return mybatis.selectOne("UserDAO.getUserById", userId);
 	}
+	
+	public UserVO getUser(String u_id) {
+        return mybatis.selectOne("UserDAO.getUser", u_id);  
+    }
 	
 	public int joinUser(UserVO vo) {
 		return mybatis.insert("UserDAO.joinUser", vo);

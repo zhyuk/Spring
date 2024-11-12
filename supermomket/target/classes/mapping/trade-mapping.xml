@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TradeDAO">
+
+ <insert id="insertTrade" parameterType="com.spring.mom.vo.TradeVO" useGeneratedKeys="true" keyProperty="t_no">
+    INSERT INTO trade (t_writer, t_product, t_price, t_class, t_content, t_condition, t_date, t_img)
+    VALUES (#{t_writer}, #{t_product}, #{t_price}, #{t_class}, #{t_content}, #{t_condition}, #{t_date}, #{t_img})
+</insert>
+
+
+ 
+    <update id="updateTrade">
+        UPDATE TRADE
+        SET T_IMG = #{t_img}, T_PRODUCT = #{t_product}, T_CLASS = #{t_class}, 
+            T_PRICE = #{t_price}, T_CONTENT = #{t_content}, T_CONDITION = #{t_condition}
+        WHERE T_NO = #{t_no}	
+    </update>
+    
+    <update id="increaseCnt">
+        UPDATE TRADE 
+        SET T_CNT = T_CNT + 1 
+        WHERE T_NO = #{t_no}
+    </update>
+    
+ <delete id="deleteTrade" parameterType="int">
+    DELETE FROM trade WHERE t_no = #{t_no}
+</delete>
+    
+ 
+ <select id="getTrade" resultType="trade">
+    SELECT 
+        t_no,
+        t_writer,
+        t_product,
+        t_price,
+        t_class,
+        t_content,
+        t_condition,
+        t_date,
+        t_img,
+        t_cnt
+    FROM trade 
+    WHERE t_no = #{t_no}
+</select>
+    
+    <select id="searchTradeList" resultType="trade">
+        SELECT * FROM TRADE WHERE 1=1 
+        <if test="searchCondition == 'T_PRODUCT'">
+            AND T_PRODUCT LIKE CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchCondition == 'T_CONTENT'">
+            AND T_CONTENT LIKE CONCAT('%',#{searchKeyword},'%')
+        </if>
+        ORDER BY T_NO DESC
+    </select>
+    
+<select id="getTradeList" parameterType="map" resultType="trade">
+    SELECT * FROM TRADE 
+    <where>
+        <if test="vo.searchKeyword != null and vo.searchKeyword != ''">
+            AND (T_PRODUCT LIKE CONCAT('%', #{vo.searchKeyword}, '%')
+                 OR T_CONTENT LIKE CONCAT('%', #{vo.searchKeyword}, '%'))
+        </if>
+        <if test="categories != null">
+            AND T_CLASS IN
+            <foreach collection="categories" item="category" open="(" separator="," close=")">
+                #{category}
+            </foreach>
+        </if>
+    </where>
+    <choose>
+        <when test="sortCondition == 'lowPrice'">
+            ORDER BY T_PRICE ASC
+        </when>
+        <when test="sortCondition == 'highPrice'">
+            ORDER BY T_PRICE DESC
+        </when>
+        <otherwise>
+            ORDER BY T_NO DESC
+        </otherwise>
+    </choose>
+</select>
+    <!-- 찜하기 추가 -->
+    <insert id="insertLike">
+        INSERT INTO TRADE_LIKES (T_NO, USER_ID)
+        VALUES (#{t_no}, #{userId})
+    </insert>
+
+    <!-- 찜하기 취소 -->
+    <delete id="deleteLike">
+        DELETE FROM TRADE_LIKES 
+        WHERE T_NO = #{t_no} AND USER_ID = #{userId}
+    </delete>
+
+    <!-- 찜하기 여부 확인 -->
+    <select id="checkLike" resultType="int">
+        SELECT COUNT(*) 
+        FROM TRADE_LIKES 
+        WHERE T_NO = #{t_no} AND USER_ID = #{userId}
+    </select>
+
+    <!-- 찜하기 개수 조회 -->
+    <select id="getLikeCount" resultType="int">
+        SELECT COUNT(*) 
+        FROM TRADE_LIKES 
+        WHERE T_NO = #{t_no}
+    </select>
+
+</mapper>

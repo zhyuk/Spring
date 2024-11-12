@@ -1,0 +1,538 @@
+/* 전역 스타일 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', 'Noto Sans KR', sans-serif; /* 외부 글꼴 설정 */
+}
+
+/* 상품 상세 컨테이너 */
+.product-detail-container {
+    display: flex;
+    max-width: 1100px; /* 전체 width 줄이기 */
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.product-image {
+    flex: 2;
+    padding: 20px;
+    text-align: center;
+    width: 500px;
+    height: 500px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.product-image img {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}
+
+.product-info {
+    flex: 3;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.product-name {
+    font-size: 23px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* 별점 영역 스타일 */
+.rating-container {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.stars {
+    display: flex;
+    gap: 5px;
+}
+
+.star {
+    width: 24px;
+    height: 24px;
+    background-color: #ddd;
+    mask: url('https://cdn-icons-png.flaticon.com/512/616/616489.png') center / contain no-repeat;
+    -webkit-mask: url('https://cdn-icons-png.flaticon.com/512/616/616489.png') center / contain no-repeat;
+}
+
+.star.full-star {
+    background-color: #007bff;
+}
+
+.star.half-star {
+    background: linear-gradient(to right, #007bff 50%, #ddd 50%);
+}
+
+.rating-text {
+    font-size: 16px;
+    color: #333;
+    margin-left: 10px;
+}
+
+/* 찜하기, 공유하기 버튼 스타일 */
+.action-icons {
+    display: inline-flex;
+    gap: 15px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.wishlist-button, .share-icon {
+    border: none;
+    background: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.wishlist-button:hover, .share-icon:hover {
+    color: #007bff;
+}
+
+/* 할인 전 금액 스타일 */
+.product-original-price {
+    font-size: 16px;
+    color: #888;
+    margin-right: 10px;
+}
+
+.product-original-price::before {
+    content: "판매가 ";
+    color: #333;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.product-original-price .strike {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 16px;
+}
+
+/* 할인된 금액 스타일 */
+.discounted::before {
+    content: "할인가 ";
+    color: #333;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.discounted {
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+}
+
+.discount-label {
+    font-size: 16px;
+    color: #000;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.product-price {
+    text-decoration: line-through; /* 가운데 줄 추가 */
+    color: #888; /* 텍스트 색상 (선택 사항) */
+    font-size: 16px; /* 텍스트 크기 (선택 사항) */
+}
+
+.product-discount {
+    font-weight: bold; /* 글씨를 진하게 */
+}
+
+
+/* 총 금액 컨테이너 스타일 */
+.total-price-container {
+    font-size: 22px; /* 폰트 크기 */
+    font-weight: bold; /* 텍스트를 더 진하게 */
+    color: #000000; /* 빨간색 텍스트로 강조 */
+    margin-top: 15px;
+}
+
+/* 수량 및 배송 정보 */
+.quantity-shipping-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.option-label {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.quantity-container button {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.quantity-container input {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+/* 배송 정보 */
+.shipping-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.shipping-text {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 버튼 스타일 */
+.action-buttons {
+    display: flex;
+    margin-top: 20px;
+    gap: 0;
+}
+
+.cart-button, .order-button {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* 전환 효과 */
+}
+
+/* 장바구니 버튼 */
+.cart-button {
+    background-color: #ffffff; /* 흰색 배경 */
+    color: #333; /* 짙은 회색 글씨 */
+    border: 1px solid #ccc; /* 테두리 색상 설정 */
+}
+
+/* 주문하기 버튼 */
+.order-button {
+    background-color: #000000; /* 검은색 배경 */
+    color: #ffffff; /* 하얀색 글씨 */
+    border: 1px solid #000000; /* 검은색 테두리 */
+}
+
+
+/* 상품 정보 구분선 */
+.divider-line {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+
+/* 탭 컨테이너와 탭 콘텐츠 */
+.tab-container {
+    display: flex;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px;
+    background-color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666666;
+    border: none;
+    border-bottom: 1px solid #ddd; /* 기본 밑줄 추가 */
+    transition: background-color 0.3s, border-bottom 0.3s;
+}
+
+.tab-button.active {
+    background-color: #ffffff;
+    font-weight: bold;
+    color: #000000;
+    border-bottom: 3px solid #000000; /* 선택된 탭에 진한 밑줄 추가 */
+}
+
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+
+.name-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+    width: 100%;
+}
+
+/* 리뷰 작성란 스타일 */
+.review-write-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.review-author-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.comment-input {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.submit-button {
+    align-self: flex-end;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.rating-stars .star {
+    font-size: 25px;
+    cursor: pointer;
+    color: #ddd;
+}
+
+.rating-stars .star.selected {
+    color: #007bff;
+}
+
+.review-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-item:hover .edit-buttons {
+    display: flex;
+}
+
+.review-author {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.review-text {
+    font-size: 14px;
+    color: #333;
+}
+
+.edit-buttons {
+    display: none;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.edit-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    color: #007bff;
+}
+
+.edit-buttons button:hover {
+    text-decoration: underline;
+}
+
+/* 별 선택 기능*/
+.star-ratings {
+  unicode-bidi: bidi-override;
+  color: #ccc;
+  font-size: 30px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  direction: rtl;
+  border:0;
+  .fill-ratings {
+    color: #e7711b;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    
+    // Allows us to grab the width of the span elements
+    span {
+      display: inline-block;
+    }
+  }
+  .empty-ratings {
+    padding: 0;
+    display: block;
+    z-index: 0;
+  } 
+
+}
+
+.review-item {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.delete-review-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-review-btn:hover {
+    text-decoration: underline;
+    color: #ff1a1a;
+}
+
+
+.star-ratings legend{
+    text-align: right;
+}
+
+.star-ratings input[type=radio]{
+    display: none;
+}
+.star-ratings label{
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
+}
+.star-ratings label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+.star-ratings label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+.star-ratings input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+
+/* 모달 배경 */
+.reviews_write-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* 페이지 내 다른 요소 위에 표시되도록 설정 */
+}
+
+/* 모달 창 */
+.reviews_write {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; /* 최대 너비 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: relative; /* 닫기 버튼 위치 설정을 위해 상대 위치 설정 */
+}
+
+/* 닫기 버튼 */
+.reviews_write-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #333;
+}
+
+/* 모달 안의 텍스트 정렬 */
+.reviews_write p {
+    margin: 0 0 10px;
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* 애니메이션 효과 */
+@keyframes modal-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.reviews_write {
+    animation: modal-fade-in 0.3s ease-out;
+}

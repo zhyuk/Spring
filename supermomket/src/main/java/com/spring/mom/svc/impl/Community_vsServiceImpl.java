@@ -107,7 +107,7 @@ public class Community_vsServiceImpl implements Community_vsService {
 		System.out.println("SVC 클래스 countComment() 실행");
 		return dao.countComment(vo);
 	}
-	
+
 	// 댓글 조회
 	@Override
 	public List<Comment_vsVO> getComment(Comment_vsVO vo) {

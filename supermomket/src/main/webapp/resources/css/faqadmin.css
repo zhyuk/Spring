@@ -1,0 +1,190 @@
+@charset "UTF-8";
+
+
+main{
+	margin-top:10px;
+	margin-left: 10px;
+	justify-items: center;
+	
+}
+
+
+* {
+	white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+.faqAdminsearchdiv{
+	margin-bottom: 5px;
+}
+
+.faqAdminmaindiv {
+	width: 90%;
+}
+/* FAQ 질문에 대한 스타일 */
+.faq-a {
+	word-break: break-word; /* 긴 단어가 있을 때 줄바꿈 */
+	white-space: normal; /* 텍스트가 줄바꿈될 때 공간을 유지 */
+}
+
+/* 메인 테이블 스타일 */
+.faqadminList_table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.faqadminList_table th, .faqadminList_table td {
+	border: 1px solid #d8a28e;
+	padding: 10px;
+	text-align: center;
+}
+
+.faqadminList_table th {
+	background-color: #f0d8cc; /* 약간 연한 배경색 */
+	color: #000000;
+}
+
+.faqadminList_table tr:nth-child(even) {
+	background-color: #f9f0ec;
+}
+
+.btn-success {
+	background-color: #d8a28e; /* 버튼 색상을 사이드바와 통일 */
+	border-color: #d8a28e;
+}
+
+.btn-success:hover {
+	background-color: #c4957a; /* 버튼 호버 시 색상 */
+}
+
+/* FAQ 관리 버튼 스타일 */
+.faqadminbtn {
+	margin: 5px 0;
+	background-color: #d8a28e; /* 사이드바 색상과 일치 */
+	color: #ffffff;
+	border: 1px solid #d8a28e; /* 테두리 색상을 배경과 통일 */
+	padding: 8px 16px;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.faqadminbtn:hover {
+	background-color: #c4957a; /* 호버 시 배경색을 살짝 어둡게 */
+	color: #ffffff;
+}
+
+/* 글쓰기 버튼을 오른쪽 정렬할 때 사용 */
+.faqadminbtn-container {
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+/* 페이지네이션 스타일 */
+.adminpagination {
+	margin-top:20px;
+	display: flex;
+	list-style: none;
+	justify-content: center;
+	padding: 0;
+	margin-top: 20px;
+	top: 0px;
+	left: 80%;
+	right: 50%;
+}
+
+.adminpagination .adminpage-item {
+	margin: 0 5px;
+}
+
+.adminpagination .adminpage-item a {
+	display: block;
+	padding: 8px 12px;
+	border: 1px solid #d8a28e; /* 사이드바와 동일한 색상 */
+	border-radius: 4px;
+	color: #d8a28e;
+	text-decoration: none;
+	font-weight: bold;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.adminpagination .adminpage-item a:hover {
+	background-color: #d8a28e; /* 호버 시 배경 색상 변경 */
+	color: #ffffff;
+}
+
+.adminpagination .adminpage-item.active a {
+	background-color: #d8a28e; /* 활성화된 페이지의 배경색 */
+	color: #ffffff; /* 활성화된 페이지의 텍스트 색상 */
+	cursor: default;
+}
+
+.adminpagination .adminpage-item.active a:hover {
+	background-color: #d8a28e; /* 활성화된 페이지는 호버 시 변화 없음 */
+	color: #ffffff;
+}
+
+
+/* 모달 기본 스타일 */
+.modal {
+  display: none;  /* 기본적으로 모달은 숨겨져 있음 */
+  position: fixed;  /* 화면에 고정 */
+  z-index: 1;  /* 다른 콘텐츠보다 위에 표시 */
+  left: 0;
+  top: 0;
+  width: 100%;  /* 전체 화면 */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 배경 어두운 투명도 */
+  overflow: auto;
+}
+/* 모달 내용 스타일 */
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;  /* 너비 조정 */
+  border-radius: 8px;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 버튼 스타일 */
+.modal-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 4px;
+}
+
+#confirmDeleteBtn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+#cancelDeleteBtn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.modal-btn:hover {
+  opacity: 0.8;
+}
+

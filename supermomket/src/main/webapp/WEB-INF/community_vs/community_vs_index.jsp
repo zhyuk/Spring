@@ -32,7 +32,7 @@
 									</div>
 								</form>
 
-								<c:if test="${userId != null}">
+								<c:if test="${userId != null || userRole == 'admin'}">
 									<button class="write-btn pointer" onclick="writeBoard()">글쓰기</button>
 								</c:if>
 
@@ -61,12 +61,19 @@
 												<td class="date">${board.vs_date}</td>
 											</tr>
 										</c:forEach>
+
+										<c:if test="${boardList == null || boardList.isEmpty()}">
+											<tr>
+												<td colspan="4">검색 결과가 없습니다.</td>
+											</tr>
+										</c:if>
 									</tbody>
 								</table>
 
 								<ul class="pagination">
 									<c:if test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
-										<li class="page-item"><a class="page-link" href="/vs_index.do?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이전</a>
+										<li class="page-item"><a class="page-link"
+												href="/vs_index.do?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이전</a>
 										</li>
 									</c:if>
 									<c:forEach var="i" begin="${paging.startBtn}" end="${paging.endBtn}" step="1">
@@ -75,13 +82,17 @@
 												<li class="page-item active"><a class="page-link">${i}</a></li>
 											</c:when>
 											<c:otherwise>
-												<li class="page-item"><a class="page-link" href="/vs_index.do?nowPage=${i}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">${i}</a>
+												<li class="page-item"><a class="page-link"
+														href="/vs_index.do?nowPage=${i}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">${i}</a>
 												</li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-									<c:if test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
-										<li class="page-item"><a class="page-link" href="/vs_index.do?nowPage=${paging.nowPage+1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이후</a></li>
+									<c:if
+										test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
+										<li class="page-item"><a class="page-link"
+												href="/vs_index.do?nowPage=${paging.nowPage+1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이후</a>
+										</li>
 									</c:if>
 								</ul>
 							</div>

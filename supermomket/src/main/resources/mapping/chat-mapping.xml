@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+   
+<mapper namespace="ChatDAO">
+
+   <update id="updateChatRoom" parameterType="com.spring.mom.vo.ChatRoomVO">
+        UPDATE chat_room 
+        SET is_deleted_seller = #{isDeletedSeller},
+            is_deleted_buyer = #{isDeletedBuyer}
+        WHERE room_id = #{roomId}
+    </update>
+
+
+
+
+    <insert id="createChatRoom" parameterType="com.spring.mom.vo.ChatRoomVO" useGeneratedKeys="true" keyProperty="roomId">
+        INSERT INTO chat_room (
+            seller_id,
+            buyer_id,
+            t_no,
+            created_at
+        ) VALUES (
+            #{sellerId},
+            #{buyerId},
+            #{tNo},
+            NOW()
+        )
+    </insert>
+    
+    <select id="getChatRoomList" parameterType="string" resultType="com.spring.mom.vo.ChatRoomVO">
+        SELECT r.room_id as roomId, 
+               r.seller_id as sellerId,
+               r.buyer_id as buyerId,
+               r.t_no as tNo,
+               r.created_at as createdAt,
+               r.is_deleted_seller as isDeletedSeller,
+               r.is_deleted_buyer as isDeletedBuyer,
+               t.t_product as productName,
+               (SELECT u_nickname FROM user WHERE u_id = r.seller_id) as sellerNickname,
+               (SELECT u_nickname FROM user WHERE u_id = r.buyer_id) as buyerNickname,
+               (SELECT message FROM chat_message 
+                WHERE room_id = r.room_id 
+                ORDER BY sent_at DESC LIMIT 1) as lastMessage
+        FROM chat_room r
+        JOIN trade t ON r.t_no = t.t_no
+        WHERE (r.seller_id = #{userId} AND r.is_deleted_seller = false)
+           OR (r.buyer_id = #{userId} AND r.is_deleted_buyer = false)
+        ORDER BY r.created_at DESC
+    </select>
+    
+<select id="getChatMessages" parameterType="int" resultType="com.spring.mom.vo.ChatMessageVO">
+    SELECT m.room_id as roomId,
+           m.sender_id as senderId,
+           m.message,
+           m.sent_at as sentAt,
+           m.is_read as isRead,
+           (SELECT u_nickname FROM user WHERE u_id = m.sender_id) as senderNickname
+    FROM chat_message m
+    WHERE m.room_id = #{roomId}
+    ORDER BY m.sent_at ASC
+</select>
+
+
+   <insert id="saveMessage" parameterType="com.spring.mom.vo.ChatMessageVO">
+    INSERT INTO chat_message (
+        room_id,
+        sender_id,
+        message,
+        sent_at,
+        is_read
+    ) VALUES (
+        #{roomId},
+        #{senderId},
+        #{message},
+        NOW(),
+        0
+    )
+</insert>
+    
+    <select id="getChatRoom" parameterType="int" resultType="com.spring.mom.vo.ChatRoomVO">
+        SELECT r.room_id as roomId, 
+               r.seller_id as sellerId,
+               r.buyer_id as buyerId,
+               r.t_no as tNo,
+               r.created_at as createdAt,
+               r.is_deleted_seller as isDeletedSeller,
+               r.is_deleted_buyer as isDeletedBuyer,
+               t.t_product as productName,
+               (SELECT u_nickname FROM user WHERE u_id = r.seller_id) as sellerNickname,
+               (SELECT u_nickname FROM user WHERE u_id = r.buyer_id) as buyerNickname,
+               (SELECT message FROM chat_message 
+                WHERE room_id = r.room_id 
+                ORDER BY sent_at DESC LIMIT 1) as lastMessage
+        FROM chat_room r
+        JOIN trade t ON r.t_no = t.t_no
+        WHERE r.room_id = #{roomId}
+    </select>
+    
+    <select id="findExistingRoom" parameterType="com.spring.mom.vo.ChatRoomVO" resultType="com.spring.mom.vo.ChatRoomVO">
+        SELECT r.room_id as roomId, 
+               r.seller_id as sellerId,
+               r.buyer_id as buyerId,
+               r.t_no as tNo,
+               r.created_at as createdAt,
+               t.t_product as productName,
+               (SELECT u_nickname FROM user WHERE u_id = r.seller_id) as sellerNickname,
+               (SELECT u_nickname FROM user WHERE u_id = r.buyer_id) as buyerNickname,
+               (SELECT message FROM chat_message 
+                WHERE room_id = r.room_id 
+                ORDER BY sent_at DESC LIMIT 1) as lastMessage
+        FROM chat_room r
+        JOIN trade t ON r.t_no = t.t_no
+        WHERE r.seller_id = #{sellerId}
+        AND r.buyer_id = #{buyerId}
+        AND r.t_no = #{tNo}
+        LIMIT 1
+    </select>
+</mapper>

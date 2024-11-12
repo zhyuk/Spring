@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommentDAO">
+	<!-- 모든댓글 조회 -->
+	<select id="getCommentYookaList" resultType="Commentyooka">
+		select * from comment_yooka where cm_no = #{cm_no}
+	</select>
+	<select id="getCommentNoriterList" resultType="Commentnoriter">
+		select * from comment_noriter where cm_no = #{cm_no}
+	</select>
+	<select id="getCommentShoppingList" resultType="Commentshopping">
+		select * from comment_shopping where cm_no = #{cm_no}
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertCommentYooka" >
+   		 insert into comment_yooka (co_writer, co_content, co_no2, cm_no)
+   		 values (#{co_writer}, #{co_content}, #{co_no2}, #{cm_no})
+	</insert>
+	<insert id="insertCommentNoriter" >
+   		 insert into comment_noriter (co_writer, co_content, co_no2, cm_no)
+   		 values (#{co_writer}, #{co_content}, #{co_no2}, #{cm_no})
+	</insert>
+	<insert id="insertCommentShopping" >
+   		 insert into comment_shopping (co_writer, co_content, co_no2, cm_no)
+   		 values (#{co_writer}, #{co_content}, #{co_no2}, #{cm_no})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id ="updateCommentYooka">
+		update comment_yooka 
+		set co_content = #{co_content}
+		where cm_no = #{cm_no} and co_no = #{co_no} and co_writer = #{co_writer}
+	</update>
+	<update id ="updateCommentNoriter">
+		update comment_noriter 
+		set co_content = #{co_content}
+		where cm_no = #{cm_no} and co_no = #{co_no} and co_writer = #{co_writer}
+	</update>
+	<update id ="updateCommentShopping">
+		update comment_shopping 
+		set co_content = #{co_content}
+		where cm_no = #{cm_no} and co_no = #{co_no} and co_writer = #{co_writer}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id ="deleteCommentYooka">
+		delete from comment_yooka
+		where cm_no = #{cm_no} and co_writer=#{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+	</delete>
+	<delete id ="deleteCommentNoriter">
+		delete from comment_noriter
+		where cm_no = #{cm_no} and co_writer=#{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+	</delete>
+	<delete id ="deleteCommentShopping">
+		delete from comment_shopping
+		where cm_no = #{cm_no} and co_writer=#{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+	</delete>
+	
+	<!-- 대댓글 등록 -->
+	<insert id ="insertReplyYooka">
+		insert into comment_yooka (co_no, co_no2, co_content, co_writer, cm_no)
+		values (#{co_no}, #{co_no2}, #{co_content}, #{co_writer}, #{cm_no})
+	</insert>
+	<insert id ="insertReplyNoriter">
+		insert into comment_noriter (co_no, co_no2, co_content, co_writer, cm_no)
+		values (#{co_no}, #{co_no2}, #{co_content}, #{co_writer}, #{cm_no})
+	</insert>
+	<insert id ="insertReplyShopping">
+		insert into comment_shopping (co_no, co_no2, co_content, co_writer, cm_no)
+		values (#{co_no}, #{co_no2}, #{co_content}, #{co_writer}, #{cm_no})
+	</insert>
+	
+	<!-- 대댓글 수정 -->
+	<update id="updateReplyYooka">
+		update comment_yooka
+		set co_content = #{co_content}
+		where cm_no = #{cm_no} and co_no = #{co_no} and co_writer = #{co_writer} and co_no2 = #{co_no2}
+	</update>
+	<update id="updateReplyNoriter">
+		update comment_noriter
+		set co_content = #{co_content}
+		where cm_no = #{cm_no} and co_no = #{co_no} and co_writer = #{co_writer} and co_no2 = #{co_no2}
+	</update>
+	<update id="updateReplyShopping">
+		update comment_shopping
+		set co_content = #{co_content}
+		where cm_no = #{cm_no} and co_no = #{co_no} and co_writer = #{co_writer} and co_no2 = #{co_no2}
+	</update>
+	
+	<!-- 대댓글 삭제 -->
+	<delete id ="deleteReplyYooka">
+		delete from comment_yooka
+		where cm_no = #{cm_no} and co_writer = #{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+	</delete>
+	<delete id ="deleteReplyNoriter">
+		delete from comment_noriter
+		where cm_no = #{cm_no} and co_writer = #{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+	</delete>
+	<delete id ="deleteReplyShopping">
+		delete from comment_shopping
+		where cm_no = #{cm_no} and co_writer = #{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+	</delete>
+	
+	<!-- 전체 댓글 수 -->
+	<select id="replyCntYooka" resultType="int">
+		select count(*) from comment_yooka where 1=1;
+	</select>
+	
+</mapper>

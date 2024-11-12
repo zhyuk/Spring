@@ -1,93 +1,93 @@
 @charset "UTF-8";
 
+/* common */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
-a:hover {
-	color: red;
+a:visited, a:link {
+    color: var(--color-lightgray);
 }
 
-a:link {
-	color: black;
+:root {
+    --color-darkgray: #212121;
+    --color-gray: #444;
+    --color-semigray: #808080;
+    --color-lightgray: #D9D9D9;
 }
 
-a:visited {
-	color: black;
-}
 
-a:active {
-	color: blue;
-}
-
+/* public class */
 .pointer {
-	cursor: pointer;
+    cursor: pointer;
 }
 
+/* aside */
 aside {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 250px;
-	height: 100vh;
-	float: left;
-	text-align: center;
-	background: #DDAF9C;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    float: left;
+    text-align: center;
+    color: var(--color-lightgray);
+    background: var(--color-gray);
 }
 
 aside .logo-box {
-	width: 100%;
-	/* border: solid 1px red; */
+    width: 100%;
 }
 
 aside .logo-box img {
-	width: 100%;
+    width: 70%;
 }
 
 aside nav {
-	margin-top: 60px;
+    margin-top: 60px;
 }
 
 aside nav ul {
-	width: 100%;
-	height: fit-content;
+    width: 100%;
+    height: fit-content;
 }
 
 aside nav ul li {
-	height: 50px;
-	font-size: 18px;
-	line-height: 50px;
-}
-
-aside nav ul li a {
-	display: block;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
 }
 
 aside nav ul li:hover {
-	background: #BE8168;
+    background: var(--color-semigray);
 }
+
+aside nav ul li a {
+    display: block;
+}
+
 
 aside nav ul.sub-menu {
-	display: none;
+    display: none;
 }
 
-aside button {
-	height: 30px;
-	margin-top: 20px;
-	font-size: 16px;
-	border: none;
-	background: transparent;
+aside button#logout-btn {
+    height: 30px;
+    margin-top: 20px;
+    font-size: 16px;
+    border: none;
+    background: transparent;
 }
 
 main {
-	width: calc(100% - 300px) !important;
-	float: right !important;
-	margin-top: 50px;
+    width: calc(100% - 300px) !important;
+    float: right !important;
+    margin-top: 50px;
 }

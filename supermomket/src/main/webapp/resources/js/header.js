@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function() {
     window.addEventListener("resize", () => {
         // console.log(window.innerWidth);
         let width = window.innerWidth;
@@ -7,6 +7,7 @@ window.onload = function () {
             document.getElementById("m-nav").style.display = "none";
         }
     });
+
 
     $(".ham-box").click(() => {
         $("#m-nav").toggle();

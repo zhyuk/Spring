@@ -19,46 +19,37 @@
 								<form action="/vs_update.do" id="writeForm" method="post" enctype="multipart/form-data">
 
 									<div class="input-group">
-										<label><input type="hidden" name="vs_no" value="${board.vs_no}"></label>
+										<input type="hidden" name="vs_no" value="${board.vs_no}">
 									</div>
 
 									<div class="input-group">
-										<label><input type="text" id="title" class="inputData" name="vs_title"
-												placeholder="제목을 입력하세요." value="${board.vs_title}"></label>
+										<input type="text" id="title" class="inputData" name="vs_title" placeholder="제목을 입력하세요." value="${board.vs_title}">
 									</div>
 
 									<div class="input-group">
 
-										<button type="button" id="img1_view_btn" class="img_view_btn pointer">이미지
-											보기</button>
+										<button type="button" id="img1_view_btn" class="img_view_btn pointer">이미지 보기</button>
 										<div id="img1_box" class="img_box">
 											<button type="button" id="img1_close" class="close pointer">X</button>
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}"
-												alt="투표에 사용된 수정 전 이미지 1">
-											<label><input type="hidden" name="vs_img1" value="${board.vs_img1}"></label>
+											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 수정 전 이미지 1">
+											<input type="hidden" name="vs_img1" value="${board.vs_img1}">
 										</div>
-										<button type="button" id="img1_select_btn" class="img_select_btn pointer">이미지
-											수정</button>
+										<button type="button" id="img1_select_btn" class="img_select_btn pointer">이미지 수정</button>
 
 										<div id="img1_select" class="img_select">
-											<label><input type="file" id="img1_button" name="vs_img1_file"
-													onchange="readURL(this)" disabled></label>
+											<input type="file" id="img1_button" name="vs_img1_file" onchange="readURL(this)" disabled>
 										</div>
 
-										<button type="button" id="img2_view_btn" class="img_view_btn pointer">이미지
-											보기</button>
+										<button type="button" id="img2_view_btn" class="img_view_btn pointer">이미지 보기</button>
 										<div id="img2_box" class="img_box">
 											<button type="button" id="img2_close" class="close pointer">X</button>
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}"
-												alt="투표에 사용된 수정 전 이미지 2">
-											<label><input type="hidden" name="vs_img2" value="${board.vs_img2}"></label>
+											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 수정 전 이미지 2">
+											<input type="hidden" name="vs_img2" value="${board.vs_img2}">
 										</div>
-										<button type="button" id="img2_select_btn" class="img_select_btn pointer">이미지
-											수정</button>
+										<button type="button" id="img2_select_btn" class="img_select_btn pointer">이미지 수정</button>
 
 										<div id="img2_select" class="img_select">
-											<label><input type="file" id="img2_button" name="vs_img2_file"
-													onchange="readURL(this)" disabled></label>
+											<input type="file" id="img2_button" name="vs_img2_file" onchange="readURL(this)" disabled>
 										</div>
 									</div>
 
@@ -74,20 +65,16 @@
 									</div>
 
 									<div class="input-group">
-										<label><textarea id="content" class="inputData" name="vs_content"
-												placeholder="내용 입력">${board.vs_content}</textarea></label>
+										<textarea id="content" class="inputData" name="vs_content" placeholder="내용 입력">${board.vs_content}</textarea>
 									</div>
 
 									<div class="btn-area">
 										<button type="submit" id="btn" class="pointer">수정</button>
-										<button type="button" class="pointer"
-											onclick="selBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">취소</button>
+										<button type="button" class="pointer" onclick="selBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">취소</button>
 									</div>
-								</form>
 
-								<form name="hideFrm" style="display: none;">
-									<input type="hidden" name="nowPage" value="${nowPage}"> <input type="hidden"
-										name="searchKeyword" value="${searchKeyword}">
+									<input type="hidden" name="nowPage" value="${nowPage}">
+									<input type="hidden" name="searchKeyword" value="${searchKeyword}">
 									<input type="hidden" name="searchCondition" value="${searchCondition}">
 								</form>
 							</c:forEach>
@@ -95,13 +82,11 @@
 					</section>
 				</main>
 				</div>
-				<!-- menu.jsp 내 <div id="wrap> 닫는 태그 -->
+
 				<script src="${pageContext.request.contextPath}/resources/js/community_vs.js"></script>
-				<script src="${pageContext.request.contextPath}/resources/js/community_vs_write.js"></script>
 				<script>
 					$(".img_view_btn").click(function () {
 						// console.log($(this).attr("id"));
-
 						if ($(this).attr("id") == "img1_view_btn") {
 							// console.log("이미지 1");
 							$("#img1_box").show();
@@ -129,6 +114,37 @@
 							$("#img2_select input").attr("disabled", false);
 							$("#img2_select").css("display", "inline-block");
 							$("#img2_view_btn").hide();
+						}
+					});
+
+					const modifyForm = $("#writeForm");
+					modifyForm.submit(function () {
+						const img1 = $("#img1_button");
+						const img2 = $("#img2_button");
+						let inputValue = true;
+						// console.log($("#img1_button").prop("disabled"));
+						// console.log($(img1).val());
+
+						if (!$(img1).prop("disabled")) {
+							if ($(img1).val() == '' || $(img1).val() == null) {
+								inputValue = false;
+								event.preventDefault();
+								alert("수정할 이미지를 등록하세요.");
+							}
+						}
+
+						if (!$(img2).prop("disabled")) {
+							if ($(img2).val() == '' || $(img2).val() == null) {
+								inputValue = false;
+								event.preventDefault();
+								alert("수정할 이미지를 등록하세요.");
+							}
+						}
+
+						if (inputValue) {
+							if (confirm("글을 수정하시겠습니까?")) {
+								alert("수정되었습니다.");
+							}
 						}
 					});
 				</script>

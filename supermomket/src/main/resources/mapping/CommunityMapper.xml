@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommunityDAO">
+
+	<!-- 글목록 -->
+	<select id="getYookaList" resultType="yooka">
+		select * from community_yooka where 1=1
+		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'writer' "> AND cm_writer LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		ORDER BY cm_no DESC
+		limit #{listcnt} offset #{start}
+	</select>
+	<!-- 관리자용 글목록 -->
+	<select id="getYookaAdmin" resultType="yooka">
+		select * from community_yooka
+		order by cm_no desc
+	</select>
+
+	<update id="updateYookaAdmin">
+		update community_yooka
+		set cm_title = #{cm_title} ,
+		cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img =
+		#{cm_img}
+		where cm_no = #{cm_no}
+	</update>
+	
+	<delete id="deleteYookaAdmin">
+		delete from community_yooka where cm_no = #{cm_no}
+	</delete>
+	<select id="getNoriterList" resultType="noriter">
+		select * from community_noriter where 1=1
+		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'writer' "> AND cm_writer LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		ORDER BY cm_no DESC
+		limit #{listcnt} offset #{start}
+	</select>
+
+	<select id="getShoppingList" resultType="shopping">
+		select * from community_shopping where 1=1
+		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'writer' "> AND cm_writer LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		ORDER BY cm_no DESC
+		limit #{listcnt} offset #{start}
+	</select>
+
+	<select id="getYooka" resultType="yooka">
+		SELECT * FROM community_yooka
+		WHERE cm_no = #{cm_no}
+	</select>
+
+	<select id="getNoriter" resultType="noriter">
+		SELECT * FROM
+		community_noriter WHERE cm_no = #{cm_no}
+	</select>
+
+	<select id="getShopping" resultType="shopping">
+		SELECT * FROM
+		community_shopping WHERE cm_no = #{cm_no}
+	</select>
+
+	<!-- 전체 글 수 -->
+	<select id="countYooka" resultType="int">
+		SELECT COUNT(*) FROM community_yooka WHERE 1=1
+		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+	</select>
+
+	<select id="countNoriter" resultType="int">
+		SELECT COUNT(*) FROM community_noriter WHERE 1=1
+		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+	</select>
+
+	<select id="countShopping" resultType="int">
+		SELECT COUNT(*) FROM community_shopping WHERE 1=1
+		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
+	</select>
+
+	<!-- 조회수 -->
+	<update id="updateCntYooka">
+		UPDATE community_yooka SET cm_view =
+		IFNULL(#{cm_view}, 0)+1 WHERE cm_no = #{cm_no}
+	</update>
+
+	<update id="updateCntNoriter">
+		UPDATE community_noriter SET cm_view =
+		IFNULL(#{cm_view}, 0)+1 WHERE cm_no = #{cm_no}
+	</update>
+
+	<update id="updateCntShopping">
+		UPDATE community_shopping SET cm_view =
+		IFNULL(#{cm_view}, 0)+1 WHERE cm_no = #{cm_no}
+	</update>
+
+	<!-- 글 등록 -->
+	<insert id="insertYooka">
+		insert into community_yooka(cm_writer, cm_title, cm_content, cm_img)
+		values(#{cm_writer}, #{cm_title}, #{cm_content}, #{cm_img})
+	</insert>
+	
+	<insert id="insertNoriter">
+		insert into community_noriter(cm_writer, cm_title, cm_content, cm_img)
+		values(#{cm_writer}, #{cm_title}, #{cm_content}, #{cm_img})
+	</insert>
+	
+	<insert id="insertShopping">
+		INSERT INTO community_Shopping(cm_writer, cm_title,
+		cm_content, cm_img)
+		VALUES(#{cm_writer}, #{cm_title}, #{cm_content},
+		#{cm_img})
+	</insert>
+
+	<!-- 글 수정 -->
+	<update id="updateYooka">
+		update community_yooka
+		set cm_title = #{cm_title} ,
+		cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img =
+		#{cm_img}
+		where cm_no = #{cm_no}
+	</update>
+	
+	<update id="updateNoriter">
+		update community_noriter
+		set cm_title = #{cm_title} ,
+		cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img =
+		#{cm_img}
+		where cm_no = #{cm_no}
+	</update>
+	
+	<update id="updateShopping">
+		update community_shopping
+		set cm_title = #{cm_title} ,
+		cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img =
+		#{cm_img}
+		where cm_no = #{cm_no}
+	</update>
+
+	<!-- 글 삭제 -->
+	<delete id="deleteYooka">
+		delete from community_yooka where cm_no = #{cm_no}
+	</delete>
+	
+	<delete id="deleteNoriter">
+		delete from community_noriter where cm_no = #{cm_no}
+	</delete>
+	
+	<delete id="deleteShopping">
+		delete from community_shopping where cm_no = #{cm_no}
+	</delete>
+
+	<!-- 추천 (좋아요) -->
+	<update id="likeYooka">
+		update updown_yooka set cm_up = cm_up + 1 where
+		cm_no
+		= #{cm_no}
+	</update>
+	
+	<update id="hateYooka">
+		update updown_yooka set cm_down = cm_down + 1
+		where
+		cm_no = #{cm_no}
+	</update>
+
+	<update id="likeNoriter">
+		update updown_noriter set cm_up = cm_up + 1 where
+		cm_no = #{cm_no}
+	</update>
+	
+	<update id="hateNoriter">
+		update updown_noriter set cm_down = cm_down + 1
+		where
+		cm_no = #{cm_no}
+	</update>
+
+	<update id="likeShopping">
+		update updown_shopping set cm_up = cm_up + 1 where
+		cm_no = #{cm_no}
+	</update>
+	
+	<update id="hateShopping">
+		update updown_shopping set cm_down = cm_down + 1
+		where cm_no = #{cm_no}
+	</update>
+
+	<!-- 추천 갯수 -->
+	<select id="getLikeYooka" resultType="int">
+		select count(*) from
+		updown_yooka where cm_no = #{cm_no} and cm_updownstatus = 1;
+	</select>
+	
+	<select id="getLikeNoriter" resultType="int">
+		select count(*) from
+		updown_noriter where cm_no = #{cm_no} and cm_updownstatus = 1;
+	</select>
+	
+	<select id="getLikeShopping" resultType="int">
+		select count(*) from
+		updown_shopping where cm_no = #{cm_no} and cm_updownstatus = 1;
+	</select>
+
+	<!-- 비추천 갯수 -->
+	<select id="getHateYooka" resultType="int">
+		select count(*) from
+		updown_yooka where cm_no = #{cm_no} and cm_updownstatus = 2;
+	</select>
+	
+	<select id="getHateNoriter" resultType="int">
+		select count(*) from
+		updown_noriter where cm_no = #{cm_no} and cm_updownstatus = 2;
+	</select>
+	
+	<select id="getHateShopping" resultType="int">
+		select count(*) from
+		updown_shopping where cm_no = #{cm_no} and cm_updownstatus = 2;
+	</select>
+
+	<!-- 추천 비추천 정보 저장 -->
+	<insert id="insertUpDownYooka">
+		insert into updown_yooka values(#{cm_writer},
+		#{cm_no}, #{cm_updownstatus})
+	</insert>
+	
+	<insert id="insertUpDownNoriter">
+		insert into updown_noriter values(#{cm_writer},
+		#{cm_no}, #{cm_updownstatus})
+	</insert>
+	
+	<insert id="insertUpDownShopping">
+		insert into updown_shopping values(#{cm_writer},
+		#{cm_no}, #{cm_updownstatus})
+	</insert>
+
+	<!-- 추천 비추천 결과 조회 -->
+	<select id="getUpDownYooka" resultType="UpDownYooka">
+		select * from
+		updown_yooka
+		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
+	</select>
+
+	<select id="getUpDownNoriter" resultType="UpDownNoriter">
+		select * from
+		updown_noriter
+		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
+	</select>
+
+	<select id="getUpDownShopping" resultType="UpDownNoriter">
+		select * from
+		updown_shopping
+		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
+	</select>
+
+	<!-- 추천비추천 수정 -->
+	<update id="updateUpDownYooka">
+		update updown_yooka set cm_updownstatus =
+		#{cm_updownstatus}
+		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
+	</update>
+
+	<update id="updateUpDownNoriter">
+		update updown_noriter set cm_updownstatus =
+		#{cm_updownstatus}
+		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
+	</update>
+	
+	<update id="updateUpDownShopping">
+		update updown_shopping set cm_updownstatus =
+		#{cm_updownstatus}
+		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
+	</update>
+
+</mapper>

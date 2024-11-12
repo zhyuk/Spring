@@ -1,0 +1,317 @@
+/* 미리보기 상자 스타일 */
+.preview-box {
+    position: fixed;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    z-index: 1000;
+    width: 600px;
+    height: auto;
+}
+
+.preview-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* 전역 스타일 */
+* {
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+     font-family: 'Quicksand', 'Noto Sans KR', sans-serif; /* 외부 글꼴 설정 */
+}
+
+body {
+    display: block;
+     font-family: 'Quicksand', 'Noto Sans KR', sans-serif; /* 외부 글꼴 설정 */
+}
+
+.inner {
+	width: 1200px;
+	margin: 0px auto;
+}
+
+/* 카테고리 옵션과 정렬 옵션을 같은 줄에 배치하는 컨테이너 */
+.options-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* 카테고리 옵션 */
+.category-options {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    margin: 100px 0px 20px;
+    font-size: 18px;
+    width: 500px;
+    float: left;
+}
+
+.category-options a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    position: relative;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.category-options a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: background-color 0.3s;
+}
+
+.category-options a:hover {
+    color: #000;
+}
+
+.category-options a:hover::after,
+.category-options a.active-category::after {
+    background-color: #000;
+}
+
+.category-options a.active-category {
+    color: #000;
+}
+
+/* 정렬, 셀렉트 박스, 검색 기능을 한 줄에 배치하는 컨테이너 */
+.sort-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;
+    margin: 20px 0px;
+    gap: 10px; /* 간격 추가 */
+    width: 401px;
+   	float: right;
+   	margin: 100px 0px 20px;
+}
+
+.sort-select {
+    font-size: 14px;
+    height: 38px;
+    padding: 6px 12px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 30px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 셀렉트 박스와 검색창 사이 간격 */
+}
+
+.search-input {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    outline: none;
+    width: 200px;
+    height: 38px;
+    border-right: 0px;
+    border-radius: 4px 0px 0px 4px;
+}
+
+.search-button {
+    border: 1px solid #ddd;
+    height: 38px;
+    border-left: 0px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png'); /* 돋보기 이미지 URL */
+    background-repeat: no-repeat;          /* 이미지 반복하지 않음 */
+    background-position: center;           /* 이미지 중앙 배치 */
+    background-size: 20px 20px;            /* 이미지 크기 조정 */
+    padding: 10px 10px 10px 40px;          /* 버튼의 텍스트와 이미지 간 여백 */
+    font-size: 16px;                       /* 버튼 텍스트 크기 */
+    border-left: none;                          /* 버튼 테두리 없애기 */
+    cursor: pointer;                       /* 마우스 커서를 포인터로 */
+    background-color: #fff;
+    float: right;
+    border-radius: 0px 4px 4px 0px;
+}
+
+
+/* 상품 리스트 */
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0px;
+    justify-content: start; /* 좌측 정렬 */
+    clear: both;
+}
+
+/* 각 제품 카드 스타일 */
+.product-card {
+    border: none;
+    box-shadow: none;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 360px;
+    height: 360px;
+    object-fit: cover; /* 이미지 비율 유지하며 잘라서 표시 */
+    display: block;
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+
+.product-card h3 {
+    font-size: 15px;
+    margin: 15px 0;
+    text-align: left;
+    color: #000; /* 검정색 */
+}
+
+/* 밑줄 제거 */
+.product-card h3 a {
+    text-decoration: none;
+}
+
+/* 호버 시 밑줄 제거 유지 */
+.product-card h3 a:hover {
+    text-decoration: none;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* 가격 및 할인 스타일 */
+.product-price-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 두 가격 사이 간격 */
+    margin-top: 10px;
+}
+
+.product-price {
+    font-size: 16px;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.product-discount {
+    font-size: 18px;
+    color: #000000;
+    font-weight: bold;
+}
+
+
+.discount-rate {
+	font-size: 18px;
+    color: red;
+    font-weight: bold;
+}
+
+.price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* 상품 추가 정보 */
+.product-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.product-views {
+    font-size: 13px;
+    color: #808080;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* 페이징 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 100px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    background-color: transparent; /* 배경색 제거 */
+    border: none; /* 테두리 제거 */
+    font-weight: normal; /* 기본 폰트 굵기 */
+    transition: color 0.3s;
+}
+
+.pagination a:hover {
+    color: #DDAF9C; /* 호버 시 색상만 변경 */
+}
+
+.pagination a.active {
+    font-weight: bold; /* 현재 페이지의 숫자를 진하게 */
+    color: #DDAF9C; /* 진하게 표시할 때 색상 */
+    border-bottom: 2px solid #DDAF9C; /* 밑줄 추가 */
+}
+
+/* <<, <, >, >> 버튼 스타일 */
+.pagination a:first-child, 
+.pagination a:last-child, 
+.pagination a:nth-child(2), 
+.pagination a:nth-last-child(2) {
+    font-weight: bold;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 800px) {
+    .product-card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 500px) {
+    .product-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+.star-rating {
+    display: inline-block;
+    font-size: 24px;
+    color: #ddd; /* 비활성화된 별 색 */
+    display: flex;
+    align-items: center;
+}
+
+.star-rating .star.active {
+    color: #ffcc00; /* 활성화된 별 색 (예: 노란색) */
+}

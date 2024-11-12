@@ -4,13 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+	<typeAlias type="com.spring.mom.vo.TradeVO" alias="trade"/>
 		<typeAlias type="com.spring.mom.vo.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.spring.mom.vo.Community_vsVO" alias="vs"/>
 		<typeAlias type="com.spring.mom.vo.VsimgVO" alias="vote"/>
 		<typeAlias type="com.spring.mom.vo.Comment_vsVO" alias="commentVs"/>
+		<typeAlias type="com.spring.mom.vo.Community_yookaVO" alias="yooka"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.Community_noriterVO" alias="noriter"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.Community_shoppingVO" alias="shopping"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.Comment_yookaVO" alias="Commentyooka"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.Comment_noriterVO" alias="Commentnoriter"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.Comment_shoppingVO" alias="Commentshopping"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.Updown_YookaVO" alias="UpDownYooka"/>
+		<typeAlias type="com.spring.mom.vo.Updown_NoriterVO" alias="UpDownNoriter"/>
+		<typeAlias type="com.spring.mom.vo.Updown_ShoppingVO" alias="UpDownShopping"/>
+		<typeAlias type="com.spring.mom.vo.ProductVO" alias="product"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.FaqVO" alias="faq"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.FaqVO" alias="faq"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.CartVO" alias="cart"></typeAlias>
+		<typeAlias type="com.spring.mom.vo.OrderVO" alias="orderlist"/>
+		  <typeAlias type="com.spring.mom.vo.ChatRoomVO" alias="chatRoom"/>
+        <typeAlias type="com.spring.mom.vo.ChatMessageVO" alias="chatMessage"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapping/user-mapping.xml" />
 		<mapper resource="mapping/communityVs-mapping.xml" />
+		<mapper resource="mapping/CommunityMapper.xml" />
+		<mapper resource="mapping/CommentMapper.xml"/>
+		<mapper resource="mapping/ProductMapper.xml" />
+		<mapper resource="mapping/trade-mapping.xml" />
+		<mapper resource="mapping/FaqMapper.xml" />
+		<mapper resource="mapping/CartMapper.xml" />
+		<mapper resource="mapping/MypageMapper.xml"/>
+		<mapper resource="mapping/OrderMapper.xml"/>
+		<mapper resource="mapping/chat-mapping.xml" />
+		<mapper resource="mapping/kakaouser-mapping.xml"/> 
 	</mappers>
 </configuration>

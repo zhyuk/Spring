@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CartDAO">
+
+
+	<!--결재화면 리스트 -->
+	<select id="getpaymenttotalcartList" resultType="cart">
+		SELECT
+		*
+		FROM CART
+		WHERE U_ID=#{u_id}
+		AND C_PAYMENT ="preparation"
+	</select>
+	
+	
+<!-- 	장바구니리스트 -->
+	<select id="getcartList" resultType="cart">
+		SELECT * FROM CART WHERE U_ID= #{u_id}
+		AND C_PAYMENT ="ready"
+	</select>
+	
+<!-- 	장바구니 중복 품목확인 -->
+		<select id="cartequals" resultType="int">
+		SELECT count(c_no) FROM CART WHERE U_ID= #{u_id}
+		and p_no =#{p_no} and c_payment="ready"	
+	</select>
+	
+<!-- 	장바구니 추가  -->
+	<insert id="insertcart">
+	INSERT INTO CART (P_CALLNO,U_ID, P_NO, P_COUNT, P_PRICE, P_NAME, P_IMG,P_TOTAL)
+    VALUES (#{p_callno},#{u_id}, #{p_no}, #{p_count}, #{p_price}, #{p_name}, #{p_img},#{p_count}*#{p_price})
+	</insert>
+	
+<!-- 선택 장바구니 >결제 이동 -->
+	<update id="preparinsertcart" >
+		UPDATE CART SET C_PAYMENT ='preparation'
+		WHERE C_NO=#{c_no} and u_id =#{u_id} and c_payment="ready"
+	</update>
+	
+<!-- 	전체 장바구니 >결제이동 -->
+	<update id="preparallinsertcart" >
+		UPDATE CART SET C_PAYMENT ='preparation'
+			WHERE U_ID =#{u_id} and c_payment="ready"
+	</update>
+	
+<!-- 	결제완료 -->
+	<update id="paycomplete" >
+		UPDATE CART SET C_PAYMENT ='complete'
+			WHERE U_ID =#{u_id} and c_no= #{c_no}
+	</update>
+
+<!--  	가격총량  -->
+	<select id="carttotal"  resultType="int">
+		SELECT COALESCE(SUM(P_TOTAL), 0)
+		FROM CART WHERE  
+		U_ID= #{u_id}
+		<if test="c_payment == 'preparation'">and c_payment="preparation"; </if>
+		<if test="c_payment == 'ready'">and c_payment="ready"; </if>
+	</select>	
+	
+<!-- 	c_no 에대한 한줄데이터 -->
+	<select id="getc_nodata"  resultType="cart">
+		SELECT *
+		FROM CART WHERE  C_NO=#{c_no}
+		AND U_ID= #{u_id}
+	</select>
+	
+<!-- 	수량 변경 -->
+	<update id="c_change">
+		UPDATE cart
+		SET
+		P_COUNT=#{p_count}
+		WHERE
+		p_no = #{p_no}
+		and u_id=#{u_id}
+		<if test="c_payment == 'preparation'">and c_payment="preparation"; </if>
+		<if test="c_payment == 'ready'">and c_payment="ready"; </if>
+	</update>
+	
+<!-- 	수량변경시 품목가격 증가 -->
+	<update id="p_totalup">
+		UPDATE CART
+		SET
+		P_TOTAL=#{p_count}*#{p_price}
+		WHERE
+		P_NO = #{p_no}
+		and u_id=#{u_id}
+		and c_no=#{c_no}
+		</update>
+	
+<!-- 	품목의 총 가격 -->
+	<select id="p_total" resultType="int">
+	SELECT P_TOTAL FROM CART WHERE
+	 P_NO=#{p_no} and
+	 u_id=#{u_id}
+ 	and c_no=#{c_no}
+	</select>
+
+<!-- 	장바구니에서 삭제 -->
+	<delete id="deletcart">
+		DELETE FROM cart WHERE
+		c_no = #{c_no} and
+		u_id =#{u_id}
+	</delete>
+	
+<!-- 	새상품에서 즉시결제 -->
+<insert id="insertproduct">
+	INSERT INTO cart
+	(p_no, p_callno, u_id, p_count, p_name, p_price, p_img, c_no)
+	VALUES(#{p_no}, #{p_callno},
+	 #{u_id}, 
+	 #{p_count},
+	 #{p_name}, 
+	 #{p_price}, 
+	 #{p_img},
+	 #{c_no})
+	</insert>
+	
+
+
+</mapper>

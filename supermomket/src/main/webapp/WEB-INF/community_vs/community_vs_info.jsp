@@ -29,7 +29,7 @@
 						<div class="text-group board_info">
 							<p class="writer">${board.vs_writer}</p>
 
-							<c:if test="${sessionScope.userId == board.vs_writer}">
+							<c:if test="${userNickname == board.vs_writer}">
 								<div class="btn-area">
 									<button class="pointer"
 										onclick="updateBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">수정</button>
@@ -73,12 +73,6 @@
 					</div>
 				</c:forEach>
 
-				<c:if test="${userId == null || userId == ''}">
-					<script>
-									$("textarea[name=vs_comment]").prop("disabled", true);
-									$("textarea[name=vs_comment]").prop("placeholder", "댓글 권한이 없습니다.");
-								</script>
-				</c:if>
 
 				<div id="comment_area">
 					<c:forEach items="${commentList}" var="comment">
@@ -95,7 +89,8 @@
 								<textarea name="vs_comment"
 									class="comment_input comment_input${comment.vs_cno}">${comment.vs_comment}</textarea>
 								<div class="comment_btn">
-									<c:if test="${userId != null && userId == comment.vs_writer}">
+									<c:if
+										test="${userId != null && userNickname == comment.vs_writer}">
 										<button type="button" class="updateCommentButton pointer"
 											onclick="updateComment(${comment.vs_no}, ${comment.vs_cno})">수정</button>
 										<button type="button" class="deleteCommentButton pointer"
@@ -110,7 +105,8 @@
 									<textarea name="vs_recomment"
 										class="recomment_input recomment_input${comment.vs_cno}"
 										placeholder="답글 입력"></textarea>
-									<button onclick="insertRecomment(${comment.vs_no},${comment.vs_cno})">작성</button>
+									<button
+										onclick="insertRecomment(${comment.vs_no},${comment.vs_cno})">작성</button>
 
 									<c:forEach items="${recommentList}" var="recomment">
 										<c:if test="${comment.vs_cno == recomment.vs_rcno}">
@@ -122,12 +118,9 @@
 											<pre class="comment comment${recomment.vs_cno}">${recomment.vs_comment}</pre>
 											<textarea name="vs_comment"
 												class="comment_input comment_input${recomment.vs_cno}">${recomment.vs_comment}</textarea>
-											<%-- <input type="text" name="vs_comment"
-																class="comment_input comment_input${recomment.vs_cno}"
-																value="${recomment.vs_comment}"> --%>
 											<div class="comment_btn">
 												<c:if
-													test="${userId != null && userId == recomment.vs_writer}">
+													test="${userId != null && userNickname == recomment.vs_writer}">
 													<button type="button" class="updateCommentButton"
 														onclick="updateComment(${comment.vs_no}, ${recomment.vs_cno})">수정</button>
 													<button type="button" class="deleteCommentButton"
@@ -148,16 +141,20 @@
 
 				<c:if test="${userId == null || userId == ''}">
 					<script>
-									$("input[name=vs_recomment]").prop("disabled", true);
-									$("input[name=vs_recomment]").prop("placeholder", "댓글 권한이 없습니다.");
+									$("textarea[name=vs_comment]").prop("disabled", true);
+									$("textarea[name=vs_comment]").prop("placeholder", "댓글 권한이 없습니다.");
+
+									$('textarea[name="vs_recomment"]').each(function() {
+								        $(this).prop("disabled", true);
+								        $(this).prop("placeholder", "답글 권한이 없습니다.");
+									});
 								</script>
 				</c:if>
 
 				<form name="hideFrm" style="display: none;">
-					<input type="hidden" name="nowPage" value="${nowPage}"> <input
-						type="hidden" name="searchKeyword" value="${searchKeyword}">
-					<input type="hidden" name="searchCondition"
-						value="${searchCondition}">
+					<input type="hidden" name="nowPage" value="${nowPage}"> 
+					<input type="hidden" name="searchKeyword" value="${searchKeyword}">
+					<input type="hidden" name="searchCondition" value="${searchCondition}">
 				</form>
 
 				<div class="btn-area board_list_btn">

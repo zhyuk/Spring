@@ -23,7 +23,7 @@
 		COMMUNITY_VS
 		ORDER BY VS_NO DESC
 	</select>
-
+	
 	<!-- 관리자용 글 수정 -->
 	<update id="updateBoardAdmin">
 		UPDATE COMMUNITY_VS SET VS_TITLE = #{vs_title},
@@ -96,7 +96,7 @@
 		SELECT COUNT(*) FROM VSIMG
 		WHERE VS_NO = #{vs_no} AND V_NO = 2;
 	</select>
-
+	
 	<!-- 모든 투표 삭제 -->
 	<delete id="deleteAllVote">
 		DELETE FROM VSIMG WHERE VS_NO = #{vs_no};
@@ -133,7 +133,7 @@
 		<if test="vs_rcno == 0">VS_CNO = #{vs_cno};</if>
 		<if test="vs_rcno != 0 ">VS_RCNO = #{vs_rcno}</if>
 	</delete>
-
+	
 	<!-- 모든 댓글 삭제 -->
 	<delete id="deleteAllComment">
 		DELETE FROM COMMENT_VS WHERE VS_NO = #{vs_no}
