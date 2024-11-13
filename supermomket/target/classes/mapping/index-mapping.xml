@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="IndexDAO">
+
+	<!-- 최근 작성된 게시글 가져오기 -->
+	<select id="getCommunityList" resultType="vs">
+		select vs.vs_no, vs.vs_title, vs.vs_writer, vs.vs_date as vs_date, 'vs' as source from community_vs as vs union all
+		select yooka.cm_no, yooka.cm_title, yooka.cm_writer, yooka.cm_date as vs_date, 'yooka' as source from community_yooka as yooka union all
+		select noriter.cm_no, noriter.cm_title, noriter.cm_writer, noriter.cm_date as vs_date, 'noriter' as source from community_noriter as noriter union all 
+		select shopping.cm_no, shopping.cm_title, shopping.cm_writer, shopping.cm_date as vs_date, 'shopping' as source from community_shopping as shopping
+		order by vs_date desc limit 5;
+	</select>
+	
+	<!--최근 작성된 중고상품 가져오기 -->
+	<select id="getTradeList" resultType="trade">
+		select t_no, t_product, t_date from trade order by t_date desc limit 5;
+	</select>
+	
+	<!-- 새상품 목록 가져오기 -->
+	<select id="getProductList" resultType="product">
+		select * from product order by rand() limit 4;
+	</select>
+</mapper>
