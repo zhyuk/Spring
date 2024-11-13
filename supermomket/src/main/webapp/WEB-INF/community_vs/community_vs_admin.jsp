@@ -11,7 +11,7 @@
 					<main>
 						<section id="admin">
 							<div class="inner">
-								<h3>커뮤니티 - 고민거리 관리</h3>
+								<h3>고민거리 페이지 게시글 관리</h3>
 								<div class="button_list">
 									<button id="update_button" class="pointer">수정</button>
 									<button id="delete_button" class="pointer">삭제</button>

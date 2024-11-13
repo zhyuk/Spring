@@ -29,6 +29,10 @@ a:visited, a:link {
     cursor: pointer;
 }
 
+.clear {
+	clear:both;
+}
+
 /* aside */
 aside {
     position: fixed;
@@ -87,7 +91,32 @@ aside button#logout-btn {
 }
 
 main {
-    width: calc(100% - 300px) !important;
-    float: right !important;
+    width: calc(100% - 250px) !important;
+    margin-left: 250px;
+    border: solid 1px red;
+}
+
+main section{
+    max-width: 1300px;
+    margin: 0 auto;
     margin-top: 50px;
+    border: solid 1px blue;
+}
+
+/* 관리자페이지 인덱스 CSS */
+main section#admin_index_section .inner .content_box {
+	width: 600px;
+	height: 350px;
+	margin-top: 15px;
+	border: solid 1px red;
+	float:left;
+}
+
+main section#admin_index_section .inner .content_box:nth-child(even){
+	float:right;
+}
+
+main section#admin_index_section .inner .content_box .card {
+	width: 100%;
+	border: solid 1px blue;
 }

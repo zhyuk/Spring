@@ -38,7 +38,7 @@ public class LoginController {
             session.setAttribute("userName", user.getU_name());
             session.setAttribute("userNickname", user.getU_nickname());
             session.setAttribute("userRole", user.getU_role());
-            return "redirect:index.jsp";
+            return "redirect:/";
         } else {
             model.addAttribute("loginError", "아이디 또는 비밀번호가 일치하지 않습니다.");
             return "login/login";  

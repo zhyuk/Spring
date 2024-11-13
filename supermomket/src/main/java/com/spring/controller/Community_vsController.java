@@ -83,8 +83,9 @@ public class Community_vsController {
 
 	// 관리자페이지
 	@RequestMapping("/vs_admin.do")
-	public String getBoardListAdmin(Community_vsVO vo, Model model) {
+	public String getBoardListAdmin(Community_vsVO vo, HttpSession session, Model model) {
 //		System.out.println("관리자 페이지 이동");
+
 		model.addAttribute("boardList", svc.getBoardAdmin(vo));
 		return "community_vs/community_vs_admin";
 	}
@@ -110,10 +111,10 @@ public class Community_vsController {
 	// 관리자 글 삭제
 	@RequestMapping("/vs_admin_delete.do")
 	@ResponseBody
-	public List<Community_vsVO> deleteBoardAdmin(Community_vsVO vo,VsimgVO vvo, Comment_vsVO cvo,  Model model) {
+	public List<Community_vsVO> deleteBoardAdmin(Community_vsVO vo, VsimgVO vvo, Comment_vsVO cvo, Model model) {
 //		System.out.println("/vs_admin_delete.do 서블릿 실행");
 //		System.out.println(vo);
-		
+
 		List<Community_vsVO> boardList = null;
 		List<Community_vsVO> deleteInfo = svc.getBoardInfo(vo);
 		String img1 = "";
@@ -135,7 +136,7 @@ public class Community_vsController {
 			File deleteFile2 = new File(uploadPath + img2);
 			deleteFile1.delete();
 			deleteFile2.delete();
-			
+
 			boardList = svc.getBoardAdmin(vo);
 		}
 		return boardList;
@@ -148,24 +149,24 @@ public class Community_vsController {
 		List<Comment_vsVO> commentList = svc.getComment(vo);
 		return commentList;
 	}
-	
+
 	// 관리자 댓글 삭제
 	@RequestMapping("/vs_admin_deleteComment.do")
 	@ResponseBody
-	public List<Comment_vsVO> deleteCommentAdmin(Comment_vsVO vo){
+	public List<Comment_vsVO> deleteCommentAdmin(Comment_vsVO vo) {
 		List<Comment_vsVO> commentList = null;
 //		System.out.println(vo);
-		
+
 		int vs_rcno = vo.getVs_cno();
-		
+
 		int result = svc.deleteComment(vo);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			vo.setVs_rcno(vs_rcno);
 			svc.deleteComment(vo);
 			commentList = svc.getComment(vo);
 		}
-		
+
 		return commentList;
 	}
 

@@ -22,6 +22,8 @@ public class Community_vsVO {
 	private String searchCondition;
 	private String searchKeyword;
 
+	private String source;
+
 	public int getVs_no() {
 		return vs_no;
 	}
@@ -140,6 +142,14 @@ public class Community_vsVO {
 
 	public void setVs_count(int vs_count) {
 		this.vs_count = vs_count;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	@Override

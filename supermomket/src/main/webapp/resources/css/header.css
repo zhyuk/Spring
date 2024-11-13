@@ -1,203 +1,298 @@
 /* 기본 스타일 */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
-}
-
-header nav {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    border-bottom: 1px solid #808080;
-    /* 줄 색상과 두께 설정 */
-    padding-bottom: 2px;
-    /* 메뉴와 줄 사이 간격 설정 */
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
 }
 
 #wrap {
-    width: 100%;
+	width: 100%;
 }
 
 .clear {
-    clear: both;
+	clear: both;
 }
 
 .m-menu {
-    display: none;
+	display: none;
 }
 
 .pointer {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 a:hover {
-    color: red;
+	color: red;
 }
 
 a:link,
 a:visited {
-    color: black;
+	color: black;
 }
 
 a:active {
-    color: blue;
+	color: blue;
 }
 
 /* 헤더 스타일 */
 header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 1200px;
-    padding: 20px 0;
-    font-size: 20px;
-    background: #ffffff;
-    margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	max-width: 1200px;
+	padding: 20px 0;
+	font-size: 20px;
+	background: #ffffff;
+	margin: 0 auto;
 }
 
 header .logo-box {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-bottom: 10px;
 }
 
 header .logo-box img {
-    width: 150px;
-    cursor: pointer;
+	width: 150px;
+	cursor: pointer;
 }
 
 header nav {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	border-bottom: solid 2px #FFD26E;
+	padding-bottom: 2px;
+	/* 메뉴와 줄 사이 간격 설정 */
 }
 
 header .main-menu {
-    display: flex;
-    justify-content: center;
-    font-weight: 500;
+	display: flex;
+	justify-content: center;
+	font-weight: 500;
 }
 
 header .main-menu li {
-    height: 60px;
-    padding: 0 15px;
-    line-height: 60px;
-    cursor: pointer;
+	height: 60px;
+	padding: 0 15px;
+	line-height: 60px;
+	cursor: pointer;
 }
 
 header .main-menu li:hover {
-    background: #ffffff;
+	background: #ffffff;
 }
 
 /* 서브 메뉴 */
 header .sub-menu,
 header .sub-mp-menu {
-    position: absolute;
-    top: 140px;
-    display: none;
-    background: #F6C4B0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+	position: absolute;
+	top: 140px;
+	display: none;
+	background: #F6C4B0;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 header .sub-menu li,
 header .sub-mp-menu li {
-    padding: 5px 10px;
-    cursor: pointer;
+	padding: 5px 10px;
+	cursor: pointer;
 }
 
 header .sub-menu li:hover,
 header .sub-mp-menu li:hover {
-    background: #ffffff;
-    border-radius: 3px;
+	background: #ffffff;
+	border-radius: 3px;
 }
 
 /* FAQ 서브 메뉴 */
 header .faq-sub-menu {
-    display: none;
-    position: absolute;
-    background: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    top: 60px;
-    z-index: 10;
+	display: none;
+	position: absolute;
+	background: #ffffff;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+	top: 60px;
+	z-index: 10;
 }
 
 header .faq-sub-menu li {
-    padding: 5px 10px;
-    cursor: pointer;
+	padding: 5px 10px;
+	cursor: pointer;
 }
 
 header .faq-menu:hover .faq-sub-menu {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 /* 로그인 박스 */
 header .login-box {
-    position: absolute;
-    right: 20px;
-    top: 20px;
+	position: absolute;
+	right: 20px;
+	top: 20px;
 }
 
-/* index main */
+/* 사용자 페이지 컨텐츠 너비 설정 */
 main {
-    width: 100%;
-    min-height: calc(100vh - 400px);
-    height: fit-content;
-    margin-top: 50px;
-/*     border: solid 1px red; */
+	width: 100%;
+	height: fit-content;
+	margin-top: 50px;
+	/* border: solid 1px red; */
 }
 
-/* main .inner {
-	max-width: 1300px;
-	min-height: 900px;
-	height: fit-content;
+main section {
+	max-width: 1200px;
 	margin: 0 auto;
-	border: solid 1px red;
-} */
+	/* border: solid 1px blue; */
+}
+
+main section#user_index_section .inner #product_box {
+	width: 100%;
+	height: fit-content;
+	margin-bottom: 50px;
+}
+
+main section#user_index_section .inner #product_box .list {
+	display: flex;
+	width: 100%;
+}
+
+main section#user_index_section .inner #product_box .list .card {
+	max-width: 285px;
+	margin: 0 10px;
+	border: solid 1px #d9d9d9;
+}
+
+main section#user_index_section .inner #product_box .list .card:first-child {
+	margin-left: 0;
+}
+
+main section#user_index_section .inner #product_box .list .card:last-child {
+	margin-right: 0;
+}
+
+main section#user_index_section .inner #product_box .list .card img {
+	width: 100%;
+}
+
+main section#user_index_section .inner #used_box {
+	float: left;
+}
+
+main section#user_index_section .inner #community_box {
+	float: right;
+}
+
+main section#user_index_section .inner .content_box {
+	width: 49%;
+	height: fit-content;
+	/* 	border: solid 1px green; */
+}
+
+main section#user_index_section .inner .content_box h3 {
+	width: 100%;
+	padding-bottom: 10px;
+	border-bottom: solid 1px #d9d9d9;
+}
+
+main section#user_index_section .inner .content_box ul {
+	width: 100%;
+}
+
+main section#user_index_section .inner .content_box ul li {
+	width: 100%;
+	height: 50px;
+	/* border: solid 1px red; */
+}
+
+main section#user_index_section .inner .content_box ul li a {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	/* border: solid 1px blue; */
+}
+
+main section#user_index_section .inner .content_box ul li p {
+	height: fit-content;
+	margin-bottom: 0;
+	/* border: solid 1px red; */
+}
+
+main section#user_index_section .inner .content_box ul li p.title {
+	width: 65%;
+	font-size: 20px;
+	/* 	border: solid 1px red; */
+}
+
+main section#user_index_section .inner .content_box ul li p.title span {
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+main section#user_index_section .inner .content_box ul li p.date {
+	width: 30%;
+	float: right;
+	text-align: right;
+	/* 	border: solid 1px blue; */
+}
+
+main section#user_index_section .inner .content_box h3 {
+	display: inline-block;
+}
+
+main section#user_index_section .inner .content_box button.about_btn {
+	float: right;
+}
 
 /* 푸터 */
 footer {
-    width: 100%;
-    height: fit-content;
-    margin-top: 40px;
-    background: #FFD26E;
+	width: 100%;
+	height: fit-content;
+	margin-top: 40px;
+	background: #FFD26E;
 }
 
 footer .inner {
-    padding: 10px 30px;
+	padding: 10px 30px;
+}
+
+footer .inner p {
+	margin-bottom: 0;
 }
 
 footer .inner p:nth-of-type(1) {
-    float: left;    
+	float: left;
 }
 
 footer .inner p:nth-of-type(2) {
-    text-align: right;
-    float: right;
+	text-align: right;
+	float: right;
 }
 
 /* 모바일 메뉴 */
 @media screen and (max-width: 425px) {
 
-    header .main-menu,
-    header .login-box {
-        display: none;
-    }
+	header .main-menu,
+	header .login-box {
+		display: none;
+	}
 
-    header .ham-box {
-        display: block;
-        margin-left: auto;
-    }
+	header .ham-box {
+		display: block;
+		margin-left: auto;
+	}
 }

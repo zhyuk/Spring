@@ -10,6 +10,7 @@ textarea {
 	--color-main: #FFD26E;
 	--color-blk: #000;
 	--color-white: #fff;
+	--color-gray: #D9D9D9;
 }
 
 button {
@@ -22,12 +23,6 @@ button {
 
 button:hover {
 	background: var(--color-light-main);
-}
-
-section div.inner {
-	max-width: 1200px;
-	margin: 0 auto;
-	/* border: solid 1px blue; */
 }
 
 /* 인덱스 페이지 */
@@ -57,10 +52,10 @@ section#index div.inner .search-form button.search-btn {
 	padding: 0 10px;
 }
 
-section#index div.inner button.write-btn {
+section#index div.inner .search-form button.write-btn {
 	float: right;
 	width: 55px;
-	height: 30px;
+	height: 40px;
 }
 
 section#index div.inner table {
@@ -210,7 +205,12 @@ section#info div.inner div.container .board_info {
 	display: flex;
 	align-items: center;
 	height: 50px;
-	border-top: solid 2px red;
+	/* border-top: solid 2px red; */
+}
+
+section#info div.inner div.container .board_info:nth-of-type(2) {
+	/* border-top: solid 1px var(--color-main); */
+	border-top: solid 1px var(--color-blk);
 }
 
 section#info div.inner div.container .board_info p.title {
@@ -248,10 +248,15 @@ section#info div.inner div.container .text-group .btn-area button {
 }
 
 section#info div.inner div.container .board_content_box {
+	min-height: 400px;
 	height: fit-content;
 	padding: 10px 0;
 	/* background: beige; */
-	border-top: solid 2px red;
+	border-top: solid 2px var(--color-main);
+	border-bottom: solid 2px var(--color-main);
+
+	border-top: solid 2px var(--color-gray);
+	border-bottom: solid 2px var(--color-gray);
 }
 
 section#info div.inner div.container .text-group .img-box {
@@ -307,7 +312,7 @@ section#info div.inner .fm_comment_write textarea {
 	width: calc(100% - 50px);
 	height: 50px;
 	padding: 5px;
-	border: solid 1px red;
+	border: solid 1px var(--color-main);
 	border-radius: 10px 0 0 10px;
 }
 
@@ -326,7 +331,7 @@ section#info div.inner #comment_area {
 section#info div.inner #comment_area .comment_box {
 	height: fit-content;
 	padding: 10px 0;
-	border-bottom: solid 1px red;
+	border-bottom: solid 1px var(--color-gray);
 }
 
 section#info div.inner #comment_area>p,
@@ -401,9 +406,10 @@ section#info div.inner .recomment_area {
 
 section#info div.inner .recomment_area textarea {
 	width: calc(100% - 50px);
-	min-height: 30px;
+	height: 30px;
 	padding: 0 10px;
 	border-radius: 10px 0 0 10px;
+	border: solid 1px var(--color-main);
 }
 
 section#info div.inner .recomment_area>button {
