@@ -12,15 +12,16 @@ a {
     text-decoration: none;
 }
 
-a:visited, a:link {
-    color: var(--color-lightgray);
+a:visited,
+a:link {
+    color: var(--ad-color-lightgray);
 }
 
 :root {
-    --color-darkgray: #212121;
-    --color-gray: #444;
-    --color-semigray: #808080;
-    --color-lightgray: #D9D9D9;
+    --ad-color-darkgray: #212121;
+    --ad-color-gray: #444;
+    --ad-color-semigray: #808080;
+    --ad-color-lightgray: #D9D9D9;
 }
 
 
@@ -30,7 +31,7 @@ a:visited, a:link {
 }
 
 .clear {
-	clear:both;
+    clear: both;
 }
 
 /* aside */
@@ -42,8 +43,8 @@ aside {
     height: 100vh;
     float: left;
     text-align: center;
-    color: var(--color-lightgray);
-    background: var(--color-gray);
+    color: var(--ad-color-lightgray);
+    background: var(--ad-color-gray);
 }
 
 aside .logo-box {
@@ -70,7 +71,7 @@ aside nav ul li {
 }
 
 aside nav ul li:hover {
-    background: var(--color-semigray);
+    background: var(--ad-color-semigray);
 }
 
 aside nav ul li a {
@@ -93,30 +94,84 @@ aside button#logout-btn {
 main {
     width: calc(100% - 250px) !important;
     margin-left: 250px;
-    border: solid 1px red;
+    /* border: solid 1px red; */
 }
 
-main section{
+main section {
     max-width: 1300px;
     margin: 0 auto;
     margin-top: 50px;
-    border: solid 1px blue;
+    /* border: solid 1px blue; */
 }
 
 /* 관리자페이지 인덱스 CSS */
-main section#admin_index_section .inner .content_box {
-	width: 600px;
-	height: 350px;
-	margin-top: 15px;
-	border: solid 1px red;
-	float:left;
+main section#admin_index_section .inner {
+    /* border: solid 1px blue; */
 }
 
-main section#admin_index_section .inner .content_box:nth-child(even){
-	float:right;
+main section#admin_index_section .inner .row_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
 }
 
-main section#admin_index_section .inner .content_box .card {
-	width: 100%;
-	border: solid 1px blue;
+main section#admin_index_section .inner .second_row {
+    margin-top: 30px;
+}
+
+main section#admin_index_section .inner .row_section .card {
+    width: 600px;
+}
+
+main section#admin_index_section .inner .row_section .card h3 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+main section#admin_index_section .inner .row_section .card .content_box {
+    width: 100%;
+}
+
+main section#admin_index_section .inner .row_section .card .content_box table {
+    width: 100%;
+    height: fit-content;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+main section#admin_index_section .inner .row_section .card .content_box table,
+main section#admin_index_section .inner .row_section .card .content_box table tr,
+main section#admin_index_section .inner .row_section .card .content_box table th,
+main section#admin_index_section .inner .row_section .card .content_box table td {
+    border: solid 1px black;
+}
+
+main section#admin_index_section .inner .row_section .card .content_box table tr {
+    height: 50px;
+}
+
+main section#admin_index_section .inner .row_section .card .content_box table td input[type="text"] {
+    width: 100%;
+    height: 50px;
+    padding: 0 5px;
+    border: none;
+}
+
+main section#admin_index_section .inner .row_section .card .content_box table td.scroll {
+	max-width: 150px;
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+main section#admin_index_section .inner .row_section #product_card table th:nth-of-type(1) {
+    width: 80px;
+}
+
+main section#admin_index_section .inner .row_section #board_card table th:nth-of-type(1) {
+    width: 80px;
+}
+
+main section#admin_index_section .inner .row_section #user_card table th:nth-of-type(1) {
+    width: 80px;
 }

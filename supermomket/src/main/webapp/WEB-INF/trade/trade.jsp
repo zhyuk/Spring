@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-   <%@ include file="../../header.jsp" %>
+   <%@ include file="../view/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -237,7 +237,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../../menu.jsp"%>
+<%@ include file="../view/menu.jsp"%>
     <div class="container">
         <form id="filterForm" action="${pageContext.request.contextPath}/trade.do" method="post">
             <input type="hidden" name="sortCondition" value="${param.sortCondition}">

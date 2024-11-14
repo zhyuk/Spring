@@ -22,4 +22,17 @@
 	<select id="getProductList" resultType="product">
 		select * from product order by rand() limit 4;
 	</select>
+	
+	
+	<!-- 관리자 페이지 -->
+	
+	<!-- 새상품 목록 가져오기 -->
+	<select id="getProductListAdmin" resultType="product">
+		select * from product order by p_no desc limit 5;
+	</select>
+	
+	<!-- 사용자 목록 가져오기 -->
+	<select id="getUserListAdmin" resultType="user">
+		select * from user order by u_date desc limit 5;
+	</select>
 </mapper>

@@ -4,11 +4,11 @@
 	href="${pageContext.request.contextPath}/resources/css/cart.css">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<%@ include file="../../header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <body>
-	<%@ include file="../../menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 	<script src="${pageContext.request.contextPath}/resources/js/cartjs.js"></script>
 	<!-- 제이쿼리 사용하기 위한 CDN -->
 	<script

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -265,7 +265,7 @@ $(document).ready(function() {
     </script>
 </head>
 <body>
-	<%@ include file="/menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 
 	<form id="productForm">
 		<div class="product-detail-container">

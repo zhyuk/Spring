@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ include file="../../header.jsp" %>
+<%@ include file="../view/header.jsp" %>
 
 <head>
     <meta charset="UTF-8">
@@ -238,7 +238,7 @@
 </head>
 <body>
    
-<%@ include file="../../menu.jsp"%>
+<%@ include file="../view/menu.jsp"%>
     <div class="container">
         <div class="slider-container">
             <div class="slider-wrapper">

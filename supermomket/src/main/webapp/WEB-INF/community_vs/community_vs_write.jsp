@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ include file="../../header.jsp" %>
+	<%@ include file="../view/header.jsp" %>
 
 		<head>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community_vs.css">
@@ -11,14 +11,14 @@
 		</head>
 
 		<body>
-			<%@ include file="../../menu.jsp" %>
+			<%@ include file="../view/menu.jsp" %>
 				<main>
 					<section id="write">
 						<div class="inner">
 							<form action="/vs_write.do" id="writeForm" method="post" enctype="multipart/form-data">
 								<div class="input-group">
 									<input type="text" id="title" class="inputData" name="vs_title"
-										placeholder="제목을 입력하세요.">
+										placeholder="제목입력">
 								</div>
 
 								<div class="input-group">

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../../header.jsp" %>
+<%@ include file="../view/header.jsp" %>
 	<script src="${pageContext.request.contextPath}/resources/js/faqjs.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faqList.css">
 <body>
-	<%@ include file="../../menu.jsp" %>
+	<%@ include file="../view/menu.jsp" %>
 <main>
 <div id="faq_btndiv" class="cartu_btn">
 <form name="frm" method="post" style="display:none" >
@@ -77,6 +77,6 @@
 </main>
 
 </div>
-<%@ include file="../../footer.jsp" %>
+<%@ include file="../view/footer.jsp" %>
 </body>
 </html>

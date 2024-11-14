@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 
 <style>
 
@@ -62,7 +62,7 @@
 </style>
 
 <body>
-	<%@ include file="/menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 	
 	<div class="mp_container">
 <!-- 	    <div class="mp_sidebar"> -->

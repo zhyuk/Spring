@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.spring.mom.svc.IndexService;
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.ProductVO;
+import com.spring.mom.vo.UserVO;
 
 @Controller
 public class AdminController {
@@ -24,11 +26,12 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin_index.do")
-	public String adminIndex(Community_vsVO vo, HttpSession session, Model model) {
+	public String adminIndex(Community_vsVO CommunityVo, ProductVO productVO, UserVO userVO,HttpSession session, Model model) {
 //		System.out.println("admin 로그인완료");
 
-		model.addAttribute("boardList" , svc.getCommunityList(vo));
-
+		model.addAttribute("boardList" , svc.getCommunityList(CommunityVo));
+		model.addAttribute("productList", svc.getProductListAdmin(productVO));
+		model.addAttribute("userList", svc.getUserListAdmin(userVO));
 		return "admin/index";
 	}
 

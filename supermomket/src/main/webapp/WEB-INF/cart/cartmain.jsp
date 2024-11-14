@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../../header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/cart.css">
 
 <body>
-	<%@ include file="../../menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/cartjs.js"></script>
 <main style="margin-top: 50px;justify-items: center;">
 	<div class="cart-container">

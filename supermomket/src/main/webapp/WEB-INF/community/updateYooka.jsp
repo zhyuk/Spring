@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -14,7 +14,7 @@
 }
 </style>
 <body>
-	<%@ include file="/menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 	<div class="container">
 		<h1 style="padding: 50px;">수정하기</h1>
 		<div class="container-fluid">

@@ -11,7 +11,7 @@ import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
 
 @Controller
-public class ViewController {
+public class IndexController {
 
 	@Autowired
 	private IndexService IndexSVC;

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ include file="../../header.jsp" %>
+	<%@ include file="../view/header.jsp" %>
 
 		<head>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community_vs.css">
@@ -11,7 +11,7 @@
 		</head>
 
 		<body>
-			<%@ include file="../../menu.jsp" %>
+			<%@ include file="../view/menu.jsp" %>
 				<main>
 					<section id="modify">
 						<div class="inner">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 <!-- 현재 페이지 위치 기준으로 수정 -->
 <style>
     
@@ -18,7 +18,7 @@
     }
 </style>
 <body>
-    <%@ include file="/menu.jsp"%>
+    <%@ include file="../view/menu.jsp"%>
     <div class="mp_page-container" >
 
         <div class="mp_form-container"  >

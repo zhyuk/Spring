@@ -10,6 +10,7 @@ import com.spring.mom.svc.IndexService;
 import com.spring.mom.vo.Community_vsVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
+import com.spring.mom.vo.UserVO;
 
 @Service
 public class IndexServiceImpl implements IndexService{
@@ -36,6 +37,22 @@ public class IndexServiceImpl implements IndexService{
 	public List<ProductVO> getProductList(ProductVO vo) {
 //		System.out.println("IndexSVC getProductList() 실행");
 		return dao.getProductList(vo);
+	}
+	
+	// ===== 관리자 부분 =====
+
+	// 새상품 목록 가져오기
+	@Override
+	public List<ProductVO> getProductListAdmin(ProductVO vo) {
+		System.out.println("IndexSVC getProductListAdmin() 실행");
+		return dao.getProductListAdmin(vo);
+	}
+
+	//사용자 목록 가져오기
+	@Override
+	public List<UserVO> getUserListAdmin(UserVO vo) {
+		System.out.println("IndexSVC getUserListAdmin() 실행");
+		return dao.getUserListAdmin(vo);
 	}
 
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ include file="../../header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 
 <body>
 	<style>
@@ -106,7 +106,7 @@
 	padding: 15px;
 }
 </style>
-	<%@ include file="/menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 	<div class="container">
 		<h1 style="margin-top: 50px;">놀이터</h1>
 		<form name="fm" action="/updateNoriter.do" method="get"

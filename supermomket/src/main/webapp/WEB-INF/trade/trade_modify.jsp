@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="../../header.jsp" %>
+    <%@ include file="../view/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -211,7 +211,7 @@ padding: 10px 20px;
 
 </style>
 <body>
-<%@ include file="../../menu.jsp"%>
+<%@ include file="../view/menu.jsp"%>
    <form action="${pageContext.request.contextPath}/trade_modify.do" method="post" enctype="multipart/form-data">
    <input type="hidden" name="t_no" value="${trade.t_no}">
  <div class="write-form">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     int totalItems = (int) request.getAttribute("totalItems"); 
@@ -75,7 +75,7 @@ form {
 </style>
 
 <body>
-    <%@ include file="/menu.jsp"%>
+    <%@ include file="../view/menu.jsp"%>
     <div class="mp_content-container">
         <div class="mp_search-form-container">
             <form action="userList.do" method="get" class="mb-4">

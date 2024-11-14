@@ -101,7 +101,7 @@ public class LoginController {
 	@RequestMapping("/logout.do")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "login/login";
+        return "redirect:/";
 //        return "redirect:index.jsp";
     }
 	

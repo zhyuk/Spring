@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 <body>
 	<div class="container">
 
-		<%@ include file="/menu.jsp"%>
+		<%@ include file="../view/menu.jsp"%>
 		<h1 style="padding: 50px;">글쓰기</h1>
 		<div class="container-fluid">
 			<form action="insertCommunity.do" method="post"

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.mom.vo.Community_vsVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
+import com.spring.mom.vo.UserVO;
 
 @Repository
 public class IndexDAO {
@@ -32,5 +33,18 @@ public class IndexDAO {
 	public List<ProductVO> getProductList(ProductVO vo) {
 //		System.out.println("IndexDAO getProductList() 실행");
 		return mybatis.selectList("IndexDAO.getProductList", vo);
+	}
+
+	// 관리자부분
+	// 새상품 목록 가져오기
+	public List<ProductVO> getProductListAdmin(ProductVO vo) {
+		System.out.println("IndexDAO getProductListAdmin() 실행");
+		return mybatis.selectList("IndexDAO.getProductListAdmin", vo);
+	}
+
+	// 사용자 목록 가져오기
+	public List<UserVO> getUserListAdmin(UserVO vo) {
+		System.out.println("IndexDAO getUserListAdmin() 실행");
+		return mybatis.selectList("IndexDAO.getUserListAdmin", vo);
 	}
 }

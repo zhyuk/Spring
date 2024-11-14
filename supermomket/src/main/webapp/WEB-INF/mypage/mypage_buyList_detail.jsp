@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp"%>
+<%@ include file="../view/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style>
@@ -30,7 +30,7 @@
 	}
 </style>
 <body>
-	<%@ include file="/menu.jsp"%>
+	<%@ include file="../view/menu.jsp"%>
 	<div class="mp_container">
 		<!-- 			<h3>주문 목록</h3> -->
 		<div class="order-list d-flex flex-column align-items-center flex-grow-1">

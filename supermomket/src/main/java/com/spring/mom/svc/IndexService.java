@@ -5,6 +5,7 @@ import java.util.List;
 import com.spring.mom.vo.Community_vsVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
+import com.spring.mom.vo.UserVO;
 
 public interface IndexService {
 	
@@ -16,5 +17,12 @@ public interface IndexService {
 	
 	// 새상품 목록 가져오기
 	public List<ProductVO> getProductList(ProductVO vo);
+	
+	// 관리자 부분
+	// 새상품 목록 가져오기
+	public List<ProductVO> getProductListAdmin(ProductVO vo);
+	
+	// 사용자 목록 가져오기
+	public List<UserVO> getUserListAdmin(UserVO vo);
 
 }
