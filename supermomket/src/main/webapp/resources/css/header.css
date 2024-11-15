@@ -87,11 +87,33 @@ header .logo-box p {
 header .logo-box #ham-btn {
 	position: absolute;
 	top: 50%;
+	left: 20px;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	transform: translate(0, -50%);
+}
+
+header .logo-box #m-cart-btn {
+	position: absolute;
+	top: 50%;
 	right: 20px;
 	width: 50px;
 	height: 50px;
 	text-align: center;
 	transform: translate(0, -50%);
+}
+
+header .logo-box #m-cart-btn a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	/* border: solid 1px red; */
+}
+
+header .logo-box #m-cart-btn a i {
+	font-size: 40px;
 }
 
 header .logo-box #ham-btn span {
@@ -169,7 +191,7 @@ header .sub-menu {
 	position: absolute;
 	top: 50px;
 	display: none;
-	background: rgba(250, 236, 191, 0.6);
+	background: rgb(250, 236, 191);
 	padding: 10px;
 	border-radius: 5px;
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
@@ -211,9 +233,35 @@ header .faq-menu:hover .faq-sub-menu {
 	flex-direction: column;
 }
 
+header #m-main-menu {
+	display: none;
+}
+
+header #m-main-menu li button {
+	min-width: 100px;
+	max-width: fit-content;
+	background: transparent;
+	font-size: 16px;
+	border: none;
+}
+
+header #m-main-menu li button p {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+header #m-main-menu li button a {
+	font-size: 14px;
+}
+
+header .m-sub-menu {
+	display: none;
+}
+
 /* 사용자 페이지 컨텐츠 너비 설정 */
 main {
 	width: 100%;
+	min-height: calc(100vh - 300px);
 	height: fit-content;
 	margin-top: 50px;
 	/* border: solid 1px red; */
@@ -369,6 +417,13 @@ footer .inner p:nth-of-type(2) {
 		display: none !important;
 	}
 
+	header {
+		position: fixed;
+		top: 0;
+		padding-bottom: 0;
+		z-index: 5;
+	}
+
 	header .logo-box p {
 		right: 20px;
 	}
@@ -381,6 +436,23 @@ footer .inner p:nth-of-type(2) {
 	header .ham-box {
 		display: block;
 		margin-left: auto;
+	}
+
+	header nav.m-show ul li {
+		height: 50px;
+		font-size: 24px;
+		text-align: center;
+		line-height: 50px;
+	}
+
+	header nav.m-show ul li>a {
+		display: block;
+		height: 50px;
+		text-align: center;
+	}
+
+	main {
+		margin-top: 150px;
 	}
 
 	main section#user_index_section .inner {

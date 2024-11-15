@@ -86,6 +86,10 @@ public class Community_vsController {
 	public String getBoardListAdmin(Community_vsVO vo, HttpSession session, Model model) {
 //		System.out.println("관리자 페이지 이동");
 
+		if (session.getAttribute("adminId") == null || session.getAttribute("adminId") == "") {
+			return "admin/login";
+		}
+
 		model.addAttribute("boardList", svc.getBoardAdmin(vo));
 		return "community_vs/community_vs_admin";
 	}
@@ -93,7 +97,8 @@ public class Community_vsController {
 	// 관리자 글 수정
 	@RequestMapping("/vs_admin_update.do")
 	@ResponseBody
-	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Comment_vsVO cvo, Model model) {
+	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Comment_vsVO cvo, Model model,
+			HttpSession session) {
 //		System.out.println("/vs_admin_update.do 서블릿 실행");
 //		System.out.println(vo);
 
@@ -174,6 +179,11 @@ public class Community_vsController {
 	@GetMapping("/vs_write.do")
 	public String getWriterForm(HttpSession session) {
 //		System.out.println("GET 방식의 /vs_write.do 서블릿 실행");
+
+		if (session.getAttribute("userId") == null || session.getAttribute("userId") == "") {
+			return "login/login";
+		}
+
 		return "community_vs/community_vs_write";
 	}
 
@@ -252,10 +262,14 @@ public class Community_vsController {
 	// 글 수정페이지 이동
 	@GetMapping("/vs_update.do")
 	public String updateBoardInfo(Community_vsVO vo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage) {
+			@RequestParam(value = "nowPage", required = false) String nowPage, HttpSession session) {
 //		System.out.println("/vs_update.do  GET 서블릿 실행");
 //		System.out.println(vo.getVs_no());
 //		System.out.println(nowPage);
+
+		if (session.getAttribute("userId") == null || session.getAttribute("userId") == "") {
+			return "login/login";
+		}
 		model.addAttribute("boardList", svc.getBoardInfo(vo));
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());

@@ -10,7 +10,7 @@
 							<div class=inner>
 
 								<div id="product_box">
-									<h3>이번 주 특가</h3>
+									<h3>오늘의 추천상품</h3>
 
 									<div class="list">
 										<c:forEach items="${productList}" var="product">

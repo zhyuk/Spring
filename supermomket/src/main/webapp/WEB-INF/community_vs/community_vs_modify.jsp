@@ -108,12 +108,14 @@
 							$("#img1_select input").attr("disabled", false);
 							$("#img1_select").css("display", "inline-block");
 							$("#img1_view_btn").hide();
+							$(this).hide();
 						} else {
 							console.log("이미지 2 수정");
 							$("#img2_box input").attr("disabled", true);
 							$("#img2_select input").attr("disabled", false);
 							$("#img2_select").css("display", "inline-block");
 							$("#img2_view_btn").hide();
+							$(this).hide();
 						}
 					});
 

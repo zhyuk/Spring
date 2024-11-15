@@ -12,9 +12,9 @@ textarea {
 	--color-white: #fff;
 	--color-gray: #D9D9D9;
 	--ad-color-darkgray: #212121;
-    --ad-color-gray: #444;
-    --ad-color-semigray: #808080;
-    --ad-color-lightgray: #D9D9D9;
+	--ad-color-gray: #444;
+	--ad-color-semigray: #808080;
+	--ad-color-lightgray: #D9D9D9;
 }
 
 button {
@@ -83,14 +83,21 @@ section#index div.inner table td {
 	text-align: center;
 }
 
-section#index div.inner table td.title {
-	position: relative;
+section#index div.inner table td.title div {
+	display: flex;
+	align-items: center;
+	/* border: solid 1px red; */
+}
+
+section#index div.inner table td.title span.title-span {
+	display: inline-block;
+	max-width: 650px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 section#index div.inner table td.title span.comment-span {
-	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%);
 	margin-left: 5px;
 	font-size: 16px;
 	font-weight: 600;
@@ -102,11 +109,11 @@ section#index div.inner table th:nth-of-type(1) {
 }
 
 section#index div.inner table th:nth-of-type(2) {
-	width: 750px;
+	width: 700px;
 }
 
 section#index div.inner table th:nth-of-type(3) {
-	width: 200px;
+	width: 250px;
 }
 
 section#index div.inner table th:nth-of-type(4) {
@@ -720,7 +727,7 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 	}
 
 	section div.inner {
-		padding: 0 10px;
+		padding: 0 30px;
 	}
 
 	.mobile-hide {
@@ -730,17 +737,14 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 	/* 글 목록페이지 */
 	section#index div.inner .search-form select {
 		width: 55px;
-		height: 30px;
 	}
 
 	section#index div.inner .search-form input[name=searchKeyword] {
 		width: calc(100% - 130px);
-		height: 30px;
 	}
 
 	section#index div.inner .search-form button.search-btn {
 		width: 55px;
-		height: 30px;
 		padding: 0 5px;
 	}
 
@@ -758,13 +762,28 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 		font-size: 14px;
 	}
 
+	section#index div.inner table th:nth-of-type(2) {
+		width: 300px;
+	}
+
+	section#index div.inner table td.title span.title-span {
+		max-width: 230px;
+		font-size: 14px;
+	}
+
 	/* 세부 글 보기 */
 	section#info div.inner div.container .board_info p.title {
-		font-size: 20px;
+		width: calc(100% - 100px);
+		font-size: 18px;
 	}
 
 	section#info div.inner div.container .board_info p.date {
+		width: 100px;
 		font-size: 14px;
+	}
+
+	section#info div.inner div.container .board_info p.writer {
+		font-size: 16px;
 	}
 
 	section#info div.inner div.container .text-group .img-box {
@@ -773,5 +792,41 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 
 	section#info div.inner div.container .text-group .img-box img {
 		width: 100%;
+	}
+
+	section#info div.inner div.container .text-group pre {
+		width: 100%;
+		white-space: normal;
+		font-size: 16px;
+	}
+
+	/* 글 작성 */
+	section#write div.inner form .input-group input[type='text'] {
+		font-size: 26px;
+	}
+
+	section#write div.inner form .input-group input[type='file'] {
+		display: block;
+		width: 100%;
+		margin: 30px 0;
+	}
+
+	/* 글 수정 */
+	section#modify div.inner form .input-group input[type='text'] {
+		font-size: 26px;
+	}
+
+	section#modify div.inner form .input-group>button {}
+
+	section#modify div.inner form .input-group .img_box .close {
+		top: 150px;
+	}
+
+	section#modify div.inner form .input-group .img_box img {
+		width: 100%;
+	}
+
+	section#modify div.inner form .input-group .img_select {
+		margin: 10px 0;
 	}
 }
