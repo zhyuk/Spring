@@ -8,25 +8,20 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<!-- 컴포넌트 스캔 -->
-	<context:component-scan
-		base-package="com.spring.mom" />
+	<context:component-scan base-package="com.spring.mom" />
 
 	<!-- DataSource 설정 -->
-	<context:property-placeholder
-		location="classpath:db.properties" />
+	<context:property-placeholder location="classpath:db.properties" />
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName"
-			value="${jdbc.driverClassName}" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
 	<!-- MyBatis -->
-	<bean id="sqlsession"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlsession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation"
 			value="classpath:mybatis-config.xml"></property>

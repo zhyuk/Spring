@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.spring.mom.svc.AdminLoginService;
 import com.spring.mom.svc.IndexService;
 import com.spring.mom.vo.Community_vsVO;
 import com.spring.mom.vo.ProductVO;
@@ -17,13 +20,31 @@ public class AdminController {
 
 	@Autowired
 	private IndexService svc;
+	
+	@Autowired
+	private AdminLoginService adminLoginService;
 
-	@GetMapping("/admin.do")
-	public String adminLogin(HttpSession session) {
-//		System.out.println("admin 로그인페이지 이동");
-		session.setAttribute("adminId", "admin");
-		return "admin/login";
+
+	@GetMapping(value = "/admin_login.do")
+	public String adminlogin(UserVO vo) {
+		return "login/admin_login";
 	}
+
+	@RequestMapping(value = "/admin_login.do", method = RequestMethod.POST)
+	public String loginadmin(UserVO vo, HttpSession session, Model model) {
+        boolean isAuthenticated = adminLoginService.authenticateUser(vo.getU_id(), vo.getU_pw());
+        if (isAuthenticated) {
+            UserVO user = adminLoginService.getUser(vo); 
+            session.setAttribute("adminId", user.getU_id());
+            session.setAttribute("adminName", user.getU_name());
+            session.setAttribute("adminNickname", user.getU_nickname());
+            session.setAttribute("adminRole", user.getU_role());
+            return "redirect:/admin_index.do";
+        } else {
+            model.addAttribute("loginError", "아이디 또는 비밀번호가 일치하지 않습니다.");
+            return "login/admin_login";  
+        }
+    }
 
 	@GetMapping("/admin_index.do")
 	public String adminIndex(Community_vsVO CommunityVo, ProductVO productVO, UserVO userVO,HttpSession session, Model model) {
@@ -32,13 +53,13 @@ public class AdminController {
 		model.addAttribute("boardList" , svc.getCommunityList(CommunityVo));
 		model.addAttribute("productList", svc.getProductListAdmin(productVO));
 		model.addAttribute("userList", svc.getUserListAdmin(userVO));
+		model.addAttribute("chartList", svc.getChartAdmin(userVO));
 		return "admin/index";
 	}
-
+	
 	@GetMapping("/admin_logout.do")
 	public String adminLogout(HttpSession session) {
-//		System.out.println("admin 로그아웃");
 		session.invalidate();
-		return "redirect:/";
+	    return "login/admin_login";
 	}
 }

@@ -38,7 +38,8 @@
 		<mapper resource="mapping/MypageMapper.xml"/>
 		<mapper resource="mapping/OrderMapper.xml"/>
 		<mapper resource="mapping/chat-mapping.xml" />
-		<mapper resource="mapping/kakaouser-mapping.xml"/>
+		<mapper resource="mapping/kakaouser-mapping.xml"/> 
 		<mapper resource="mapping/index-mapping.xml"/> 
+		<mapper resource="mapping/adminlogin-mapping.xml"/> 
 	</mappers>
 </configuration>

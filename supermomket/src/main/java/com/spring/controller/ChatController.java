@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.TextMessage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.mom.config.ChatHandler;
+import com.spring.config.ChatHandler;
 import com.spring.mom.vo.ChatMessageVO;
 import com.spring.mom.vo.ChatRoomVO;
 import com.spring.mom.vo.ChatService;
@@ -40,7 +40,7 @@ public class ChatController {
         int roomId = Integer.parseInt(params.get("roomId").toString());
         String userId = params.get("userId").toString();
         
-        // 채팅방 정보 조회
+    
         ChatRoomVO room = chatService.getChatRoom(roomId);
         String nickname = userId.equals(room.getSellerId()) ? room.getSellerNickname() : room.getBuyerNickname();
         

@@ -44,6 +44,7 @@
     flex-wrap: wrap;
 }
 
+
 .preview-item img {
     width: 100%;
     height: 100%;
@@ -211,6 +212,120 @@ padding: 10px 20px;
 
 }
 
+
+@media screen and (max-width: 425px) {
+    .write-form {
+        max-width: 100%;
+        padding: 16px;
+        margin: 0;
+    }
+
+    .image-upload {
+        width: 80px;
+        height: 80px;
+        margin-top: 20px;
+        margin-bottom: 16px;
+    }
+
+    .image-upload i {
+        font-size: 20px;
+    }
+
+  
+    .image-preview-container {
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .preview-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .delete-button {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+        top: 4px;
+        right: 4px;
+    }
+
+    
+    .input-category-container {
+        margin-bottom: 12px;
+    }
+
+    .product-input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .category-list {
+        margin-bottom: 12px;
+    }
+
+    .category-option {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+ 
+    .price-container {
+        margin: 12px 0;
+    }
+
+    .price-input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+ 
+    .description-container {
+        margin-bottom: 12px;
+    }
+
+    .description-textarea {
+        height: 120px;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+   
+    .condition-container {
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    .condition-button {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin-right: 8px;
+    }
+
+    
+    .btn-container {
+        margin-top: 16px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+        margin: 0;
+    }
+
+   
+    .image-count {
+        bottom: -20px;
+        font-size: 11px;
+    }
+
+ 
+    .image-upload-container {
+        margin-bottom: 24px;
+    }
+}
+
 </style>
 <body>
 <%@ include file="../view/menu.jsp"%>
@@ -273,13 +388,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     conditionButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // 모든 버튼에서 선택된 클래스 제거
+           
             conditionButtons.forEach(btn => btn.classList.remove('selected'));
             
-            // 클릭한 버튼에 선택된 클래스 추가
+            
             button.classList.add('selected');
             
-            // 선택된 값을 숨겨진 입력 필드에 저장
+         
             selectedConditionInput.value = button.textContent.trim();
         });
     });
@@ -292,13 +407,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     categoryOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // 모든 옵션에서 선택된 클래스 제거
+         
             categoryOptions.forEach(opt => opt.classList.remove('selected'));
             
-            // 클릭한 옵션에 선택된 클래스 추가
+           
             option.classList.add('selected');
             
-            // 선택된 값을 숨겨진 입력 필드에 저장
+        
             selectedCategoryInput.value = option.textContent.trim();
         });
     });
@@ -307,10 +422,9 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const imageUpload = document.getElementById('imageUpload');
     const fileInput = document.getElementById('t_image');
-    const imageCount = document.querySelector('.image-count');
-    let selectedFiles = new DataTransfer(); // 선택된 파일들을 관리하기 위한 객체
+    let selectedFiles = new DataTransfer();
+    let fileSelectOrder = [];
     
-    // 이미지 프리뷰 컨테이너 생성
     const previewContainer = document.createElement('div');
     previewContainer.className = 'image-preview-container';
     imageUpload.parentNode.insertBefore(previewContainer, imageUpload.nextSibling);
@@ -320,17 +434,49 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     fileInput.addEventListener('change', function(e) {
-        const files = Array.from(e.target.files);
+        const currentFiles = Array.from(e.target.files);
         
-        files.forEach(file => {
-            if (file.type.startsWith('image/')) {
-                // DataTransfer 객체에 파일 추가
-                selectedFiles.items.add(file);
-                
+        if (selectedFiles.files.length + currentFiles.length > 5) {
+            alert('이미지는 최대 5개까지만 업로드할 수 있습니다.');
+            return;
+        }
+
+       
+        const filesWithTimestamp = currentFiles.map((file, index) => ({
+            file: file,
+            timestamp: Date.now() + index, 
+            originalIndex: index
+        }));
+
+        
+        filesWithTimestamp.forEach((fileData) => {
+            if (fileData.file.type.startsWith('image/')) {
+                const isMain = fileSelectOrder.length === 0;
+                fileSelectOrder.push({
+                    file: fileData.file,
+                    isMain: isMain,
+                    timestamp: fileData.timestamp,
+                    originalIndex: fileData.originalIndex
+                });
+            }
+        });
+
+     
+        previewContainer.innerHTML = '';
+        selectedFiles = new DataTransfer();
+
+     
+        fileSelectOrder.sort((a, b) => a.timestamp - b.timestamp)
+            .forEach((fileObj, index) => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const previewItem = document.createElement('div');
                     previewItem.className = 'preview-item';
+                    if (index === 0) {
+                        previewItem.classList.add('main-image');
+                    }
+                    previewItem.setAttribute('data-index', index);
+                    previewItem.setAttribute('data-timestamp', fileObj.timestamp);
                     
                     const img = document.createElement('img');
                     img.src = e.target.result;
@@ -338,67 +484,116 @@ document.addEventListener('DOMContentLoaded', function() {
                     const deleteBtn = document.createElement('button');
                     deleteBtn.className = 'delete-button';
                     deleteBtn.innerHTML = 'X';
-                    deleteBtn.onclick = function() {
-                        // 해당 파일을 DataTransfer 객체에서 제거
-                        const newFiles = new DataTransfer();
-                        const files = Array.from(selectedFiles.files);
-                        files.forEach((f, i) => {
-                            if (f !== file) newFiles.items.add(f);
-                        });
-                        selectedFiles = newFiles;
-                        fileInput.files = selectedFiles.files;
-                        
-                        // 프리뷰 제거
-                        previewItem.remove();
-                        
-                        // 이미지 카운트 업데이트
-                        updateImageCount();
-                    };
                     
+                    deleteBtn.onclick = function(evt) {
+                        evt.preventDefault();
+                        const deleteIndex = parseInt(previewItem.getAttribute('data-index'));
+                        fileSelectOrder.splice(deleteIndex, 1);
+                        previewItem.remove();
+                        updatePreviewsAndFiles();
+                    };
+
                     previewItem.appendChild(img);
                     previewItem.appendChild(deleteBtn);
                     previewContainer.appendChild(previewItem);
                     
+                    selectedFiles.items.add(fileObj.file);
+                    fileInput.files = selectedFiles.files;
                     updateImageCount();
                 };
-                reader.readAsDataURL(file);
-            }
+                reader.readAsDataURL(fileObj.file);
         });
     });
-    
+
+
+    function updatePreviewsAndFiles() {
+        const newFiles = new DataTransfer();
+        const previewItems = Array.from(previewContainer.querySelectorAll('.preview-item'));
+        
+      
+        previewItems.sort((a, b) => {
+            return parseInt(a.getAttribute('data-timestamp')) - 
+                   parseInt(b.getAttribute('data-timestamp'));
+        }).forEach((item, index) => {
+            const fileObj = fileSelectOrder[index];
+            if (fileObj) {
+                newFiles.items.add(fileObj.file);
+                item.setAttribute('data-index', index);
+                
+                if (index === 0) {
+                    item.classList.add('main-image');
+                } else {
+                    item.classList.remove('main-image');
+                }
+            }
+        });
+        
+        selectedFiles = newFiles;
+        fileInput.files = selectedFiles.files;
+        updateImageCount();
+    }
+
+   
+    function removeFile(index) {
+        const newFiles = new DataTransfer();
+        const files = Array.from(selectedFiles.files);
+        files.splice(index, 1);
+        files.forEach(file => newFiles.items.add(file));
+        selectedFiles = newFiles;
+        fileInput.files = selectedFiles.files;
+    }
+
+  
+    function reorderFiles() {
+        const previewItems = previewContainer.querySelectorAll('.preview-item');
+        previewItems.forEach((item, index) => {
+            item.setAttribute('data-index', index);
+        });
+    }
+
+
     function updateImageCount() {
         const count = selectedFiles.files.length;
-        const imageCount = document.querySelector('.image-count');
-        if (imageCount) {
-            imageCount.textContent = `${count}/5`;
-            imageCount.style.display = 'block'; // 확실하게 보이도록 설정
+        
+        let imageCount = document.querySelector('.image-count');
+        if (!imageCount) {
+            imageCount = document.createElement('div');
+            imageCount.className = 'image-count';
+            imageUpload.appendChild(imageCount);
         }
+       
     }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 가격 입력 필드 선택 (input의 id나 class에 따라 수정 필요)
+  
     const priceInput = document.querySelector('input[name="t_price"]');
     
     if (priceInput) {
         priceInput.addEventListener('input', function(e) {
-            // 숫자 이외의 문자 제거
+           
             let value = e.target.value.replace(/[^\d]/g, '');
             
-            // 숫자를 3자리마다 콤마로 구분
+        
             value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             
-            // 입력 필드에 포맷된 값을 설정
+           
             e.target.value = value;
         });
         
-        // form submit 전에 콤마 제거
+      
         priceInput.form.addEventListener('submit', function(e) {
             priceInput.value = priceInput.value.replace(/,/g, '');
         });
     }
 });
 
+$('link[href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"]').remove();
+$('link[href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"]').remove();
+$('script[src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"]').remove();
+
 </script>
+
+ <%@ include file="../view/footer.jsp" %>
 </body>
 </html>

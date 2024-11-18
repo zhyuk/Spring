@@ -11,8 +11,10 @@ public class Community_yookaVO {
 	private String cm_date;
 	private int cm_view;
 	
-	private int cm_up;
-	private int cm_down;
+	private int cot_cnt;
+	private int likecnt;
+	private int hatecnt;
+	
 
 	private String searchCondition; 
 	private String searchKeyword; 
@@ -23,6 +25,32 @@ public class Community_yookaVO {
 	private int start; 
 	private int listcnt;
 	
+	
+	
+	public int getCot_cnt() {
+		return cot_cnt;
+	}
+
+	public void setCot_cnt(int cot_cnt) {
+		this.cot_cnt = cot_cnt;
+	}
+
+	public int getLikecnt() {
+		return likecnt;
+	}
+
+	public void setLikecnt(int likecnt) {
+		this.likecnt = likecnt;
+	}
+
+	public int getHatecnt() {
+		return hatecnt;
+	}
+
+	public void setHatecnt(int hatecnt) {
+		this.hatecnt = hatecnt;
+	}
+
 	public int getCm_no() {
 		return cm_no;
 	}
@@ -120,26 +148,13 @@ public class Community_yookaVO {
 		this.cm_img = cm_img;
 	}
 
-	public int getCm_up() {
-		return cm_up;
-	}
-
-	public void setCm_up(int cm_up) {
-		this.cm_up = cm_up;
-	}
-
-	public int getCm_down() {
-		return cm_down;
-	}
-
-	public void setCm_down(int cm_down) {
-		this.cm_down = cm_down;
-	}
-
 	@Override
 	public String toString() {
 		return "Community_yookaVO [cm_no=" + cm_no + ", cm_writer=" + cm_writer + ", cm_title=" + cm_title + ", cm_content=" + cm_content + ", cm_date=" + cm_date + ", cm_view=" + cm_view
-				+ ", cm_img=" + cm_img + ", cm_up=" + cm_up + ", cm_down=" + cm_down + ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", uploadFile=" + uploadFile
-				+ ", start=" + start + ", listcnt=" + listcnt + "]";
+				+ ", cot_cnt=" + cot_cnt + ", likecnt=" + likecnt + ", hatecnt=" + hatecnt + ", searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", uploadFile=" + uploadFile
+				+ ", cm_img=" + cm_img + ", start=" + start + ", listcnt=" + listcnt + "]";
 	}
+	
+	
+
 }

@@ -6,6 +6,45 @@
 
 <body>
 	<style>
+#scrollTopBtn {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 50px;
+	height: 50px;
+	background-color: #FFD26E;
+	color: black;
+	border-radius: 50%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	transition: opacity 0.3s, transform 0.3s;
+}
+
+#scrollTopBtn:hover {
+	opacity: 0.8;
+	transform: scale(1.1);
+}
+
+#scrollTopBtn:active {
+	transform: scale(0.9);
+}
+
+body {
+	font-size: 14px;
+}
+
+button {
+	background-color: #FFD26E;
+	border: none;
+	padding: 5px;
+	border-radius: 10px;
+}
+
 #imgBox {
 	display: none;
 	position: absolute;
@@ -56,8 +95,33 @@
 	cursor: pointer;
 }
 
+h1 {
+	padding-top: 30px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
 #replyForm {
 	display: none;
+}
+
+.form1 {
+	text-align: center;
+}
+
+.form1 input[type="text"] {
+	/* 	border: none; */
+	outline: none;
+	height: 50px;
+	font-size: 18px;
+}
+
+.second .vie input {
+	width: 6ch;
+}
+
+.second .up input, .second .down input {
+	width: 4ch;
 }
 
 .text-muted {
@@ -68,10 +132,10 @@
 	margin-left: 50px;
 }
 
-.repTogNoriter { 
- 	display: none;  
- } 
- 
+.repTogNoriter {
+	display: none;
+}
+
 .upDown {
 	width: 100%;
 	display: inline-flex;
@@ -105,90 +169,233 @@
 	width: 50%;
 	padding: 15px;
 }
+
+.cotent12 {
+	width: 1200px;
+	text-align: left;
+	margin: 0 auto;
+}
+
+#commentUpDel {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: row-reverse;
+	align-items: normal;
+}
+
+#footer button {
+	padding: 8px;
+}
+
+#commentReplyUpDel {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: row-reverse;
+	align-items: normal;
+}
+
+#replyNoriter {
+	padding: 8px;
+	float: right;
+}
+
+#deleteCommentNoriter, #updateCommentNoriter, #deleteReplyNoriter,
+	#updateReplyNoriter {
+	width: 50px;
+	margin: 0 3px;
+}
+
+#maincom {
+	width: 1200px;
+	margin: 0 auto;
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+	border-radius: 13px;
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#commentinput {
+	width: 1200px;
+	margin: 0 auto;
+	border-radius: 13px;
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+	margin-top: 10px;
+}
+
+li::marker {
+	content: none;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+#replyForm {
+	text-align: right;
+}
+
+.form-group {
+	margin-bottom: 4px;
+}
+
+.detail-box {
+	font-size: 18px;
+	width: 1200px;
+	margin: 0 auto; 
+	flex-direction: column;
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	display: flex;
+}
+
+.category-title {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	margin-bottom: 3px;
+}
+
+.detail-box .category {
+	font-weight: bold;
+	color: #007bff;
+	margin-bottom: 5px;
+}
+
+.detail-box .title {
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: calc(100% - 50px);
+}
+
+.detail-box .info12 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	color: #666;
+}
+
+.detail-box .info12 span {
+	white-space: nowrap;
+}
+#inputbtn{
+	background-color: #FFD26E;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 425px) {
+	.detail-box{
+		margin-top : 20px;
+		font-size: 14px;
+		text-align: left;
+		width: 100%;
+	}
+	.form1 div input {
+		width: 30%;
+	}
+	.form1 div div {
+		display: inline;
+	}
+	.form1 {
+		text-align: center;
+	}
+	.m-div {
+		margin: 0 5px;
+	}
+	#maincom {
+		border: 1px solid #e0e0e0;
+		padding: 10px;
+		border-radius: 13px;
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+	}
+	#commentinput {
+		width: 100%;
+		margin: 0 auto;
+		border-radius: 13px;
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+		margin-top: 10px;
+	}
+	.cotent12 {
+		width: 90%;
+	}
+	li::marker {
+		content: none;
+	}
+	ul {
+		list-style-type: none;
+		padding-left: 0;
+	}
+	#deleteReplyNoriter, #updateReplyNoriter {
+		font-size: 14px;
+	}
+}
 </style>
 	<%@ include file="../view/menu.jsp"%>
-	<div class="container">
-		<h1 style="margin-top: 50px;">놀이터</h1>
-		<form name="fm" action="/updateNoriter.do" method="get"
+	<div class="m-div">
+		<form name="fm" action="/updateNoriter.do" method="get" class="form1"
 			enctype="multipart/form-data">
 			<input type="hidden" name="cm_no" value="${noriter.cm_no}">
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">제목</span>
-				</div>
-				<input type="text" class="form-control innm" name="cm_title"
-					value="${noriter.cm_title}" readonly>
-				<div class="input-group-prepend">
-					<span class="input-group-text">작성자</span>
-				</div>
-				<input type="text" class="form-control innm" name="cm_writer"
-					value="${noriter.cm_writer}" readonly>
-			</div>
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">등록일</span>
-				</div>
-				<input type="text" class="form-control innm" name="cm_date"
-					value="${noriter.cm_date}" readonly>
 
-				<div class="input-group-prepend">
-					<span class="input-group-text">조회수</span>
+			<div class="detail-box">
+				<div class="category-title">
+					<div class="category">[놀이터]</div>
+					<div class="title">${noriter.cm_title}</div>
 				</div>
-				<input type="text" class="form-control innm" name="cm_view"
-					value="${noriter.cm_view}" readonly>
-
-				<div class="input-group-prepend">
-					<span class="input-group-text">추천</span>
+				<div class="info12">
+					<span class="writer">${noriter.cm_writer}</span> <span
+						class="comments">조회: ${noriter.cm_view}</span> <span class="views">추천:
+						${likeResult}</span> <span class="likes">비추천: ${hateResult}</span> <span
+						class="date">${noriter.cm_date}</span>
 				</div>
-				<input style="text-align: center;" type="text"
-					class="form-control innm" name="cm_up" value="${likeResult}"
-					readonly>
-				<div class="input-group-prepend">
-					<span class="input-group-text">비추천</span>
-				</div>
-				<input style="text-align: center;" type="text"
-					class="form-control innm" name="cm_up" value="${hateResult}"
-					readonly>
 			</div>
 			<br> <br>
-			<div style="width: 100%;">
+			<div style="width: 100%; display: inline-block;" class="imgDiv">
 				<c:choose>
 					<c:when test="${not empty noriter.cm_img}">
 						<c:forEach var="img" items="${fn:split(noriter.cm_img, ',')}">
-							<img style="display: block; width: 80%;"
-								src="${pageContext.request.contextPath}/resources/img/community/${img.trim()}">
+							<div style="text-align: center;">
+								<img style="max-width: 70%;"
+									src="${pageContext.request.contextPath}/resources/img/community/${img.trim()}">
+							</div>
+							<br>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<p></p>
 					</c:otherwise>
 				</c:choose>
-
 			</div>
-
-			${noriter.cm_content} <br> <br>
+			<p class="cotent12">${Noriter.cm_content}</p>
+			<br> <br>
 			<ul class="upDown">
 				<li class="likeUp"><button type="button" id="likebtn"
 						name="likebtn"
 						style="background-image: url('${pageContext.request.contextPath}/resources/img/community/like.png'); background-size: contain; background-repeat: no-repeat;height: 50px; border: none;"
-						onclick="UpDownStsNoriter(${noriter.cm_no}, 1)"></button>
+						onclick="UpDownStsNoriter(${Noriter.cm_no}, 1)"></button>
 					<p>${likeResult}</p></li>
 
 
 				<li class="hateDown"><button type="button" id="hatebtn"
 						name="hatebtn"
 						style="background-image: url('${pageContext.request.contextPath}/resources/img/community/hate.png'); background-size: contain; background-repeat: no-repeat; height: 50px; border: none;"
-						onclick="UpDownStsNoriter(${noriter.cm_no}, 2)"></button>
+						onclick="UpDownStsNoriter(${Noriter.cm_no}, 2)"></button>
 					<p>${hateResult}</p></li>
 			</ul>
 			<br> <br>
 			<div id="footer">
-				<c:if test="${sessionScope.userId == noriter.cm_writer }">
+				<c:if test="${sessionScope.userId == Noriter.cm_writer }">
 					<button type="submit" class="">글수정</button>
-					<button id="conWrite" type="button" class="">글쓰기</button>
-					<button id="conDelNoriter" type="button" class="">글삭제</button>
+					<button id="conWrite" type="button">글쓰기</button>
+					<button id="conDelNoriter" type="button">글삭제</button>
 				</c:if>
-				<button id="noriterList" type="button" class="">글목록</button>
+				<button id="noriterList" type="button">글목록</button>
 			</div>
 		</form>
 		<form name="hideFrm" style="display: none;">
@@ -200,17 +407,16 @@
 
 		<!-- 댓글 입력 폼 -->
 		<c:if test="${sessionScope.userId != NULL }">
-			<div class="card mb-4">
+			<div class="card mb-4" id="commentinput">
 				<div class="card-body">
 					<form id="commentForm" name="commentForm"
 						action="/insertCommentNoriter.do">
 						<div class="form-group">
-							<label for="comment">내용</label>
 							<textarea class="form-control" id="comment" rows="3"
 								placeholder="댓글을 입력하세요" name="co_content" required></textarea>
 						</div>
-						<input type="hidden" name="cm_no" value="${noriter.cm_no}">
-						<button type="submit" class="">댓글 남기기</button>
+						<input type="hidden" name="cm_no" value="${Noriter.cm_no}">
+						<button type="submit">등록</button>
 					</form>
 				</div>
 			</div>
@@ -221,12 +427,15 @@
 			<c:if test="${commentNoriter.co_no2 == null}">
 				<div id="commentList">
 					<div class="media mb-4">
-						<div class="media-body">
+						<div class="" id="maincom">
 							<span class="mt-0">${commentNoriter.co_writer}</span>
+							<button id="replyNoriter" type="button" class=""
+								onclick="replyNoriterbtn(${commentNoriter.co_no})">답글</button>
 							<button id="repToggleNoriter" type="button"
-								onclick="replyToggleNoriter(${commentNoriter.co_no})">댓글보기</button>
+								onclick="replyToggleNoriter(${commentNoriter.co_no})">답글보기</button>
 
-							<small class="text-muted"> <c:choose>
+							<p class="text-muted">
+								<c:choose>
 									<c:when test="${not empty commentNoriter.co_date2}">
 						                수정일: ${commentNoriter.co_date2}
 						            </c:when>
@@ -234,29 +443,24 @@
 						                등록일: ${commentNoriter.co_date}
 						            </c:otherwise>
 								</c:choose>
-							</small>
+							</p>
+
 							<div style="text-align: right;">
 								<form id="commentUpDel" name="commentUpDel"
 									action="/updateCommentNoriter.do">
 
 									<input id="commentCoNo" type="hidden" name="co_no"
-										value="${commentNoriter.co_no}"> <input
-										id="commentCmNo" type="hidden" name="cm_no"
-										value="${commentNoriter.cm_no}"> <input
-										id="commentCoWriter" type="hidden" name="co_writer"
+										value="${commentNoriter.co_no}"> <input id="commentCmNo"
+										type="hidden" name="cm_no" value="${commentNoriter.cm_no}">
+									<input id="commentCoWriter" type="hidden" name="co_writer"
 										value="${commentNoriter.co_writer}">
 
 									<c:if test="${sessionScope.userId == commentNoriter.co_writer}">
-										<button id="updateCommentNoriter" type="submit"
-											class="btn btn-primary">수정</button>
-										<button id="deleteCommentNoriter" type="button"
-											class="btn btn-primary"
+										<button id="deleteCommentNoriter" type="button" class=""
 											onclick="delCommentNoriter(${commentNoriter.cm_no},${commentNoriter.co_no},'${commentNoriter.co_writer}','${commentNoriter.co_content}')">삭제</button>
+										<button id="updateCommentNoriter" type="submit" class="">수정</button>
 									</c:if>
 
-									<button id="replyNoriter" type="button"
-										class="btn btn-secondary btn-sm"
-										onclick="replyNoriterbtn(${commentNoriter.co_no})">댓글쓰기</button>
 
 									<c:choose>
 										<c:when
@@ -272,11 +476,9 @@
 									</c:choose>
 								</form>
 							</div>
-
 							<!-- 대댓글 입력 폼 (초기에는 숨김) -->
 							<div class="reply-form mt-2">
-								<form
-									class="replyFormNoriter${commentNoriter.co_no} replyFormNoriter"
+								<form class="replyForm${commentNoriter.co_no} replyForm"
 									action="/insertReplyNoriter.do" id="replyForm">
 									<input type="hidden" name="co_no2"
 										value="${commentNoriter.co_no}" />
@@ -284,8 +486,9 @@
 										<textarea class="form-control" rows="2"
 											placeholder="대댓글을 입력하세요" name="co_content" required></textarea>
 									</div>
-									<input type="hidden" name="cm_no" value="${noriter.cm_no}">
-									<button type="submit" class="btn btn-secondary btn-sm">등록</button>
+									<input type="hidden" name="cm_no" value="${Noriter.cm_no}">
+									<button type="submit" 
+										id="inputbtn">등록</button>
 								</form>
 							</div>
 
@@ -295,8 +498,9 @@
 									<div
 										class="media mt-3 repTogNoriter${commentNoriter.co_no} repTogNoriter">
 										<div class="media-body reply2">
-											<h6 class="mt-0">${replyNoriter.co_writer}</h6>
-											<small class="text-muted"> <c:choose>
+											<span class="mt-0">${replyNoriter.co_writer}</span>
+											<p class="text-muted">
+												<c:choose>
 													<c:when test="${not empty replyNoriter.co_date2}">
 									                수정일: ${replyNoriter.co_date2}
 									            </c:when>
@@ -304,7 +508,7 @@
 									                등록일: ${replyNoriter.co_date}
 									            </c:otherwise>
 												</c:choose>
-											</small>
+											</p>
 
 											<div style="text-align: right;">
 												<form id="commentReplyUpDel" name="commentReplyUpDel"
@@ -318,13 +522,10 @@
 														value="${replyNoriter.co_writer}"> <input
 														id="commentReplyCoNo2" type="hidden" name="co_no2"
 														value="${replyNoriter.co_no2}">
-													<c:if
-														test="${sessionScope.userId == replyNoriter.co_writer}">
-														<button id="updateReplyNoriter" type="submit"
-															class="btn btn-primary">수정</button>
-														<button id="deleteReplyNoriter" type="button"
-															class="btn btn-primary deleteRB"
+													<c:if test="${sessionScope.userId == replyNoriter.co_writer}">
+														<button id="deleteReplyNoriter" type="button" class=""
 															onclick="delReplyNoriter(${replyNoriter.cm_no},${replyNoriter.co_no},'${replyNoriter.co_writer}','${replyNoriter.co_content}')">삭제</button>
+														<button id="updateReplyNoriter" type="submit" class="">수정</button>
 													</c:if>
 													<c:choose>
 														<c:when
@@ -352,5 +553,23 @@
 			</c:if>
 		</c:forEach>
 	</div>
+	<div id="scrollTopBtn" onclick="scrollToTop()">▲TOP</div>
+	<script>
+	window.addEventListener("scroll", function () {
+	  const scrollTopBtn = document.getElementById("scrollTopBtn");
+	  if (window.scrollY > 300) { 
+	    scrollTopBtn.style.display = "flex";
+	  } else {
+	    scrollTopBtn.style.display = "none";
+	  }
+	});
+
+	function scrollToTop() {
+	  window.scrollTo({
+	    top: 0,
+	    behavior: "smooth", 
+	  });
+	}
+	</script>
 </body>
 </html>

@@ -23,59 +23,77 @@
 									</div>
 
 									<div class="input-group">
-										<input type="text" id="title" class="inputData" name="vs_title" placeholder="제목을 입력하세요." value="${board.vs_title}">
+										<input type="text" id="title" class="inputData" name="vs_title"
+											placeholder="제목을 입력하세요." value="${board.vs_title}">
 									</div>
 
 									<div class="input-group">
 
-										<button type="button" id="img1_view_btn" class="img_view_btn pointer">이미지 보기</button>
-										<div id="img1_box" class="img_box">
-											<button type="button" id="img1_close" class="close pointer">X</button>
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 수정 전 이미지 1">
-											<input type="hidden" name="vs_img1" value="${board.vs_img1}">
-										</div>
-										<button type="button" id="img1_select_btn" class="img_select_btn pointer">이미지 수정</button>
-
-										<div id="img1_select" class="img_select">
-											<input type="file" id="img1_button" name="vs_img1_file" onchange="readURL(this)" disabled>
-										</div>
-
-										<button type="button" id="img2_view_btn" class="img_view_btn pointer">이미지 보기</button>
-										<div id="img2_box" class="img_box">
-											<button type="button" id="img2_close" class="close pointer">X</button>
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 수정 전 이미지 2">
-											<input type="hidden" name="vs_img2" value="${board.vs_img2}">
-										</div>
-										<button type="button" id="img2_select_btn" class="img_select_btn pointer">이미지 수정</button>
-
-										<div id="img2_select" class="img_select">
-											<input type="file" id="img2_button" name="vs_img2_file" onchange="readURL(this)" disabled>
-										</div>
-									</div>
-
-									<div class="input-group">
-										<div class="preview_box">
-											<div>
-												<img id="img1_preview" class="preview_img">
+										<div>
+											<button type="button" id="img1_view_btn" class="img_view_btn pointer">이미지
+												보기</button>
+											<div id="img1_box" class="img_box">
+												<button type="button" id="img1_close" class="close pointer">X</button>
+												<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}"
+													alt="투표에 사용된 수정 전 이미지 1">
+												<input type="hidden" name="vs_img1" value="${board.vs_img1}">
 											</div>
-											<div>
-												<img id="img2_preview" class="preview_img">
+											<button type="button" id="img1_select_btn"
+												class="img_select_btn pointer">이미지
+												수정</button>
+
+											<div id="img1_select" class="img_select">
+												<label for="img1_button" class="pointer">이미지 등록</label>
+												<input type="file" id="img1_button" name="vs_img1_file"
+													accept=".gif, .jpg, .png" ㄴ onchange="readURL(this)" disabled>
 											</div>
 										</div>
-									</div>
 
-									<div class="input-group">
-										<textarea id="content" class="inputData" name="vs_content" placeholder="내용 입력">${board.vs_content}</textarea>
-									</div>
+										<div>
+											<button type="button" id="img2_view_btn" class="img_view_btn pointer">이미지
+												보기</button>
+											<div id="img2_box" class="img_box">
+												<button type="button" id="img2_close" class="close pointer">X</button>
+												<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}"
+													alt="투표에 사용된 수정 전 이미지 2">
+												<input type="hidden" name="vs_img2" value="${board.vs_img2}">
+											</div>
+											<button type="button" id="img2_select_btn"
+												class="img_select_btn pointer">이미지
+												수정</button>
 
-									<div class="btn-area">
-										<button type="submit" id="btn" class="pointer">수정</button>
-										<button type="button" class="pointer" onclick="selBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">취소</button>
-									</div>
+											<div id="img2_select" class="img_select">
+												<label for="img2_button" class="pointer">이미지 등록</label>
+												<input type="file" id="img2_button" name="vs_img2_file"
+													accept=".gif, .jpg, .png" onchange="readURL(this)" disabled>
+											</div>
+										</div>
 
-									<input type="hidden" name="nowPage" value="${nowPage}">
-									<input type="hidden" name="searchKeyword" value="${searchKeyword}">
-									<input type="hidden" name="searchCondition" value="${searchCondition}">
+										<div class="input-group">
+											<div class="preview_box">
+												<div>
+													<img id="img1_preview" class="preview_img">
+												</div>
+												<div>
+													<img id="img2_preview" class="preview_img">
+												</div>
+											</div>
+										</div>
+
+										<div class="input-group">
+											<textarea id="content" class="inputData" name="vs_content"
+												placeholder="내용 입력">${board.vs_content}</textarea>
+										</div>
+
+										<div class="btn-area">
+											<button type="submit" id="btn" class="pointer">수정</button>
+											<button type="button" class="pointer"
+												onclick="selBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${nowPage})">취소</button>
+										</div>
+
+										<input type="hidden" name="nowPage" value="${nowPage}">
+										<input type="hidden" name="searchKeyword" value="${searchKeyword}">
+										<input type="hidden" name="searchCondition" value="${searchCondition}">
 								</form>
 							</c:forEach>
 						</div>

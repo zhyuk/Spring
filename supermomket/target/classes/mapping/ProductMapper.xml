@@ -36,75 +36,58 @@
 		/ 100), 0) AS p_discount, p_img, p_content, p_good, p_stock, p_view FROM 
 		product </select> -->
 
-	<!-- 새로운 상품을 삽입하는 쿼리 -->
-	<insert id="insertProduct"
-		parameterType="com.spring.mom.vo.ProductVO">
-		INSERT INTO product (p_callno, p_count, p_class, p_name, p_price, p_dr,
-		p_img, p_content, p_good, p_stock, p_view)
-		VALUES (#{p_callno}, #{p_count}, #{p_class}, #{p_name}, #{p_price}, #{p_dr},
-		#{p_img}, #{p_content}, #{p_good}, #{p_stock}, #{p_view})
-	</insert>
-
-	<!-- 상품을 업데이트하는 쿼리 -->
-	<update id="updateProduct"
-		parameterType="com.spring.mom.vo.ProductVO">
-		UPDATE product
-		SET p_callno = #{p_callno},
-		p_count = #{p_count},
-		p_class = #{p_class},
-		p_name = #{p_name},
-		p_price = #{p_price},
-		p_dr = #{p_dr},
-		p_img = #{p_img},
-		p_content = #{p_content},
-		p_good = #{p_good},
-		p_stock = #{p_stock},
-		p_view = #{p_view}
-		WHERE p_no = #{p_no}
-	</update>
-
-	<!-- 상품을 삭제하는 쿼리 -->
-	<delete id="deleteProduct" parameterType="int">
-		DELETE FROM product WHERE p_no = #{p_no}
-	</delete>
-
 	<!-- 상품을 페이징, 정렬, 카테고리, 검색 필터링하여 가져오는 쿼리 -->
-	<select id="getProductsByPage" resultType="product">
-		SELECT
-		p_no, p_callno, p_count, p_class, p_name, p_price, p_dr,
-		ROUND(p_price * (1 - p_dr / 100), 0) AS p_discount,
-		p_img, p_content, p_good, p_stock, p_view, review_avg
-		FROM product
-		LEFT JOIN 
-		    (SELECT c_no AS C_NO, ROUND(AVG(c_avg), 1) AS review_avg FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_avg
-		ON product.p_no = review_avg.C_NO
-		<where>
-			<if test="category != null">
-				p_class = #{category}
-			</if>
-			<if test="searchQuery != null and searchQuery != ''">
-				AND p_name LIKE CONCAT('%', #{searchQuery}, '%')
-			</if>
-		</where>
-		<choose>
-			<when test="sortType == '최신순'">
-				ORDER BY p_callno DESC
-			</when>
-			<when test="sortType == '낮은가격순'">
-				ORDER BY p_discount ASC
-			</when>
-			<when test="sortType == '높은가격순'">
-				ORDER BY p_discount DESC
-			</when>
-			<when test="sortType == '인기순'">
-				ORDER BY p_view DESC
-			</when>
-			<otherwise>
-				ORDER BY p_no DESC
-			</otherwise>
-		</choose>
-		LIMIT #{limit} OFFSET #{offset}
-	</select>
+	<select id="getProductsByPage" resultType="com.spring.mom.vo.ProductVO">
+    SELECT
+        p.p_no, 
+        p.p_callno, 
+        p.p_count, 
+        p.p_class, 
+        p.p_name, 
+        p.p_price, 
+        p.p_dr,
+        ROUND(p.p_price * (1 - p.p_dr / 100), 0) AS p_discount,
+        p.p_img, 
+        p.p_content, 
+        p.p_good, 
+        p.p_stock, 
+        p.p_view, 
+        review_avg.review_avg, 
+        IFNULL(review_count.reviewCount, 0) AS reviewCount
+    FROM product p
+    LEFT JOIN 
+        (SELECT c_no, ROUND(AVG(c_avg), 1) AS review_avg FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_avg 
+        ON p.p_no = review_avg.c_no
+    LEFT JOIN 
+        (SELECT c_no, COUNT(*) AS reviewCount FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_count
+        ON p.p_no = review_count.c_no
+    <where>
+        <if test="category != null">
+            p.p_class = #{category}
+        </if>
+        <if test="searchQuery != null and searchQuery != ''">
+            AND p.p_name LIKE CONCAT('%', #{searchQuery}, '%')
+        </if>
+    </where>
+    <choose>
+        <when test="sortType == '최신순'">
+             ORDER BY p.p_no DESC <!-- 최신순: p_no가 큰 값이 먼저 오도록 정렬 -->
+        </when>
+        <when test="sortType == '낮은가격순'">
+            ORDER BY p_discount ASC
+        </when>
+        <when test="sortType == '높은가격순'">
+            ORDER BY p_discount DESC
+        </when>
+        <when test="sortType == '인기순'">
+             ORDER BY review_avg.review_avg DESC, review_count.reviewCount DESC <!-- 인기순: 평점 높은 순으로 정렬, 동일 평점일 경우 리뷰 수 기준으로 정렬 -->
+        </when>
+        <otherwise>
+            ORDER BY p.p_no DESC
+        </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+</select>
 
 	<!-- 특정 카테고리의 전체 상품 수를 가져오는 쿼리 -->
 	<select id="getProductCountByCategory" parameterType="map"
@@ -132,17 +115,85 @@
 </select>
 
 <!-- 논리적 리뷰 삭제 쿼리 - 리뷰의 c_delete를 'y'로 업데이트하여 논리적으로 삭제 -->
-<select id="getReviewsByProductId" parameterType="int" resultType="com.spring.mom.vo.ReviewVO">
-    SELECT c_id, c_text, c_img, c_avg, created_at
-    FROM review
-    WHERE c_no = #{p_no} AND c_delete = 'n' <!-- 활성 상태의 리뷰만 조회 -->
-</select>
+    <!-- 특정 상품에 대한 리뷰 개수 가져오기 -->
+    <select id="getReviewCountByProductId" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM review WHERE c_no = #{p_no} AND c_delete = 'n'
+    </select>
+
+    <!-- 특정 상품에 대한 리뷰 목록 가져오기 -->
+    <select id="getReviewsByProductId" parameterType="int" resultType="com.spring.mom.vo.ReviewVO">
+        SELECT c_id, c_text, c_img, c_avg, created_at
+        FROM review
+        WHERE c_no = #{p_no} AND c_delete = 'n'
+        ORDER BY created_at DESC
+    </select>
 
 <update id="deleteReviewById" parameterType="map">
     UPDATE review SET c_delete = #{c_delete} WHERE c_id = #{reviewId}
 </update>
 
 
+<insert id="saveProduct" useGeneratedKeys="true" keyProperty="p_no" parameterType="com.spring.mom.vo.ProductVO">
+    INSERT INTO product (
+	    p_callno, p_name, p_class, p_price, p_dr, p_discount, 
+	    p_stock, p_brand, p_delivery, p_made, p_img
+	) VALUES (
+		 #{p_callno},       
+        #{p_name},         
+        #{p_class},       
+        #{p_price},       
+        #{p_dr},          
+        #{p_discount},
+        #{p_stock},     
+        #{p_brand},       
+        #{p_delivery},    
+        #{p_made},
+        #{p_img}
+    )
+</insert>
 
+<insert id="saveDetailProduct"  parameterType="map">
+    INSERT INTO p_detail (
+	    d_no, d_content, d_info
+	) VALUES (
+		 #{d_no},       
+        #{d_content},         
+        #{d_info}
+    )
+</insert>
+
+<update id="updateProduct" parameterType="com.spring.mom.vo.ProductVO">
+    UPDATE product
+    SET 
+        p_name = #{p_name},
+        p_class = #{p_class},
+        p_price = #{p_price},
+        p_dr = #{p_dr},
+        p_discount = #{p_discount},
+        p_stock = #{p_stock},
+        p_brand = #{p_brand},
+        p_delivery = #{p_delivery},
+        p_made = #{p_made},
+        p_img = CASE WHEN #{p_img} IS NOT NULL THEN #{p_img} ELSE p_img END
+    WHERE p_no = #{p_no}
+</update>
+
+<update id="updateDetail" parameterType="map">
+    UPDATE p_detail
+    SET 
+        d_content = CASE WHEN #{d_content} IS NOT NULL THEN #{d_content} ELSE d_content END,
+        d_info = CASE WHEN #{d_info} IS NOT NULL THEN #{d_info} ELSE d_info END
+    WHERE d_no = #{d_no}
+</update>
+
+<delete id="deleteProduct" parameterType="int">
+    DELETE FROM product
+    WHERE p_no = #{p_no}
+</delete>
+
+<delete id="deleteProductDetail" parameterType="int">
+    DELETE FROM p_detail
+    WHERE d_no = #{p_no}
+</delete>
 
 </mapper>

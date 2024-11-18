@@ -1,5 +1,7 @@
 package com.spring.mom.svc.impl;
 
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,4 +51,20 @@ public class UserServeImpl implements UserService{
 
         return BCrypt.checkpw(password, user.getU_pw());
     }
+	
+	@Override
+	public List<UserVO> findUserId(UserVO vo) {
+	    return userDAO.findUserId(vo);
+	}
+
+	@Override
+	public List<UserVO> findUserByNameAndPhone(UserVO vo) {
+	    return userDAO.findUserByNameAndPhone(vo);  // DAO에서 사용자 정보 찾기
+	}
+
+	@Override
+	public void updatePassword(UserVO vo) {
+		userDAO.updatePassword(vo);
+	}
+
 }

@@ -62,6 +62,8 @@ public interface CommentService {
 
 	// 댓글 총 갯수(대댓글 포함)
 	public int replyCntYooka(Comment_yookaVO vo);
+	public int replyCntNoriter(Comment_noriterVO vo);
+	public int replyCntShopping(Comment_shoppingVO vo);
 
 
 	

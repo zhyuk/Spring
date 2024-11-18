@@ -14,6 +14,16 @@
 		AND C_PAYMENT ="preparation"
 	</select>
 	
+<!--  카트 에담긴카운트 -->
+	<select id="cartcount" resultType="int">
+		SELECT COUNT(c_no)
+		FROM CART
+		WHERE U_ID = #{u_id} AND c_payment = 'ready'
+	</select>
+	
+	
+	
+	
 	
 <!-- 	장바구니리스트 -->
 	<select id="getcartList" resultType="cart">
@@ -48,7 +58,7 @@
 <!-- 	결제완료 -->
 	<update id="paycomplete" >
 		UPDATE CART SET C_PAYMENT ='complete'
-			WHERE U_ID =#{u_id} and c_no= #{c_no}
+			WHERE U_ID =#{u_id} and c_payment="preparation"
 	</update>
 
 <!--  	가격총량  -->
@@ -108,14 +118,17 @@
 <!-- 	새상품에서 즉시결제 -->
 <insert id="insertproduct">
 	INSERT INTO cart
-	(p_no, p_callno, u_id, p_count, p_name, p_price, p_img, c_no)
+	(p_no, p_callno, u_id, p_count, p_name, p_price, p_img, c_no,c_payment,P_TOTAL)
 	VALUES(#{p_no}, #{p_callno},
 	 #{u_id}, 
 	 #{p_count},
 	 #{p_name}, 
 	 #{p_price}, 
 	 #{p_img},
-	 #{c_no})
+	 #{c_no},
+	"preparation",
+	#{p_count}*#{p_price}
+	 )
 	</insert>
 	
 

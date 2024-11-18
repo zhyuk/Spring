@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.find-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.find-container .logo-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.find-container .logo-box img {
+    width: 150px;
+    cursor: pointer;
+}
+
+.result-box {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.result-table th, .result-table td {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.result-table th {
+    background-color: #faecbf;
+    font-weight: bold;
+}
+
+.result-table td {
+    border-bottom: 1px solid black;	
+}
+
+.no-result {
+    margin-top: 20px;
+    color: #ff4d4d;
+    font-size: 18px;
+}
+
+.no-result p {
+    margin: 0;
+}
+
+.login-button {
+    width: 100%;
+	height: 53px;
+	padding: 10px;
+	margin-top: 10px;
+	color: black;
+	background-color: #faecbf;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+.login-button:hover {
+    background-color: #ffd26e;
+}
+
+/* 모바일 반응형 */
+@media screen and (max-width: 768px) {
+    .find-container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .result-table th, .result-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

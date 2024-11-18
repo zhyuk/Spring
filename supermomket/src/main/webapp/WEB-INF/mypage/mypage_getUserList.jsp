@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../view/header.jsp"%>
+<%@ include file="../admin/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     int totalItems = (int) request.getAttribute("totalItems"); 
@@ -8,39 +8,56 @@
     request.setAttribute("totalPages", totalPages);
 %>
 <style>
- .mp_userList_tb {
-     width: 80%;
-     margin: 0 auto;
- }
- 
- .mp_container {
-     display: flex;
-     margin-top: 40px;
- }
- 
- .mp_content-container {
-     margin-top: 100px;
-     display: flex;
-     flex-direction: column;
-     gap: 10px;
-     justify-content: center;
-     align-items: flex-start;
-     padding: 20px;
- }
- 
- .mp_userList_tb {
-     flex: 1;
- }
- 
- .mp_table-info{
- 	color: red;
- 	margin-right: 0px;
- }
+
+.main-container {
+    margin-left: 260px;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+
+
+.mp_userList_tb {
+    width: 80% !important;
+    margin-left: 280px;
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+
+.mp_userList_tb th,
+.mp_userList_tb td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+.mp_userList_tb th {
+    background-color: #f1f1f1;
+}
 
 .mp_search-form-container {
-    width: 100%; 
+    margin: 20px 30px 0px 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+
+.title_h4 {
+    margin-top: 50px;
+    margin-left: 270px;
+   	font-weight: 700;
+   	font-size: 24px;
+}
+
+.title_hr {
+    width: 80.5%;
+    border: 0;
+    height: 1px;
+    background-color: lightgray;
+    margin-left: 270px;
 }
 
 form {
@@ -49,43 +66,83 @@ form {
     align-items: center;
 }
 
-.mp_userList_tb {
-    width: 80%;
-    margin: 0 auto;
+input.form-control {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
 }
 
-.btn {
+button.btn {
     height: 35px;
 }
 
-.mp_table-info {
-    align-self: flex-end;
-    width: 100%;
-    text-align: right;
-    color: red;
+/* 페이징 스타일 */
+.mp_pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-/* .mp_pagination-container { */
-/*     display: flex; */
-/*     justify-content: center; */
-/*     margin-top: 20px; */
-/*     list-style: none; */
-/*     padding: 0; */
-/* } */
+.pagination .page-item .page-link {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    margin: 0 5px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #343a40;
+    color: white;
+}
+
+/* 테이블 알림 정보 */
+.mp_table-info {
+    text-align: right;
+    color: red;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-right: 30px;
+    
+    
+td form {
+    display: flex; /* 버튼을 가로로 정렬 */
+    justify-content: center; /* 버튼 중앙 정렬 */
+    gap: 10px; /* 버튼 간 간격 */
+    flex-wrap: nowrap; /* 버튼이 줄바꿈되지 않도록 설정 */
+}
+
+td form button {
+    width: auto; /* 버튼의 너비를 내용에 맞게 조정 */
+    padding: 5px 10px; /* 버튼 내용물 여백 조정 */
+    font-size: 14px; /* 글자 크기 */
+    border: 1px solid #ccc;
+    background-color: #6c757d; /* 버튼 배경색 */
+    color: white; /* 글자 색상 */
+    cursor: pointer;
+    text-align: center;
+}
+
+td form button:hover {
+    background-color: #5a6268;
+}
+
 </style>
 
 <body>
-    <%@ include file="../view/menu.jsp"%>
+	<%@ include file="../admin/menu.jsp"%>
     <div class="mp_content-container">
+		<h5 class="title_h4">사용자 관리</h5>
+		<hr class="title_hr">
+			
         <div class="mp_search-form-container">
-            <form action="userList.do" method="get" class="mb-4">
-                <select name="searchType" class="form-select" style="height: 35px; width: 150px;">
+            <form class="mp_update-form" action="userList.do" method="get" class="mb-4">
+                <select name="searchType" class="mp_form-select" style="height: 40px; border: 1px solid #ccc;">
                     <option value="u_name" ${searchType == 'u_name' ? 'selected' : ''}>이름</option>
                     <option value="u_id" ${searchType == 'u_id' ? 'selected' : ''}>아이디</option>
                     <option value="u_pno" ${searchType == 'u_pno' ? 'selected' : ''}>전화번호</option>
                 </select>
-                <input type="text" name="searchKeyword" value="${searchKeyword}" placeholder="검색어 입력" class="form-control" style="width: 200px; ">
-                <button type="submit" class="btn btn-outline-secondary">검색</button>
+                <input type="text" name="searchKeyword" value="${searchKeyword}" placeholder="검색어 입력" class="form-control" style="height: 40px;">
+                <button type="submit" class="btn" style="height: 40px; border: 1px solid #ccc; border-radius: 0px;">검색</button>
             </form>
         </div>
         <div class="mp_table-info">※ 아이디, 가입날짜는 변경이 불가합니다.</div>
@@ -98,7 +155,7 @@ form {
                     <th>닉네임</th>
                     <th>주소</th>
                     <th>휴대전화</th>
-                    <th>가입날짜</th>
+                    <th>가입<br>날짜</th>
                     <th>이메일</th>
                     <th>관리</th>
                 </tr>
@@ -123,7 +180,7 @@ form {
                                 <input type="hidden" name="u_date" value="${user.u_date}">
                                 <input type="hidden" name="u_email" value="${user.u_email}">
                                 <input type="hidden" name="u_address" value="${user.u_address}">
-                                <button type="button" class="btn btn-secondary" onclick="selUser('${user.u_id}')">수정</button>
+                                <button type="button" class="btn" onclick="selUser('${user.u_id}')">수정</button>
                                 <button type="button" class="btn btn-right" onclick="delUser('${user.u_id}')">삭제</button>
                             </form>
                         </td>
@@ -133,7 +190,7 @@ form {
         </table>
 
         <!-- 페이징 처리 -->
-        <div class="mp_pagination-container" style="margin: 0 auto;">
+        <div class="mp_pagination-container" style="margin-left: 280px;">
         	<ul class="pagination" >
 	            <c:forEach var="i" begin="1" end="${totalPages}">
 	                <li class="page-item ${i == currentPage ? 'active' : ''}">
@@ -145,7 +202,4 @@ form {
     </div>
       <script src="${pageContext.request.contextPath}/resources/js/mypage.js"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-	  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-	  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

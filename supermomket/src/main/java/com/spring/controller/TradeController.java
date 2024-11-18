@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.mom.svc.UserService;
+import com.spring.mom.vo.ChatService;
 import com.spring.mom.vo.TradeService;
 import com.spring.mom.vo.TradeVO;
 import com.spring.mom.vo.UserVO;
@@ -33,14 +34,47 @@ import com.spring.mom.vo.UserVO;
 @Controller
 public class TradeController {
 
+	@Autowired
+    private ChatService chatService;
+	
     @Autowired
     private TradeService tradeService;
     
     @Autowired
     private UserService userService;
 
-    String realPath = "c:/swork/supermomket/src/main/webapp/resources/img/trade/";
+    String realPath = "c:/fullstack/swork/supermomket7/src/main/webapp/resources/img/trade/";
 
+    @PostMapping("/updateTradeStatus.do")
+    @ResponseBody
+    public Map<String, Object> updateTradeStatus(@RequestParam("t_no") int t_no, 
+                                               @RequestParam("status") String status) {
+        Map<String, Object> response = new HashMap<>();
+        
+        System.out.println("상태 업데이트 요청: t_no=" + t_no + ", status=" + status);
+        
+        try {
+            boolean updated = tradeService.updateTradeStatus(t_no, status);
+            
+            if (updated) {
+                response.put("success", true);
+                response.put("status", status);
+                System.out.println("상태 업데이트 성공");
+            } else {
+                response.put("success", false);
+                response.put("message", "상태 업데이트에 실패했습니다.");
+                System.out.println("상태 업데이트 실패");
+            }
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "오류가 발생했습니다: " + e.getMessage());
+            System.out.println("상태 업데이트 중 에러: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return response;
+    }
+    
     @ModelAttribute("conditionMap")
     public Map<String, String> searchConditionMap() {
         Map<String, String> conditionMap = new HashMap<String, String>();
@@ -151,7 +185,7 @@ public class TradeController {
             String userId = user != null ? user.getU_id() : null;
             
             // 상품 정보 조회
-            TradeVO trade = tradeService.findByTNo(t_no); // getTrade 대신 findByTNo 사용
+            TradeVO trade = tradeService.findByTNo(t_no);
             
             if (trade == null) {
                 model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
@@ -161,16 +195,22 @@ public class TradeController {
             // 조회수 증가
             tradeService.increaseCnt(t_no);
             
-            // 작성자 정보 조회
+            // 채팅방 개수 조회
+            int chatRoomCount = chatService.getChatRoomCountByTradeNo(t_no);
+            
             UserVO writer = userService.getUserById(trade.getT_writer());
             String writerNickname = (writer != null && writer.getU_nickname() != null) 
                                    ? writer.getU_nickname() 
                                    : trade.getT_writer();
             
-            // 디버깅
-            System.out.println("작성자 ID: " + trade.getT_writer());
-            System.out.println("조회된 작성자 정보: " + writer);
-            System.out.println("설정된 닉네임: " + writerNickname);
+            String userLocation = writer != null ? writer.getU_address() : "";
+            if (userLocation != null && !userLocation.isEmpty()) {
+                String[] addressParts = userLocation.split(" ");
+                if (addressParts.length > 0) {
+                    userLocation = addressParts[0]; // 시까지만 표시
+                }
+            }
+            
             
             // 이미지 처리
             if (trade.getT_img() != null && !trade.getT_img().isEmpty()) {
@@ -181,15 +221,11 @@ public class TradeController {
                 model.addAttribute("imageList", cleanedImageList);
             }
             
-        
-            if (userId != null) {
-                model.addAttribute("isLiked", tradeService.checkLike(t_no, userId));
-            }
-          
+            // 모델에 데이터 추가
             model.addAttribute("trade", trade);
             model.addAttribute("writerNickname", writerNickname);
-            model.addAttribute("likeCount", tradeService.getLikeCount(t_no));
-            
+            model.addAttribute("chatRoomCount", chatRoomCount);
+            model.addAttribute("userLocation", userLocation);
             return "trade/trade_detail";
             
         } catch (Exception e) {
@@ -203,37 +239,46 @@ public class TradeController {
     public String trade(TradeVO vo, 
                        @RequestParam(required = false, defaultValue = "latest") String sortCondition,
                        @RequestParam(required = false) String categories,
+                       @RequestParam(required = false) String status,  // 상태 파라미터 추가
+                       @RequestParam(defaultValue = "1") int page,
                        Model model) {
         System.out.println("TradeController: trade() 실행");
-        System.out.println("정렬 조건: " + sortCondition);
-        System.out.println("선택된 카테고리: " + categories); // 디버깅용
-
+        
+        int pageSize = 12;
+        int offset = (page - 1) * pageSize;
+        
         Map<String, Object> params = new HashMap<>();
         params.put("vo", vo);
         params.put("sortCondition", sortCondition);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        params.put("status", status);  // 상태 파라미터 추가
 
-    
+        // 카테고리 처리
         if (categories != null && !categories.trim().isEmpty()) {
             String[] categoryArray = categories.split(",");
-          
             List<String> categoryList = Arrays.stream(categoryArray)
                 .filter(cat -> !cat.trim().isEmpty())
                 .collect(Collectors.toList());
             
             if (!categoryList.isEmpty()) {
                 params.put("categories", categoryList);
-                System.out.println("필터링할 카테고리: " + categoryList); 
             }
         }
 
+        int totalItems = tradeService.getTotalTradeCount(params);
+        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
         List<TradeVO> tradeList = tradeService.getTradeList(params);
+
         model.addAttribute("tradeList", tradeList);
         model.addAttribute("sortCondition", sortCondition);
         model.addAttribute("selectedCategories", categories);
+        model.addAttribute("status", status);  // 상태 파라미터 추가
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
 
         return "trade/trade";
     }
-   
 
     @RequestMapping(value = "/trade_write.do", method = RequestMethod.GET)
     public String tradeWriteForm(HttpSession session) {
@@ -288,27 +333,6 @@ public class TradeController {
     }
 
     
-    
-    //좋아요 (확인해야됨)
-    @RequestMapping(value = "/toggleLike.do", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> toggleLike(@RequestBody Map<String, Integer> payload, HttpSession session) {
-        Map<String, Object> response = new HashMap<>();
-        UserVO user = (UserVO) session.getAttribute("user");
-        String userId = user != null ? user.getU_id() : null;
-        int t_no = payload.get("t_no");
-        
-        if (userId == null) {
-            response.put("error", "로그인이 필요합니다.");
-            return response;
-        }
-        
-        boolean isLiked = tradeService.toggleLike(t_no, userId);
-        int likeCount = tradeService.getLikeCount(t_no);
-        
-        response.put("isLiked", isLiked);
-        response.put("likeCount", likeCount);
-        
-        return response;
-    }
 }
+    
+   

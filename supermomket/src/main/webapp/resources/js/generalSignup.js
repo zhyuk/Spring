@@ -10,7 +10,9 @@ function validateId() {
     
     idError.className = 'error-message'; 
 
-    if (!idRegex.test(id.value)) {
+    if (id.value.includes('admin')) {
+        idError.textContent = '아이디에 "admin"을 포함할 수 없습니다.';
+    } else if (!idRegex.test(id.value)) {
         idError.textContent = '아이디는 영문으로 시작하고, 영문 소문자와 숫자로 6~10자 입력하세요.';
     } else {
         idError.textContent = '';
@@ -169,36 +171,70 @@ document.getElementById('eye2').addEventListener('click', function () {
     img.src = passwordType === 'password' ? 'resources/img/login/ceye.png' : 'resources/img/login/eye.png'; 
 });
 
+$(function () {
+	//휴대폰 번호 인증 
+	var code2 = ""; 
+	$("#phoneChk").click(function(){ 
+		alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주세요."); 
+		var u_pno = $("#u_pno").val(); 
+		
+		$.ajax({ 
+			type:"GET", 
+			url:"phoneCheck.do?u_pno=" + u_pno, 
+			cache : false, 
+			success:function(data){ 
+				if(data == "error"){ 
+					alert("휴대폰 번호가 올바르지 않습니다.") 
+					$(".successPhoneChk").text("유효한 번호를 입력해주세요."); 
+					$(".successPhoneChk").css("color","red"); 
+					$("#u_pno").attr("autofocus",true); 
+				}else{ 
+					$("#phone2").attr("disabled",false); 
+					$("#phoneChk2").css("display","inline-block"); 
+					$(".successPhoneChk").text("인증번호를 입력한 뒤 본인인증을 눌러주세요."); 
+					$(".successPhoneChk").css("color","blue"); 
+					$("#u_pno").attr("readonly",true); 
+					code2 = data; 
+				} 
+			} 
+		}); 
+	});
+	
+	$("#phoneChk2").click(function(){ 
+		if($("#phone2").val() == code2){ 
+			$(".successPhoneChk").text("인증번호가 일치합니다."); 
+			$(".successPhoneChk").css("color","blue"); 
+			$("#phoneDoubleChk").val("true"); 
+			$("#phone2").attr("disabled",true); 
+		}else{ $(".successPhoneChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다."); 
+			$(".successPhoneChk").css("color","red"); 
+			$("#phoneDoubleChk").val("false"); 
+			$(this).attr("autofocus",true); 
+		} 
+	});
+
+});
+
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            var roadAddr = data.roadAddress;
+            var extraRoadAddr = ''; 
 
-            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var roadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 참고 항목 변수
-
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
             if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                 extraRoadAddr += data.bname;
             }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
             if(data.buildingName !== '' && data.apartment === 'Y'){
                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
             }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
             if(extraRoadAddr !== ''){
                 extraRoadAddr = ' (' + extraRoadAddr + ')';
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('sample4_postcode').value = data.zonecode;
             document.getElementById("sample4_roadAddress").value = roadAddr;
             document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
             
-            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
             if(roadAddr !== '' || extraRoadAddr !== '') {
                 document.getElementById("sample4_extraAddress").value = extraRoadAddr;
             } else {
@@ -206,12 +242,10 @@ function sample4_execDaumPostcode() {
             }
 
             var guideTextBox = document.getElementById("guide");
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
             if(data.autoRoadAddress) {
                 var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
                 guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
                 guideTextBox.style.display = 'block';
-
             } else if(data.autoJibunAddress) {
                 var expJibunAddr = data.autoJibunAddress;
                 guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
@@ -229,6 +263,30 @@ function validateForm() {
     const formError = document.querySelector('#form-error');
     formError.textContent = '';
     let isValid = true;
+    
+	const allFields = [
+	    'input[name="u_id"]',
+	    'input[name="u_pw"]',
+	    'input[name="check_pw"]',
+	    'input[name="u_name"]',
+	    'input[name="u_nickname"]',
+	    'input[name="u_email"]',
+	    'input[name="u_pno"]',
+	    'input[name="u_address"]'
+	];
+	
+	for (let fieldSelector of allFields) {
+	    const field = document.querySelector(fieldSelector);
+	    if (!field.value.trim()) {
+	        isValid = false;
+	        break; 
+	    }
+	}
+	
+	if (!isValid) {
+	    formError.textContent = "모든 칸을 입력해주세요.";
+	    return false;
+	}
 
     validateId();
     validatePassword();
@@ -236,19 +294,6 @@ function validateForm() {
     validateName();
     validateNickname();
     validateEmail();
-    
-    // 주소가 비어 있는지 확인
-    const roadAddr = document.getElementById('sample4_roadAddress').value.trim();
-    const extraAddr = document.getElementById('sample4_extraAddress').value.trim();
-    const detailAddr = document.getElementById('sample4_detailAddress').value.trim();
-
-    if (!roadAddr || !extraAddr) {
-        formError.textContent = "주소를 정확히 입력해 주세요.";
-        isValid = false;
-    } else if (!detailAddr) {
-        formError.textContent = "상세주소를 입력해 주세요.";
-        isValid = false;
-    } 
 
     if (document.querySelector('#id-error').textContent ||
         document.querySelector('#password-error').textContent ||
@@ -260,6 +305,27 @@ function validateForm() {
         !isNnValid) {
         isValid = false;
         formError.textContent = "입력창을 다시 확인하시거나 중복검사를 해주세요";
+    }
+    
+    const postcode = document.getElementById('sample4_postcode').value.trim();
+    const roadAddr = document.getElementById('sample4_roadAddress').value.trim();
+    const detailAddr = document.getElementById('sample4_detailAddress').value.trim();
+
+    if (!roadAddr) {
+        formError.textContent = "주소를 입력해 주세요.";
+        isValid = false;
+    }
+
+    if (detailAddr) {
+        document.querySelector('input[name="u_address"]').value = postcode + ' ' + roadAddr + ' ' + detailAddr;
+    } else {
+        document.querySelector('input[name="u_address"]').value = postcode + ' ' + roadAddr;
+    }
+    
+    const phoneDoubleChk = document.getElementById('phoneDoubleChk').value;
+    if (phoneDoubleChk !== "true") {
+        formError.textContent = "휴대폰 번호 인증을 완료해주세요.";
+        isValid = false;
     }
 
     return isValid;

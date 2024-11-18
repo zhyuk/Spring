@@ -42,14 +42,15 @@
 						</ul>
 					</li>
 					<li><a href="getFaqUserList.do">FAQ</a></li>
-					<li class="nav-mypage">마이페이지</a>
-						<ul class="sub-mp-menu sub-menu">
-							<li><a href="/buyList.do">주문 목록</a></li>
-							<li><a href="/zzimList.do">찜 목록</a></li>
-							<li><a href="/updateMypage.do">개인정보 수정</a></li>
-							<li><a href="/updatePassword.do">비밀번호 수정</a></li>
-						</ul>
-					</li>
+					<c:if test="${userId ne null }">
+						<li class="nav-mypage">마이페이지</a>
+							<ul class="sub-mp-menu sub-menu">
+								<li><a href="/buyList.do">주문 목록</a></li>
+								<li><a href="/updateMypage.do">개인정보 수정</a></li>
+								<li><a href="/updatePassword.do">비밀번호 수정</a></li>
+							</ul>
+						</li>
+					</c:if>
 				</ul>
 
 				<c:if test="${userId ne null }">
@@ -80,10 +81,10 @@
 						<li><a href="/vs_index.do">고민거리</a></li>
 					</ul>
 					<li><a href="getFaqUserList.do">FAQ</a></li>
+					
 					<li class="nav-mypage">마이페이지</a></li>
 					<ul class="m-sub-mp-menu m-sub-menu">
 						<li><a href="/buyList.do">주문 목록</a></li>
-						<li><a href="/zzimList.do">찜 목록</a></li>
 						<li><a href="/updateMypage.do">개인정보 수정</a></li>
 						<li><a href="/updatePassword.do">비밀번호 수정</a></li>
 						<li><a href="cartList.do?c_payment=ready">장바구니</a></li>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/cart.css">
+	href="${pageContext.request.contextPath}/resources/css/cartpay.css">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <%@ include file="../view/header.jsp"%>
@@ -10,283 +10,446 @@
 <body>
 	<%@ include file="../view/menu.jsp"%>
 	<script src="${pageContext.request.contextPath}/resources/js/cartjs.js"></script>
-	<!-- 제이쿼리 사용하기 위한 CDN -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
-	<!-- 
-	개발가이드 => [v1]선택 => 우측의 [결제 연동 시작하기] => [인증 결제 연동하기]
-	우측 메뉴의 [1. 포트원 SDK 설치 ] 선택
--->
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 	<script>
-	
 
-	 function sample4_execDaumPostcode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress;
+                var extraRoadAddr = '';
 
-	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var roadAddr = data.roadAddress; // 도로명 주소 변수
-	                var extraRoadAddr = ''; // 참고 항목 변수
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraRoadAddr += data.bname;
+                }
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if (extraRoadAddr !== '') {
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
 
-	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                    extraRoadAddr += data.bname;
-	                }
-	                // 건물명이 있고, 공동주택일 경우 추가한다.
-	                if(data.buildingName !== '' && data.apartment === 'Y'){
-	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                }
-	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	                if(extraRoadAddr !== ''){
-	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-	                }
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('sample4_postcode').value = data.zonecode;
-	                document.getElementById("sample4_roadAddress").value = roadAddr;
-	                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-	                
-	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-	                if(roadAddr !== ''){
-	                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-	                } else {
-	                    document.getElementById("sample4_extraAddress").value = '';
-	                }
+                if (roadAddr !== '') {
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
 
-	                var guideTextBox = document.getElementById("guide");
-	                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-	                if(data.autoRoadAddress) {
-	                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-	                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-	                    guideTextBox.style.display = 'block';
-
-	                } else if(data.autoJibunAddress) {
-	                    var expJibunAddr = data.autoJibunAddress;
-	                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-	                    guideTextBox.style.display = 'block';
-	                } else {
-	                    guideTextBox.innerHTML = '';
-	                    guideTextBox.style.display = 'none';
-	                }
-	            }
-	        }).open();
-	    }
-    function initLayerPosition(){
-        var width = 300; //우편번호서비스가 들어갈 element의 width
-        var height = 400; //우편번호서비스가 들어갈 element의 height
-        var borderWidth = 5; //샘플에서 사용하는 border의 두께
-
-        // 위에서 선언한 값들을 실제 element에 넣는다.
-        element_layer.style.width = width + 'px';
-        element_layer.style.height = height + 'px';
-        element_layer.style.border = borderWidth + 'px solid';
-        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
-        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
-        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+                var guideTextBox = document.getElementById("guide");
+                if (data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else if (data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
     }
+
+    function setFullAddress() {
+        const postcode = $('#sample4_postcode').val();
+        const roadAddress = $('#sample4_roadAddress').val();
+        const jibunAddress = $('#sample4_jibunAddress').val();
+        const detailAddress = $('#sample4_detailAddress').val();
+        const extraAddress = $('#sample4_extraAddress').val();
+
+        let fullAddress = roadAddress + detailAddress + extraAddress;
+        if (!roadAddress) {
+            fullAddress = jibunAddress + detailAddress + extraAddress;
+        }
+        return fullAddress;
+    }
+
+    
+    let currentRestriction = null; // 현재 적용 중인 제한 (한글만 또는 영문만)
+
+ // 내국인/외국인 선택에 따른 입력 제한 설정
+ function setInputRestriction() {
+     const koreanChecked = document.getElementById("korean").checked;
+     const foreignerChecked = document.getElementById("foreigner").checked;
+
+     if (koreanChecked) {
+         currentRestriction = "korean"; // 한글만 입력 가능
+         disableOrderFields(false); // 필드 활성화
+     } else if (foreignerChecked) {
+         currentRestriction = "english"; // 영문만 입력 가능
+         disableOrderFields(false); // 필드 활성화
+     } else {
+         currentRestriction = null; // 제한 없음
+         disableOrderFields(true); // 필드 비활성화
+     }
+ }
+
+ // 주문자 관련 입력 필드 활성화/비활성화 함수
+ function disableOrderFields(disable) {
+     const fields = ["buyer_name", "buyer_email", "receive_name", "buyer_tel"];
+     fields.forEach(fieldId => {
+         document.getElementById(fieldId).disabled = disable;
+     });
+ }
+
+//한글 또는 영문 입력 제한 (compositionend 이벤트 사용)
+ function applyRestriction(input) {
+     input.addEventListener("compositionend", () => {
+         if (currentRestriction === "korean") {
+             // 한글, 공백만 허용
+             input.value = input.value.replace(/[^가-힣\s]/g, '');
+         } else if (currentRestriction === "english") {
+             // 영문, 공백만 허용
+             input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+         }
+     });
+ }
+
+ // 필드에 이벤트 리스너 추가
+ function addInputRestrictions() {
+     const restrictedFields = ["buyer_name"];
+     restrictedFields.forEach(fieldId => {
+         const field = document.getElementById(fieldId);
+         if (field) {
+             applyRestriction(field);
+         }
+     });
+ }
+
+ // 전화번호 자동 하이픈 추가 함수
+ function formatPhoneNumber(input) {
+     let value = input.value.replace(/\D/g, ''); // 숫자 외의 문자 제거
+     if (value.length > 3 && value.length <= 7) {
+         input.value = value.slice(0, 3) + '-' + value.slice(3);
+     } else if (value.length > 7) {
+         input.value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+     } else {
+         input.value = value;
+     }
+ }
+
+ // 이메일 형식 확인 및 영문과 숫자만 허용하는 함수
+ function validateEmail(input) {
+     // 영문, 숫자, @, . 만 허용
+     input.value = input.value.replace(/[^a-zA-Z0-9@.]/g, '');
      
-	
-	
-// 결제시 보내야하는 파라미터 정보 확인:
-// 개발가이드 => [v1]선택 => 우측의 목차에서 [ SDK ] 선택 =>  [ JavaScript SDK 레퍼런스 ] 클릭
-// => 좌측의 브라우저 SDK 메뉴에서 [결제요청 파라미터] 클릭
-// https://developers.portone.io/sdk/ko/v1-sdk/javascript-sdk/payrq?v=v1
-// tip :  *표시가 붙은 것은 필수로 보내야하는 파라미터임.	
+     // 이메일 형식 확인
+     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+     if (!emailPattern.test(input.value)) {
+         input.setCustomValidity("올바른 이메일 형식이 아닙니다.");
+     } else {
+         input.setCustomValidity("");
+     }
+ }
 
-// 개발가이드 => [v1]선택 => 좌측의 [결제 연동 시작하기] => [인증 결제 연동하기]
-// [2. 결제 요청하기 ] 내용 참고
+//페이지 로드 시 필드 비활성화 및 제한 적용
+ window.onload = function() {
+     disableOrderFields(true); // 처음 로드 시 필드 비활성화
+     addInputRestrictions(); // 입력 제한 이벤트 리스너 추가
+ };
+    
+    
+    IMP.init("${portOneNeeds.impCode}");
+    function payFnc() {
+        const fullAddress = setFullAddress();
+        const firstname = $("tr[name='cart_List']:eq(0) input[name='p_name']").val();
+        const rowCount = $("tr[name='cart_List']").length;
+        const nm = rowCount > 1 ? `${firstname} 외 ${rowCount - 1}개` : firstname;
 
-	function setFullAddress() {
-    // 각 주소 필드의 값 가져오기
-    const postcode = document.getElementById('sample4_postcode').value;
-    const roadAddress = document.getElementById('sample4_roadAddress').value;
-    const jibunAddress = document.getElementById('sample4_jibunAddress').value;
-    const detailAddress = document.getElementById('sample4_detailAddress').value;
-    const extraAddress = document.getElementById('sample4_extraAddress').value;
+        $("#orderName").val(nm);
 
-    // fullAddress 생성
-    fullAddress = `${postcode} ${roadAddress} ${extraAddress} ${detailAddress}`;
-    if (!roadAddress) {
-        fullAddress = `${postcode} ${jibunAddress} ${detailAddress}`;
+        const productArr = $("tr[name='cart_List']").map(function () {
+            return {
+                id: $(this).find("input[name='p_no']").val(),
+                img: $(this).find("input[name='p_img']").val(),
+                name: $(this).find("input[name='p_name']").val(),
+                code: $(this).find("input[name='c_no']").val(),
+               	price: $(this).find("input[name='p_price']").val(),
+                unitPrice: parseInt($(this).find(".p_total").text().replace(/,/g, ''), 10),
+                quantity: parseInt($(this).find("input[name='p_count']").val(), 10)
+            
+            };
+        }); 
+        
+        
+       
+        
+        console.log("productArr: ",productArr);
+
+        IMP.request_pay({
+            channelKey: "${portOneNeeds.channelKey}",
+            pay_method: "card",
+            merchant_uid: `payment-` + new Date().getTime(),
+            name: nm,
+            amount: $("#totalAmount").val(),
+            buyer_name: $("#buyer_name").val(),
+            buyer_tel: $("#buyer_tel").val(),
+            buyer_addr: fullAddress,
+            buyer_email: $("#buyer_email").val(),
+            products: productArr
+        }, async function (response) { 
+        	
+        	console.log("response: ",response);
+        	
+            if (response.error_code != null) {
+                alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);
+                return;
+            }
+
+            const frmData = {
+                pvo: response,
+                mydata: JSON.stringify($("#payForm").serializeArray())
+            };
+
+            await fetch('preparcartList.do', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(frmData)
+            });
+            location.reload();
+        });
     }
-}
 
+    
+    function validateForm() {
+        const buyerName = document.getElementById('buyer_name');
+        const buyerEmail = document.getElementById('buyer_email');
+        const receiveName = document.getElementById('receive_name');
+        const buyerTel = document.getElementById('buyer_tel');
+        const postcode = document.getElementById('sample4_postcode');
+        const roadAddress = document.getElementById('sample4_roadAddress');
+        const jibunAddress = document.getElementById('sample4_jibunAddress');
 
+        if (!buyerName.value.trim()) {
+            alert("주문자명을 입력하세요.");
+            buyerName.focus();
+            return false;
+        }
+        if (!buyerEmail.value.trim()) {
+            alert("이메일을 입력하세요.");
+            buyerEmail.focus();
+            return false;
+        }
+        if (!receiveName.value.trim()) {
+            alert("수취인 이름을 입력하세요.");
+            receiveName.focus();
+            return false;
+        }
+        if (!buyerTel.value.trim()) {
+            alert("연락처를 입력하세요.");
+            buyerTel.focus();
+            return false;
+        }
+        if (!postcode.value.trim()) {
+            alert("우편번호를 입력하세요.");
+            postcode.focus();
+            return false;
+        }
+        if (!roadAddress.value.trim() && !jibunAddress.value.trim()) {
+            alert("주소를 입력하세요.");
+            roadAddress.focus();
+            return false;
+        }
+        
+        // 모든 필드가 유효하면 결제 함수 호출
+        payFnc();
+    }
+    
+    
+    
+    
+    </script>
 
-	IMP.init("${portOneNeeds.impCode}");
-	function payFnc() {
-	    let payfrom = document.payForm;
-	    setFullAddress();
-	    // 첫 번째 상품의 c_no 값을 가져와 orderName에 설정
-	    let firstCNo = $("tr[name='cart_List']:eq(0) input[name='c_no']").val();
-	    let rowCount = document.querySelectorAll("tr[name='cart_List']").length;
+		<main>
+		<section>
+			<div class="pcdiv">
+				<form id="payForm" name="payForm">
+					<input type="hidden" name="u_id" value="${userId}"> <input
+						type="hidden" name="c_payment" value="${c_payment}">
+					<div class="cart-container">
+						<h2>결재화면</h2>
+						<table class="cart-table">
+							<thead>
+								<tr>
+									<th>상품제거</th>
+									<th>번호</th>
+									<th>상품이미지</th>
+									<th>상품명</th>
+									<th>수량</th>
+									<th>상품금액</th>
+									<th>합계금액</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:set var="counter" value="1" scope="page" />
+								<c:forEach items="${paymentcartList}" var="cvo">
+									<tr name="cart_List">
+										<th><input type="button" name="c_noarr" value="삭제"
+											onclick="deletePayCart(${cvo.c_no}, ${cvo.p_no}, '${userId}')">
+											<input type="hidden" name="p_no" value="${cvo.p_no}">
+											<input type="hidden" name="c_no" value="${cvo.c_no}">
+											<input type="hidden" name="u_id" value="${userId}"> <input
+											type="hidden" name="p_name" value="${cvo.p_name}"> <input
+											type="hidden" name="p_img" value="${cvo.p_img}"> <input
+											type="hidden" name="p_price" value="${cvo.p_price}">
+										</th>
+										<td class="tdCenter">${counter}</td>
+										<c:set var="counter" value="${counter + 1}" />
+										<td class="tdCenter" onclick="cart_imglink(${cvo.p_no})">
+											<img style="width: 100px"
+											src="${pageContext.request.contextPath}/resources/img/product/${cvo.p_img}"
+											alt="${cvo.p_img}">
+										</td>
+										<td class="tdCenter" name="p_name">${cvo.p_name}</td>
+										<td class="tdCenter"><input type="number" name="p_count"
+											value="${cvo.p_count}" data-price="${cvo.p_price}"
+											data-cno="${cvo.c_no}" data-pno="${cvo.p_no}"
+											data-uid="${cvo.u_id}" data-payment="${cvo.c_payment}"
+											min="1" max="50" oninput="validateNumberInput(this)">
+										</td>
+										<td class="tdCenter"><fmt:formatNumber
+												value="${cvo.p_price}" type="number" groupingUsed="true" /></td>
+										<td class="tdCenter p_total" id="total_${cvo.c_no}"><fmt:formatNumber
+												value="${cvo.p_total}" type="number" groupingUsed="true" />원</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					
+					
+					<div id="payDiv" class="payment-form">
+						<h2>결제 정보</h2>
 
-	    // 대표 상품명 전송 (첫 c_no 값 설정)
-	    let nm = rowCount > 1 ? `${firstCNo} 외 ${rowCount - 1}개` : firstCNo;
-	    
-	    $("#orderName").val(nm);
+						<div class="form-group">
+							<label>내국인/외국인 선택:</label><input type="radio" id="korean"
+								name="nationality" value="내국인" onchange="setInputRestriction()">
+							내국인 <input type="radio" id="foreigner" name="nationality"
+								value="외국인" onchange="setInputRestriction()"> 외국인
+						</div>
 
-	    // 각 상품 정보 수집
-	    var productArr = [];
-	    $("tr[name='cart_List']").each(function() {
-	        let pid = $(this).find("input[name='p_no']").val(); // 상품 고유 ID
-	        let pname = $(this).find(".tdCenter").eq(2).text(); // 상품명
-	        let pcode = $(this).find("input[name='c_no']").val(); // 상품 코드 (여기서는 c_no 사용)
-	        let punitPrice = $(this).find(".tdCenter").eq(3).text().replace(/,/g, ''); // 상품 단위 가격 (콤마 제거)
-	        let pquantity = $(this).find("input[name='p_count']").val(); // 수량
+						<input type="hidden" id="orderUserId" name="orderUserId" value="">
+						<div class="form-group">
+							<label for="buyer_name">주문자명:</label> <input type="text"
+								id="buyer_name" name="orderUsername" placeholder="주문자 이름을 입력하세요"
+								required maxlength="20" oninput="applyRestriction(this)">
+						</div>
+						    <div class="form-group">
+        <label for="buyer_email">이메일:</label>
+        <input type="text" id="buyer_email" name="orderUserEmail" placeholder="이메일을 입력하세요" maxlength="50" oninput="validateEmail(this)">
+    </div>
+						<div class="form-group">
+							<label for="receive_name">수취인 이름:</label> <input type="text"
+								id="receive_name" name="orderReceiveName"
+								placeholder="수취인 이름을 입력하세요" required maxlength="20"
+								>
+						</div>
 
-	        let oneObj = {
-	            id: pid,
-	            name: pname,
-	            code: pcode,
-	            unitPrice: parseInt(punitPrice, 10),
-	            quantity: parseInt(pquantity, 10)
-	        };
-	        productArr.push(oneObj);
-	    });
+						<div class="form-group">
+							<label for="buyer_tel">연락처:</label> <input type="text"
+								id="buyer_tel" name="orderReceiveTel" placeholder="연락처를 입력하세요"
+								required oninput="formatPhoneNumber(this)">
+						</div>
+						<div class="form-group">
+							<div class="address-fields">
+								<label for="address">배송 주소: </label> <input type="text"
+									id="sample4_postcode" placeholder="우편번호"> <input
+									type="button" onclick="sample4_execDaumPostcode()"
+									value="우편번호 찾기"> <input type="text"
+									id="sample4_roadAddress" placeholder="도로명주소"> <input
+									type="text" id="sample4_jibunAddress" placeholder="지번주소">
+								<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+								<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+								<span id="guide" style="color: #999; display: none"></span>
+							</div>
+						</div>
+						<!-- 약관 동의 버튼 -->
+						<div class="form-group">
+							<button type="button" onclick="openTermsModal()" id="agreeButton"
+								class="btn btn-secondary">약관 보기 및 동의</button>
+							<input type="checkbox" id="termsCheckbox" style="display: none;"
+								required>
+						</div>
 
-	    // 주문 번호 생성 및 결제 요청
-	    const date = new Date();
-	    var muid = date.getTime();
+						<div class="form-group">
+							<label for="amount">총 결제 금액:</label> <input type="hidden"
+								id="totalAmount" name="totalAmount" value="${paymenttotal}"
+								readonly> <span class="total-price" id="carttotal">
+								<fmt:formatNumber value="${paymenttotal}" type="number"
+									groupingUsed="true" />원
+							</span>
+						</div>
+						<!-- 결제하기 버튼 -->
+						<div class="form-group text-center">
+							<button type="button" onclick="validateForm()"
+								class="btn btn-primary" id="payButton" disabled>결제하기</button>
+						</div>
+					</div>
 
-	    IMP.request_pay(
-	        {
-	            channelKey: "${portOneNeeds.channelKey}",
-	            pay_method: "card",
-	            merchant_uid: `payment-` + new Date().getTime(), // 주문 고유 번호
-	            name: nm, // 첫 c_no 값이 포함된 상품명
-	            amount: $("#amount").val(), // 총 금액
-	            buyer_name: $("#buyer_name").val(), // 구매자명
-	            buyer_tel: $("#buyer_tel").val(), // 구매자 연락처
-	            buyer_addr: fullAddress, // 결합된 전체 주소
-	            buyer_email: $("#buyer_email").val(), // 구매자 이메일
-	            products: productArr // 상품 정보 배열
-	        },
-	        async (response) => {
-	            productArr = []; // 상품 데이터 초기화
+					<!-- 약관 모달 -->
+					<div id="termsModal" class="modal" style="display: none;">
+						<div class="modal-content">
+							<span class="close" onclick="closeTermsModal()">&times;</span>
+							<h3>약관 및 정책</h3>
+							<div class="terms-text"
+								style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+								<p>본 약관은 결제 및 주문에 관한 규정을 포함하고 있습니다. 결제를 진행하기 전에 아래의 내용을
+									숙지하시고, 동의 후 결제를 진행해 주세요.</p>
+								<ul>
+									<li>모든 상품은 주문 후 교환 및 부분환불이 불가합니다.</li>
+									<li>개인정보는 안전하게 보호되며, 결제 및 배송 목적으로만 사용됩니다.</li>
+									<li>결제 금액에는 부가세가 포함되어 있으며, 추가 요금이 발생하지 않습니다.</li>
+									<li>이 약관은 법적 구속력이 있으며, 사용자가 동의하는 것으로 간주됩니다.</li>
+								</ul>
+							</div>
+							<button type="button" onclick="agreeToTerms()"
+								class="btn btn-primary">동의합니다</button>
+						</div>
+					</div>
 
-	            if (response.error_code != null) {
-	                return alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);
-	            }
+				</form>
+			</div>
+	</section>
+		</main>
 
-	            var myForm = $("#payForm").serializeArray();
-	            var frmData = { pvo: response, mydata: JSON.stringify(myForm) };
+	<script>
+				function openTermsModal() {
+				    document.getElementById('termsModal').style.display = 'block';
+				}
+				
+				function closeTermsModal() {
+				    document.getElementById('termsModal').style.display = 'none';
+				}
+				
+				function agreeToTerms() {
+				    document.getElementById('termsCheckbox').checked = true;
+				    document.getElementById('payButton').disabled = false;
+				    
+				    const agreeButton = document.getElementById('agreeButton');
+				    if (agreeButton) { // agreeButton이 존재할 때만 classList 수정
+				        agreeButton.classList.add('agreed'); // 동의 후 버튼 색상 변경
+				        agreeButton.innerText = "동의 완료"; // 버튼 텍스트 변경
+				    }
 
-	            console.log("myForm: ", JSON.stringify(myForm));
-
-	            const notified = await fetch(
-	                'preparcartList.do', 
-	                {
-	                    method: "POST",
-	                    headers: { "Content-Type": "application/json" },
-	                    body: JSON.stringify(frmData),
-	                }
-	            );  
-
-	            location.reload(); // 결제가 성공적으로 완료된 후 페이지 새로고침
-	        }
-	    );
-	}
-
-
-
+				    closeTermsModal(); // 모달 창 닫기
+				}
+				// 모달 외부 클릭 시 닫기
+				window.onclick = function(event) {
+				    const modal = document.getElementById('termsModal');
+				    if (event.target === modal) {
+				        modal.style.display = "none";
+				    }
+				}
 </script>
 
 
-	<main style="margin-top: 50px; justify-items: center;">
-		<li><a href="payMenu.do">결재 내역보기</a></li>
-		<form id="payForm" name="payForm">
-			<input type="hidden" name="u_id" value="${userId}"> <input
-				type="hidden" name="c_payment" value="${c_payment}">
-			<div class="cart-container">
-				<h2>결재화면</h2>
-				<table class="cart-table">
-					<thead>
-						<tr class="cartth">
-							<th>상품제거</th>
-							<th>번호
-							<th>상품이미지</th>
-							<th>상품명</th>
-							<th>수량</th>
-							<th>상품금액</th>
-							<th>합계금액</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:set var="counter" value="1" scope="page" />
-						<!-- 초기 값 설정 -->
-						<c:forEach items="${paymentcartList}" var="cvo">
-							<tr name="cart_List">
-								<th><input type="button" name="c_noarr" value="삭제"
-									onclick="deletePayCart(${cvo.c_no}, ${cvo.p_no}, '${userId}')">
-									<input type="hidden" name="p_no" value="${cvo.p_no}"> <input
-									type="hidden" name="c_no" value="${cvo.c_no}"> <input
-									type="hidden" name="u_id" value="${userId}"></th>
-								<td class="tdCenter">${counter}</td>
-								<c:set var="counter" value="${counter + 1}" />
-								<td class="tdCenter cartimg" onclick="cart_imglink(${cvo.p_no})"><img
-									style="width: 100px"
-									src="${pageContext.request.contextPath}/resources/img/product/${cvo.p_img}"
-									alt="${cvo.p_img}"></td>
-								<td class="tdCenter">${cvo.p_name}</td>
-								<td class="tdCenter tdpay"><input type="number" name="p_count"
-									value="${cvo.p_count}" data-price="${cvo.p_price}"
-									data-cno="${cvo.c_no}" data-pno="${cvo.p_no}"
-									data-uid="${cvo.u_id}" data-payment="${cvo.c_payment}" min="1"
-									max="50" oninput="validateNumberInput(this)"></td>
-								<td class="tdCenter tdpay">
-								<fmt:formatNumber value="${cvo.p_price}" type="number" groupingUsed="true" />원</td>
-								<td class="tdCenter tdpay" id="total_${cvo.c_no}">
-								<fmt:formatNumber value="${cvo.p_total}" type="number" groupingUsed="true" />원</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-
-
-			<div id="payDiv" class="payment-form">
-    <h2>결제 정보</h2>
-    <form action="/processPayment" method="post">
-        <div class="form-group">
-            <label for="customerName">주문자명:</label>
-            <input type="text" id="customerName" name="customerName" class="form-control" placeholder="주문자 이름을 입력하세요" required>
-        </div>
-        <div class="form-group">
-            <label for="email">이메일:</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요" required>
-        </div>
-        <div class="form-group">
-            <label for="recipientName">수취인 이름:</label>
-            <input type="text" id="recipientName" name="recipientName" class="form-control" placeholder="수취인 이름을 입력하세요" required>
-        </div>
-        <div class="form-group">
-            <label for="phoneNumber">연락처:</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="연락처를 입력하세요" required>
-        </div>
-        <div class="form-group">
-            <label for="address">배송 주소:</label>
-            <input type="text" id="address" name="address" class="form-control" placeholder="도로명 주소" required>
-        </div>
-        <div class="form-group">
-            <label for="zipCode">우편번호:</label>
-            <input type="text" id="zipCode" name="zipCode" class="form-control" placeholder="우편번호" required>
-        </div>
-        <div class="form-group">
-            <label for="totalAmount">총 결제 금액:</label>
-            <fmt:formatNumber value="${paymenttotal}" type="number" groupingUsed="true" />원
-        </div>
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">결제하기</button>
-        </div>
-    </form>
-		</form>
-	</main>
-
-
-	</div>
 </body>
 </html>

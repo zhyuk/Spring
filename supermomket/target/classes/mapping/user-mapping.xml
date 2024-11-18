@@ -6,11 +6,11 @@
 
 
 <select id="getUserById" resultType="user">
-        SELECT * FROM USER WHERE u_id=#{u_id}
+        SELECT * FROM USER WHERE u_id=#{u_id} 
     </select>
 
 	<select id="getUser" resultType="user" parameterType="String">
-		SELECT * FROM user WHERE u_id=#{u_id}
+		SELECT * FROM user WHERE u_id=#{u_id} AND u_role = 'user' AND  u_type = 'g'
 	</select>
 	
 	<insert id="joinUser">
@@ -24,4 +24,17 @@
 	<select id="checkUserNn" resultType="int">
 	    SELECT COUNT(*) FROM USER WHERE u_nickname=#{u_nickname}
 	</select>
+	
+	<select id="findUserId" resultType="com.spring.mom.vo.UserVO">
+	    SELECT * FROM user WHERE u_name = #{u_name} AND u_pno = #{u_pno} AND u_role = 'user' AND  u_type = 'g'
+	</select>
+
+	<update id="updatePassword" parameterType="user">
+	    UPDATE USER SET u_pw = #{u_pw} WHERE u_id = #{u_id}
+	</update>
+	
+	<select id="findUserByNameAndPhone" resultType="com.spring.mom.vo.UserVO">
+	    SELECT * FROM user WHERE u_name = #{u_name} AND u_id = #{u_id} AND u_pno = #{u_pno} AND u_role = 'user' AND  u_type = 'g'
+	</select>
+		
 </mapper>

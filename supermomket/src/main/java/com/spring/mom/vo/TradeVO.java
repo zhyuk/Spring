@@ -18,9 +18,18 @@ public class TradeVO {
 	private String searchCondition; 
 	private String searchKeyword;
 	private int t_cnt;
+	private String t_status;
 
 	public int getT_cnt() {
 		return t_cnt;
+	}
+
+	public String getT_status() {
+		return t_status;
+	}
+
+	public void setT_status(String t_status) {
+		this.t_status = t_status;
 	}
 
 	public void setT_cnt(int t_cnt) {
@@ -128,7 +137,8 @@ public class TradeVO {
 		return "TradeVO [t_no=" + t_no + ", t_writer=" + t_writer + ", t_product=" + t_product + ", t_price=" + t_price
 				+ ", t_class=" + t_class + ", t_content=" + t_content + ", t_condition=" + t_condition + ", t_date="
 				+ t_date + ", t_img=" + t_img + ", t_image=" + Arrays.toString(t_image) + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword + ", t_cnt=" + t_cnt + "]";
+				+ searchCondition + ", searchKeyword=" + searchKeyword + ", t_cnt=" + t_cnt + ", t_status=" + t_status
+				+ "]";
 	}
 
 }

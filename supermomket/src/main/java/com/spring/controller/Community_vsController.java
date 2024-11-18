@@ -44,9 +44,9 @@ public class Community_vsController {
 	}
 
 	// 윈도우 OS용
-//	String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
+	String uploadPath = "C:/swork/supermomket/src/main/webapp/resources/img/vs/";
 	// 맥 OS용
-	String uploadPath = "/Users/jihyuk/Documents/swork/supermomket/src/main/webapp/resources/img/vs/";
+	// String uploadPath = "/Users/jihyuk/Documents/swork/supermomket/src/main/webapp/resources/img/vs/";
 
 	// VS 인덱스 페이지
 	@RequestMapping("/vs_index.do")
@@ -86,33 +86,28 @@ public class Community_vsController {
 	public String getBoardListAdmin(Community_vsVO vo, HttpSession session, Model model) {
 //		System.out.println("관리자 페이지 이동");
 
-		if (session.getAttribute("adminId") == null || session.getAttribute("adminId") == "") {
-			return "admin/login";
-		}
-
 		model.addAttribute("boardList", svc.getBoardAdmin(vo));
 		return "community_vs/community_vs_admin";
 	}
-
+	
 	// 관리자 글 수정
 	@RequestMapping("/vs_admin_update.do")
 	@ResponseBody
-	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Comment_vsVO cvo, Model model,
-			HttpSession session) {
+	public List<Community_vsVO> updateBoardAdmin(Community_vsVO vo, Comment_vsVO cvo, Model model) {
 //		System.out.println("/vs_admin_update.do 서블릿 실행");
 //		System.out.println(vo);
 
 		List<Community_vsVO> boardList = null;
-
+		
 		int result = svc.updateBoardAdmin(vo);
-
+		
 		if (result > 0) {
 			boardList = svc.getBoardAdmin(vo);
 		}
-
+		
 		return boardList;
 	}
-
+	
 	// 관리자 글 삭제
 	@RequestMapping("/vs_admin_delete.do")
 	@ResponseBody
@@ -129,9 +124,9 @@ public class Community_vsController {
 			img1 = delVO.getVs_img1();
 			img2 = delVO.getVs_img2();
 		}
-
+		
 		int result = svc.deleteBoard(vo);
-
+		
 		if (result > 0) {
 			svc.deleteAllComment(cvo);
 			svc.deleteAllVote(vvo);
@@ -179,11 +174,6 @@ public class Community_vsController {
 	@GetMapping("/vs_write.do")
 	public String getWriterForm(HttpSession session) {
 //		System.out.println("GET 방식의 /vs_write.do 서블릿 실행");
-
-		if (session.getAttribute("userId") == null || session.getAttribute("userId") == "") {
-			return "login/login";
-		}
-
 		return "community_vs/community_vs_write";
 	}
 
@@ -194,7 +184,7 @@ public class Community_vsController {
 //		System.out.println("POST 방식의 /vs_write.do 서블릿 실행");
 //		System.out.println(vo);
 //		System.out.println("session.getAttribute('userId') : " + (String)session.getAttribute("userId"));
-
+		
 		if (session.getAttribute("userNickname") != null) {
 			vo.setVs_writer((String) session.getAttribute("userNickname"));
 		}
@@ -203,7 +193,7 @@ public class Community_vsController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String formatedNow = sdf.format(day);
 //		System.out.println(formatedNow);
-
+		
 		MultipartFile img1 = vo.getVs_img1_file();
 		MultipartFile img2 = vo.getVs_img2_file();
 
@@ -262,14 +252,10 @@ public class Community_vsController {
 	// 글 수정페이지 이동
 	@GetMapping("/vs_update.do")
 	public String updateBoardInfo(Community_vsVO vo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage, HttpSession session) {
+			@RequestParam(value = "nowPage", required = false) String nowPage) {
 //		System.out.println("/vs_update.do  GET 서블릿 실행");
 //		System.out.println(vo.getVs_no());
 //		System.out.println(nowPage);
-
-		if (session.getAttribute("userId") == null || session.getAttribute("userId") == "") {
-			return "login/login";
-		}
 		model.addAttribute("boardList", svc.getBoardInfo(vo));
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
@@ -428,7 +414,7 @@ public class Community_vsController {
 		if (session.getAttribute("userNickname") != null) {
 			vo.setV_selector((String) session.getAttribute("userNickname"));
 		}
-
+		
 		Integer[] resultarr = new Integer[2];
 
 		int result = svc.insertVote(vo);
@@ -451,7 +437,7 @@ public class Community_vsController {
 		if (session.getAttribute("userNickname") != null) {
 			vo.setVs_writer((String) session.getAttribute("userNickname"));
 		}
-
+		
 		String userId = (String) session.getAttribute("userNickname");
 		List<Comment_vsVO> commentList = null;
 		int result = svc.insertComment(vo);

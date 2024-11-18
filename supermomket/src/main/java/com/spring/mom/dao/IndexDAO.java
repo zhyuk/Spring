@@ -38,13 +38,19 @@ public class IndexDAO {
 	// 관리자부분
 	// 새상품 목록 가져오기
 	public List<ProductVO> getProductListAdmin(ProductVO vo) {
-		System.out.println("IndexDAO getProductListAdmin() 실행");
+//		System.out.println("IndexDAO getProductListAdmin() 실행");
 		return mybatis.selectList("IndexDAO.getProductListAdmin", vo);
 	}
 
 	// 사용자 목록 가져오기
 	public List<UserVO> getUserListAdmin(UserVO vo) {
-		System.out.println("IndexDAO getUserListAdmin() 실행");
+//		System.out.println("IndexDAO getUserListAdmin() 실행");
 		return mybatis.selectList("IndexDAO.getUserListAdmin", vo);
+	}
+
+	// 차트에 들어갈 사용자 수 가져오기
+	public List<UserVO> getChartAdmin(UserVO vo) {
+//		System.out.println("IndexDAO getChartAdmin() 실행");
+		return mybatis.selectList("IndexDAO.getChartAdmin", vo);
 	}
 }

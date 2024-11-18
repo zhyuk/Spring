@@ -6,6 +6,45 @@
 
 <body>
 	<style>
+#scrollTopBtn {
+	position: fixed;
+	bottom: 20px;
+	left:5px;
+	width: 50px;
+	height: 50px;
+	background-color: RGBA(255, 255, 255, 0.5);
+	color: black;
+	border-radius: 50%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	transition: opacity 0.3s, transform 0.3s;
+}
+
+#scrollTopBtn:hover {
+	opacity: 0.8;
+	transform: scale(1.1);
+}
+
+#scrollTopBtn:active {
+	transform: scale(0.9);
+}
+
+body {
+	font-size: 14px;
+}
+
+button {
+	background-color: #FFD26E;
+	border: none;
+	padding: 5px;
+	border-radius: 10px;
+}
+
 #imgBox {
 	display: none;
 	position: absolute;
@@ -56,8 +95,33 @@
 	cursor: pointer;
 }
 
+h1 {
+	padding-top: 30px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
 #replyForm {
 	display: none;
+}
+
+.form1 {
+	text-align: center;
+}
+
+.form1 input[type="text"] {
+	/* 	border: none; */
+	outline: none;
+	height: 50px;
+	font-size: 18px;
+}
+
+.second .vie input {
+	width: 6ch;
+}
+
+.second .up input, .second .down input {
+	width: 4ch;
 }
 
 .text-muted {
@@ -105,59 +169,201 @@
 	width: 50%;
 	padding: 15px;
 }
+
+.cotent12 {
+	width: 1200px;
+	text-align: left;
+	margin: 0 auto;
+}
+
+#commentUpDel {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: row-reverse;
+	align-items: normal;
+}
+
+#footer button {
+	padding: 8px;
+}
+
+#commentReplyUpDel {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: row-reverse;
+	align-items: normal;
+}
+
+#replyYooka {
+	padding: 8px;
+	float: right;
+}
+
+#deleteCommentYooka, #updateCommentYooka, #deleteReplyYooka,
+	#updateReplyYooka {
+	width: 50px;
+	margin: 0 3px;
+}
+
+#maincom {
+	width: 1200px;
+	margin: 0 auto;
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+	border-radius: 13px;
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#commentinput {
+	width: 1200px;
+	margin: 0 auto;
+	border-radius: 13px;
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+	margin-top: 10px;
+}
+
+li::marker {
+	content: none;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+#replyForm {
+	text-align: right;
+}
+
+.form-group {
+	margin-bottom: 4px;
+}
+
+.detail-box {
+	font-size: 18px;
+	width: 1200px;
+	margin: 0 auto; 
+	flex-direction: column;
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	display: flex;
+}
+
+.category-title {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	margin-bottom: 3px;
+}
+
+.detail-box .category {
+	font-weight: bold;
+	color: #007bff;
+	margin-bottom: 5px;
+}
+
+.detail-box .title {
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: calc(100% - 50px);
+}
+
+.detail-box .info12 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	color: #666;
+}
+
+.detail-box .info12 span {
+	white-space: nowrap;
+}
+#inputbtn{
+	background-color: #FFD26E;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 425px) {
+	.detail-box{
+		font-size: 14px;
+		text-align: left;
+		width: 100%;
+	}
+	.form1 div input {
+		width: 30%;
+	}
+	.form1 div div {
+		display: inline;
+	}
+	.form1 {
+		text-align: center;
+	}
+	.m-div {
+		margin: 0 5px;
+	}
+	#maincom {
+		border: 1px solid #e0e0e0;
+		padding: 10px;
+		border-radius: 13px;
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+	}
+	#commentinput {
+		width: 100%;
+		margin: 0 auto;
+		border-radius: 13px;
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+		margin-top: 10px;
+	}
+	.cotent12 {
+		width: 90%;
+	}
+	li::marker {
+		content: none;
+	}
+	ul {
+		list-style-type: none;
+		padding-left: 0;
+	}
+	#deleteReplyYooka, #updateReplyYooka {
+		font-size: 14px;
+	}
+}
 </style>
 	<%@ include file="../view/menu.jsp"%>
-	<div class="container">
-		<h1 style="margin-top: 50px;">육아정보</h1>
-		<form name="fm" action="/updateYooka.do" method="get"
+	<div class="m-div">
+		<form name="fm" action="/updateYooka.do" method="get" class="form1"
 			enctype="multipart/form-data">
 			<input type="hidden" name="cm_no" value="${yooka.cm_no}">
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">제목</span>
-				</div>
 
-				<input type="text" class="form-control" name="cm_title"
-					value="${yooka.cm_title}" readonly>
-
-				<div class="input-group-prepend">
-					<span class="input-group-text">작성자</span>
+			<div class="detail-box">
+				<div class="category-title">
+					<div class="category">[육아]</div>
+					<div class="title">${yooka.cm_title}</div>
 				</div>
-				<input type="text" class="form-control innm" name="cm_writer"
-					value="${yooka.cm_writer}" readonly>
-			</div>
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">등록일</span>
+				<div class="info12">
+					<span class="writer">${yooka.cm_writer}</span> 
+					<span class="vie">조회: ${yooka.cm_view}</span>
+					<span class="up">추천: ${likeResult}</span>
+					<span class="likes">비추천: ${hateResult}</span> 
+					<span class="date">${yooka.cm_date}</span>
 				</div>
-				<input type="text" class="form-control innm" name="cm_date"
-					value="${yooka.cm_date}" readonly>
-				<div class="input-group-prepend">
-					<span class="input-group-text">조회수</span>
-				</div>
-				<input type="text" class="form-control innm" name="cm_view"
-					value="${yooka.cm_view}" readonly>
-				<div class="input-group-prepend">
-					<span class="input-group-text">추천</span>
-				</div>
-				<input style="text-align: center;" type="text"
-					class="form-control innm" name="cm_up" value="${likeResult}"
-					readonly>
-				<div class="input-group-prepend">
-					<span class="input-group-text">비추천</span>
-				</div>
-				<input style="text-align: center;" type="text"
-					class="form-control innm" name="cm_down" value="${hateResult}"
-					readonly>
-
 			</div>
 			<br> <br>
-			<div style="width: 100%;">
+			<div style="width: 100%; display: inline-block;" class="imgDiv">
 				<c:choose>
 					<c:when test="${not empty yooka.cm_img}">
 						<c:forEach var="img" items="${fn:split(yooka.cm_img, ',')}">
-							<img style="display: block; width: 80%;"
-								src="${pageContext.request.contextPath}/resources/img/community/${img.trim()}">
+							<div style="text-align: center;">
+								<img style="max-width: 70%;"
+									src="${pageContext.request.contextPath}/resources/img/community/${img.trim()}">
+							</div>
 							<br>
 						</c:forEach>
 					</c:when>
@@ -166,7 +372,8 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			${yooka.cm_content} <br> <br>
+			<p class="cotent12">${yooka.cm_content}</p>
+			<br> <br>
 			<ul class="upDown">
 				<li class="likeUp"><button type="button" id="likebtn"
 						name="likebtn"
@@ -200,17 +407,16 @@
 
 		<!-- 댓글 입력 폼 -->
 		<c:if test="${sessionScope.userId != NULL }">
-			<div class="card mb-4">
+			<div class="card mb-4" id="commentinput">
 				<div class="card-body">
 					<form id="commentForm" name="commentForm"
 						action="/insertCommentYooka.do">
 						<div class="form-group">
-							<label for="comment">내용</label>
 							<textarea class="form-control" id="comment" rows="3"
 								placeholder="댓글을 입력하세요" name="co_content" required></textarea>
 						</div>
 						<input type="hidden" name="cm_no" value="${yooka.cm_no}">
-						<button type="submit" class="">댓글 남기기</button>
+						<button type="submit" class="">등록</button>
 					</form>
 				</div>
 			</div>
@@ -221,12 +427,15 @@
 			<c:if test="${commentYooka.co_no2 == null}">
 				<div id="commentList">
 					<div class="media mb-4">
-						<div class="media-body">
+						<div class="" id="maincom">
 							<span class="mt-0">${commentYooka.co_writer}</span>
+							<button id="replyYooka" type="button" class=""
+								onclick="replyYookabtn(${commentYooka.co_no})">답글</button>
 							<button id="repToggleYooka" type="button"
-								onclick="replyToggleYooka(${commentYooka.co_no})">댓글보기</button>
+								onclick="replyToggleYooka(${commentYooka.co_no})">답글보기</button>
 
-							<small class="text-muted"> <c:choose>
+							<p class="text-muted">
+								<c:choose>
 									<c:when test="${not empty commentYooka.co_date2}">
 						                수정일: ${commentYooka.co_date2}
 						            </c:when>
@@ -234,31 +443,25 @@
 						                등록일: ${commentYooka.co_date}
 						            </c:otherwise>
 								</c:choose>
-							</small>
+							</p>
 
 							<div style="text-align: right;">
 								<form id="commentUpDel" name="commentUpDel"
 									action="/updateCommentYooka.do">
 
 									<input id="commentCoNo" type="hidden" name="co_no"
-										value="${commentYooka.co_no}"> 
-									<input id="commentCmNo" type="hidden" name="cm_no" 
-										value="${commentYooka.cm_no}">
+										value="${commentYooka.co_no}"> <input id="commentCmNo"
+										type="hidden" name="cm_no" value="${commentYooka.cm_no}">
 									<input id="commentCoWriter" type="hidden" name="co_writer"
 										value="${commentYooka.co_writer}">
 
 									<c:if test="${sessionScope.userId == commentYooka.co_writer}">
-										<button id="updateCommentYooka" type="submit"
-											class="btn btn-primary">수정</button>
-										<button id="deleteCommentYooka" type="button"
-											class="btn btn-primary"
+										<button id="deleteCommentYooka" type="button" class=""
 											onclick="delCommentYooka(${commentYooka.cm_no},${commentYooka.co_no},'${commentYooka.co_writer}','${commentYooka.co_content}')">삭제</button>
+										<button id="updateCommentYooka" type="submit" class="">수정</button>
 									</c:if>
-									
-									<button id="replyYooka" type="button"
-										class="btn btn-secondary btn-sm"
-										onclick="replyYookabtn(${commentYooka.co_no})">댓글쓰기</button>
-									
+
+
 									<c:choose>
 										<c:when
 											test="${sessionScope.userId == commentYooka.co_writer}">
@@ -284,7 +487,8 @@
 											placeholder="대댓글을 입력하세요" name="co_content" required></textarea>
 									</div>
 									<input type="hidden" name="cm_no" value="${yooka.cm_no}">
-									<button type="submit" class="btn btn-secondary btn-sm">등록</button>
+									<button type="submit" 
+										id="inputbtn">등록</button>
 								</form>
 							</div>
 
@@ -294,9 +498,9 @@
 									<div
 										class="media mt-3 repTogYooka${commentYooka.co_no} repTogYooka">
 										<div class="media-body reply2">
-											<h6 class="mt-0">${replyYooka.co_writer}</h6>
-											<small class="text-muted"> 
-											<c:choose>
+											<span class="mt-0">${replyYooka.co_writer}</span>
+											<p class="text-muted">
+												<c:choose>
 													<c:when test="${not empty replyYooka.co_date2}">
 									                수정일: ${replyYooka.co_date2}
 									            </c:when>
@@ -304,7 +508,7 @@
 									                등록일: ${replyYooka.co_date}
 									            </c:otherwise>
 												</c:choose>
-											</small>
+											</p>
 
 											<div style="text-align: right;">
 												<form id="commentReplyUpDel" name="commentReplyUpDel"
@@ -319,11 +523,9 @@
 														id="commentReplyCoNo2" type="hidden" name="co_no2"
 														value="${replyYooka.co_no2}">
 													<c:if test="${sessionScope.userId == replyYooka.co_writer}">
-														<button id="updateReplyYooka" type="submit"
-															class="btn btn-primary">수정</button>
-														<button id="deleteReplyYooka" type="button"
-															class="btn btn-primary deleteRB"
+														<button id="deleteReplyYooka" type="button" class=""
 															onclick="delReplyYooka(${replyYooka.cm_no},${replyYooka.co_no},'${replyYooka.co_writer}','${replyYooka.co_content}')">삭제</button>
+														<button id="updateReplyYooka" type="submit" class="">수정</button>
 													</c:if>
 													<c:choose>
 														<c:when
@@ -351,6 +553,23 @@
 			</c:if>
 		</c:forEach>
 	</div>
+	<div id="scrollTopBtn" onclick="scrollToTop()">▲TOP</div>
+	<script>
+	window.addEventListener("scroll", function () {
+	  const scrollTopBtn = document.getElementById("scrollTopBtn");
+	  if (window.scrollY > 300) { 
+	    scrollTopBtn.style.display = "flex";
+	  } else {
+	    scrollTopBtn.style.display = "none";
+	  }
+	});
 
+	function scrollToTop() {
+	  window.scrollTo({
+	    top: 0,
+	    behavior: "smooth", 
+	  });
+	}
+	</script>
 </body>
 </html>

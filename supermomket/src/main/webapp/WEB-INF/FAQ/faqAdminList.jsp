@@ -6,18 +6,20 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faqadmin.css">
 <script src="${pageContext.request.contextPath}/resources/js/faqjs.js"></script>
 
+
 <main>
+<section id="admin">
 <div class="faqAdminmaindiv">
 <div class="faqAdminsearchdiv">
- <form class="form-inline" action="getFaqAdminList.do" method="post">
-  	<select class="form-control" id="sel1" name="searchCondition" style="display:inline-block!important;margin-right:10px;">
-        <c:forEach items="${conditionMap}" var="option">
-	        <option value="${option.value}">${option.key}</option>
-        </c:forEach>        
-    </select>
-    <input class="form-control mr-sm-2" type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
-    <button class="btn btn-success" type="submit">검색</button>
-  </form>
+<!--  <form class="form-inline" action="getFaqAdminList.do" method="post"> -->
+<!--   	<select class="form-control" id="sel1" name="searchCondition"> -->
+<%--         <c:forEach items="${conditionMap}" var="option"> --%>
+<%-- 	        <option value="${option.value}">${option.key}</option> --%>
+<%--         </c:forEach>         --%>
+<!--     </select> -->
+<!--     <input class="form-control mr-sm-2" type="text" name="searchKeyword" placeholder="검색어를 입력하세요."> -->
+<!--     <button class="btn btn-success" type="submit">검색</button> -->
+<!--   </form> -->
 </div>
 
 
@@ -43,7 +45,7 @@
 </c:forEach>
     </tbody>
     </table>
-     <button class="faqadminbtn" onclick="insertbtn()">글쓰기</button>
+     <button id="faqadminbtn" class="faqadminbtn" onclick="insertbtn()">글쓰기</button>
      <ul class="adminpagination">
 		<c:if test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
 			<li class="adminpage-item"><a class="adminpage-link" href="getFaqAdminList.do?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이전</a></li>
@@ -59,9 +61,9 @@
 		</c:if>
 	</ul>
 </div>
+</section>
 </main>
 
 </div>
-<%@ include file="../view/footer.jsp" %>
 </body>
 </html>

@@ -15,4 +15,6 @@
 
 			<!-- 관리자용 CSS -->
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
+			<!-- 차트 라이브러리 -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 		</head>

@@ -5,17 +5,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.mom.svc.MypageService;
+import com.spring.mom.svc.OrderService;
 import com.spring.mom.vo.OrderVO;
-import com.spring.mom.vo.ProductVO;
+import com.spring.mom.vo.ReviewVO;
 import com.spring.mom.vo.UserVO;
 
 @Controller
@@ -23,6 +24,13 @@ public class MypageController {
 
     @Autowired
     private MypageService mypageService;
+    
+    @Autowired
+    private OrderService orderService;
+    
+//    @Autowired
+//    private ProductService productService;
+    
 
     // 관리자 메뉴
     @RequestMapping(value = "/userList.do", method = RequestMethod.GET)
@@ -90,9 +98,12 @@ public class MypageController {
     
     // 관리자 비밀번호 확인(관리자) - ok
     @RequestMapping("/updateAdmin.do")
-    public String updateAdminChk(HttpSession session) {
+    public String updateAdminChk(HttpSession session, UserVO uvo) {
     	
-    	session.getAttribute("userId");
+    	uvo.setU_id((String)session.getAttribute("adminId"));
+    	mypageService.updateAdminChk(uvo);
+    	
+//    	System.out.println("여기다: " + uvo);
     	
     	return "mypage/adminPage";
     }
@@ -101,7 +112,7 @@ public class MypageController {
     @RequestMapping(value = "/updateAdminDetail.do", method = RequestMethod.POST)
     public String updateAdminDetail(UserVO uvo, HttpSession session, Model model) {
     	
-    	uvo.setU_id((String)session.getAttribute("userId"));
+    	uvo.setU_id((String)session.getAttribute("adminId"));
     	boolean isAuthenticated = mypageService.authenticateUser(uvo.getU_id(), uvo.getU_pw());
     	
     	if(isAuthenticated) {
@@ -117,7 +128,11 @@ public class MypageController {
     	}
     }
     
-    // 관리자 새 비밀번호로 업데이트(관리자) - ok(수정 완료 시 alert 띄우기 할 것)
+      
+    
+    
+    
+    // 관리자 새 비밀번호로 업데이트(관리자)
     @RequestMapping(value = "/setNewAdminPw.do", method = RequestMethod.POST)
     public String setNewAdminPw(@RequestParam String n_pw, HttpSession session) {
         String userId = (String) session.getAttribute("userId");
@@ -128,7 +143,7 @@ public class MypageController {
 
         mypageService.setNewAdminPw(uvo);
 
-        return "redirect:index.jsp";
+        return "redirect:/";
     }
     
     
@@ -140,56 +155,83 @@ public class MypageController {
     
     
     
-    // 사용자 메뉴
+    
+    
+    //////////// 사용자 메뉴//////////////
     // 주문 목록 보기(사용자)
     @RequestMapping("/buyList.do")
-    public String getBuyList(OrderVO olvo, Model model, HttpSession session) {
-    	String userId = (String)session.getAttribute("userId");
-    	
+    public String getBuyList(OrderVO ovo, Model model, HttpSession session) {
+        String userId = (String)session.getAttribute("userId");
         if (userId == null) {
-        	
             return "login/login";
         }
-        
-        olvo.setU_id(userId);
-        List<OrderVO> buyList = mypageService.getBuyList(olvo);
-        
-//        System.out.println("주문목록1: " + buyList);
+        ovo.setU_id(userId);
+
+        List<OrderVO> buyList = mypageService.getBuyList(ovo);
         model.addAttribute("buyList", buyList);
-        
-    	return "mypage/mypage_buyList";
+
+        return "mypage/mypage_buyList";
     }
+
     
     // 주문목록 상세 보기(사용자)
     @RequestMapping("/buyListDetail.do")
-    public String getBuyListDetail(@RequestParam(value = "o_no", required = false, defaultValue = "0") int o_no, OrderVO olvo, Model model, HttpSession session) {
+    public String getBuyListDetail(@RequestParam(value = "c_no", required = false, defaultValue = "0") int c_no, OrderVO ovo, Model model, HttpSession session) {
+       String userId = (String)session.getAttribute("userId");
+       
+        ovo.setU_id(userId);
+        ovo.setC_no(c_no);
+        String merchant_uid = orderService.getmerchant_uid(ovo);
+        ovo.setMerchant_uid(merchant_uid);
+        
+//        System.out.println("여기뭐야?: " + merchant_uid);
+        
+        model.addAttribute("buyListDetail", mypageService.getBuyListDetail(ovo));
+        //model.addAttribute("getdetail", orderService.getdetail(ovo));
+//        System.out.println("모델 : " + model);
+        
+//        System.out.println("머천아이디: " + Merchant_uid);
+       return "mypage/mypage_buyList_detail";
+    }
+
+    
+    // 주문한 제품 리뷰쓰기
+    @RequestMapping("/goReview.do")
+    public String goReview(@RequestParam(value = "p_no", required = false, defaultValue = "0") int p_no
+    		 			  ,@RequestParam(value = "merchant_uid", required = false) String merchant_uid
+    		              , Model model, HttpSession session, ReviewVO rvo) {
+    	
     	String userId = (String)session.getAttribute("userId");
     	
-        olvo.setU_id(userId);
-        olvo.setC_no(o_no);
-        List<OrderVO> buyListDetail = mypageService.getBuyListDetail(olvo);
-        
-        model.addAttribute("buyListDetail", buyListDetail);
-//        System.out.println("마이페이지 olvo.get아이디: "+ olvo.getU_id());
-//        System.out.println("주문상세목록1: " + model);
-//        System.out.println("주문 번호(o_no): " + olvo.getO_no());
-        
-    	return "mypage/mypage_buyList_detail";
+//    	model.addAttribute("setReview", productService.setReview(rvo));
+    	
+    	
+    	//ovo.setU_id(userId);
+    	//ovo.setC_no(c_no);
+    	
+    	//model.addAttribute("goWriteRv", mypageService.goWriteRv(ovo));
+//    	model.addAttribute("p_no", p_no);
+//    	model.addAttribute("merchant_uid", productService.merchant_uid);
+    	
+    	
+    	
+//    	System.out.println("피앤오 : " + p_no);
+//    	System.out.println("머천아이디! : " + merchant_uid);
+//    	System.out.println("모델! : "+ model);
+    	return "product/productDetail";
     }
     
-    // 찜 상품 목록 조회(사용자)
-    @RequestMapping("/zzimList.do")
-    public String getZzimList(ProductVO pvo, Model model) {
-    	
-        model.addAttribute("zzimList", mypageService.getZzimList(pvo));
-        
-        return "mypage/mypage_zzimList";
-    }
+//    // 찜 상품 목록 조회(사용자)
+//    @RequestMapping("/zzimList.do")
+//    public String getZzimList(ProductVO pvo, Model model) {
+//        model.addAttribute("zzimList", mypageService.getZzimList(pvo));
+//        
+//        return "mypage/mypage_zzimList";
+//    }
 
     // 마이페이지 비밀번호 조회(사용자)
     @RequestMapping(value = "/updateMypage.do")
     public String updateMypageChk(HttpSession session, UserVO uvo) {
-    	
         String userId = (String)session.getAttribute("userId");
         
 //        mypageService.updateMypageChk(uvo);
@@ -218,30 +260,43 @@ public class MypageController {
     	}
             return "mypage/mypage_updateMypage";
     }
+    
+    // 마이페이지 정보수정 - 닉네임 중복 쳌
+    @RequestMapping(value = "/nickChk.do", method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public String nickCheck(@RequestParam("u_nickname") String u_nickname) {
+        System.out.println("Received nickname: " + u_nickname); // 디버깅
+        int count = mypageService.nickCheck(u_nickname);
+        return count > 0 ? "이미 사용된 닉네임입니다." : "사용할 수 있는 닉네임입니다.";
+    }
 
     // 마이페이지 새 정보 업데이트(사용자)
     @RequestMapping(value = "/setNewMypage.do", method = RequestMethod.POST)
-    public String setNewMypage(UserVO uvo) {
-    
+    public String setNewMypage(HttpSession session, UserVO uvo) {
+    	uvo.setU_id((String) session.getAttribute("userId"));
+    	
 		mypageService.setNewMypage(uvo);
 //    	System.out.println("내 정보 업데이트 완료");
-    	return "redirect:index.jsp";
+    	return "redirect:/";
     }
+    
     
     // 비밀번호 수정 조회(사용자) - ok
     @RequestMapping("/updatePassword.do")
     public String updatePasswordChk(HttpSession session, UserVO uvo) {
     	
-    	session.getAttribute("userId");
+    	uvo.setU_id((String)session.getAttribute("userId"));
     	mypageService.updatePasswordChk(uvo);
     	
     	return "mypage/mypage_updatePassword";
     }
     
+    
     // 비밀번호 수정 상세(사용자)
     @RequestMapping(value = "/updatePassword_detail.do", method = RequestMethod.POST)
     public String updatePasswordDetail(UserVO uvo, HttpSession session, Model model) {
         uvo.setU_id((String) session.getAttribute("userId"));
+	      
 
         boolean isAuthenticated = mypageService.authenticateUser(uvo.getU_id(), uvo.getU_pw());
 
@@ -258,22 +313,26 @@ public class MypageController {
         }
     }
     
+    
     // 새 비밀번호로 업데이트(사용자)
     @RequestMapping(value = "/setNewPassword.do", method = RequestMethod.POST)
     public String setNewPassword(@RequestParam String n_pw, HttpSession session) {
     	String userId = (String) session.getAttribute("userId");
-    	 
+    	
         UserVO uvo = new UserVO();
         uvo.setU_id(userId);
         uvo.setU_pw(n_pw);
+        
+//        System.out.println("요기 : " + n_pw);
 
         mypageService.setNewAdminPw(uvo);
 
-        return "redirect:index.jsp";
+        return "redirect:/";
     }
     
+    
     // 마이페이지 회원탈퇴(사용자)
-    @RequestMapping(value="/taltaeUser.do", method = RequestMethod.POST)
+    @RequestMapping("/taltaeUser.do")
     public String taltaeUser(HttpSession session, UserVO uvo, HttpServletRequest request) {
     	String userId = (String) session.getAttribute("userId");
     	
@@ -285,9 +344,7 @@ public class MypageController {
     	HttpSession newSession = request.getSession(true);
     	newSession.setAttribute("errorMessage", "탈퇴가 완료되었습니다.");
     	
-    	return "redirect:/index.jsp";
+    	return "redirect:/";
     }
-    
-    
     
 }

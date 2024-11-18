@@ -12,10 +12,13 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 상세 정보</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/productDetail.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/productDetail.css">
 
 <!-- 외부 글꼴 설정 -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Quicksand:wght@400;700&display=swap"
+	rel="stylesheet">
 
 <script>
         let lastValidQuantity = 1;
@@ -94,6 +97,8 @@
             event.currentTarget.classList.add("active");
         }
 
+        const isLoggedIn = "${sessionScope.userId != null}";
+        
         // 로그인 상태 확인 후 필요한 액션을 수행하는 함수
         function checkLogin(action) {
             if (isLoggedIn === "false") {
@@ -109,39 +114,81 @@
             window.location.href = url;
         }
 
-        // 장바구니에 추가하는 함수 (로그인 확인 포함)
+     // 장바구니에 추가하는 함수 (로그인 확인 포함)
         function addToCart() {
-            const quantity = parseInt(document.getElementById("quantity").value);
-            if (quantity > maxQuantity) {
-                alert("장바구니에 담을 수 있는 최대 수량을 초과했습니다.");
-                return;
-            }
             checkLogin(function() {
-//                 alert("장바구니에 추가되었습니다.");
+                const quantity = parseInt(document.getElementById("quantity").value);
+                if (quantity > maxQuantity) {
+                    alert("장바구니에 담을 수 있는 최대 수량을 초과했습니다.");
+                    return;
+                }
+
+                // 여기에 장바구니에 데이터를 저장하는 로직을 추가할 수 있습니다.
+                // 예를 들어, 장바구니 저장을 위한 AJAX 요청 등을 수행할 수 있습니다.
+                alert("장바구니에 추가되었습니다.");
             });
         }
+
 
         // 주문하기 함수 (로그인 확인 포함)
-        function orderProduct() {
-            checkLogin(function() {
-                alert("주문이 완료되었습니다.");
-            });
-        }
+    function orderProduct() {
+        	
+    	checkLogin(function() {   	
+        // 사용자 ID와 상품 정보를 form의 hidden 필드에 설정
+        document.getElementById("orderForm").action = "${pageContext.request.contextPath}/insertproduct.do";
+        document.querySelector("input[name='u_id']").value = "${sessionScope.userId}";
+        document.querySelector("input[name='p_no']").value = "${product.p_no}";
+        document.querySelector("input[name='p_count']").value = document.getElementById("quantity").value;
+        document.querySelector("input[name='p_price']").value = "${product.p_price}";
+        document.querySelector("input[name='p_discount']").value = "${product.p_discount}";
+        document.querySelector("input[name='p_name']").value = "${product.p_name}";
+        document.querySelector("input[name='p_img']").value = "${product.p_img}";
+        document.querySelector("input[name='p_callno']").value = "${product.p_callno}";
 
-        // 찜 목록에 추가하는 함수 (로그인 확인 포함)
-        function addToWishlist() {
-            checkLogin(function() {
-                alert("찜 목록에 추가되었습니다.");
-            });
+        // 폼 제출
+        document.getElementById("orderForm").submit();
+    });
         }
         
-        function openReviewsWrite() {
-            document.querySelector('.reviews_write-overlay').style.display = 'flex';
-        }
+    function loadReviews() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/product/getReviews',
+            type: 'GET',
+            data: { p_no: document.getElementById("review_p_no").value },
+            success: function(response) {
+                const reviewList = $("#reviewList");
+                if (response.success && response.reviews.length > 0) {
+                    reviewList.empty(); // 기존 리스트 비우기
+                    response.reviews.forEach(review => {
+                        addReviewToList(review); // 리뷰 추가
+                    });
+                } else {
+                    // 리뷰가 없는 경우 기본 메시지 표시
+                    reviewList.html("<p>작성된 리뷰가 없습니다. 첫 번째 리뷰를 작성해 보세요!</p>");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('리뷰 로딩 실패:', error);
+            }
+        });
+    }
 
-        function closeReviewsWrite() {
-            document.querySelector('.reviews_write-overlay').style.display = 'none';
+        
+ // 로그인 여부 확인 후 리뷰 작성 창을 여는 함수
+    function openReviewsWrite() {
+        // 로그인 여부를 확인하고, 로그인하지 않은 경우 경고 메시지와 함께 로그인 페이지로 이동
+        if (isLoggedIn === "false") {
+            alertAndRedirect("로그인 후 리뷰를 작성할 수 있습니다.", "${pageContext.request.contextPath}/login.do");
+            return;
         }
+        
+        // 로그인된 경우에만 리뷰 작성 창을 열도록 함
+        document.querySelector('.reviews_write-overlay').style.display = 'block';
+    }
+
+    function closeReviewsWrite() {
+        document.querySelector('.reviews_write-overlay').style.display = 'none';
+    }
 
 // AJAX를 사용해 리뷰를 전송하는 함수
 function submitReview() {
@@ -259,16 +306,25 @@ $(document).ready(function() {
 
     </script>
 
-<script>
-        // 로그인 상태 변수 설정 (JSP에서 세션 값으로 설정)
-        const isLoggedIn = "${sessionScope.userId != null}";
-    </script>
+
 </head>
 <body>
 	<%@ include file="../view/menu.jsp"%>
 
+	<!-- 주문하기에 필요한 hidden 필드를 포함한 form -->
+	<form id="orderForm" action="" method="post">
+		<input type="hidden" name="u_id" value="${sessionScope.userId}"> 
+		<input type="hidden" name="p_no" value="${product.p_no}"> 
+		<input type="hidden"name="p_count" value="${product.p_count}"> 
+		<input type="hidden" name="p_price" value="${product.p_price}"> 
+		<input type="hidden" name="p_discount" value="${product.p_discount}"> 
+		<input type="hidden" name="p_name" value="${product.p_name}">
+		<input type="hidden" name="p_img" value="${product.p_img}"> 
+		<input type="hidden" name="p_callno" value="${product.p_callno}">
+	</form>
+
 	<form id="productForm">
-		<div class="product-detail-container">
+		<div class="product-detail-container"> 
 			<div class="product-image">
 				<img
 					src="${pageContext.request.contextPath}/resources/img/product/${product.p_img}"
@@ -278,29 +334,32 @@ $(document).ready(function() {
 			<div class="product-info">
 				<h1 class="product-name">${product.p_name}</h1>
 				<hr class="name-divider">
-
-				<div class="product-price-info">
-					<p class="product-price">
-						판매가: <span class="strike"> <fmt:formatNumber
-								value="${product.p_price}" type="number" groupingUsed="true" />원
-						</span>
-					</p>
-					<p class="product-discount">
-						<span class="discounted-price" data-price="${product.p_discount}">
-							할인가: <fmt:formatNumber value="${product.p_discount}"
-								type="number" groupingUsed="true" />원
-						</span> <span class="discount-rate" data-rate="${product.p_dr}"> <fmt:formatNumber
-								value="${product.p_dr}" type="number" maxFractionDigits="0" />%
-							할인
-						</span>
-					</p>
-				</div>
-
+				<c:if test="${product.p_stock > 0}">
+					<div class="product-price-info">
+						<p class="product-price">
+							판매가: <span class="strike"> <fmt:formatNumber
+									value="${product.p_price}" type="number" groupingUsed="true" />원
+							</span>
+						</p>
+						<p class="product-discount">
+							<span class="discounted-price" data-price="${product.p_discount}">
+								할인가: <fmt:formatNumber value="${product.p_discount}"
+									type="number" groupingUsed="true" />원
+							</span> <span class="discount-rate" data-rate="${product.p_dr}">
+								<fmt:formatNumber value="${product.p_dr}" type="number"
+									maxFractionDigits="0" />% 할인
+							</span>
+						</p>
+					</div>
+				</c:if>
+				<c:if test="${product.p_stock <= 0}">
+					<div class="soldout">품절</div>
+				</c:if>
 
 				<hr class="divider-line">
 
 				<div class="additional-info">
-					<p>상품 번호: ${product.p_callno}</p>
+					<p>상품번호: ${product.p_callno}</p>
 					<p>브랜드: ${product.p_brand}</p>
 					<p>원산지: ${product.p_made}</p>
 					<p>배송비: ${product.p_delivery}</p>
@@ -325,27 +384,32 @@ $(document).ready(function() {
 					</span>
 				</div>
 
-				<div class="action-buttons">
-					<button type="button" class="cart-button" onclick="addToCart()">
-						<span class="button-text-bold">장바구니</span>
-					</button>
-					<button type="button" class="order-button" onclick="orderProduct()">
-						<span class="button-text-bold">주문하기</span>
-					</button>
-				</div>
-
+				<c:if test="${product.p_stock > 0}">
+					<div class="action-buttons">
+						<button type="button" class="cart-button" onclick="addToCart()">
+							<span class="button-text-bold">장바구니</span>
+						</button>
+						<button type="button" class="order-button"
+							onclick="orderProduct()">
+							<span class="button-text-bold">주문하기</span>
+						</button>
+					</div>
+				</c:if>
 
 			</div>
 		</div>
 
 		<input type="hidden" name="p_no" value="${product.p_no}"> <input
-			type="hidden" name="p_count" value="${product.p_count}"> <input
-			type="hidden" name="p_price" value="${product.p_price}"> <input
-			type="hidden" name="p_name" value="${product.p_name}"> <input
-			type="hidden" name="p_img" value="${product.p_img}"> <input
-			type="hidden" name="p_callno" value="${product.p_callno}"> <input
-			type="hidden" name="u_id" value="${sessionScope.userId}">
+			type="hidden" name="p_count" value="${product.p_count}"> 
+			<input type="hidden" name="p_price" value="${product.p_price}"> 
+<%-- 			<input type="hidden" name="p_discount" value="${product.p_discount}">  --%>
+			<input type="hidden" name="p_name" value="${product.p_name}"> 
+			<input type="hidden" name="p_img" value="${product.p_img}"> 
+			<input type="hidden" name="p_callno" value="${product.p_callno}"> 
+			<input type="hidden" name="u_id" value="${sessionScope.userId}">
 	</form>
+
+
 
 	<div class="tab-container">
 		<button class="tab-button active" onclick="openTab(event, 'details')">상품상세</button>
@@ -355,39 +419,51 @@ $(document).ready(function() {
 
 	<div id="details" class="tab-content" style="display: block;">
 		<div id="detail-images" class="detail-images-container">
-			${product.d_content}</div>
+			<div class="cont">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="center"><br></td>
+						</tr>
+						<tr>
+							<td align="center"><img
+								src="${pageContext.request.contextPath}/resources/img/product/${product.d_content}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 
 	<div id="reviews" class="tab-content" style="display: none;">
 		<div class="review-section">
-			<button onclick="openReviewsWrite();">리뷰 작성</button>
+			<button class="review-write-button" onclick="openReviewsWrite();">리뷰 작성하기</button>
 			<div id="reviewList"></div>
 		</div>
 	</div>
 	<div class="reviews_write-overlay" style="display: none;">
 		<div class="reviews_write">
-			 <button class="reviews_write-close" onclick="closeReviewsWrite()">✖</button>
+			<button class="reviews_write-close" onclick="closeReviewsWrite()">✖</button>
 			<form id="reviewForm" enctype="multipart/form-data">
 				<div class="star-ratings">
-					<input type="radio" name="c_avg" value="5" id="rate1">
-						<label for="rate1">★</label>
-					<input type="radio" name="c_avg" value="4" id="rate2">
-						<label for="rate2">★</label>
-					<input type="radio" name="c_avg" value="3" id="rate3">
-						<label for="rate3">★</label>
-					<input type="radio" name="c_avg" value="2" id="rate4">
-						<label for="rate4">★</label>
-					<input type="radio" name="c_avg" value="1" id="rate5">
-						<label for="rate5">★</label>		
+					<input type="radio" name="c_avg" value="5" id="rate1"> <label
+						for="rate1">★</label> <input type="radio" name="c_avg" value="4"
+						id="rate2"> <label for="rate2">★</label> <input
+						type="radio" name="c_avg" value="3" id="rate3"> <label
+						for="rate3">★</label> <input type="radio" name="c_avg" value="2"
+						id="rate4"> <label for="rate4">★</label> <input
+						type="radio" name="c_avg" value="1" id="rate5"> <label
+						for="rate5">★</label>
 				</div>
-				
+
 				<div class="writeBox">
 					<!-- 댓글 작성창에서 좌측 작성자, 아이디 숨기기 -->
-					<input type="hidden" id="review_p_no" name="p_no" value="${product.p_no}">
+					<input type="hidden" id="review_p_no" name="p_no"
+						value="${product.p_no}">
 					<%--                 <label>작성자: ${sessionScope.userId}</label> --%>
 					<input type="hidden" name="c_id" value="${sessionScope.userId}">
 					<textarea name="c_text" placeholder="리뷰를 작성하세요" rows="4" cols="50"></textarea>
-					
+
 					<input type="file" name="c_img" accept="image/*">
 					<button type="button" onclick="submitReview()">리뷰 등록</button>
 				</div>
@@ -397,5 +473,6 @@ $(document).ready(function() {
 	<div id="inquiry" class="tab-content" style="display: none;">
 		${product.d_info}</div>
 
+	<%@ include file="../view/footer.jsp"%>
 </body>
 </html>

@@ -11,6 +11,10 @@ public class UserVO {
 	private String u_secession; // default('n'),
 	private String u_role; // default('user'),
 	private String u_email;
+	private String u_type;
+	private Long u_sid;
+	
+	private int u_count;
 
 	public String getU_id() {
 		return u_id;
@@ -91,12 +95,36 @@ public class UserVO {
 	public void setU_email(String u_email) {
 		this.u_email = u_email;
 	}
+	
+	public String getU_type() {
+		return u_type;
+	}
+
+	public void setU_type(String u_type) {
+		this.u_type = u_type;
+	}
+	
+	public Long getU_sid() {
+		return u_sid;
+	}
+
+	public void setU_sid(Long u_sid) {
+		this.u_sid = u_sid;
+	}
+
+	public int getU_count() {
+		return u_count;
+	}
+
+	public void setU_count(int u_count) {
+		this.u_count = u_count;
+	}
 
 	@Override
 	public String toString() {
 		return "UserVO [u_id=" + u_id + ", u_pw=" + u_pw + ", u_name=" + u_name + ", u_nickname=" + u_nickname
 				+ ", u_address=" + u_address + ", u_pno=" + u_pno + ", u_date=" + u_date + ", u_secession="
-				+ u_secession + ", u_role=" + u_role + ", u_email=" + u_email + "]";
+				+ u_secession + ", u_role=" + u_role + ", u_email=" + u_email + ", u_type=" + u_type + ", u_sid=" + u_sid + "]";
 	}
 	
 	

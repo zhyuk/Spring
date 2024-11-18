@@ -16,6 +16,12 @@ public class ChatDAOMybatis {
     @Autowired
     private SqlSessionTemplate mybatis;
     
+    
+    public int getChatRoomCountByTradeNo(int tNo) {
+        Integer count = mybatis.selectOne("ChatDAO.getChatRoomCountByTradeNo", tNo);
+        return count != null ? count : 0;
+    }
+    
     public int updateChatRoom(ChatRoomVO room) {
         return mybatis.update("ChatDAO.updateChatRoom", room);
     }

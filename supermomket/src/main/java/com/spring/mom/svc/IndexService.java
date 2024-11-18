@@ -24,5 +24,8 @@ public interface IndexService {
 	
 	// 사용자 목록 가져오기
 	public List<UserVO> getUserListAdmin(UserVO vo);
+	
+	// 차트에 들어갈 사용자 수 가져오기
+	public List<UserVO> getChartAdmin(UserVO vo);
 
 }

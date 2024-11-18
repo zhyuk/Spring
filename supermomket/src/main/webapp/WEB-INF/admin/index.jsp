@@ -11,12 +11,12 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 								<div class="row_section">
 									<div id="chart_card" class="card">
 										<h3>오늘 가입한 사용자</h3>
-										<div class="content_box">
-										</div>
+										<canvas id="chart" class="content_box">
+										</canvas>
 									</div>
 
 									<div id="product_card" class="card">
-										<h3>상품 관리</h3>
+										<div class="title-box"><h3>상품 관리</h3> <a href="/productsList.do">더보기</a></div>
 										<div class="content_box">
 											<table>
 												<thead>
@@ -32,7 +32,7 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 													<c:forEach items="${productList}" var="product">
 														<tr>
 															<td>${product.p_no}</td>
-															<td class="scroll">${product.p_name}</td>
+															<td>${product.p_name}</td>
 															<td>${product.p_price}</td>
 															<td>${product.p_count}</td>
 															<td>${product.p_view}</td>
@@ -45,7 +45,7 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 								</div>
 								<div class="second_row row_section">
 									<div id="board_card" class="card">
-										<h3>게시글 관리</h3>
+										<div class="title-box"><h3>게시글 관리</h3> <a href="/adminYooka.do">더보기</a></div>
 										<div class="content_box">
 											<table>
 												<thead>
@@ -60,7 +60,7 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 													<c:forEach items="${boardList}" var="board">
 														<tr>
 															<td>${board.source}-${board.vs_no}</td>
-															<td class="scroll">${board.vs_title}</td>
+															<td>${board.vs_title}</td>
 															<td>${board.vs_writer}</td>
 															<td>${board.vs_date}</td>
 														</tr>
@@ -71,7 +71,7 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 									</div>
 
 									<div id="user_card" class="card">
-										<h3>사용자 관리</h3>
+										<div class="title-box"><h3>사용자 관리</h3> <a href="/userList.do">더보기</a></div>
 										<div class="content_box">
 											<table>
 												<thead>
@@ -87,7 +87,7 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 													<c:forEach items="${userList}" var="user">
 														<tr>
 															<td>${user.u_name}</td>
-															<td class="scroll">${user.u_nickname}</td>
+															<td>${user.u_nickname}</td>
 															<td>${user.u_id}</td>
 															<td>${user.u_pno}</td>
 															<td>${user.u_date}</td>
@@ -102,3 +102,47 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 						</section>
 					</main>
 			</body>
+
+			<script>
+				const chart = $("#chart");
+
+				const labels = [];
+				const data = [];
+
+				<c:forEach items="${chartList}" var="chart">
+					labels.push('${chart.u_date}');
+					data.push('${chart.u_count}');
+				</c:forEach>
+				
+				console.log(labels);
+				console.log(data);
+
+				new Chart(chart, {
+					type: 'line',
+					data: {
+						labels: labels,
+						datasets: [{
+// 							label: '',
+							data: data,
+// 							backgroundColor: '#FFD26E', // 라벨배경색
+							borderColor: '#FFD26E', // 선 색상
+							borderWidth: 2, // 선 굵기
+							pointBackgroundColor: '#FFD26E', // 포인트 배경색
+							pointRadius: 5, // 포인트 크기
+							tension: 0.4, // 선의 곡선
+						}]
+					},
+					options: {
+						scales: {
+							y: {
+								beginAtZero: true
+							}
+						},
+						plugins: {
+							legend: {
+								display: false  // 범례 전체를 숨김
+							}
+						}
+					}
+				});
+			</script>

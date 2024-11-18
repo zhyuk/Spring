@@ -28,7 +28,6 @@ public class FaqController {
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("분류", "CLASS");
 		conditionMap.put("답변", "CONTENT");
 		conditionMap.put("질문", "TITLE");
 		return conditionMap;

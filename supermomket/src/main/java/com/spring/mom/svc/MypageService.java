@@ -51,19 +51,25 @@ public interface MypageService {
 		
 		// 사용자 메뉴
 		// 주문목록 조회(사용자)
-		public List<OrderVO> getBuyList(OrderVO olvo);
+		public List<OrderVO> getBuyList(OrderVO ovo);
 		
 		// 주문목록 상세조회(사용자)
-		public List<OrderVO> getBuyListDetail(OrderVO olvo);
+		public List<OrderVO> getBuyListDetail(OrderVO ovo);
 		
-		// 찜한 상품 조회(사용자)
-		public List<ProductVO> getZzimList(ProductVO pvo);
+		// 리뷰쓰러 가기(사용자)
+		public OrderVO goWriteRv(OrderVO ovo);
+		
+//		// 찜한 상품 조회(사용자)
+//		public List<ProductVO> getZzimList(ProductVO pvo);
 		
 		// 마이페이지 비밀번호 수정 재확인(사용자)
 		public UserVO updateMypageChk(UserVO uvo);
 		
 		// 마이페이지 정보 수정(사용자)
 		public UserVO updateMypageDetail(UserVO uvo);
+		
+		// 마이페이지 정보 수정 - 닉네임 중복 쳌(사용자)
+		public int nickCheck(String u_nickname);
 		
 		// 마이페이지 새 정보 업데이트(사용자)
 		public void setNewMypage(UserVO uvo);
@@ -79,6 +85,9 @@ public interface MypageService {
 
 		// 회원탈퇴(사용자)
 		public void taltaeUser(UserVO uvo);
+
+
+
 
 		
 

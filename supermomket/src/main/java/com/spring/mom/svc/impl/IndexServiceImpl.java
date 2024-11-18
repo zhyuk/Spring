@@ -44,15 +44,22 @@ public class IndexServiceImpl implements IndexService{
 	// 새상품 목록 가져오기
 	@Override
 	public List<ProductVO> getProductListAdmin(ProductVO vo) {
-		System.out.println("IndexSVC getProductListAdmin() 실행");
+//		System.out.println("IndexSVC getProductListAdmin() 실행");
 		return dao.getProductListAdmin(vo);
 	}
 
 	//사용자 목록 가져오기
 	@Override
 	public List<UserVO> getUserListAdmin(UserVO vo) {
-		System.out.println("IndexSVC getUserListAdmin() 실행");
+//		System.out.println("IndexSVC getUserListAdmin() 실행");
 		return dao.getUserListAdmin(vo);
+	}
+
+	// 차트에 들어갈 사용자 수 가져오기
+	@Override
+	public List<UserVO> getChartAdmin(UserVO vo) {
+		System.out.println("IndexSVC getChartAdmin() 실행");
+		return dao.getChartAdmin(vo);
 	}
 
 }

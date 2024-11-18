@@ -10,7 +10,8 @@ public class KakaoOAuth {
 
     private static final String REST_API_KEY = "c51dc8cbf39989606e8b1ae468eaee37";  // 카카오 REST API Key
     private static final String REDIRECT_URI = "http://localhost:8090/login/kakaoLogin";  // 카카오 로그인 리디렉션 URI
-
+//    private static final String LOGOUT_REDIRECT_URI = "http://localhost:8090/login/kakaoLogout";  // 카카오 로그아웃 리디렉션 URI
+    
     // 카카오 인증 코드로 액세스 토큰을 받아오는 메소드
     public static String getAccessToken(String code) {
         String accessToken = null;
@@ -67,8 +68,14 @@ public class KakaoOAuth {
             user.setU_nickname(properties.getString("nickname"));
             user.setU_email(kakaoAccount.getString("email"));
             user.setU_name(properties.getString("nickname")); 
-            user.setU_pno(kakaoAccount.getString("phone_number"));
+            if (phoneNumber.startsWith("+82")) {
+                phoneNumber = "0" + phoneNumber.substring(3).replaceAll("[^0-9]", "");
+            }
+            user.setU_pno(phoneNumber);
             user.setU_address("직접 입력해주세요.");
+            user.setU_type("k");
+            Long kakaoId = jsonResponse.getLong("id");
+            user.setU_sid(kakaoId);
         }
 
         return user;

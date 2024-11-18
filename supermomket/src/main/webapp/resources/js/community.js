@@ -91,18 +91,18 @@ $(document).ready(function(){
 		return false;
 	}
 }
-	function delCommentNoriter(cm_no, co_no, co_writer){
+	function delCommentNoriter(cm_no, co_no, co_writer,co_content){
 	const con = confirm('정말삭제하시겠습니까?');
 	if(con == true){
-		location.href="/deleteCommentNoriter.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer;
+		location.href="/deleteCommentNoriter.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer+ "&co_content=" + co_content;
 	} else if(con == false){
 		return false;
 	}
 }
-	function delCommentShopping(cm_no, co_no, co_writer){
+	function delCommentShopping(cm_no, co_no, co_writer ,co_content){
 	const con = confirm('정말삭제하시겠습니까?');
 	if(con == true){
-		location.href="/deleteCommentShopping.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer;
+		location.href="/deleteCommentShopping.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer + "&co_content=" + co_content;
 	} else if(con == false){
 		return false;
 	}

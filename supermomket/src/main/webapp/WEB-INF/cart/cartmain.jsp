@@ -7,9 +7,11 @@
 <body>
 	<%@ include file="../view/menu.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/cartjs.js"></script>
+<section>
 <main style="margin-top: 50px;justify-items: center;">
 	<div class="cart-container">
 		<h2>장바구니</h2>
+		<a href="preparcartList.do">결제창(임시)</a>
 		<form name="cartList">
 			<input 	type="hidden" name="u_id" value="${userId}">
 			<input 	type="hidden" name="c_payment" value="${c_payment}">
@@ -42,8 +44,8 @@
 							<td class="tdCenter"><input type="number" name="p_count" value="${cvo.p_count}"
 							data-price="${cvo.p_price}" data-cno="${cvo.c_no}" data-pno="${cvo.p_no}" data-uid="${cvo.u_id}"
 							data-payment="${cvo.c_payment}" min="1" max="50" oninput="validateNumberInput(this)"></td>
-							<td class="tdCenter"><fmt:formatNumber value="${cvo.p_price}" type="number" groupingUsed="true" /></td>
-							<td class="tdCenter" id="total_${cvo.c_no}"><fmt:formatNumber value="${cvo.p_total}" type="number" groupingUsed="true" /></td>
+							<td class="tdCenter"><span><fmt:formatNumber value="${cvo.p_price}" type="number" groupingUsed="true" />원</span></td>
+							<td class="tdCenter" id="total_${cvo.c_no}"><span><fmt:formatNumber value="${cvo.p_total}" type="number" groupingUsed="true" />원</span></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -54,7 +56,6 @@
 			</div>
 
 			<div class="cart-buttons">
-				<button type="button" name="cart_allNonChk" class="delete-btn">전체선택해제</button>
 				<button type="button" onclick="cartsubmit(1)" class="delete-btn">선택상품삭제</button>
 				<button type="button" onclick="cartsubmit(2)" class="select-purchase-btn">선택구매</button>
 			<button  type="button" onclick="cartsubmit(4)"  id="allsellbtn" class="all-purchase-btn">전체구매</button>
@@ -62,6 +63,7 @@
 		</form>
 	</div>
 	</main>
+</section>
 	</div>
 	
 </body>

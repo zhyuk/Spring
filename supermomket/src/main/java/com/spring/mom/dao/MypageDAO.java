@@ -48,8 +48,6 @@ public class MypageDAO {
     }
 	
     
-    
-    
 	// 사용자 정보 수정(관리자)
 	public void selUser(UserVO uvo) {
 		System.out.println("===>MypageDAO : mybatis selUser");
@@ -88,6 +86,8 @@ public class MypageDAO {
 	
 	
 	
+	
+	
 	// 사용자 메뉴
 	// 주문목록 조회
 	public List<OrderVO> getBuyList(OrderVO olvo) {
@@ -102,10 +102,10 @@ public class MypageDAO {
 	}
 	
 	// 찜한 상품 조회
-	public List<ProductVO> getZzimList(ProductVO pvo){
-		System.out.println("===>MypageDAO : mybatis getZzimList");
-		return mybatis.selectList("MypageDAO.getZzimList", pvo);
-	}
+//	public List<ProductVO> getZzimList(ProductVO pvo){
+//		System.out.println("===>MypageDAO : mybatis getZzimList");
+//		return mybatis.selectList("MypageDAO.getZzimList", pvo);
+//	}
 	
 	// 마이페이지 비밀번호 확인(사용자)
 	public UserVO updateMypageChk(UserVO uvo) {
@@ -119,18 +119,18 @@ public class MypageDAO {
 		return mybatis.selectOne("MypageDAO.updateMypageDetail", uvo);
 	}
 	
+	// 마이페이지 정보 수정 - 닉네임 중복 쳌(사용자)
+	public int nickCheck(String u_nickname) {
+		System.out.println("===>MypageDAO : mybatis nickCheck");
+		return mybatis.selectOne("MypageDAO.nickCheck", u_nickname);
+	}
+	
 	// 마이페이지 새 정보 업데이트(사용자)
 	public void setNewMypage(UserVO uvo) {
 		System.out.println("===>MypageDAO : mybatis setNewMypage");
 		mybatis.update("MypageDAO.setNewMypage", uvo);
 	}
-//	
-//	// 마이페이지 회원 탈퇴(사용자)
-////	public void deleteUser(UserVO uvo) {
-////		System.out.println("===>MypageDAO : mybatis updateMypage");
-////		mybatis.update("MypageDAO.deleteUser", uvo);
-////	}
-//
+	
 	// 비밀번호 수정 조회(사용자)
 	public UserVO updatePasswordChk(UserVO uvo) {
 		System.out.println("===>MypageDAO : mybatis updatePasswordChk");
@@ -149,10 +149,18 @@ public class MypageDAO {
 		mybatis.update("MypageDAO.setNewPassword", uvo);
 	}
 
+	// 마이페이지 회원 탈퇴(사용자)
 	public void taltaeUser(UserVO uvo) {
 		System.out.println("===>MypageDAO : mybatis taltaeUser");
 		mybatis.update("MypageDAO.taltaeUser", uvo);
 	}
+
+	// 리뷰 쓰러 가기
+	public OrderVO goWriteRv(OrderVO ovo) {
+		System.out.println("===>MypageDAO : mybatis goWriteRv");
+		return mybatis.selectOne("MypageDAO.taltaeUser", ovo);
+	}
+
 
 
 

@@ -10,4 +10,5 @@ public interface ChatService {
 	    ChatRoomVO getChatRoom(int roomId);
 	    ChatRoomVO findExistingRoom(String sellerId, String userId, int tNo);
 	    boolean markRoomAsDeleted(int roomId, String userId);
+	    int getChatRoomCountByTradeNo(int tNo);
 }

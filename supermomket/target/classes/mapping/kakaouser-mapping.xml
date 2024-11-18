@@ -6,13 +6,13 @@
 
     <!-- 카카오 사용자 ID로 사용자 조회 -->
     <select id="getUserById" resultType="com.spring.mom.vo.UserVO">
-        SELECT * FROM user WHERE u_id = #{u_id}
+        SELECT * FROM user WHERE u_sid = #{u_sid}
     </select>
 
     <!-- 카카오 사용자 신규 등록 -->
     <insert id="insertUser" parameterType="com.spring.mom.vo.UserVO">
-        INSERT INTO user (u_id, u_pw, u_name, u_nickname, u_email, u_pno, u_address)
-        VALUES (#{u_id}, #{u_pw}, #{u_name}, #{u_nickname}, #{u_email}, #{u_pno}, #{u_address})
+        INSERT INTO user (u_id, u_pw, u_name, u_nickname, u_email, u_pno, u_address, u_type, u_sid)
+        VALUES (#{u_id}, #{u_pw}, #{u_name}, #{u_nickname}, #{u_email}, #{u_pno}, #{u_address}, #{u_type}, #{u_sid})
     </insert>
 
 </mapper>

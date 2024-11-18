@@ -13,6 +13,7 @@ public class ReviewVO {
     private String c_img;              // 리뷰 이미지 URL
     private Date created_at; // 작성 시간 추가
     private String c_delete; // 삭제 여부
+    private String merchant_uid; // 주문번호
     
 	public int getC_cid() {
 		return c_cid;
@@ -62,11 +63,19 @@ public class ReviewVO {
 	public void setC_delete(String c_delete) {
 		this.c_delete = c_delete;
 	}
-	
-	
+		
+	public String getMerchant_uid() {
+		return merchant_uid;
+	}
+	public void setMerchant_uid(String merchant_uid) {
+		this.merchant_uid = merchant_uid;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVO [c_cid=" + c_cid + ", c_no=" + c_no + ", c_id=" + c_id + ", c_text=" + c_text + ", c_avg="
-				+ c_avg + ", c_img=" + c_img + ", created_at=" + created_at + ", c_delete=" + c_delete + "]";
-	}	
+				+ c_avg + ", c_img=" + c_img + ", created_at=" + created_at + ", c_delete=" + c_delete
+				+ ", merchant_uid=" + merchant_uid + "]";
+	}
+
+
 }

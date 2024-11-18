@@ -9,13 +9,22 @@ body {
 }
 
 .login-container {
-	width: 400px;
+	width: 500px;
 	padding: 20px;
 	text-align: center;
+	align-items: center;
 }
 
-.login-container h2 {
-	text-align: center;
+.login-container .logo-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-container .logo-box img {
+    width: 150px;
+    cursor: pointer;
 }
 
 .form-field {
@@ -27,8 +36,8 @@ body {
 }
 
 .login-image {
-	width: 8%;
-	height: 8%;
+	width: 36px;
+	height: 36px;
 } 
 
 .login-container input[type="text"], .login-container input[type="password"] {
@@ -48,34 +57,62 @@ body {
 }
 
 .eye-image {
-	width: 100%;
-	height: 100%;
+	width: 35px;
+	height: 35px;
 	margin: 5px;
 }
 
 .eye-btn {
-	width: 13%;
-	height: 13%;
 	background: none;
 	border: none;
 	cursor: pointer;
 }
 
-.login-container input[type="submit"] {
+.error-message {
+	color: red;
+	font-size: 14px;
+	margin-top: 5px;
+	text-align: left;
+}
+
+.login-button {
 	width: 100%;
+	height: 53px;
 	padding: 10px;
-	background-color: #DDAF9C;
+	margin-top: 10px;
 	color: black;
+	background-color: #faecbf;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
 	font-size: 18px;
 }
 
+.login-button:hover {
+	background-color: #ffd26e;
+}
+
+.klogin {
+	margin-top: 20px;
+	width: 100%;
+	background-color: #FEE500;
+	border-radius: 10px;
+}
+
+.kakao-login {
+	width: 200px;
+	height: 49px;
+}
+
+/* .kakao-login {
+	width: 8%;
+	margin-top: 20px;
+} */
+
 .helper-links {
 	text-align: center;
 	margin-top: 10px;
-	font-size: 0.9em;
+	font-size: 14px;
 }
 
 .helper-links a {
@@ -84,7 +121,3 @@ body {
 	text-decoration: none;
 }
 
-.kakao-login {
-	width: 80%;
-	margin-top: 20px;
-}

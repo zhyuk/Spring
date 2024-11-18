@@ -4,21 +4,28 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	height: 100%;
 	margin: 0;
 }
 
 .signup-container {
-	width: 650px;
+	width: 600px;
 /* 	width: 450px; */
 	margin: 50px auto;
 	padding: 40px;
 	text-align: center;
-	border-radius: 10px;
 }
 
-.signup-container h2 {
-	text-align: center;
+.signup-container .logo-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.signup-container .logo-box img {
+    width: 150px;
+    cursor: pointer;
 }
 
 .form-field {
@@ -32,21 +39,20 @@ body {
 
 .form-field label {
 	width: 30%;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
-	margin-bottom: 0
+	display: block;
 }
 
 .form-field input[type="text"], .form-field input[type="password"],
 	.form-field select {
 	width: 70%;
 	padding: 12px;
-	font-size: 14px;
+	font-size: 16px;
 	border: none;
 	background-color: transparent;
 	box-sizing: border-box;
 	outline: none;
-	
 }
 
 .form-field input[type="text"]::placeholder, .form-field input[type="password"]::placeholder {
@@ -54,61 +60,118 @@ body {
 }
 
 .eye-image {
-	width: 100%;
-	height: 100%;
+	width: 27px;
+	height: 27px;
 	margin: 5px;
 }
 
 .eye-btn {
-	width: 6%;
-	height: 6%;
 	background: none;
 	border: none;
 	cursor: pointer;
 	float: right;
-	margin-right: 10px;
 }
 
-.api-btn, .check-btn, .check-btn2 {
+.api-btn, .check-btn, .check-btn2, .doubleChk {
+	text-align: center;
 	width: 120px;
 	padding: 3px;
-	font-size: 12px;
-	border: 1px solid #555;
-	background-color: #fff;
-	color: #000;
+	font-size: 14px;
 	cursor: pointer;
 	margin: 5px;
-	border-radius: 3px;
+	border-radius: 10px;
+	border: 2px solid #ffd26e;
+	color: black;
+	background-color: #faecbf;
 	float: right;
 	margin-right: 10px;
 }
 
+.api-btn:hover, .check-btn:hover, .check-btn2:hover, .doubleChk:hover {
+	background-color: #ffd26e;
+}
+
 .error-message {
 	color: red;
-	font-size: 12px;
+	font-size: 14px;
 	margin-top: 5px;
 	text-align: left;
 }
 
 .success-message {
     color: blue;
-    font-size: 12px;
+   	font-size: 14px;
     margin-top: 5px;
     text-align: left;
 }
 
+.successPhoneChk {
+	color: black;
+	font-size: 14px;
+	margin-top: 5px;
+	text-align: left;
+}
+
 .signup-button {
 	width: 100%;
-	padding: 15px;
-	font-size: 16px;
+	height: 53px;
+	padding: 10px;
+	margin-top: 20px;
 	color: black;
-	background-color: #DDAF9C;
+	background-color: #faecbf;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
-	margin-top: 20px;
+	font-size: 18px;
 }
 
 .signup-button:hover {
-	background-color: #BE8168;
+	background-color: #ffd26e;
+}
+
+@media screen and (max-width: 425px) {
+	
+	.form-field label {
+		width: 130px;
+	}
+	
+	#sample4_roadAddress, #sample4_jibunAddress {
+        width: 100%; 
+    }
+	
+	.btn {
+		display: flex;
+	}
+	
+	.api-btn, .check-btn, .check-btn2 {
+		text-align: center;
+		width: 130px;
+		height: 28px;
+		padding: 3px;
+		font-size: 14px;
+		border: 1px solid #555;
+		background-color: #fff;
+		color: #000;
+		cursor: pointer;
+		margin: 5px;
+		border-radius: 3px;
+		float: right;
+		margin-right: 0px;
+	}
+	
+	.doubleChk {
+		text-align: center;
+		width: 120px;
+		height: 18px;
+		padding: 4px;
+		font-size: 14px;
+		border: 1px solid #555;
+		background-color: #fff;
+		color: #000;
+		cursor: pointer;
+		margin: 0;
+		border-radius: 3px;
+		float: right;
+		margin-top: 5px;
+	}
 }

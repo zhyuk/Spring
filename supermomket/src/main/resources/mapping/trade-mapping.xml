@@ -4,11 +4,170 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TradeDAO">
 
+
+<select id="getTradeListPaging" parameterType="map" resultType="trade">
+    SELECT * FROM TRADE 
+    <where>
+        <if test="vo.searchKeyword != null and vo.searchKeyword != ''">
+            AND (T_PRODUCT LIKE CONCAT('%', #{vo.searchKeyword}, '%')
+                 OR T_CONTENT LIKE CONCAT('%', #{vo.searchKeyword}, '%'))
+        </if>
+        <if test="categories != null">
+            AND T_CLASS IN
+            <foreach collection="categories" item="category" open="(" separator="," close=")">
+                #{category}
+            </foreach>
+        </if>
+        <if test="status != null and status != ''">
+            <choose>
+                <when test="status == 'SELLING'">
+                    AND (T_STATUS IS NULL OR T_STATUS = 'SELLING' OR T_STATUS = '')
+                </when>
+                <otherwise>
+                    AND T_STATUS = #{status}
+                </otherwise>
+            </choose>
+        </if>
+    </where>
+    <choose>
+        <when test="sortCondition == 'lowPrice'">
+            ORDER BY T_PRICE ASC
+        </when>
+        <when test="sortCondition == 'highPrice'">
+            ORDER BY T_PRICE DESC
+        </when>
+        <otherwise>
+            ORDER BY T_NO DESC
+        </otherwise>
+    </choose>
+    LIMIT #{pageSize} OFFSET #{offset}
+</select>
+
+ 
+<select id="getTotalTradeCount" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM TRADE 
+    <where>
+        <if test="vo.searchKeyword != null and vo.searchKeyword != ''">
+            AND (T_PRODUCT LIKE CONCAT('%', #{vo.searchKeyword}, '%')
+                 OR T_CONTENT LIKE CONCAT('%', #{vo.searchKeyword}, '%'))
+        </if>
+        <if test="categories != null">
+            AND T_CLASS IN
+            <foreach collection="categories" item="category" open="(" separator="," close=")">
+                #{category}
+            </foreach>
+        </if>
+        <if test="status != null and status != ''">
+            <choose>
+                <when test="status == 'SELLING'">
+                    AND (T_STATUS IS NULL OR T_STATUS = 'SELLING' OR T_STATUS = '')
+                </when>
+                <otherwise>
+                    AND T_STATUS = #{status}
+                </otherwise>
+            </choose>
+        </if>
+    </where>
+</select>
+
+    <select id="getCategoryCount" parameterType="map" resultType="map">
+        SELECT T_CLASS as category, COUNT(*) as count
+        FROM TRADE
+        <where>
+            <if test="vo.searchKeyword != null and vo.searchKeyword != ''">
+                AND (T_PRODUCT LIKE CONCAT('%', #{vo.searchKeyword}, '%')
+                     OR T_CONTENT LIKE CONCAT('%', #{vo.searchKeyword}, '%'))
+            </if>
+        </where>
+        GROUP BY T_CLASS
+    </select>
+
+ <select id="getTradesForAdmin" resultType="trade">
+    SELECT *
+    FROM trade
+    WHERE 1=1
+    <if test="status != null and status != ''">
+        AND t_status = #{status}
+    </if>
+    <if test="keyword != null and keyword != ''">
+        AND (
+            t_product LIKE CONCAT('%', #{keyword}, '%')
+            OR t_writer LIKE CONCAT('%', #{keyword}, '%')
+            OR t_class LIKE CONCAT('%', #{keyword}, '%')
+        )
+    </if>
+    <choose>
+        <when test="sort == 'oldest'">
+            ORDER BY t_date ASC
+        </when>
+        <when test="sort == 'priceHigh'">
+            ORDER BY t_price DESC
+        </when>
+        <when test="sort == 'priceLow'">
+            ORDER BY t_price ASC
+        </when>
+        <otherwise>
+            ORDER BY t_date DESC
+        </otherwise>
+    </choose>
+    LIMIT #{pageSize} OFFSET #{offset}
+</select>
+    
+    <select id="getTotalTradesCount" resultType="int">
+    SELECT COUNT(*)
+    FROM trade
+    WHERE 1=1
+    <if test="status != null and status != ''">
+        AND t_status = #{status}
+    </if>
+    <if test="keyword != null and keyword != ''">
+        AND (
+            t_product LIKE '%' || #{keyword} || '%'
+            OR t_writer LIKE '%' || #{keyword} || '%'
+            OR t_class LIKE '%' || #{keyword} || '%'
+        )
+    </if>
+</select>
+    
+    <!-- 다중 삭제 -->
+    <delete id="deleteMultipleTrades">
+        DELETE FROM trade
+        WHERE t_no IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <!-- 상태별 거래 조회 -->
+    <select id="getTradesByStatus" resultType="trade">
+        SELECT * FROM trade
+        WHERE t_status = #{status}
+        ORDER BY t_date DESC
+    </select>
+    
+    <!-- 거래 통계 조회 -->
+    <select id="getTradeStatistics" resultType="map">
+        SELECT 
+            COUNT(*) as totalTrades,
+            COUNT(CASE WHEN t_status = 'SELLING' THEN 1 END) as sellingCount,
+            COUNT(CASE WHEN t_status = 'RESERVED' THEN 1 END) as reservedCount,
+            COUNT(CASE WHEN t_status = 'COMPLETED' THEN 1 END) as completedCount,
+            AVG(t_price) as averagePrice
+        FROM trade
+    </select>
+
+
  <insert id="insertTrade" parameterType="com.spring.mom.vo.TradeVO" useGeneratedKeys="true" keyProperty="t_no">
     INSERT INTO trade (t_writer, t_product, t_price, t_class, t_content, t_condition, t_date, t_img)
     VALUES (#{t_writer}, #{t_product}, #{t_price}, #{t_class}, #{t_content}, #{t_condition}, #{t_date}, #{t_img})
 </insert>
 
+
+    <update id="updateTradeStatus" parameterType="com.spring.mom.vo.TradeVO">
+        UPDATE trade 
+        SET t_status = #{t_status}
+        WHERE t_no = #{t_no}
+    </update>
 
  
     <update id="updateTrade">
@@ -40,7 +199,8 @@
         t_condition,
         t_date,
         t_img,
-        t_cnt
+        t_cnt,
+        t_status
     FROM trade 
     WHERE t_no = #{t_no}
 </select>
@@ -82,30 +242,6 @@
         </otherwise>
     </choose>
 </select>
-    <!-- 찜하기 추가 -->
-    <insert id="insertLike">
-        INSERT INTO TRADE_LIKES (T_NO, USER_ID)
-        VALUES (#{t_no}, #{userId})
-    </insert>
-
-    <!-- 찜하기 취소 -->
-    <delete id="deleteLike">
-        DELETE FROM TRADE_LIKES 
-        WHERE T_NO = #{t_no} AND USER_ID = #{userId}
-    </delete>
-
-    <!-- 찜하기 여부 확인 -->
-    <select id="checkLike" resultType="int">
-        SELECT COUNT(*) 
-        FROM TRADE_LIKES 
-        WHERE T_NO = #{t_no} AND USER_ID = #{userId}
-    </select>
-
-    <!-- 찜하기 개수 조회 -->
-    <select id="getLikeCount" resultType="int">
-        SELECT COUNT(*) 
-        FROM TRADE_LIKES 
-        WHERE T_NO = #{t_no}
-    </select>
+   
 
 </mapper>

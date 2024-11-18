@@ -8,20 +8,22 @@ textarea {
 :root {
 	--color-light-main: #FFDE95;
 	--color-main: #FFD26E;
+/* 	--color-main: #FFC219; */
 	--color-blk: #000;
 	--color-white: #fff;
 	--color-gray: #D9D9D9;
 	--ad-color-darkgray: #212121;
 	--ad-color-gray: #444;
-	--ad-color-semigray: #808080;
+	--ad-color-semigray: #C0C0C0;
 	--ad-color-lightgray: #D9D9D9;
 }
 
 button {
+	width: fit-content;
 	height: 30px;
 	padding: 0 5px;
 	background: var(--color-main);
-	border-radius: 10px;
+	border-radius: 5px;
 	border: none;
 }
 
@@ -58,7 +60,6 @@ section#index div.inner .search-form button.search-btn {
 
 section#index div.inner .search-form button.write-btn {
 	float: right;
-	width: 55px;
 	height: 40px;
 }
 
@@ -199,6 +200,21 @@ section#write div.inner form .preview_box img {
 	object-fit: contain;
 }
 
+section#write div.inner form .input-group label {
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 14px;
+	border-radius: 5px;
+	background: var(--color-main);
+}
+
+section#write div.inner form .input-group input[type="file"] {
+	display: none;
+}
+
 section#write div.inner form .btn-area {
 	width: 100%;
 	margin-top: 30px;
@@ -268,10 +284,9 @@ section#info div.inner div.container .text-group .btn-area {
 	transform: translate(0, -50%);
 }
 
-section#info div.inner div.container .text-group .btn-area button {
-	width: 40px;
-	height: 30px;
-}
+/* section#info div.inner div.container .text-group .btn-area button { */
+/* 	height: 30px; */
+/* } */
 
 section#info div.inner div.container .board_content_box {
 	min-height: 400px;
@@ -311,11 +326,6 @@ section#info div.inner div.container .text-group .vote_box li {
 section#info div.inner div.container .text-group .vote_box li:nth-of-type(3),
 section#info div.inner div.container .text-group .vote_box li:nth-of-type(4) {
 	margin-top: 10px;
-}
-
-section#info div.inner div.container .text-group .vote_box li button {
-	width: 65px;
-	height: 30px;
 }
 
 section#info div.inner div.container .text-group pre {
@@ -470,11 +480,6 @@ section#info div.inner .board_list_btn {
 	margin-bottom: 40px;
 }
 
-section#info div.inner .board_list_btn button {
-	width: 65px;
-	height: 30px;
-}
-
 /* 글 수정 페이지 */
 section#modify div.inner form {
 	width: 100%;
@@ -486,10 +491,10 @@ section#modify div.inner form .input-group {
 	padding-bottom: 15px;
 }
 
-section#modify div.inner form .input-group>button {
-	width: 100px;
-	height: 30px;
-}
+/* section#modify div.inner form .input-group>button { */
+/* 	width: 100px; */
+/* 	height: 30px; */
+/* } */
 
 section#modify div.inner form .input-group input[type='text'] {
 	width: 100%;
@@ -543,6 +548,21 @@ section#modify div.inner form .input-group .img_select {
 	display: none;
 }
 
+section#modify div.inner form .input-group .img_select label {
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	font-size: 14px;
+	background: var(--color-main);
+	border-radius: 10px;
+}
+
+section#modify div.inner form .input-group .img_select input[type="file"] {
+	display: none;
+}
+
 section#modify div.inner form .preview_box {
 	display: flex;
 	justify-content: space-between;
@@ -586,9 +606,9 @@ section#admin .button_list {
 }
 
 section#admin .button_list button {
-	width: 55px;
 	height: 30px;
-	background: var(--ad-color-lightgray);
+	background: var(--color-blk);
+	color: var(--color-white);
 }
 
 section#admin .button_list button:hover {
@@ -618,13 +638,14 @@ section#admin table#admin_list_table thead tr {
 	height: 50px;
 }
 
-section#admin table#admin_list_table thead tr th:not(:nth-of-type(1), :nth-of-type(2)) {
-	width: 300px;
-}
-
 section#admin table#admin_list_table tr td:nth-of-type(1),
 section#admin table#admin_list_table tr td:nth-of-type(2) {
 	width: 50px;
+}
+
+section#admin div.inner table tr th:nth-of-type(4),
+section#admin div.inner table tr th:nth-of-type(5) {
+	width: 100px;
 }
 
 section#admin table#admin_list_table tbody tr.basic_info {
@@ -649,7 +670,8 @@ section#admin div.inner table#admin_list_table tbody tr td input[type=text] {
 }
 
 section#admin div.inner table#admin_list_table tbody tr td button {
-	background: var(--ad-color-lightgray);
+	background: var(--color-blk);
+	color: var(--color-white);
 }
 
 section#admin div.inner table#admin_list_table tbody tr td button:hover {
@@ -658,6 +680,7 @@ section#admin div.inner table#admin_list_table tbody tr td button:hover {
 
 section#admin div.inner table#admin_list_table tbody tr td textarea {
 	width: 100%;
+	height: fit-content;
 	padding: 5px;
 	border: none;
 	vertical-align: middle;

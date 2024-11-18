@@ -49,6 +49,10 @@ public class ProductDAO {
         return sqlSession.insert("ProductDAO.setReview", rvo);
     }
 
+    public int getReviewCountByProductId(int p_no) {
+        return sqlSession.selectOne("ProductDAO.getReviewCountByProductId", p_no);
+    }
+
     public List<ReviewVO> getReviewsByProductId(int p_no) {
         return sqlSession.selectList("ProductDAO.getReviewsByProductId", p_no);
     }
@@ -70,6 +74,43 @@ public class ProductDAO {
         params.put("c_delete", "y"); // 논리 삭제 처리
         sqlSession.update("ProductDAO.deleteReviewById", params);
     }
+    
+    
+    //ADMIN - 상품등록
+    public int saveProduct(ProductVO product) {
+        return sqlSession.insert("ProductDAO.saveProduct", product);
+    }
+
+	public int saveDetail(int productKey, String d_content, String d_info) {
+		Map<String, Object> params = new HashMap<>();
+        params.put("d_no", productKey);
+        params.put("d_content", d_content);
+        params.put("d_info", d_info);
+		return sqlSession.insert("ProductDAO.saveDetailProduct", params);
+	}
+
+	public void updateProduct(ProductVO product) {
+	    sqlSession.update("ProductDAO.updateProduct", product); // 마스터 업데이트
+	}
+
+	public int updateDetail(int p_no, String d_content, String d_info) {
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("d_no", p_no);
+	    paramMap.put("d_content", d_content);
+	    paramMap.put("d_info", d_info);
+	    return sqlSession.update("ProductDAO.updateDetail", paramMap); // 상세 데이터 업데이트
+	}
+
+	public void deleteProduct(int p_no) {
+		sqlSession.delete("ProductDAO.deleteProduct", p_no);
+		
+	}
+
+	public void deleteProductDetail(int p_no) {
+		sqlSession.delete("ProductDAO.deleteProductDetail", p_no);
+		
+	}
+
 
 
 }

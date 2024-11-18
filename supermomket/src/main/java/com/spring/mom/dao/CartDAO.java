@@ -42,7 +42,7 @@ public class CartDAO {
 		return cartmybatis.update("CartDAO.paycomplete",cvo);
 	}
 	public int carttotal(CartVO cvo) {
-		System.out.println("토탈"+cvo);
+//		System.out.println("토탈"+cvo);
 		return  cartmybatis.selectOne("CartDAO.carttotal",cvo);
 	}
 	public void preparinsertcart(CartVO cvo) {
@@ -64,6 +64,9 @@ public class CartDAO {
 	
 	public void deletcart(CartVO cvo) {
 		cartmybatis.delete("CartDAO.deletcart",cvo);
+	}
+	public int cartcount(CartVO cvo) {
+		return cartmybatis.selectOne("CartDAO.cartcount",cvo);
 	}
 
 	

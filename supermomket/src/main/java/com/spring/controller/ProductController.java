@@ -34,7 +34,7 @@ public class ProductController {
     public String listProducts(
         @RequestParam(defaultValue = "1") int page,
         @RequestParam(defaultValue = "최신순") String sortType,
-        @RequestParam(defaultValue = "Y") String category,
+        @RequestParam(defaultValue = "C") String category, // 새상품 페이지 카테고리 디폴트 값
         @RequestParam(required = false) String searchQuery,
         Model model
     ) {

@@ -2,133 +2,376 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../view/header.jsp"%>
+
+
 <style>
 #searchNav {
 	-webkit-justify-content: flex-end;
 	justify-content: flex-end;
 }
 
+button {
+	background-color: #FFD26E;
+	border: none;
+	padding: 3px;
+	border-radius: 5px;
+}
+
 .navbar {
 	padding: 10px 0px !important;
 }
 
+.m-v, .pc-v {
+	margin:0;
+}
 .pagination {
+	margin-top : 30px;
 	justify-content: center;
 }
 
-table, td, tr {
+table, th, td, tr {
 	border-bottom: 1px solid #000;
 	border-collapse: collapse;
 	text-align: center;
 }
 
-.table td, .table th {
-	padding: 12px;
+input[type="text"] {
+	border: none;
+	outline: none;
 }
-
-table {
-	width: 90%;
-}
-
-.h2 {
-	text-align: center;
-}
-
 .no {
 	width: 70px;
 }
-</style>
 
+table th {
+	background-color: #FFD26E;
+}
+
+.table-responsive {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 30px;
+}
+
+table th, table td {
+	padding: 8px;
+	text-align: center;
+}
+
+.YookaMain {
+	margin: 0 auto;
+}
+
+.selectm {
+	height: 40px;
+	padding: 0 5px;
+	border: solid 1px var(--color-main);
+}
+
+.searchKeyword {
+	text-align: center;
+	width: 100%;
+}
+
+.searchKeyword button {
+	height: 40px;
+	padding: 0 10px;
+	border-radius: 10px;
+}
+
+.searchKeyword button[type="button"] {
+	margin-bottom: 10px;
+	float: right;
+}
+
+.searchKeyword input[name="searchKeyword"] {
+	width: 60%;
+	height: 40px;
+	border: solid 1px var(--color-main);
+	margin-bottom: 10px;	
+}
+
+.pc-v, .m-v{
+	display: none;
+}
+
+.detail-box {
+	font-size: 18px;
+	width: 1200px;
+	margin: 0 auto; 
+	flex-direction: column;
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	display: flex;
+}
+
+.category-title {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	margin-bottom: 3px;
+}
+
+.detail-box .category {
+	font-weight: bold;
+	color: #007bff;
+}
+
+.detail-box .title {
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: calc(100% - 50px);
+}
+
+.detail-box .info12 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	color: #666;
+}
+
+.detail-box .info12 span {
+	white-space: nowrap;
+}
+.titleflow{
+	display: inline-block;
+    max-width: 500px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+@media screen and (min-width: 426px) {
+	.pc-v {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.m-v {
+		display: block;
+	}
+	
+	.detail-box{
+		width: 100%;
+		font-size: 14px;
+	}
+	table {
+		width: 100%;
+		table-layout: auto;
+	}
+	table th, table td {
+		padding: 6px;
+		font-size: 12px;
+		word-wrap: break-word;
+		border: 1px solid #ddd;
+	}
+	table th:nth-child(2), table td:nth-child(2) {
+		width: 50%;
+	}
+	table td:nth-child(2) {
+		vertical-align: top;
+	}
+	table td input {
+		border: none;
+	}
+	table td input:focus {
+		outline: none;
+	}
+	table td {
+		vertical-align: middle;
+	}
+	table th:nth-of-type(3), table th:nth-of-type(4), table td:nth-of-type(3),
+		table td:nth-of-type(4) {
+		display: none;
+	}
+	.YookaMain {
+		width: 100%;
+	}
+}
+</style>
 <body>
 	<%@ include file="../view/menu.jsp"%>
+	<main class="pc-v">
+		<section>
+			<div class="YookaMain">
+				<br> <br>
+				<div >
+					<nav id="" class="">
+						<form class="form-inline" action="getCommunity_yookaList.do"
+							method="post">
+							<div class="searchKeyword">
+								<select class="selectm" id="sel1" name="searchCondition">
+									<c:forEach items="${conditionMap}" var="condition">
+										<option value="${condition.value}">${condition.key}</option>
+									</c:forEach>
+								</select> <input class="" type="text" name="searchKeyword"
+									placeholder="검색어를 입력하세요.">
+								<button type="submit">검색</button>
+								<button type="button" id="conWrite" class="">글쓰기</button>
+							</div>
+						</form>
+					</nav>
 
-
-	<div class="h2">
-		<h2 style="margin-top: 100px;">육아정보</h2>
-	</div>
-	<div class="container">
-		
-		<nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-			<form class="form-inline" action="getCommunity_yookaList.do"
-				method="post">
-
-				<select class="form-control" id="sel1" name="searchCondition"
-					style="display: inline-block !important; margin-right: 10px;">
-					<c:forEach items="${conditionMap}" var="condition">
-						<option value="${condition.value}">${condition.key}</option>
-					</c:forEach>
-				</select>
-				<div class="input-group mb-3">
-
-					<input class="form-control mr-sm-2" type="text"
-						name="searchKeyword" placeholder="검색어를 입력하세요.">
-					<div class="input-group-append">
-						<button class="" type="submit" style="margin-right: 5px;">검색</button>
+					<table class="tableYooka">
+						<tr style="background-color: #FFFFFF;">
+							<th>번호</th>
+							<th style="width: 550px;">제목</th>
+							<th>작성자</th>
+							<th>등록일</th>
+							<th>조회수</th>
+							<th>추천</th>
+							<th>비추천</th>
+						</tr>
+						<tbody>
+							<c:forEach items="${yookaList}" var="yookaList">
+								<tr
+									onclick="yookaList(${yookaList.cm_no}, '${searchCondition}', '${searchKeyword}', ${paging.nowPage})"
+									style="cursor: pointer; border-bottom: 1px solid #fff;">
+									<td class="tdCenter">${yookaList.cm_no}</td>
+									<td class="title" style="text-align: left;">
+									<span class="titleflow">${yookaList.cm_title}</span>
+									<span class="titleflow"style="color: red; font-style: bold;">[${yookaList.cot_cnt}]</span>
+									</td>
+									<td class="tdCenter">${yookaList.cm_writer}</td>
+									<td class="tdCenter">${yookaList.cm_date}</td>
+									<td class="tdCenter">${yookaList.cm_view}</td>
+									<td class="tdCenter">${yookaList.likecnt}</td>
+									<td class="tdCenter">${yookaList.hatecnt}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div class="m-v">
+						<c:forEach items="${yookaList}" var="yookaList">
+							<div class="detail-box">
+								<div class="category-title">
+									<div class="category">[육아]</div>
+									<div class="title">${yookaList.cm_title}</div>
+								</div>
+								<div class="info12">
+									<span class="writer">${yookaList.cm_writer}</span> <span
+										class="comments">조회: ${yookaList.cm_view}</span> <span
+										class="views">추천: ${yookaList.likecnt}</span> <span class="likes">비추천:
+										${yookaList.hatecnt}</span> <span class="date">${yookaList.cm_date}</span>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
-					<div class="input-group-append">
-						<button type="button" id="conWrite" class="">글쓰기</button>
-					</div>
+
+
+					<ul class="pagination">
+						<c:if
+							test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
+							<li class="page-item"><a class="page-link"
+								href="getCommunity_yookaList.do?nowPage=${paging.nowPage-1}">&lt;&lt;</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${paging.startBtn}"
+							end="${paging.endBtn}" step="1">
+							<c:choose>
+								<c:when test="${paging.nowPage==i}">
+									<li class=""><a class="page-link">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class=""><a class="page-link"
+										href="getCommunity_yookaList.do?nowPage=${i}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if
+							test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
+							<li class=""><a class="page-link"
+								href="getCommunity_yookaList.do?nowPage=${paging.nowPage+1}">&gt;&gt;</a></li>
+						</c:if>
+					</ul>
+
+					<br> <br>
 				</div>
+			</div>
+		</section>
+	</main>
+	<main class="m-v">
+	<section>
+			<div class="YookaMain">
+				<br> <br>
+				<div style="margin: 5px;">
+					<nav id="" class="">
+						<form class="form-inline" action="getCommunity_yookaList.do"
+							method="post">
+							<div class="searchKeyword">
+								<select class="selectm" id="sel1" name="searchCondition">
+									<c:forEach items="${conditionMap}" var="condition">
+										<option value="${condition.value}">${condition.key}</option>
+									</c:forEach>
+								</select> <input class="" type="text" name="searchKeyword"
+									placeholder="검색어를 입력하세요.">
+								<button type="submit">검색</button>
+								<button type="button" id="conWrite" class="">글쓰기</button>
+							</div>
+						</form>
+					</nav>
+
+					<div>
+						<c:forEach items="${yookaList}" var="yookaList">
+							<div class="detail-box" onclick="yookaList(${yookaList.cm_no}, '${searchCondition}', '${searchKeyword}', ${paging.nowPage})" style="cursor: pointer;">
+								<div class="category-title">
+									<div class="category">[육아]</div>
+									<div class="title">${yookaList.cm_title}</div>
+								</div>
+								<div class="info12">
+									<span class="writer">${yookaList.cm_writer}</span> <span
+										class="view">조회: ${yookaList.cm_view}</span> <span
+										class="up">추천: ${yookaList.likecnt}</span> <span class="down">비추천:
+										${yookaList.hatecnt}</span> <span class="date">${yookaList.cm_date}</span>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
 
 
-			</form>
-		</nav>
+					<ul class="pagination">
+						<c:if
+							test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
+							<li class="page-item"><a class="page-link"
+								href="getCommunity_yookaList.do?nowPage=${paging.nowPage-1}">&lt;&lt;</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${paging.startBtn}"
+							end="${paging.endBtn}" step="1">
+							<c:choose>
+								<c:when test="${paging.nowPage==i}">
+									<li class=""><a class="page-link">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class=""><a class="page-link"
+										href="getCommunity_yookaList.do?nowPage=${i}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if
+							test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
+							<li class=""><a class="page-link"
+								href="getCommunity_yookaList.do?nowPage=${paging.nowPage+1}">&gt;&gt;</a></li>
+						</c:if>
+					</ul>
 
-		<table class="table table-hover">
-			<thead class="btn-primary">
-				<tr style="background-color: #ddaf9c;">
-					<th>번호</th>
-					<th style="width: 550px;">제목</th>
-					<th>작성자</th>
-					<th>등록일</th>
-					<th>조회수</th>
-					<th>추천</th>
-					<th>비추천</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${yookaList}" var="yookaList">
-					<tr	onclick="yookaList(${yookaList.cm_no}, '${searchCondition}', '${searchKeyword}', ${paging.nowPage})" style="cursor: pointer;">
-						<td class="tdCenter">${yookaList.cm_no}</td>
-						<td class="title" style="text-align: left;">[육아]${yookaList.cm_title}
-							<span>[${replyCntYooka}]</span>
-						</td>
-						<td class="tdCenter">${yookaList.cm_writer}</td>
-						<td class="tdCenter">${yookaList.cm_date}</td>
-						<td class="tdCenter">${yookaList.cm_view}</td>
-						<td class="tdCenter">${likeResult1}</td>
-						<td class="tdCenter">${hateResult1}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-
-		<ul class="pagination">
-			<c:if
-				test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
-				<li class="page-item"><a class="page-link"
-					href="getCommunity_yookaList.do?nowPage=${paging.nowPage-1}">&lt;&lt;</a></li>
-			</c:if>
-			<c:forEach var="i" begin="${paging.startBtn}" end="${paging.endBtn}"
-				step="1">
-				<c:choose>
-					<c:when test="${paging.nowPage==i}">
-						<li class=""><a class="page-link">${i}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class=""><a class="page-link"
-							href="getCommunity_yookaList.do?nowPage=${i}">${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if
-				test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
-				<li class=""><a class="page-link"
-					href="getCommunity_yookaList.do?nowPage=${paging.nowPage+1}">&gt;&gt;</a></li>
-			</c:if>
-		</ul>
-
-		<br> <br>
+					<br> <br>
+				</div>
+			</div>
+		</section>
+	</main>
+	<script>
+	if (window.innerWidth <= 425) {
+	    document.div.classList.add('m-v');
+	} else {
+	    document.div.classList.add('pc-v');
+	}
+	</script>
 	</div>
 </body>
-</html>

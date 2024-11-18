@@ -106,4 +106,12 @@ public class CommentDAO {
 //		System.out.println("replyCntYooka DAO: "+ vo);
 		return mybatis.selectOne("CommentDAO.replyCntYooka", vo);
 	}
+	public int replyCntNoriter(Comment_noriterVO vo) {
+//		System.out.println("replyCntYooka DAO: "+ vo);
+		return mybatis.selectOne("CommentDAO.replyCntNoriter", vo);
+	}
+	public int replyCntShopping(Comment_shoppingVO vo) {
+//		System.out.println("replyCntYooka DAO: "+ vo);
+		return mybatis.selectOne("CommentDAO.replyCntShopping", vo);
+	}
 }

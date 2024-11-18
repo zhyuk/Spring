@@ -16,30 +16,31 @@
 <script>
 
 	//모든 상품 항목에 대해 별을 채우는 함수
-	$(document).ready(function() {
-	    // 모든 상품 항목에 대해 별을 채우는 함수
-	    $('.product-card').each(function() {
-	        const avgRating = parseFloat($(this).data('avg-review-rating')); // 각 상품의 평균 평점 가져오기
-	        const fullStars = Math.floor(avgRating); // 꽉 찬 별 개수
-	        const hasHalfStar = avgRating % 1 >= 0.5; // 반 개의 별이 필요한지 확인
-	
-	        // 별을 채우기
-	        $(this).find('.star-rating .star').each(function(index) {
-	            if (index < fullStars) {
-	                $(this).addClass('active'); // 꽉 찬 별
-	            } else if (index === fullStars && hasHalfStar) {
-	                $(this).css({
-	                    background: 'linear-gradient(to right, #ffcc00 50%, #ddd 50%)', // 반 개의 별
-	                    '-webkit-background-clip': 'text', // 클립 효과 (웹킷 브라우저용)
-	                    '-webkit-text-fill-color': 'transparent'
-	                });
-	            }
-	        });
-	
-	        // 평균 평점 텍스트 설정
-	        $(this).find('.avg-review-rating').text(avgRating.toFixed(1));
-	    });
-	});
+$(document).ready(function() {
+    // 모든 상품 항목에 대해 별을 채우는 함수
+    $('.product-card').each(function() {
+        const avgRating = parseFloat($(this).data('avg-review-rating')); // 각 상품의 평균 평점 가져오기
+        const fullStars = Math.floor(avgRating); // 꽉 찬 별 개수
+        const hasHalfStar = avgRating % 1 >= 0.5; // 반 개의 별이 필요한지 확인
+
+        // 별을 채우기
+        $(this).find('.star-rating .star').each(function(index) {
+            if (index < fullStars) {
+                $(this).addClass('active'); // 꽉 찬 별
+            } else if (index === fullStars && hasHalfStar) {
+                $(this).css({
+                    background: 'linear-gradient(to right, #ffcc00 50%, #ddd 50%)', // 반 개의 별
+                    '-webkit-background-clip': 'text', // 클립 효과 (웹킷 브라우저용)
+                    '-webkit-text-fill-color': 'transparent'
+                });
+            }
+        });
+
+        // 평균 평점 텍스트 설정
+        $(this).find('.avg-review-rating').text(avgRating.toFixed(1)); // 소수점 첫째 자리까지만 표시
+    });
+});
+
 	
 	// 숫자를 세 자리마다 콤마로 구분하는 함수
 	function numberWithCommas(x) {
@@ -87,12 +88,9 @@
 	<div class="inner">
 		<!-- 카테고리 옵션 -->
 		<div class="category-options">
-			<a href="products.do?category=Y"
-				class="${category == 'Y' ? 'active-category' : ''}"> 유모차/액세서리
-			</a> <a href="products.do?category=C"
-				class="${category == 'C' ? 'active-category' : ''}"> 유아식품/분유 </a> <a
-				href="products.do?category=B"
-				class="${category == 'B' ? 'active-category' : ''}"> 유아의류/신발 </a>
+			<a href="products.do?category=C" class="${category == 'C' ? 'active-category' : ''}"> 유아의류/신발 </a> 
+			<a href="products.do?category=B" class="${category == 'B' ? 'active-category' : ''}"> 유아식품/분유 </a>
+			<a href="products.do?category=Y" class="${category == 'Y' ? 'active-category' : ''}"> 유모차/액세서리 </a>
 		</div>
 	
 	
@@ -131,21 +129,27 @@
 						<p>${product.p_content}</p>
 					</a>
 									<!-- 가격 정보 배치 -->
-					<div class="product-price-info">
-					    <span class="product-price">${product.p_price}원</span>
-					    <span class="product-discount">${product.p_discount}원</span>
-					    <span class="discount-rate">${product.p_dr}%</span>
-					</div>
+					<c:if test="${product.p_stock > 0}">
+						<div class="product-price-info">
+						    <span class="product-price">${product.p_price}원</span>
+						    <span class="product-discount">${product.p_discount}원</span>
+						    <span class="discount-rate">${product.p_dr}%</span>
+						</div>
+					</c:if>
+					<c:if test="${product.p_stock <= 0}">
+						<div class="soldout">품절</div>
+					</c:if>
 					<div class="star-rating">
 					    <span class="star" data-star="1">&#9733;</span>
 					    <span class="star" data-star="2">&#9733;</span>
 					    <span class="star" data-star="3">&#9733;</span>
 					    <span class="star" data-star="4">&#9733;</span>
 					    <span class="star" data-star="5">&#9733;</span>
+					    <span class="avg-review-rating"> ${product.review_avg} </span>
 					</div>
-					<div class="product-info">
-						<div class="product-views">조회수: ${product.p_view}</div>
-					</div>
+<!-- 					<div class="product-info"> -->
+<%-- 						<div class="product-views">조회수: ${product.p_view}</div> --%>
+<!-- 					</div> -->
 				</div>
 			</c:forEach>
 		</div>
@@ -179,6 +183,6 @@
 		    </c:if>
 		</div>
 	</div>
-
+<%@ include file="../view/footer.jsp"%>
 </body>
 </html>

@@ -209,6 +209,103 @@ padding: 10px 20px;
 
 }
 
+
+@media screen and (max-width: 425px) {
+    .write-form {
+        max-width: 100%;
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+   
+    .image-upload {
+        width: 80px;
+        height: 80px;
+    }
+
+    .image-upload i {
+        font-size: 20px;
+    }
+
+  
+    .preview-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .image-preview {
+        width: 80px;
+        height: 80px;
+    }
+
+    .delete-button {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+
+
+    .product-input, 
+    .price-input, 
+    .category-list,
+    .description-textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .description-textarea {
+        height: 120px;
+    }
+
+  
+    .category-option {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+ 
+    .condition-container {
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    .condition-button {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin-right: 8px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin-top: 16px;
+        width: 100%;
+    }
+
+   
+    .price-container {
+        margin: 12px 0;
+    }
+
+   
+    .image-preview-container {
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+ 
+    .image-count {
+        bottom: -20px;
+        font-size: 11px;
+    }
+
+ 
+    .input-category-container,
+    .description-container {
+        margin-bottom: 12px;
+    }
+}
+
 </style>
 <body>
 <%@ include file="../view/menu.jsp"%>
@@ -301,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const previewContainer = document.querySelector('.image-preview-container');
     let selectedFiles = new DataTransfer();
     
-    // 최대 이미지 개수 제한
+   
     const MAX_FILES = 5;
     
     imageUpload.addEventListener('click', function() {
@@ -311,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fileInput.addEventListener('change', function(e) {
         const files = Array.from(e.target.files);
         
-        // 파일 개수 체크
+       
         if (selectedFiles.files.length + files.length > MAX_FILES) {
             alert(`이미지는 최대 ${MAX_FILES}개까지 업로드 가능합니다.`);
             return;
@@ -330,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // 파일 입력 필드 업데이트
+     
         fileInput.files = selectedFiles.files;
         updateImageCount();
     });
@@ -346,7 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
         deleteBtn.className = 'delete-button';
         deleteBtn.innerHTML = 'X';
         deleteBtn.onclick = function() {
-            // 파일 제거
+           
             const newFiles = new DataTransfer();
             Array.from(selectedFiles.files).forEach(f => {
                 if (f !== file) newFiles.items.add(f);
@@ -372,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-//카테고리
+
 document.addEventListener('DOMContentLoaded', function() {
     const categoryOptions = document.querySelectorAll('.category-option');
     const selectedCategoryInput = document.getElementById('selectedCategory');
@@ -391,51 +488,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-//폼 제출 처리를 위한 코드 추가
+
 document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault(); // 폼 제출 일시 중지
+    e.preventDefault(); 
     
-    // 필수 필드 검증
+  
     const product = document.querySelector('input[name="t_product"]').value;
     const category = document.querySelector('#selectedCategory').value;
     const price = document.querySelector('input[name="t_price"]').value;
     const content = document.querySelector('textarea[name="t_content"]').value;
     
-    // 필수 입력 검증
+    
     if (!product || !category || !price || !content) {
         alert('모든 필수 항목을 입력해주세요.');
         return;
     }
     
-    // 가격에서 '₩' 및 ',' 제거
+   
     const priceInput = document.querySelector('input[name="t_price"]');
     priceInput.value = priceInput.value.replace(/[₩,]/g, '');
     
-    // 폼 제출
+   
     this.submit();
 });
 
-// 가격 입력 처리
+
 document.addEventListener('DOMContentLoaded', function() {
     const priceInput = document.querySelector('input[name="t_price"]');
     
     if (priceInput) {
-        // 초기 가격값에서 '₩' 제거
+      
         priceInput.value = priceInput.value.replace('₩', '');
         
         priceInput.addEventListener('input', function(e) {
-            // 숫자만 남기고 모든 문자 제거
+           
             let value = e.target.value.replace(/[^\d]/g, '');
             
-            // 천단위 콤마 추가
+        
             value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             
-            // 값 설정
+            
             e.target.value = value;
         });
     }
 });
+
+$('link[href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"]').remove();
+$('link[href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"]').remove();
+$('script[src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"]').remove();
 </script>
+<%@ include file="../view/footer.jsp" %>
 </body>
 </html>
 

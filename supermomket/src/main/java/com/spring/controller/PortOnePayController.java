@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ import com.spring.mom.svc.CartService;
 import com.spring.mom.svc.OrderService;
 import com.spring.mom.vo.CartVO;
 import com.spring.mom.vo.OrderVO;
+import com.spring.mom.vo.PagingVO;
 
 @Controller
 public class PortOnePayController {
@@ -77,6 +79,18 @@ public class PortOnePayController {
 
 		return map;
 	}
+	
+	
+	
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap() {
+		Map<String, String> conditionMap = new HashMap<String, String>();
+		conditionMap.put("ID", "ID");
+		conditionMap.put("결제 방식", "STATUS");
+		return conditionMap;
+	}
+	
+	
 
 	// 토큰 발급받기(모든 API를 사용할 때, header에 반드시 보내야함)
 	// https://developers.portone.io/api/rest-v1/payment?v=v1
@@ -119,6 +133,11 @@ public class PortOnePayController {
 	public String preparcartList(CartVO cvo, Model model,HttpSession session) {
 		cvo.setC_payment("preparation");
 		cvo.setU_id((String) session.getAttribute("userId"));
+		if (cvo.getU_id() == null) {
+        	
+            return "login/login";
+        }
+		
 		model.addAttribute("paymentcartList", cartService.getpaymenttotalcartList(cvo));
 		model.addAttribute("paymenttotal", cartService.carttotal(cvo));
 
@@ -127,22 +146,24 @@ public class PortOnePayController {
 //	장바구니 선택 이동
 	@RequestMapping(value = "/preparinsertcart.do")
 	public String preparinsertcart(Model model, CartVO cvo) {
-		System.out.println("cvo: " + cvo);
+//		System.out.println("cvo: " + cvo);
 
+		
+		
 		int[] cNoArrList = cvo.getC_noarr();
 		// 각 선택된 c_no에 대해 cartService 호출
 		if(cNoArrList!=null) {
 		for (Integer c_no : cNoArrList) {
-			System.out.println("for문 c_no: " + c_no);
+//			System.out.println("for문 c_no: " + c_no);
 			cvo.setC_no(c_no);
 
 			cartService.preparinsertcart(cvo);
 		}
-		System.out.println("for문 통과: ");
+//		System.out.println("for문 통과: ");
 //		// 모델에 데이터 추가
 		model.addAttribute("paymentcartList", cartService.getpaymenttotalcartList(cvo));
 		model.addAttribute("paymenttotal", cartService.carttotal(cvo));
-
+		
 		String url = "cart/cartPayment_page";
 		return url;
 		}else {
@@ -154,25 +175,36 @@ public class PortOnePayController {
 
 //	장바구니 품목 전부 이동
 	@RequestMapping("/preparallinsertcart.do")
-	public String preparallinsertcart(@RequestParam String u_id, CartVO cvo, Model model) {
+	public String preparallinsertcart(@RequestParam String u_id, CartVO cvo, Model model, HttpSession session) {
+		cvo.setU_id((String) session.getAttribute("userId"));
+		if (cvo.getU_id() == null) {
+        	
+            return "login/login";
+        }
+		
 		int[] cNoArrList = cvo.getC_noarr();
+		if(cNoArrList!=null) {
 		for (Integer c_no : cNoArrList) {
-			System.out.println("for문 c_no: " + c_no);
+//			System.out.println("for문 c_no: " + c_no);
 			cvo.setC_no(c_no);
 			cartService.preparallinsertcart(cvo);
 		}
-		System.out.println("allinsert cvo:"+cvo);
+//		System.out.println("allinsert cvo:"+cvo);
 
 		cvo.setC_payment("preparation");
 		model.addAttribute("paymentcartList", cartService.getpaymenttotalcartList(cvo));
 		model.addAttribute("paymenttotal", cartService.carttotal(cvo));
 		return "cart/cartPayment_page";
+	}	else {
+		String url = "redirect:cartList.do";
+		return url;}
 	}
 //	결재화면 준비창 물품삭제 메소드
 	@RequestMapping(value = "/deletpaycart.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String deletpaycart(@RequestBody CartVO cvo, Model model, HttpSession session) {
 	    // 세션에서 userId를 가져와 추가 검증
+	
 	    String sessionUserId = (String) session.getAttribute("userId");
 	    if (!sessionUserId.equals(cvo.getU_id())) {
 	        return "error"; // 세션의 userId와 일치하지 않는 경우
@@ -190,82 +222,142 @@ public class PortOnePayController {
 
 	// 결제 후 결제한 내역 받아오기
 	@RequestMapping(value = "/preparcartList.do", method = RequestMethod.POST)
-	public String pay(@RequestBody FormDatavVO fvo, OrderVO ovo, OrderListVO olvo, OrderListDetailVO odvo, CartVO cvo, RedirectAttributes redirectAttributes) throws JsonMappingException, JsonProcessingException {
-	    // PortOnePayRequestVO에서 주요 결제 정보를 가져와 OrderListVO에 설정
+	public String pay(@RequestBody FormDatavVO fvo, OrderVO ovo, OrderListDetailVO odvo, CartVO cvo, RedirectAttributes redirectAttributes ,HttpSession session) throws JsonMappingException, JsonProcessingException {
+		cvo.setU_id((String) session.getAttribute("userId"));
+		if (cvo.getU_id() == null) {
+        	
+            return "login/login";
+        }
+		
+		// PortOnePayRequestVO에서 주요 결제 정보를 가져와 OrderListVO에 설정
 	    PortOnePayRequestVO pvo = fvo.getPvo();
+	    System.out.println("pvo :" +pvo);
+
+		
+		// mydata를 통해 추가 데이터 설정
+	    String mydata = (String) fvo.getMydata();
+	    System.out.println("mydata:" + mydata);
+	
 	    if (pvo != null) {
 	        ovo.setImp_uid(pvo.getImp_uid());
 	        ovo.setMerchant_uid(pvo.getMerchant_uid());
 	        ovo.setPaid_at(pvo.getPaid_at());
 	        ovo.setO_pay_type(pvo.getPay_method());
-	        ovo.setP_price(pvo.getPaid_amount());
-	        olvo.setOrderUsername(pvo.getBuyer_name());
-	        olvo.setOrderUserEmail(pvo.getBuyer_email());
+	        ovo.setO_total_price(pvo.getPaid_amount());
 	        ovo.setO_address(pvo.getBuyer_addr());
 	        ovo.setO_receiver_contact(pvo.getBuyer_tel());
 	        ovo.setO_receiver(pvo.getBuyer_name());
+	        ovo.setO_status(pvo.getStatus());
+	        ovo.setMerchant_uid(pvo.getMerchant_uid());
+	        ovo.setImp_uid(pvo.getImp_uid());
+	        ovo.setBuyer_email(pvo.getBuyer_email());
+	    }else {
+	    	return  "redirect:preparcartList.do";
 	    }
-	    System.out.println("olvo:" + olvo);
-
-	    // mydata를 통해 추가 데이터 설정
-	    String mydata = (String) fvo.getMydata();
-	    System.out.println("mydata:" + mydata);
-
+	    
 	    ObjectMapper mapper = new ObjectMapper();
 	    List<ResponseVO3> list = Arrays.asList(mapper.readValue(mydata, ResponseVO3[].class));
 
-	    // 데이터 매핑 및 CartVO 설정
+	  
 	    for (ResponseVO3 vo3 : list) {
+	        Map<String, Object> dataMap = new HashMap<>();
+
 	        switch (vo3.getName()) {
 	            case "c_no":
 	                if (vo3.getValue() instanceof String) {
 	                    try {
-	                        // 문자열을 Integer로 변환
-	                        cvo.setC_no(Integer.parseInt((String) vo3.getValue()));
-	                        ovo.setC_no(Integer.parseInt((String) vo3.getValue()));
+	                        int c_no = Integer.parseInt((String) vo3.getValue());
+	                        ovo.setC_no(c_no);
+	                        dataMap.put("c_no", c_no);
 	                    } catch (NumberFormatException e) {
 	                        System.out.println("c_no 값을 Integer로 변환하는데 실패했습니다: " + vo3.getValue());
 	                    }
 	                }
 	                break;
+
 	            case "u_id":
 	                if (vo3.getValue() instanceof String) {
 	                    String u_id = (String) vo3.getValue();
 	                    cvo.setU_id(u_id);
-	                    olvo.setOrderUserId(u_id); // OrderListVO에도 설정
-	                    ovo.setU_id(u_id); // OrderListVO에도 설정
+	                    ovo.setU_id(u_id);
+	                    dataMap.put("u_id", u_id);
 	                }
 	                break;
+
 	            case "p_no":
 	                if (vo3.getValue() instanceof String) {
 	                    try {
-	                        // 문자열을 Integer로 변환
-	                        cvo.setP_no(Integer.parseInt((String) vo3.getValue()));
-	                        ovo.setP_no(Integer.parseInt((String) vo3.getValue()));
+	                        int p_no = Integer.parseInt((String) vo3.getValue());
+	                        ovo.setP_no(p_no);
+	                        dataMap.put("p_no", p_no);
 	                    } catch (NumberFormatException e) {
 	                        System.out.println("p_no 값을 Integer로 변환하는데 실패했습니다: " + vo3.getValue());
 	                    }
 	                }
 	                break;
-	            case "p_count": 
-	            	
-	            	   break;
-	            	   
-	        }
 
-	        if(olvo.getOrderListID()!=null) {
-	        // u_id와 c_no가 모두 null이 아닌 경우 paycomplete 메소드 호출
-	        if (cvo.getU_id() != null && cvo.getC_no() != -1) {
-	            cartService.paycomplete(cvo);
 
-	            // 초기화
-	            cvo.setU_id(null);
-	            cvo.setC_no(-1);  // 초기값으로 다시 설정
-	        }
+	            case "p_price":
+	                if (vo3.getValue() instanceof String) {
+	                    try {
+	                        int p_price = Integer.parseInt((String) vo3.getValue());
+	                        ovo.setP_price(p_price);
+	                        dataMap.put("p_price", p_price);
+	                    } catch (NumberFormatException e) {
+	                        System.out.println("p_total 값을 Integer로 변환하는데 실패했습니다: " + vo3.getValue());
+	                    }
+	                }
+	                break;
+
+	            case "p_name":
+	                if (vo3.getValue() instanceof String) {
+	                    String p_name = (String) vo3.getValue();
+	                    ovo.setP_name(p_name);
+	                    dataMap.put("p_name", p_name);
+	                }
+	                break;
+
+	            case "p_img":
+	                if (vo3.getValue() instanceof String) {
+	                    String p_img = (String) vo3.getValue();
+	                    ovo.setP_img(p_img);
+	                    dataMap.put("p_img", p_img);
+	                }
+	                break;
+	            case "p_count":
+	            	if (vo3.getValue() instanceof String) {
+	            		try {
+	            			int p_count = Integer.parseInt((String) vo3.getValue());
+	            			ovo.setP_count(p_count);
+	            			dataMap.put("p_count", p_count);
+	            		} catch (NumberFormatException e) {
+	            			System.out.println("p_count 값을 Integer로 변환하는데 실패했습니다: " + vo3.getValue());
+	            		}
+	            	}
+	            	break;
+	        }  
+	        System.out.println("dataMap: "+dataMap);
+	        			if(dataMap.get("p_count") !=null) {
+	        			  orderService.insertorderdetail(ovo); 
+	        			  orderService.productstockdown(ovo); 
+	        			  dataMap =null;
+	        			}
+	        
+	        
+	        
 	    }
-	    }
-	    orderService.insertorderList(ovo);
 	    
+	
+	    
+//	    System.out.println("ovo:" + ovo);
+
+	    	//결제가 완료됬을경우
+	    	if(pvo.getError_msg() ==null) {
+
+	            cartService.paycomplete(cvo);
+	            orderService.insertorderList(ovo);
+	        
+    }	
 	    
 	    
 	    return "pay/payList";
@@ -403,10 +495,10 @@ public class PortOnePayController {
 	// 결제취소 API
 	@RequestMapping("/payCancel")
 	@ResponseBody
-	public int payCancel(PortOnePayOneDetailVO vo) {
+	public int payCancel(PortOnePayOneDetailVO vo ,OrderVO ovo) {
 		int code = -1;
 		String url = hostname + "/payments/cancel";
-		String query ="{\"imp_uid\" : \"" + vo.getImp_uid() + "\"}";
+		String query ="{\"merchant_uid\" : \"" + vo.getMerchant_uid() + "\"}";
 		System.out.println("query: "+query);
 
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).headers("Content-Type", "application/json", "Authorization", "Bearer " + getTocken()).method("POST", HttpRequest.BodyPublishers.ofString(query)).build();
@@ -428,6 +520,7 @@ public class PortOnePayController {
 
 			if (code > -1) {
 				vo = mapper.convertValue(rvo.getResponse(), PortOnePayOneDetailVO.class);
+				orderService.paycancel(ovo);
 				// System.out.println("vo: "+vo);
 				code = 0;
 			}
@@ -439,4 +532,52 @@ public class PortOnePayController {
 		return code;
 	}
 
+	
+	//주문 목록 어드민 리스트
+	@RequestMapping("/adminorderList.do")
+	public String adminorderList(@RequestParam(value="nowPage", required = false) String nowPage,PagingVO pv,
+			OrderVO ovo ,Model model) {
+//		public String adminorderList(@RequestParam String u_id , OrderVO ovo , Model model , HttpSession session) {
+//		if(session.getAttribute("userId")=="admin") {
+//			return "";
+//		}
+		String cntPerPage = "20";
+		if (ovo.getSearchCondition() == null) {
+			ovo.setSearchCondition("ID");
+			
+		}
+		else {
+			ovo.setSearchCondition(ovo.getSearchCondition());
+		}
+		if (ovo.getSearchKeyword() == null)
+			ovo.setSearchKeyword("");
+		else
+			ovo.setSearchKeyword(ovo.getSearchKeyword());
+
+		int total = orderService.countorderlist(ovo); 
+		if (nowPage == null) {
+			nowPage = "1"; 
+		}
+		
+		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", pv);
+		System.out.println("pagingVO: "+pv);
+		ovo.setStart(pv.getStart());
+		ovo.setListcnt(Integer.parseInt(cntPerPage));
+
+		model.addAttribute("adminlist",orderService.adminorderList(ovo));
+		model.addAttribute("searchCondition", ovo.getSearchCondition());
+		model.addAttribute("searchKeyword", ovo.getSearchKeyword());
+		
+		
+		
+		
+		return "cart/cartadminlist";
+	}
+	
+	
+	
+	
+	
+	
 }

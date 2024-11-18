@@ -48,15 +48,15 @@
 	<!-- 댓글 삭제 -->
 	<delete id ="deleteCommentYooka">
 		delete from comment_yooka
-		where cm_no = #{cm_no} and co_writer=#{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+		where co_no = #{co_no}
 	</delete>
 	<delete id ="deleteCommentNoriter">
 		delete from comment_noriter
-		where cm_no = #{cm_no} and co_writer=#{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+		where co_no = #{co_no} 
 	</delete>
 	<delete id ="deleteCommentShopping">
 		delete from comment_shopping
-		where cm_no = #{cm_no} and co_writer=#{co_writer} and co_no = #{co_no} and co_content = #{co_content}
+		where co_no = #{co_no} 
 	</delete>
 	
 	<!-- 대댓글 등록 -->
@@ -107,6 +107,12 @@
 	<!-- 전체 댓글 수 -->
 	<select id="replyCntYooka" resultType="int">
 		select count(*) from comment_yooka where 1=1;
+	</select>
+	<select id="replyCntNoriter" resultType="int">
+		select count(*) from comment_noriter where 1=1;
+	</select>
+	<select id="replyCntShopping" resultType="int">
+		select count(*) from comment_shopping where 1=1;
 	</select>
 	
 </mapper>

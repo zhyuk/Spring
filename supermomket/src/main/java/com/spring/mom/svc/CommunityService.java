@@ -2,6 +2,9 @@ package com.spring.mom.svc;
 
 import java.util.List;
 
+import com.spring.mom.vo.Comment_noriterVO;
+import com.spring.mom.vo.Comment_shoppingVO;
+import com.spring.mom.vo.Comment_yookaVO;
 import com.spring.mom.vo.Community_noriterVO;
 import com.spring.mom.vo.Community_shoppingVO;
 import com.spring.mom.vo.Community_yookaVO;
@@ -98,12 +101,31 @@ public interface CommunityService {
 	
 	//관리자 목록리스트
 	List<Community_yookaVO> getYookaAdmin(Community_yookaVO vo);
+	List<Comment_yookaVO> getYookaAdminCom(Comment_yookaVO vo);
+	List<Comment_yookaVO> getYookaAdminCmno(Comment_yookaVO vo);
+	
+	List<Community_noriterVO> getNoriterAdmin(Community_noriterVO vo);
+	List<Comment_noriterVO> getNoriterAdminCom(Comment_noriterVO vo);
+	List<Comment_noriterVO> getNoriterAdminCmno(Comment_noriterVO vo);
+	
+	List<Community_shoppingVO> getShoppingAdmin(Community_shoppingVO vo);
+	List<Comment_shoppingVO> getShoppingAdminCom(Comment_shoppingVO vo);
+	List<Comment_shoppingVO> getShoppingAdminCmno(Comment_shoppingVO vo);
+	
 	
 	//관리자 글 수정
 	int updateYookaAdmin(Community_yookaVO vo);
+	int updateNoriterAdmin(Community_noriterVO vo);
+	int updateShoppingAdmin(Community_shoppingVO vo);
 	
 	//관리자 글 삭제
 	int deleteYookaAdmin(Community_yookaVO vo);
+	int deleteNoriterAdmin(Community_noriterVO vo);
+	int deleteShoppingAdmin(Community_shoppingVO vo);
 	
+	//관리자 댓글 삭제
+	int deleteYookaComDel(Comment_yookaVO vo);
+	int deleteNoriterComDel(Comment_noriterVO vo);
+	int deleteShoppingComDel(Comment_shoppingVO vo);
 
 }

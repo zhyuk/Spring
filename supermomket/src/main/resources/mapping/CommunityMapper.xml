@@ -6,44 +6,43 @@
 
 	<!-- 글목록 -->
 	<select id="getYookaList" resultType="yooka">
-		select * from community_yooka where 1=1
+		SELECT com.*, (SELECT COUNT(*) FROM comment_yooka AS COT WHERE com.cm_no = COT.cm_no) AS cot_cnt,
+		(select count(*) from updown_yooka updown where updown.cm_no =  com.cm_no AND updown.cm_updownstatus = 1) AS likecnt,
+		(select count(*) from updown_yooka updown where updown.cm_no =  com.cm_no AND updown.cm_updownstatus = 2) AS hatecnt
+		from community_yooka AS com
+		<where>
 		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'writer' "> AND cm_writer LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		</where>
 		ORDER BY cm_no DESC
 		limit #{listcnt} offset #{start}
 	</select>
-	<!-- 관리자용 글목록 -->
-	<select id="getYookaAdmin" resultType="yooka">
-		select * from community_yooka
-		order by cm_no desc
-	</select>
-
-	<update id="updateYookaAdmin">
-		update community_yooka
-		set cm_title = #{cm_title} ,
-		cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img =
-		#{cm_img}
-		where cm_no = #{cm_no}
-	</update>
 	
-	<delete id="deleteYookaAdmin">
-		delete from community_yooka where cm_no = #{cm_no}
-	</delete>
 	<select id="getNoriterList" resultType="noriter">
-		select * from community_noriter where 1=1
+		SELECT com.*, (SELECT COUNT(*) FROM comment_noriter AS COT WHERE com.cm_no = COT.cm_no) AS cot_cnt,
+		(select count(*) from updown_noriter updown where updown.cm_no =  com.cm_no AND updown.cm_updownstatus = 1) AS likecnt,
+		(select count(*) from updown_noriter updown where updown.cm_no =  com.cm_no AND updown.cm_updownstatus = 2) AS hatecnt
+		from community_noriter AS com 
+		<where>
 		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'writer' "> AND cm_writer LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		</where>
 		ORDER BY cm_no DESC
 		limit #{listcnt} offset #{start}
 	</select>
 
 	<select id="getShoppingList" resultType="shopping">
-		select * from community_shopping where 1=1
+		SELECT com.*, (SELECT COUNT(*) FROM comment_shopping AS COT WHERE com.cm_no = COT.cm_no) AS cot_cnt,
+		(select count(*) from updown_shopping updown where updown.cm_no =  com.cm_no AND updown.cm_updownstatus = 1) AS likecnt,
+		(select count(*) from updown_shopping updown where updown.cm_no =  com.cm_no AND updown.cm_updownstatus = 2) AS hatecnt
+		from community_shopping AS com
+		<where>
 		<if test="searchCondition == 'title' "> AND cm_title LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'content' "> AND cm_content LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'writer' "> AND cm_writer LIKE CONCAT('%',#{searchKeyword},'%') </if>
+		</where>
 		ORDER BY cm_no DESC
 		limit #{listcnt} offset #{start}
 	</select>
@@ -119,9 +118,7 @@
 	<!-- 글 수정 -->
 	<update id="updateYooka">
 		update community_yooka
-		set cm_title = #{cm_title} ,
-		cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img =
-		#{cm_img}
+		set cm_title = #{cm_title} ,cm_writer = #{cm_writer}, cm_content = #{cm_content}, cm_img = #{cm_img}
 		where cm_no = #{cm_no}
 	</update>
 	
@@ -141,6 +138,7 @@
 		where cm_no = #{cm_no}
 	</update>
 
+
 	<!-- 글 삭제 -->
 	<delete id="deleteYooka">
 		delete from community_yooka where cm_no = #{cm_no}
@@ -154,39 +152,39 @@
 		delete from community_shopping where cm_no = #{cm_no}
 	</delete>
 
+
 	<!-- 추천 (좋아요) -->
 	<update id="likeYooka">
 		update updown_yooka set cm_up = cm_up + 1 where
 		cm_no
 		= #{cm_no}
 	</update>
-	
-	<update id="hateYooka">
-		update updown_yooka set cm_down = cm_down + 1
-		where
-		cm_no = #{cm_no}
-	</update>
-
 	<update id="likeNoriter">
 		update updown_noriter set cm_up = cm_up + 1 where
 		cm_no = #{cm_no}
 	</update>
-	
-	<update id="hateNoriter">
-		update updown_noriter set cm_down = cm_down + 1
-		where
-		cm_no = #{cm_no}
-	</update>
-
 	<update id="likeShopping">
 		update updown_shopping set cm_up = cm_up + 1 where
 		cm_no = #{cm_no}
 	</update>
 	
+	
+	<!-- 비추천 (싫어요) -->
+	<update id="hateYooka">
+		update updown_yooka set cm_down = cm_down + 1
+		where
+		cm_no = #{cm_no}
+	</update>
+	<update id="hateNoriter">
+		update updown_noriter set cm_down = cm_down + 1
+		where
+		cm_no = #{cm_no}
+	</update>
 	<update id="hateShopping">
 		update updown_shopping set cm_down = cm_down + 1
 		where cm_no = #{cm_no}
 	</update>
+
 
 	<!-- 추천 갯수 -->
 	<select id="getLikeYooka" resultType="int">
@@ -204,6 +202,7 @@
 		updown_shopping where cm_no = #{cm_no} and cm_updownstatus = 1;
 	</select>
 
+
 	<!-- 비추천 갯수 -->
 	<select id="getHateYooka" resultType="int">
 		select count(*) from
@@ -220,6 +219,7 @@
 		updown_shopping where cm_no = #{cm_no} and cm_updownstatus = 2;
 	</select>
 
+
 	<!-- 추천 비추천 정보 저장 -->
 	<insert id="insertUpDownYooka">
 		insert into updown_yooka values(#{cm_writer},
@@ -235,6 +235,7 @@
 		insert into updown_shopping values(#{cm_writer},
 		#{cm_no}, #{cm_updownstatus})
 	</insert>
+
 
 	<!-- 추천 비추천 결과 조회 -->
 	<select id="getUpDownYooka" resultType="UpDownYooka">
@@ -255,6 +256,7 @@
 		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
 	</select>
 
+
 	<!-- 추천비추천 수정 -->
 	<update id="updateUpDownYooka">
 		update updown_yooka set cm_updownstatus =
@@ -273,5 +275,92 @@
 		#{cm_updownstatus}
 		where cm_no = #{cm_no} and cm_writer = #{cm_writer}
 	</update>
+	
+	
+	<!-- 관리자용 글목록 -->
+	<select id="getYookaAdmin" resultType="yooka">
+		select * from community_yooka 
+		order by cm_no desc
+	</select>
+	<select id="getNoriterAdmin" resultType="noriter">
+		select * from community_noriter
+		order by cm_no desc
+	</select>
+	<select id="getShoppingAdmin" resultType="shopping">
+		select * from community_shopping 
+		order by cm_no desc
+	</select>
+	
+	
+	<!-- 관리자 댓글 목록 -->
+	<select id="getYookaAdminCom" resultType="Commentyooka">
+		select * from comment_yooka
+		order by cm_no desc
+	</select>
+	<select id="getNoriterAdminCom" resultType="Commentnoriter">
+		select * from comment_noriter
+		order by cm_no desc
+	</select>
+	<select id="getShoppingAdminCom" resultType="Commentshopping">
+		select * from comment_shopping
+		order by cm_no desc
+	</select>
+	
+	
+	<!-- 특정 글번호에 대한 댓글 -->
+	<select id="getYookaAdminCmno" resultType="Commentyooka">
+   		 select * from comment_yooka
+   		 where cm_no = #{cm_no}
+	</select>
+	<select id="getNoriterAdminCmno" resultType="Commentnoriter">
+   		 select * from comment_noriter
+   		 where cm_no = #{cm_no}
+	</select>
+	<select id="getShoppingAdminCmno" resultType="Commentshopping">
+   		 select * from comment_shopping
+   		 where cm_no = #{cm_no}
+	</select>
+	
+	
+	<!-- 관리자 글 수정 -->
+	<update id="updateYookaAdmin">
+		update community_yooka
+		set cm_title = #{cm_title}, cm_content = #{cm_content}
+		where cm_no = #{cm_no}
+	</update>
+	<update id="updateNoriterAdmin">
+		update community_noriter
+		set cm_title = #{cm_title}, cm_content = #{cm_content}
+		where cm_no = #{cm_no}
+	</update>
+	<update id="updateShoppingAdmin">
+		update community_shopping
+		set cm_title = #{cm_title}, cm_content = #{cm_content}
+		where cm_no = #{cm_no}
+	</update>
+	
+	
+	<!-- 관리자 글 삭제 -->
+	<delete id="deleteYookaAdmin">
+		delete from community_yooka where cm_no = #{cm_no}
+	</delete>
+	<delete id="deleteNoriterAdmin">
+		delete from community_noriter where cm_no = #{cm_no}
+	</delete>
+	<delete id="deleteShoppingAdmin">
+		delete from community_shopping where cm_no = #{cm_no}
+	</delete>
+	
+	
+	<!-- 관리자 댓글 삭제 -->
+	<delete id="deleteYookaComDel">
+		delete from comment_yooka where cm_no = #{cm_no}
+	</delete>
+	<delete id="deleteNoriterComDel">
+		delete from comment_noriter where cm_no = #{cm_no}
+	</delete>
+	<delete id="deleteShoppingComDel">
+		delete from comment_shopping where cm_no = #{cm_no}
+	</delete>
 
 </mapper>

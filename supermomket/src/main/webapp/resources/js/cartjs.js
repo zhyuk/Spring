@@ -12,15 +12,11 @@ $(document).ready(function() {
 				if(total != checked) $("#cart_allChk").prop("checked", false);
 				else $("#cart_allChk").prop("checked", true); 
 			});
-			$("button[name=cart_allNonChk]").click(function() {
-				$("input[name=c_noarr]").prop("checked", false);
-				$("input[id=cart_allChk]").prop("checked", false);
-			});
 		});
 
 
 function cart_imglink(val) {
-    // 예: cartList 페이지로 이동
+    // 예: detail 페이지로 이동
     window.location.href = "detail.do?p_no="+val;
 }
 
@@ -33,6 +29,7 @@ $(function() {
         const p_price = $(this).data("price");
         let newCount = parseInt($(this).val(), 10);
 
+		
         if (newCount > 50) {
             newCount = 50;
             alert("최대 50개까지만 가능합니다.");
@@ -69,6 +66,47 @@ $(function() {
         });
     });
 });
+
+// Debounce 함수 설정
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+$(document).ready(function() {
+    // p_count 값이 변경될 때마다 호출
+    $("input[name='p_count']").on('input', function() {
+        optimizedUpdateTotalAmount();
+    });
+
+    // 페이지 로드 시 초기 합산 금액 및 개수 설정
+    updateTotalAmount();
+});
+
+
+// 합산 금액 및 총 개수 업데이트 함수
+function updateTotalAmount() {
+    let totalAmount = 0;
+    let totalItems = 0;
+    const pCounts = $("input[name='p_count']");
+
+    pCounts.each(function() {
+        const price = parseInt($(this).data("price"), 10);
+        const quantity = parseInt($(this).val(), 10) || 0;
+        totalAmount += price * quantity;
+        totalItems += quantity;
+    });
+
+    // 총 금액과 총 개수 업데이트
+    $("#totalAmount").val(totalAmount); 
+    $("#carttotal").text(totalAmount.toLocaleString() + "원"); 
+    $("#totalItems").text(totalItems + "개"); 
+}
+
+
 
 function validateNumberInput(input) {
 	let value = input.value;
@@ -139,18 +177,3 @@ function deletePayCart(c_no, p_no, u_id) {
         }
     });
 }
-function openModal() {
-    if (window.innerWidth <= 685) { // 모바일 화면에서 모달 열기
-        document.getElementById('payDiv').style.display = 'block';
-        document.getElementById('modalOverlay').style.display = 'block';
-    } else {
-        // 데스크탑에서는 바로 결제 함수 실행
-        payFnc();
-    }
-}
-
-function closeModal() {
-    document.getElementById('payDiv').style.display = 'none';
-    document.getElementById('modalOverlay').style.display = 'none';
-}
-

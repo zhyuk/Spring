@@ -23,6 +23,7 @@ public class ProductVO {
     private String d_content;              // 상세 이미지 정보
     private String d_info;
     private double review_avg; // 리뷰의 평균
+    private int reviewCount; // 리뷰 수 필드 추가
     
 
     // Getters and Setters
@@ -80,23 +81,19 @@ public class ProductVO {
     public String getD_info() { return d_info; }
     public void setD_info(String d_info) { this.d_info = d_info; }
 
-   
-	public double getReview_avg() {
-		return review_avg;
-	}
-	public void setReview_avg(double review_avg) {
-		this.review_avg = review_avg;
-	}
+	public double getReview_avg() { return review_avg; }
+	public void setReview_avg(double review_avg) { this.review_avg = review_avg; }
+	
+	public int getReviewCount() { return reviewCount; }
+	public void setReviewCount(int reviewCount) { this.reviewCount = reviewCount; }
 	@Override
 	public String toString() {
 		return "ProductVO [p_no=" + p_no + ", p_callno=" + p_callno + ", p_count=" + p_count + ", p_class=" + p_class
 				+ ", p_name=" + p_name + ", p_price=" + p_price + ", p_dr=" + p_dr + ", p_discount=" + p_discount
 				+ ", p_img=" + p_img + ", p_content=" + p_content + ", p_good=" + p_good + ", p_stock=" + p_stock
 				+ ", p_view=" + p_view + ", p_brand=" + p_brand + ", p_delivery=" + p_delivery + ", p_made=" + p_made
-				+ ", d_content=" + d_content + ", d_info=" + d_info + ", review_avg=" + review_avg + "]";
+				+ ", d_content=" + d_content + ", d_info=" + d_info + ", review_avg=" + review_avg + ", reviewCount="
+				+ reviewCount + "]";
 	}
-
-	
-	
 
 }

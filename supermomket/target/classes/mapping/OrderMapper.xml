@@ -4,38 +4,117 @@
 
 <mapper namespace="orderDAO">
 
-<!-- 	<select id="getSomething"  resultType="orderList"> -->
+<!-- 	주문번호 아이디 가져오기 -->
+	<select id="getmerchant_uid"  resultType="String">
+		select merchant_uid from orderlist 
+		where c_no=#{c_no} and u_id=#{u_id}
 		
-		
-<!-- 	</select> -->
+	</select>
+
+<!-- 	주문 목록 리스트 -->
+	<select id="getoderlist" resultType="orderList">
+		select * from orderlist a 
+		join cart b on b.C_NO =a.C_NO 
+		where o_chk=1 and  a.u_id=#{u_id}
+	</select>
+	
+<!-- 	주문 디테일과 목록에 담긴 상품 정보  -->
+	<select id="getcartdatalist" resultType="orderList">
+			SELECT * FROM ORDERLIST A 
+		JOIN O_DETAIL B ON B.C_NO =A.C_NO 
+		WHERE O_CHK=1 AND  A.U_ID=#{u_id} AND A.C_NO= #{c_no}
+	</select>
+	
+<!-- 	상품 디테일 정보 -->
+	<select id="getdetail" resultType="orderList">
+			SELECT * FROM O_DETAIL 
+		WHERE U_ID=#{u_id} AND MERCHANT_UID =#{merchant_uid}
+	</select>
 
 
-<!-- 	<select id="getAll" resultType="orderList"> -->
-<!-- 		SELECT * FROM tablename1 -->
-<!-- 	</select> -->
-
+<!-- 	오더 테이블리스트 등록 -->
 	<insert id="insertorderList">
 		INSERT INTO orderlist
-(C_NO, U_ID, O_TOTAL_PRICE, O_TOTAL_CNT, O_PAY_TYPE, O_ADDRESS, O_RECEIVER, O_RECEIVER_CONTACT)
+(C_NO, U_ID, O_TOTAL_PRICE, O_TOTAL_CNT, O_PAY_TYPE, O_ADDRESS, O_RECEIVER, O_RECEIVER_CONTACT
+,MERCHANT_UID,IMP_UID,BUYER_EMAIL,PAID_AT)
 VALUES(#{c_no}, #{u_id},
  #{o_total_price}, 
  #{o_total_cnt},#{o_pay_type}, 
  #{o_address}, 
  #{o_receiver},
- #{o_receiver_contact})
+ #{o_receiver_contact},
+ #{merchant_uid},
+ #{imp_uid},
+ #{buyer_email},
+ #{paid_at}
+ )
+	</insert>
+	
+<!-- 	디테일 상품 넣기 -->
+	<insert id="insertorderdetail">
+		INSERT INTO O_DETAIL
+(C_NO,
+U_ID,
+P_NO,
+P_TOTAL,
+P_COUNT,
+P_NAME,
+P_IMG,
+MERCHANT_UID)
+VALUES(
+#{c_no},
+#{u_id},
+#{p_no},
+#{p_price}*#{p_count},
+#{p_count},
+#{p_name},
+#{p_img},
+#{merchant_uid}
+ )
 	</insert>
 
-<!-- 	<update id="updateSomething"> -->
-<!-- 		UPDATE tablename1 -->
-<!-- 		SET -->
-<!-- 		columnname1=#{param1} -->
-<!-- 		WHERE -->
-<!-- 		columnname2 = #{param2} -->
-<!-- 	</update> -->
+<!-- 	결제 취소시 변경사항 -->
+	<update id="paycancel">
+		UPDATE orderlist
+		SET
+		O_CANCEL_YN ="결제취소" , O_UPDATE_DATE=now()
+		WHERE
+		MERCHANT_UID =#{merchant_uid}
+	</update>
 
-<!-- 	<delete id="deleteSomething" parameterType="int"> -->
-<!-- 		DELETE FROM tablename1 WHERE -->
-<!-- 		columnname1 = #{param1} -->
-<!-- 	</delete> -->
+<!-- 	보류 -->
+	<update id="productstockup">
+		UPDATE product
+		SET
+		p_stock= p_stock+#{p_count}
+		WHERE
+		p_no = #{p_no}
+	</update>
+		
+<!-- 구매시	재고 판매		 -->
+	<update id="productstockdown">
+		UPDATE product
+		SET
+		p_stock= p_stock-#{p_count}
+		WHERE
+		p_no = #{p_no}
+	</update>
+
+<!-- 	어드민 오더리스트 -->
+	<select id="adminorderList" resultType="orderList">
+	select * from orderList where 1=1
+	<if test="searchCondition == 'ID' "> AND U_ID LIKE CONCAT('%',#{searchKeyword},'%') </if>
+	<if test="searchCondition == 'STATUS' "> AND O_CANCEL_YN CONCAT('%',#{searchKeyword},'%') </if>
+	</select>
+<!-- 	어드민  리스트 페이징 행수 처리 -->
+<select id="countorderlist" resultType="int">
+		SELECT COUNT(*) FROM orderlist WHERE 1=1
+		<if test="searchCondition == 'ID'">  AND U_ID = #{searchKeyword}  </if>
+		<if test="searchCondition == 'STATUS' "> AND O_CANCEL_YN CONCAT('%',#{searchKeyword},'%') </if>
+	</select>
+
+
+
+
 
 </mapper>

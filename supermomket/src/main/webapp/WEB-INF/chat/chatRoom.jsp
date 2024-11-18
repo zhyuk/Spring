@@ -10,136 +10,168 @@
     <title>채팅방</title>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <style>
-        .chat-container {
-            max-width: 800px;
-            margin: 20px auto;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-      
-.chat-messages {
-    height: 400px;
-    overflow-y: auto;
-    padding: 20px;
-    background: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-}
-
-     .message {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    max-width: 70%;
-    word-break: break-word;
-    clear: both;
+.chat-container {
+    max-width: 420px;
+    margin: 20px auto;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
     position: relative;
+}
+
+.chat-header {
+    padding: 15px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    border-radius: 12px 12px 0 0;
+    margin-top: 100px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-     
-.message.mine {
-    background: #007bff;
+.chat-header h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
+}
+
+.back-button {
+    padding: 6px 12px;
+    background: #4a90e2;
     color: white;
-    margin-left: auto !important;
-    margin-right: 10px !important;
-    align-self: flex-end;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85em;
+    transition: all 0.2s ease;
 }
 
-  .message.other {
+.chat-messages {
+    height: calc(100vh - 300px);
+    min-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    max-width: 75%;
+    word-break: break-word;
+}
+
+.message.mine {
+    background: #4a90e2;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.message.other {
     background: white;
-    margin-right: auto !important;
-    margin-left: 10px !important;
-    align-self: flex-start;
-    border: 1px solid #ddd;
+    color: #333;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-        .chat-input {
-            display: flex;
-            padding: 20px;
-            border-top: 1px solid #ddd;
-        }
 
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+.chat-input {
+    display: flex;
+    padding: 12px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    position: sticky;
+    bottom: 0;
+}
 
-        .chat-input button {
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 8px;
+    font-size: 0.9em;
+}
 
-        .sender-name {
-            font-size: 0.8em;
-            margin-bottom: 5px;
-            color: #666;
-        }
+.chat-input button {
+    padding: 8px 16px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
 
-        .message-time {
-            font-size: 0.7em;
-            color: #888;
-            margin-left: 8px;
-        }
+.system-message {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    color: #666;
+    margin: 8px auto;
+    text-align: center;
+}
 
-        .message.mine .message-time {
-            color: rgba(255, 255, 255, 0.7);
-        }
+.sender-name {
 
-        .chat-header {
-            padding: 15px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top:150px;
-        }
+	color : #4A90E2;
+	font-weight:800;
 
-        .back-button {
-            padding: 5px 10px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
+}
 
-         .message.system {
-        text-align: center;
-        max-width: 100%;
-        margin: 10px 0;
-        padding: 5px;
+@media (max-width: 425px) {
+    .chat-container {
+        margin: 0;
+        height: 100vh;
+        border-radius: 0;
     }
-       .system-message {
-        display: inline-block;
-        background-color: rgba(0, 0, 0, 0.05);
-        padding: 5px 15px;
-        border-radius: 15px;
-        font-size: 0.9em;
-        color: #666;
+    
+    .chat-header {
+        margin-top: 0;
+        border-radius: 0;
+        padding: 12px;
     }
+    
+    .chat-messages {
+        height: calc(100vh - 130px);
+        min-height: auto;
+    }
+    
+    .message {
+        max-width: 85%;
+        font-size: 0.95em;
+    }
+    
+    .chat-input {
+        padding: 8px;
+    }
+    
+    .chat-input input {
+        padding: 8px;
+    }
+    
+    .chat-input button {
+        padding: 8px 12px;
+    }
+}
 
-        /* 반응형 디자인 */
-        @media (max-width: 768px) {
-            .chat-container {
-                margin: 10px;
-                max-width: 100%;
-            }
-            .message {
-                max-width: 85%;
-            }
-        }
+
+.chat-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 2px;
+}
     </style>
 </head>
 <body>
@@ -202,14 +234,14 @@
                     const messageArea = document.getElementById('messageArea');
                     
                     if (message.type === 'CHAT') {
-                        // 일반 채팅 메시지
+                     
                         const messageDiv = document.createElement('div');
                         messageDiv.className = message.senderId === userId ? 'message mine' : 'message other';
                         
                         const contentDiv = document.createElement('div');
                         contentDiv.className = 'message-content';
                         
-                        // 발신자 닉네임 표시 (자신의 메시지가 아닐 경우에만)
+                        
                         if (message.senderId !== userId && message.senderNickname) {
                             const nicknameDiv = document.createElement('div');
                             nicknameDiv.className = 'sender-name';
@@ -217,13 +249,13 @@
                             contentDiv.appendChild(nicknameDiv);
                         }
                         
-                        // 메시지 내용
+                     
                         const textDiv = document.createElement('div');
                         textDiv.className = 'text';
                         textDiv.textContent = message.message;
                         contentDiv.appendChild(textDiv);
                         
-                        // 시간 표시
+                      
                         const timeDiv = document.createElement('div');
                         timeDiv.className = 'message-time';
                         timeDiv.textContent = new Date(message.sentAt).toLocaleTimeString('ko-KR', {
@@ -235,7 +267,7 @@
                         messageDiv.appendChild(contentDiv);
                         messageArea.appendChild(messageDiv);
                     } else if (message.type === 'LEAVE' && message.message.includes('채팅방을 나갔습니다')) {
-                        // 채팅방 나가기 메시지
+                      
                         const systemDiv = document.createElement('div');
                         systemDiv.className = 'message system';
                         
@@ -298,7 +330,7 @@
             const messageArea = document.getElementById('messageArea');
             const messageDiv = document.createElement('div');
             
-            // 내 메시지이므로 항상 'mine' 클래스 사용
+           
             messageDiv.className = 'message mine';
             
             const contentDiv = document.createElement('div');
@@ -342,9 +374,7 @@
             
             try {
                 if (isConnected && ws.readyState === WebSocket.OPEN) {
-                    // 메시지를 먼저 화면에 표시
                     appendLocalMessage(message);
-                    // 그 다음 서버로 전송
                     ws.send(JSON.stringify(chatMessage));
                     messageInput.value = '';
                 } else {
@@ -394,6 +424,11 @@
                 ws.close();
             }
         };
+        $('link[href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"]').remove();
+        $('link[href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"]').remove();
+        $('script[src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"]').remove();
+        
     </script>
+    <%@ include file="../view/footer.jsp" %>
 </body>
 </html>

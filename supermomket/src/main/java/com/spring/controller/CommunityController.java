@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +31,7 @@ import com.spring.mom.vo.PagingVO;
 import com.spring.mom.vo.Updown_NoriterVO;
 import com.spring.mom.vo.Updown_ShoppingVO;
 import com.spring.mom.vo.Updown_YookaVO;
+
 
 @Controller
 public class CommunityController {
@@ -268,20 +268,27 @@ public class CommunityController {
 
 	// 글 삭제
 	@RequestMapping("/deleteYooka.do")
-	public String deleteYooka(Community_yookaVO vo, HttpServletRequest request) {
+	public String deleteYooka(Community_yookaVO vo, HttpServletRequest request, Comment_yookaVO cvo) {
 		realPath = request.getSession().getServletContext().getRealPath("/resources/img/community/");
 		if (vo.getCm_img() != null) {
 //			System.out.println("파일삭제" + realPath + vo.getCm_img());
 			File file = new File(realPath + vo.getCm_img());
 			file.delete();
 		}
+		
 		communityService.deleteYooka(vo);
+//		System.out.println("삭제 : " +cvo);
+		
+		if (cvo.getCm_no() == cvo.getCm_no()) {
+			commentService.deleteCommentYooka(cvo);
+		}
+//			System.out.println("여기탔음");
 		return "redirect:getCommunity_yookaList.do";
 
 	}
 
 	@RequestMapping("/deleteNoriter.do")
-	public String deleteNoriter(Community_noriterVO vo, HttpServletRequest request) {
+	public String deleteNoriter(Community_noriterVO vo, HttpServletRequest request, Comment_noriterVO cvo) {
 		realPath = request.getSession().getServletContext().getRealPath("/resources/img/community/");
 		if (vo.getCm_img() != null) {
 //			System.out.println("파일삭제" + realPath + vo.getCm_img());
@@ -289,12 +296,16 @@ public class CommunityController {
 			file.delete();
 		}
 		communityService.deleteNoriter(vo);
+		
+		if (cvo.getCm_no() == cvo.getCm_no()) {
+			commentService.deleteCommentNoriter(cvo);
+		}
 		return "redirect:getCommunity_noriterList.do";
 
 	}
 
 	@RequestMapping("/deleteShopping.do")
-	public String deleteShopping(Community_shoppingVO vo, HttpServletRequest request) {
+	public String deleteShopping(Community_shoppingVO vo, HttpServletRequest request, Comment_shoppingVO cvo) {
 		realPath = request.getSession().getServletContext().getRealPath("/resources/img/community/");
 		if (vo.getCm_img() != null) {
 //			System.out.println("파일삭제" + realPath + vo.getCm_img());
@@ -302,58 +313,62 @@ public class CommunityController {
 			file.delete();
 		}
 		communityService.deleteShopping(vo);
+		
+		if (cvo.getCm_no() == cvo.getCm_no()) {
+			commentService.deleteCommentShopping(cvo);
+		}
 		return "community/getCommunity_shoppingList";
 
 	}
 
-//	// 글 상세조회
-//	@RequestMapping("/getYooka/{seq}")
-//	public String getYooka(@RequestParam(value = "error", required = false) String error, @PathVariable("cm_no") int cm_no, Community_yookaVO vo, Model model) {
-//		vo.setCm_no(cm_no);
-//		Community_yookaVO yooka = communityService.getYooka(vo);
-//		if (!(error == null || error.equals("")))
-//			cntChk = 0;
-//		else if (cntChk <= 0)
-//			communityService.updateCntYooka(yooka);
-//		else
-//			cntChk = 0;
-//		yooka = communityService.getYooka(vo);
-//
-//		model.addAttribute("yooka", yooka);
-//		return "community/getYooka";
-//	}
-//
-//	@RequestMapping("/getNoriter/{seq}")
-//	public String getNoriter(@RequestParam(value = "error", required = false) String error, @PathVariable("cm_no") int cm_no, Community_noriterVO vo, Model model) {
-//		vo.setCm_no(cm_no);
-//		Community_noriterVO noriter = communityService.getNoriter(vo);
-//		if (!(error == null || error.equals("")))
-//			cntChk = 0;
-//		else if (cntChk <= 0)
-//			communityService.updateCntNoriter(noriter);
-//		else
-//			cntChk = 0;
-//		noriter = communityService.getNoriter(vo);
-//
-//		model.addAttribute("noriter", noriter);
-//		return "community/getNoriter";
-//	}
-//
-//	@RequestMapping("/getShopping/{seq}")
-//	public String getShopping(@RequestParam(value = "error", required = false) String error, @PathVariable("cm_no") int cm_no, Community_shoppingVO vo, Model model) {
-//		vo.setCm_no(cm_no);
-//		Community_shoppingVO shopping = communityService.getShopping(vo);
-//		if (!(error == null || error.equals("")))
-//			cntChk = 0;
-//		else if (cntChk <= 0)
-//			communityService.updateShopping(shopping);
-//		else
-//			cntChk = 0;
-//		shopping = communityService.getShopping(vo);
-//
-//		model.addAttribute("shopping", shopping);
-//		return "community/getShopping";
-//	}
+	// 글 상세조회
+	@RequestMapping("/getYooka/{seq}")
+	public String getYooka(@RequestParam(value = "error", required = false) String error, @PathVariable("cm_no") int cm_no, Community_yookaVO vo, Model model) {
+		vo.setCm_no(cm_no);
+		Community_yookaVO yooka = communityService.getYooka(vo);
+		if (!(error == null || error.equals("")))
+			cntChk = 0;
+		else if (cntChk <= 0)
+			communityService.updateCntYooka(yooka);
+		else
+			cntChk = 0;
+		yooka = communityService.getYooka(vo);
+
+		model.addAttribute("yooka", yooka);
+		return "community/getYooka";
+	}
+
+	@RequestMapping("/getNoriter/{seq}")
+	public String getNoriter(@RequestParam(value = "error", required = false) String error, @PathVariable("cm_no") int cm_no, Community_noriterVO vo, Model model) {
+		vo.setCm_no(cm_no);
+		Community_noriterVO noriter = communityService.getNoriter(vo);
+		if (!(error == null || error.equals("")))
+			cntChk = 0;
+		else if (cntChk <= 0)
+			communityService.updateCntNoriter(noriter);
+		else
+			cntChk = 0;
+		noriter = communityService.getNoriter(vo);
+
+		model.addAttribute("noriter", noriter);
+		return "community/getNoriter";
+	}
+
+	@RequestMapping("/getShopping/{seq}")
+	public String getShopping(@RequestParam(value = "error", required = false) String error, @PathVariable("cm_no") int cm_no, Community_shoppingVO vo, Model model) {
+		vo.setCm_no(cm_no);
+		Community_shoppingVO shopping = communityService.getShopping(vo);
+		if (!(error == null || error.equals("")))
+			cntChk = 0;
+		else if (cntChk <= 0)
+			communityService.updateShopping(shopping);
+		else
+			cntChk = 0;
+		shopping = communityService.getShopping(vo);
+
+		model.addAttribute("shopping", shopping);
+		return "community/getShopping";
+	}
 
 	@RequestMapping("/getYooka.do")
 	public String getYooka(@RequestParam(value = "error", required = false) String error, 
@@ -361,7 +376,8 @@ public class CommunityController {
 			@RequestParam(value = "cm_no") int cm_no,
 			Community_yookaVO vo, Model model, 
 			Comment_yookaVO cvo, Updown_YookaVO updown) {
-		System.out.println("yooka상세조회vo : " + vo);
+//		System.out.println("yooka상세조회vo : " + vo);
+		vo.setCm_no(cm_no);
 		Community_yookaVO yooka = communityService.getYooka(vo);
 
 		if (!(error == null || error.equals("")))
@@ -379,12 +395,11 @@ public class CommunityController {
 		model.addAttribute("yooka", yooka);
 		model.addAttribute("commentList", commentList);
 //		System.out.println("yooka :" + yooka);
-		System.out.println("vo : " + vo);
 		
 		model.addAttribute("likeResult", communityService.getLikeYooka(updown));
 		model.addAttribute("hateResult", communityService.getHateYooka(updown));
-		 System.out.println("like"+communityService.getLikeYooka(updown));
-		 System.out.println("hate" +communityService.getHateYooka(updown));
+//		 System.out.println("like"+communityService.getLikeYooka(updown));
+//		 System.out.println("hate" +communityService.getHateYooka(updown));
 		
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
@@ -398,7 +413,9 @@ public class CommunityController {
 	}
 
 	@RequestMapping("/getNoriter.do")
-	public String getNoriter(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "nowPage", required = false) String nowPage, @RequestParam(value = "cm_no") int cm_no,
+	public String getNoriter(@RequestParam(value = "error", required = false) String error, 
+			@RequestParam(value = "nowPage", required = false) String nowPage, 
+			@RequestParam(value = "cm_no") int cm_no,
 			Community_noriterVO vo, Model model, Comment_noriterVO cvo,
 			Updown_NoriterVO updown) {
 //		System.out.println("noriter상세조회vo : " + vo);
@@ -411,16 +428,18 @@ public class CommunityController {
 			communityService.updateCntNoriter(noriter);
 		else
 			cntChk = 0;
-
+		
+		noriter = communityService.getNoriter(vo);
+		
 		cvo.setCm_no(cm_no); // 게시판 번호 설정
 		List<Comment_noriterVO> commentList = commentService.getCommentNoriterList(cvo);
 
+		model.addAttribute("noriter", noriter);
+		model.addAttribute("commentList", commentList);
 		
 		model.addAttribute("likeResult", communityService.getLikeNoriter(updown));
 		model.addAttribute("hateResult", communityService.getHateNoriter(updown));
 		
-		model.addAttribute("noriter", noriter);
-		model.addAttribute("commentList", commentList);
 //		System.out.println("noriter :" + noriter);
 		
 		model.addAttribute("searchCondition", vo.getSearchCondition());
@@ -455,12 +474,12 @@ public class CommunityController {
 		cvo.setCm_no(cm_no); // 게시판 번호 설정
 		List<Comment_shoppingVO> commentList = commentService.getCommentShoppingList(cvo);
 
+		model.addAttribute("shopping", shopping);
+		model.addAttribute("commentList", commentList);
 		
 		model.addAttribute("likeResult", communityService.getLikeShopping(updown));
 		model.addAttribute("hateResult", communityService.getHateShopping(updown));
 		
-		model.addAttribute("shopping", shopping);
-		model.addAttribute("commentList", commentList);
 //		System.out.println("shopping :" + shopping);
 		
 		
@@ -500,10 +519,6 @@ public class CommunityController {
 			nowPage = "1";
 		}
 		
-		int like = communityService.getLikeYooka(uvo);
-		int hate = communityService.getHateYooka(uvo);
-		
-		
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pv);
 		vo.setStart(pv.getStart());
@@ -514,12 +529,7 @@ public class CommunityController {
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("yookaList", communityService.getYookaList(vo));
-		 System.out.println("cvo: " + cvo);
-		 System.out.println("uvo: " + uvo);
-		model.addAttribute("likeResult1", like);
-		model.addAttribute("hateResult1", hate);
-		System.out.println("like " +like);
-		 System.out.println("hate " +hate);
+		System.out.println("vo: " + vo);
 		return "community/getCommunity_yookaList";
 	}
 
@@ -693,6 +703,7 @@ public class CommunityController {
 		} else {
 			url = "community/getYooka";
 		}
+		
 		return url;
 	}
 
@@ -889,7 +900,7 @@ public class CommunityController {
 		}
 		
 		Integer[] resultarr = new Integer[2];
-		System.out.println(vo);
+//		System.out.println(vo);
 		
 		int result = communityService.insertUpDownNoriter(vo);
 		
@@ -921,13 +932,53 @@ public class CommunityController {
 		
 		return resultarr;
 	}
-	
-	// 관리자 페이지 리스트 Yooka
+	// 관리자 페이지 리스트
 	@RequestMapping("/adminYooka.do")
-	public String adminYookaList(Community_yookaVO vo, Model model) {
-		System.out.println("관리자 페이지 ㄱㄱ");
+	public String adminYookaList(Community_yookaVO vo, Model model, Comment_yookaVO cvo) {
+//		System.out.println("관리자 페이지 ㄱㄱ");
 		model.addAttribute("yookaList", communityService.getYookaAdmin(vo));
+		model.addAttribute("yookaListCom", communityService.getYookaAdminCom(cvo));
+//		System.out.println("cvo : " + cvo);
 		return "community/admin_yooka";
+	}
+	@RequestMapping("/adminYookaCom.do")
+	@ResponseBody
+	public List<Comment_yookaVO> adminYookaCom(Comment_yookaVO vo){
+//		System.out.println("adminYookaCom 탔음");
+//		System.out.println("vo: " + vo);
+		return communityService.getYookaAdminCmno(vo); 
+	}
+
+	@RequestMapping("/adminNoriter.do")
+	public String adminNoriterList(Community_noriterVO vo, Model model, Comment_noriterVO cvo) {
+//		System.out.println("관리자 페이지 ㄱㄱ");
+		model.addAttribute("noriterList", communityService.getNoriterAdmin(vo));
+		model.addAttribute("noriterListCom", communityService.getNoriterAdminCom(cvo));
+//		System.out.println("cvo : " + cvo);
+		return "community/admin_noriter";
+	}
+	@RequestMapping("/adminNoriterCom.do")
+	@ResponseBody
+	public List<Comment_noriterVO> adminNoriterCom(Comment_noriterVO vo){
+//		System.out.println("adminNoriterCom 탔음");
+//		System.out.println("vo: " + vo);
+		return communityService.getNoriterAdminCmno(vo); 
+	}
+	
+	@RequestMapping("/adminShopping.do")
+	public String adminShoppingList(Community_shoppingVO vo, Model model, Comment_shoppingVO cvo) {
+//		System.out.println("관리자 페이지 ㄱㄱ");
+		model.addAttribute("shoppingList", communityService.getShoppingAdmin(vo));
+		model.addAttribute("shoppingListCom", communityService.getShoppingAdminCom(cvo));
+//		System.out.println("cvo : " + cvo);
+		return "community/admin_shopping";
+	}
+	@RequestMapping("/adminShoppingCom.do")
+	@ResponseBody
+	public List<Comment_shoppingVO> adminShoppingCom(Comment_shoppingVO vo){
+		System.out.println("adminShoppingCom 탔음");
+		System.out.println("vo: " + vo);
+		return communityService.getShoppingAdminCmno(vo); 
 	}
 	
 	// 관리자 페이지 수정
@@ -939,18 +990,53 @@ public class CommunityController {
 		
 		int result = communityService.updateYookaAdmin(vo);
 		
+		System.out.println("result : " + result);
 		if(result > 0) {
 			yookaList = communityService.getYookaAdmin(vo);
 		}
 		
+		System.out.println("controller: " + vo);
+		System.out.println("yookaList : " + yookaList);
 		return yookaList;
+	}
+	// 관리자 페이지 수정
+	@ResponseBody
+	@RequestMapping("adminNoriterUpdate.do")
+	public List<Community_noriterVO> updateNoriterAdmin(Community_noriterVO vo, Model model){
+//		System.out.println("관리자 수정!");
+		List<Community_noriterVO> noriterList = null;
+		
+		int result = communityService.updateNoriterAdmin(vo);
+		
+		if(result > 0) {
+			noriterList = communityService.getNoriterAdmin(vo);
+		}
+		
+//		System.out.println("controller: " + vo);
+		return noriterList;
+	}
+	// 관리자 페이지 수정
+	@ResponseBody
+	@RequestMapping("adminShoppingUpdate.do")
+	public List<Community_shoppingVO> updateShoppingAdmin(Community_shoppingVO vo, Model model){
+//		System.out.println("관리자 수정!");
+		List<Community_shoppingVO> shoppingList = null;
+		
+		int result = communityService.updateShoppingAdmin(vo);
+		
+		if(result > 0) {
+			shoppingList = communityService.getShoppingAdmin(vo);
+		}
+		
+		System.out.println("controller: " + vo);
+		return shoppingList;
 	}
 	
 	//관리자 페이지 삭제
 	@ResponseBody
 	@RequestMapping("adminYookaDelete.do")
 	public List<Community_yookaVO> deleteYookaAdmin(Community_yookaVO vo, Model model){
-		System.out.println("관리자 삭제!");
+//		System.out.println("관리자 삭제!");
 		List<Community_yookaVO> deleteList = null;
 		
 		int result = communityService.deleteYookaAdmin(vo);
@@ -961,17 +1047,78 @@ public class CommunityController {
 		
 		return deleteList;
 	}
+	@ResponseBody
+	@RequestMapping("adminNoriterDelete.do")
+	public List<Community_noriterVO> deleteNoriterAdmin(Community_noriterVO vo, Model model){
+//		System.out.println("관리자 삭제!");
+		List<Community_noriterVO> deleteList = null;
+		
+		int result = communityService.deleteNoriterAdmin(vo);
+		
+		if(result > 0) {
+			deleteList = communityService.getNoriterAdmin(vo);
+		}
+		
+		return deleteList;
+	}
+	@ResponseBody
+	@RequestMapping("adminShoppingDelete.do")
+	public List<Community_shoppingVO> deleteShoppingAdmin(Community_shoppingVO vo, Model model){
+//		System.out.println("관리자 삭제!");
+		List<Community_shoppingVO> deleteList = null;
+		
+		int result = communityService.deleteShoppingAdmin(vo);
+		
+		if(result > 0) {
+			deleteList = communityService.getShoppingAdmin(vo);
+		}
+		
+		return deleteList;
+	}
+	
+	//관리자 댓글 삭제
+	@ResponseBody
+	@RequestMapping("/adminYookaComDel.do")
+	public List<Comment_yookaVO> deleteYookaComDel(Comment_yookaVO vo, Model model){
+//		System.out.println("관리자 댓글 삭제!");
+		List<Comment_yookaVO> delcom = null;
+		
+		int result = communityService.deleteYookaComDel(vo);
+		
+		if(result > 0) {
+			delcom = communityService.getYookaAdminCmno(vo);
+		}
+		
+		return delcom;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/adminNoriterComDel.do")
+	public List<Comment_noriterVO> deleteNoriterComDel(Comment_noriterVO vo, Model model){
+//		System.out.println("관리자 댓글 삭제!");
+		List<Comment_noriterVO> delcom = null;
+		
+		int result = communityService.deleteNoriterComDel(vo);
+		
+		if(result > 0) {
+			delcom = communityService.getNoriterAdminCmno(vo);
+		}
+		
+		return delcom;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/adminShoppingComDel.do")
+	public List<Comment_shoppingVO> deleteShoppingComDel(Comment_shoppingVO vo, Model model){
+//		System.out.println("관리자 댓글 삭제!");
+		List<Comment_shoppingVO> delcom = null;
+		
+		int result = communityService.deleteShoppingComDel(vo);
+		
+		if(result > 0) {
+			delcom = communityService.getShoppingAdminCmno(vo);
+		}
+		
+		return delcom;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

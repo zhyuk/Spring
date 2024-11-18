@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,8 +49,13 @@ public class CartController {
 	public String getcartList(CartVO cvo, Model model, HttpSession session) {
 		try {
 			cvo.setU_id((String) session.getAttribute("userId"));
+			if (cvo.getU_id() == null) {
+	        	
+	            return "login/login";
+	        }
+			
 			cvo.setC_payment("ready");
-			System.out.println("uid:"+cvo.getU_id());
+//			System.out.println("uid:"+cvo.getU_id());
 			List<CartVO> cartList = cartService.getcartList(cvo);
 			int carttotal = cartService.carttotal(cvo);
 			model.addAttribute("cartList", cartList);
@@ -73,14 +80,14 @@ public class CartController {
 //			System.out.println("c_change:" + cartService.c_change(cvo));
 			// 가격 업데이트
 //			System.out.println("cvo.getC_no():"+cvo.getC_no()); 
-//			System.out.println("cvo.getP_count():"+cvo.getP_count()); 
-//			System.out.println("cvo.getP_price():"+cvo.getP_price()); 
+			System.out.println("cvo.getP_count():"+cvo.getP_count()); 
+			System.out.println("cvo.getP_price():"+cvo.getP_price()); 
 			cartService.getcartList(cvo);
 			cartService.p_totalup(cvo);
 //			 System.out.println("p_totalup:"+cartService.p_totalup(cvo));
 			// 업데이트된 총액 가져오기
 			int newTotal = cartService.p_total(cvo);
-//			System.out.println("p_total:"+cartService.p_total(cvo));
+			System.out.println("p_total:"+cartService.p_total(cvo));
 
 			response.put("carttotal", cartService.carttotal(cvo));
 			response.put("newTotal", newTotal);
@@ -104,6 +111,8 @@ public class CartController {
 	        String p_img = (String) cartData.get("imageUrl");
 	        String p_callno = (String) cartData.get("p_callno");
 	        
+	        
+	        
 	        CartVO cvo = new CartVO();
 	        cvo.setU_id(u_id);
 	        cvo.setP_no(p_no);
@@ -116,12 +125,12 @@ public class CartController {
 	        
 	        
 	         if(chk ==0){
-	        	System.out.println("if문");
+//	        	System.out.println("if문");
 	        cartService.insertcart(cvo);
 	        }else {
 	        	
-	        	System.out.println("else문");
-	        	System.out.println("p_count:"+cvo.getP_count());
+//	        	System.out.println("else문");
+//	        	System.out.println("p_count:"+cvo.getP_count());
 	        	cartService.c_change(cvo);
 	        	cartService.p_totalup(cvo);
 	        }
@@ -132,25 +141,30 @@ public class CartController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류가 발생했습니다.");
 	    }
 	}
-	@RequestMapping("/insertproduct.do")
-	public String insertproduct(@RequestParam ProductVO pvo,CartVO cvo ,HttpSession session) {
-			
-		
-			cvo.setU_id("userId");
-			cvo.setP_no(pvo.getP_no());
-			cvo.setP_count(pvo.getP_count());
-			cvo.setP_price(pvo.getP_price());
-			cvo.setP_name(pvo.getP_name());
-			cvo.setP_img(pvo.getP_img());
-			cvo.setP_callno(pvo.getP_callno());
-			
-			
-			cartService.insertproduct(cvo);
-			
-			
-			
-			return "redirect:preparcartList.do";
-	}
+	   // 상세페이지 > 주문하기 데이터 필요 코드
+	   @RequestMapping("/insertproduct.do")
+	   public String insertProduct(@ModelAttribute("pvo") ProductVO pvo, CartVO cvo, HttpSession session) {
+	      
+	      System.out.println("pvo: "+pvo);
+	      
+	       // 세션에서 userId 가져오기
+	       String userId = (String) session.getAttribute("userId");
+	       cvo.setU_id(userId);
+	       
+	       // ProductVO의 필드를 CartVO로 설정
+	       cvo.setP_no(pvo.getP_no());
+	       cvo.setP_count(pvo.getP_count());
+	       cvo.setP_price(pvo.getP_discount());
+	       cvo.setP_name(pvo.getP_name());
+	       cvo.setP_img(pvo.getP_img());
+	       cvo.setP_callno(pvo.getP_callno());
+	       
+	       // CartService에 CartVO 전달
+	       cartService.insertproduct(cvo);
+	       
+	       // 장바구니 목록 페이지로 리다이렉트
+	       return "redirect:preparcartList.do";
+	   }
 
 
 //	장바구니 창 물품삭제 메소드
@@ -159,7 +173,7 @@ public class CartController {
 		System.out.println("cvo: " + cvo);
 		
 		int[] cNoArrList = cvo.getC_noarr();
-		System.out.println("c_payment:"+cvo.getC_payment());
+//		System.out.println("c_payment:"+cvo.getC_payment());
 		// 각 선택된 c_no에 대해 cartService 호출
 		for (Integer c_no : cNoArrList) {
 			System.out.println("for문 c_no: " + c_no);
@@ -173,5 +187,17 @@ public class CartController {
 		
 	}
 	
+			//	장바구니 갯수추가
+	    @GetMapping("/cartcount.do")
+	    public Map<String, Integer> getCartCount(@RequestParam("u_id")CartVO u_id) {
+	    	int cartCount = cartService.cartcount(u_id);
+	        Map<String, Integer> response = new HashMap<>();
+	        response.put("count", cartCount);
+	        return response; // JSON 형식으로 반환
+	    }
+	    
+	}
+	
+	
 
-}
+

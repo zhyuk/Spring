@@ -5,6 +5,14 @@
    
 <mapper namespace="ChatDAO">
 
+
+	<select id="getChatRoomCountByTradeNo" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM CHAT_ROOM
+    WHERE T_NO = #{tNo}
+</select>
+
+
    <update id="updateChatRoom" parameterType="com.spring.mom.vo.ChatRoomVO">
         UPDATE chat_room 
         SET is_deleted_seller = #{isDeletedSeller},
@@ -38,6 +46,7 @@
                r.is_deleted_seller as isDeletedSeller,
                r.is_deleted_buyer as isDeletedBuyer,
                t.t_product as productName,
+                t.t_img as productImage, 
                (SELECT u_nickname FROM user WHERE u_id = r.seller_id) as sellerNickname,
                (SELECT u_nickname FROM user WHERE u_id = r.buyer_id) as buyerNickname,
                (SELECT message FROM chat_message 
@@ -88,6 +97,7 @@
                r.is_deleted_seller as isDeletedSeller,
                r.is_deleted_buyer as isDeletedBuyer,
                t.t_product as productName,
+                t.t_img as productImage,
                (SELECT u_nickname FROM user WHERE u_id = r.seller_id) as sellerNickname,
                (SELECT u_nickname FROM user WHERE u_id = r.buyer_id) as buyerNickname,
                (SELECT message FROM chat_message 

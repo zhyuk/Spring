@@ -28,9 +28,6 @@
 									<div id="used_box" class="content_box">
 										<div>
 											<h3>중고상품</h3>
-											<!-- 						<button class="about_btn"> -->
-											<!-- 							<a href="/trade.do">더보기</a> -->
-											<!-- 						</button> -->
 										</div>
 										<div class="clear"></div>
 
@@ -47,10 +44,7 @@
 
 									<div id="community_box" class="content_box">
 										<div>
-											<h3>게시판</h3>
-											<!-- 						<button class="about_btn"> -->
-											<!-- 							<a href="/getCommunity_yookaList.do">더보기</a> -->
-											<!-- 						</button> -->
+											<h3>게시판</h3>		
 										</div>
 										<div class="clear"></div>
 
@@ -62,7 +56,7 @@
 															<a
 																href="/vs_info.do?vs_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>고민거리</span>${board.vs_title}
+																	<span>[ 고민거리 ]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>
@@ -72,7 +66,7 @@
 															<a
 																href="/getYooka.do?cm_no=${board.vs_no}&searchCondition=cm_title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>육아정보</span>${board.vs_title}
+																	<span>[ 육아정보 ]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>
@@ -82,7 +76,7 @@
 															<a
 																href="/getNoriter.do?cm_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>놀이터</span>${board.vs_title}
+																	<span>[ 놀이터 ]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>
@@ -92,7 +86,7 @@
 															<a
 																href="/getShopping.do?cm_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>쇼핑정보</span>${board.vs_title}
+																	<span>[ 쇼핑정보 ]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>

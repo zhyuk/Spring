@@ -41,12 +41,12 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int carttotal(CartVO cvo) {
-		System.out.println("서비스 임플 carttotal");
+//		System.out.println("서비스 임플 carttotal");
 		return cartDAO.carttotal(cvo);
 	}
 	@Override
 	public int insertproduct(CartVO cvo) {
-		System.out.println("서비스 임플 insertproduct");
+//		System.out.println("서비스 임플 insertproduct");
 		return cartDAO.insertproduct(cvo);
 	}
 
@@ -89,6 +89,11 @@ public class CartServiceImpl implements CartService {
 	public int paycomplete(CartVO cvo) {
 		 return cartDAO.paycomplete(cvo);
 		
+	}
+
+	@Override
+	public int cartcount(CartVO cvo) {
+		return cartDAO.cartcount(cvo);
 	}
 
 	

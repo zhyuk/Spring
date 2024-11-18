@@ -1,0 +1,242 @@
+@charset "UTF-8";
+ .payment-page {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+        .cart-container, .payment-form {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .cart-table th, .cart-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .total-price {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        /* 공통 스타일: 이미지 크기 제한 */
+.cart-table img {
+    max-width: 100%; /* 부모 요소 너비에 맞게 조정 */
+    height: auto; /* 비율 유지 */
+}
+        
+        .payment-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+}
+
+.payment-form h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.payment-form .form-group {
+    margin-bottom: 20px;
+}
+
+.payment-form label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.payment-form input[type="text"],
+.payment-form input[type="number"],
+.payment-form input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.payment-form input[type="text"]:focus,
+.payment-form input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.payment-form .address-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.payment-form .address-fields input[type="text"] {
+    width: calc(50% - 5px);
+}
+
+.payment-form #sample4_postcode {
+    width: calc(40% - 5px);
+}
+
+.payment-form #sample4_postcode + input[type="button"] {
+    width: calc(60% - 5px);
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.payment-form #sample4_postcode + input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+.payment-form .total-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-left: 5px;
+}
+
+.payment-form .btn-primary {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.payment-form .btn-primary:hover {
+    background-color: #218838;
+}
+
+.payment-form .text-center {
+    text-align: center;
+}
+
+#agreeButton.agreed{
+	background-color: #28a745;
+	
+}
+
+	
+/* 	모달 */
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+        position: relative;
+    }
+    .close {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .btn-primary.agreed { /* 동의 후 버튼 색상 */
+        background-color: #28a745;
+    }
+    
+    /* 공통 스타일: 이미지 크기 제한 */
+.cart-table img {
+    max-width: 100%; /* 부모 요소 너비에 맞게 조정 */
+    height: auto; /* 비율 유지 */
+}
+
+/* 미디어 쿼리: 화면 너비가 375px 이하일 때 */
+@media (max-width: 375px) {
+    .cart-table {
+        display: block; /* 테이블 스크롤 허용 */
+        overflow-x: auto; /* 가로 스크롤 활성화 */
+    }
+
+    .cart-table img {
+        max-width: 80px; /* 이미지 크기 축소 */
+        height: auto; /* 비율 유지 */
+    }
+
+    .cart-table th, .cart-table td {
+        font-size: 12px; /* 글자 크기 축소 */
+        padding: 5px; /* 패딩 축소 */
+    }
+
+    .cart-container {
+        padding: 10px; /* 컨테이너 패딩 조정 */
+    }
+
+    .payment-form {
+        padding: 15px; /* 결제 폼 패딩 조정 */
+    }
+}
+    
+    
+    
+    
+    
+    
+    

@@ -17,15 +17,18 @@
 						<div class="inner">
 							<form action="/vs_write.do" id="writeForm" method="post" enctype="multipart/form-data">
 								<div class="input-group">
-									<input type="text" id="title" class="inputData" name="vs_title"
-										placeholder="제목입력">
+									<input type="text" id="title" class="inputData" name="vs_title" placeholder="제목입력">
 								</div>
 
 								<div class="input-group">
-									<input type="file" class="inputData" name="vs_img1_file" onchange="readURL(this)">
-									<input type="file" class="inputData" name="vs_img2_file" onchange="readURL(this)">
+									<label for="img1" id="img1-label" class="img-label pointer">이미지 등록</label>
+									<input type="file" id="img1" class="inputData" name="vs_img1_file"
+										accept=".gif, .jpg, .png" onchange="readURL(this)">
+									<label for="img2" id="img2-label" class="img-label pointer">이미지 등록</label>
+									<input type="file" id="img2" class="inputData" name="vs_img2_file"
+										accept=".gif, .jpg, .png" onchange="readURL(this)">
 								</div>
-								
+
 								<div class="preview_box">
 									<div><img id="img1_preview" class="preview_img"></div>
 									<div><img id="img2_preview" class="preview_img"></div>
@@ -38,7 +41,8 @@
 
 								<div class="btn-area">
 									<button type="submit" id="btn" class="pointer">등록</button>
-									<button type="button" class="pointer" onclick="location.href = '/vs_index.do'">취소</button>
+									<button type="button" class="pointer"
+										onclick="location.href = '/vs_index.do'">취소</button>
 								</div>
 							</form>
 						</div>

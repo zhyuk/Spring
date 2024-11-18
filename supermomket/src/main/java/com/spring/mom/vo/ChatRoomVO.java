@@ -13,7 +13,7 @@ public class ChatRoomVO {
 	    private String productName;  // 상품명
 	    private boolean isDeletedSeller;
 	    private boolean isDeletedBuyer;
-	    
+	    private String productImage;
 		public boolean isDeletedSeller() {
 			return isDeletedSeller;
 		}
@@ -22,6 +22,12 @@ public class ChatRoomVO {
 		}
 		public boolean isDeletedBuyer() {
 			return isDeletedBuyer;
+		}
+		public String getProductImage() {
+			return productImage;
+		}
+		public void setProductImage(String productImage) {
+			this.productImage = productImage;
 		}
 		public void setDeletedBuyer(boolean isDeletedBuyer) {
 			this.isDeletedBuyer = isDeletedBuyer;
@@ -85,7 +91,7 @@ public class ChatRoomVO {
 			return "ChatRoomVO [roomId=" + roomId + ", sellerId=" + sellerId + ", buyerId=" + buyerId + ", tNo=" + tNo
 					+ ", createdAt=" + createdAt + ", lastMessage=" + lastMessage + ", sellerNickname=" + sellerNickname
 					+ ", buyerNickname=" + buyerNickname + ", productName=" + productName + ", isDeletedSeller="
-					+ isDeletedSeller + ", isDeletedBuyer=" + isDeletedBuyer + "]";
+					+ isDeletedSeller + ", isDeletedBuyer=" + isDeletedBuyer + ", productImage=" + productImage + "]";
 		}
 
 }

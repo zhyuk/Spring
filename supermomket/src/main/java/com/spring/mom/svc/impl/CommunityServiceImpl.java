@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.spring.mom.dao.CommunityDAO;
 import com.spring.mom.svc.CommunityService;
+import com.spring.mom.vo.Comment_noriterVO;
+import com.spring.mom.vo.Comment_shoppingVO;
+import com.spring.mom.vo.Comment_yookaVO;
 import com.spring.mom.vo.Community_noriterVO;
 import com.spring.mom.vo.Community_shoppingVO;
 import com.spring.mom.vo.Community_yookaVO;
@@ -224,23 +227,104 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.insertUpDownShopping(vo);
 	}
 
+	//관리자 목록 리스트
 	@Override
 	public List<Community_yookaVO> getYookaAdmin(Community_yookaVO vo) {
 		System.out.println("getYookaAdmin svc 입장");
 		return communityDAO.getYookaAdmin(vo);
 	}
-
+	@Override
+	public List<Community_noriterVO> getNoriterAdmin(Community_noriterVO vo) {
+		System.out.println("getNoriterAdmin svc 입장");
+		return communityDAO.getNoriterAdmin(vo);
+	}
+	@Override
+	public List<Community_shoppingVO> getShoppingAdmin(Community_shoppingVO vo) {
+		System.out.println("getShoppingAdmin svc 입장");
+		return communityDAO.getShoppingAdmin(vo);
+	}
+	
+	//관리자 댓글 리스트
+	@Override
+	public List<Comment_yookaVO> getYookaAdminCom(Comment_yookaVO vo) {
+		return communityDAO.getYookaAdminCom(vo);
+	}
+	@Override
+	public List<Comment_noriterVO> getNoriterAdminCom(Comment_noriterVO vo) {
+		return communityDAO.getNoriterAdminCom(vo);
+	}
+	@Override
+	public List<Comment_shoppingVO> getShoppingAdminCom(Comment_shoppingVO vo) {
+		return communityDAO.getShoppingAdminCom(vo);
+	}
+	@Override
+	public List<Comment_yookaVO> getYookaAdminCmno(Comment_yookaVO vo) {
+		System.out.println("service : " + vo);
+		return communityDAO.getYookaAdminCmno(vo);
+	}
+	@Override
+	public List<Comment_noriterVO> getNoriterAdminCmno(Comment_noriterVO vo) {
+		System.out.println("service : " + vo);
+		return communityDAO.getNoriterAdminCmno(vo);
+	}
+	@Override
+	public List<Comment_shoppingVO> getShoppingAdminCmno(Comment_shoppingVO vo) {
+		System.out.println("service : " + vo);
+		return communityDAO.getShoppingAdminCmno(vo);
+	}
+	
+	//관리자 글 수정
 	@Override
 	public int updateYookaAdmin(Community_yookaVO vo) {
 		System.out.println("updateYookaAdmin svc 입장");
 		return communityDAO.updateYookaAdmin(vo);
 	}
+	@Override
+	public int updateNoriterAdmin(Community_noriterVO vo) {
+		System.out.println("updateNoriterAdmin svc 입장");
+		return communityDAO.updateNoriterAdmin(vo);
+	}
+	@Override
+	public int updateShoppingAdmin(Community_shoppingVO vo) {
+		System.out.println("updateShoppingAdmin svc 입장");
+		return communityDAO.updateShoppingAdmin(vo);
+	}
 
+	//관리자 글 삭제
 	@Override
 	public int deleteYookaAdmin(Community_yookaVO vo) {
 		System.out.println("deleteYookaAdmin svc 입장");
 		return communityDAO.deleteYookaAdmin(vo);
 	}
+	@Override
+	public int deleteNoriterAdmin(Community_noriterVO vo) {
+		System.out.println("deleteNoriterAdmin svc 입장");
+		return communityDAO.deleteNoriterAdmin(vo);
+	}
+	@Override
+	public int deleteShoppingAdmin(Community_shoppingVO vo) {
+		System.out.println("deleteShoppingAdmin svc 입장");
+		return communityDAO.deleteShoppingAdmin(vo);
+	}
+	
+	//관리자 댓글 삭제
+	@Override
+	public int deleteYookaComDel(Comment_yookaVO vo) {
+		System.out.println("deleteYookaComDel svc 입장");
+		return communityDAO.deleteYookaComDel(vo);
+	}
+	@Override
+	public int deleteNoriterComDel(Comment_noriterVO vo) {
+		System.out.println("deleteNoriterComDel svc 입장");
+		return communityDAO.deleteNoriterComDel(vo);
+	}
+	@Override
+	public int deleteShoppingComDel(Comment_shoppingVO vo) {
+		System.out.println("deleteShoppingComDel svc 입장");
+		return communityDAO.deleteShoppingComDel(vo);
+	}
+
+	
 	
 }
 

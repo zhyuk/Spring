@@ -18,6 +18,8 @@ public interface CartService {
 	
 	int insertproduct(CartVO cvo);
 	
+	int cartcount(CartVO cvo);
+	
 	int paycomplete(CartVO cvo);
 	
 	void preparinsertcart(CartVO cvo);

@@ -186,4 +186,14 @@ public class CommentServiceImpl implements CommentService {
 //		System.out.println("전체 댓글수 Impl: " + vo);
 		return commentDAO.replyCntYooka(vo);
 	}
+	@Override
+	public int replyCntNoriter(Comment_noriterVO vo) {
+//		System.out.println("전체 댓글수 Impl: " + vo);
+		return commentDAO.replyCntNoriter(vo);
+	}
+	@Override
+	public int replyCntShopping(Comment_shoppingVO vo) {
+//		System.out.println("전체 댓글수 Impl: " + vo);
+		return commentDAO.replyCntShopping(vo);
+	}
 }

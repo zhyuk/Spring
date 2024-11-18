@@ -40,14 +40,14 @@
 								<div class="clear"></div>
 
 								<table>
-									<thead>
-										<tr>
-											<th>번호</th>
-											<th>제목</th>
-											<th class="mobile-hide">작성자</th>
-											<th>작성일자</th>
-										</tr>
-									</thead>
+<!-- 									<thead> -->
+<!-- 										<tr> -->
+<!-- 											<th>번호</th> -->
+<!-- 											<th>제목</th> -->
+<!-- 											<th class="mobile-hide">작성자</th> -->
+<!-- 											<th>작성일자</th> -->
+<!-- 										</tr> -->
+<!-- 									</thead> -->
 									<tbody>
 										<c:forEach items="${boardList}" var="board">
 											<tr onclick="selBoard(${board.vs_no}, '${searchCondition}', '${searchKeyword}', ${paging.nowPage})"

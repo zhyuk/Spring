@@ -18,6 +18,7 @@
         }
 
 
+
 //FAQ 유저 리스트 js
 document.addEventListener('DOMContentLoaded', function() {
     const faqRows = document.querySelectorAll('.faq-row');
@@ -49,48 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function faqselTr(val){
 	location.href = "getFaq.do?faq_no="+val;
 }
-
-
-
-
- // FAQ 어드민 삭제 
-$(document).ready(function(){ 
-	var modal = $("#confirmModal"); // 모달
-	var confirmBtn = $("#confirmDeleteBtn"); // 확인 버튼
-	var cancelBtn = $("#cancelDeleteBtn"); // 취소 버튼
-	var closeBtn = $(".close"); // 모달 닫기 버튼
-  
-
-	
-	$("#faq_conList").click(function(){
-		location.href = "getFaqAdminList.do";
-	});
-	
-	// 삭제 버튼 클릭 시 모달 띄우기
-  $("#faq_conDel").click(function(e){
-    e.preventDefault(); // 기본 동작인 링크 이동을 막음
-    
-    // 모달을 띄움
-    modal.show();
-    
-    // 확인 버튼 클릭 시 삭제 처리
-    confirmBtn.click(function(){
-      let v = document.fm.faq_no.value; // faq_no 값 가져오기
-      location.href = "deletefaq.do?faq_no=" + v; // 삭제 요청
-    });
-    
-    // 취소 버튼 클릭 시 모달 닫기
-    cancelBtn.click(function(){
-      modal.hide(); // 모달 숨기기
-    });
-
-    // 모달 닫기 버튼 클릭 시 모달 숨기기
-    closeBtn.click(function(){
-      modal.hide();
-    });
-    
-  });
-});
-	function insertbtn(){
+function insertbtn(){
 	location.href = "insertfaq.do";
 }
+function listbtn(){
+	location.href = "getFaqAdminList.do";
+}
+
+
+
+

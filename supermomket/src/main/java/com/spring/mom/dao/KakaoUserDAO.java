@@ -13,7 +13,7 @@ public class KakaoUserDAO {
     private SqlSession sqlSession;
 
     // 사용자 ID로 사용자 조회
-    public UserVO getUserById(String userId) {
+    public UserVO getUserById(Long userId) {
         return sqlSession.selectOne("KakaoUserMapper.getUserById", userId);
     }
 

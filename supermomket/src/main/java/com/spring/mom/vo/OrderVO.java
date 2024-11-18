@@ -17,23 +17,88 @@ public class OrderVO {
 		private	String o_address;
 		private String o_receiver;
 		private String paid_at;
+		private String merchant_uid;
+		private String imp_uid;
+		private String buyer_email;
 		
 		/* 주문상세테이블 */
 		private int p_no;
+		private int p_total;
 		private int p_price;
 		private int p_count;
-		private String p_option;
-		private String Merchant_uid;
-		private String Imp_uid;
-		
-		/* 상품테이블 */
 	    private String p_name;
 	    private String p_img;
 	    
 	    
+	    private String c_payment;
+	    
+//	    페이징
+		private String searchCondition;
+		private String searchKeyword;
+		private String searchClass;
+
+		private int start;
+		private int listcnt;
+
 	    
 	    
-	    public int getC_no() {
+	    
+	    
+	    public String getSearchCondition() {
+			return searchCondition;
+		}
+		public void setSearchCondition(String searchCondition) {
+			this.searchCondition = searchCondition;
+		}
+		public String getSearchKeyword() {
+			return searchKeyword;
+		}
+		public void setSearchKeyword(String searchKeyword) {
+			this.searchKeyword = searchKeyword;
+		}
+		public String getSearchClass() {
+			return searchClass;
+		}
+		public void setSearchClass(String searchClass) {
+			this.searchClass = searchClass;
+		}
+		public int getStart() {
+			return start;
+		}
+		public void setStart(int start) {
+			this.start = start;
+		}
+		public int getListcnt() {
+			return listcnt;
+		}
+		public void setListcnt(int listcnt) {
+			this.listcnt = listcnt;
+		}
+		public int getP_price() {
+			return p_price;
+		}
+		public void setP_price(int p_price) {
+			this.p_price = p_price;
+		}
+		public int getP_total() {
+			return p_total;
+		}
+		public void setP_total(int p_total) {
+			this.p_total = p_total;
+		}
+		public String getC_payment() {
+			return c_payment;
+		}
+		public void setC_payment(String c_payment) {
+			this.c_payment = c_payment;
+		}
+		public String getBuyer_email() {
+			return buyer_email;
+		}
+		public void setBuyer_email(String buyer_email) {
+			this.buyer_email = buyer_email;
+		}
+		public int getC_no() {
 	    	return c_no;
 	    }
 	    public void setC_no(int c_no) {
@@ -47,16 +112,16 @@ public class OrderVO {
 			this.paid_at = paid_at;
 		}
 		public String getMerchant_uid() {
-			return Merchant_uid;
+			return merchant_uid;
 		}
 		public void setMerchant_uid(String merchant_uid) {
-			Merchant_uid = merchant_uid;
+			this.merchant_uid = merchant_uid;
 		}
 		public String getImp_uid() {
-			return Imp_uid;
+			return imp_uid;
 		}
 		public void setImp_uid(String imp_uid) {
-			Imp_uid = imp_uid;
+			this.imp_uid = imp_uid;
 		}
 		
 		public String getU_id() {
@@ -137,23 +202,12 @@ public class OrderVO {
 		public void setP_no(int p_no) {
 			this.p_no = p_no;
 		}
-		public int getP_price() {
-			return p_price;
-		}
-		public void setP_price(int p_price) {
-			this.p_price = p_price;
-		}
+		
 		public int getP_count() {
 			return p_count;
 		}
 		public void setP_count(int p_count) {
 			this.p_count = p_count;
-		}
-		public String getP_option() {
-			return p_option;
-		}
-		public void setP_option(String p_option) {
-			this.p_option = p_option;
 		}
 		public String getP_name() {
 			return p_name;
@@ -174,10 +228,12 @@ public class OrderVO {
 					+ ", o_total_price=" + o_total_price + ", o_total_cnt=" + o_total_cnt + ", o_cancel_yn="
 					+ o_cancel_yn + ", o_input_date=" + o_input_date + ", o_update_date=" + o_update_date
 					+ ", o_status=" + o_status + ", o_delete_yn=" + o_delete_yn + ", o_pay_type=" + o_pay_type
-					+ ", o_address=" + o_address + ", o_receiver=" + o_receiver + ", paid_at=" + paid_at + ", p_no="
-					+ p_no + ", p_price=" + p_price + ", p_count=" + p_count + ", p_option=" + p_option
-					+ ", Merchant_uid=" + Merchant_uid + ", Imp_uid=" + Imp_uid + ", p_name=" + p_name + ", p_img="
-					+ p_img + "]";
+					+ ", o_address=" + o_address + ", o_receiver=" + o_receiver + ", paid_at=" + paid_at
+					+ ", merchant_uid=" + merchant_uid + ", imp_uid=" + imp_uid + ", buyer_email=" + buyer_email
+					+ ", p_no=" + p_no + ", p_total=" + p_total + ", p_price=" + p_price + ", p_count=" + p_count
+					+ ", p_name=" + p_name + ", p_img=" + p_img + ", c_payment=" + c_payment + ", searchCondition="
+					+ searchCondition + ", searchKeyword=" + searchKeyword + ", searchClass=" + searchClass + ", start="
+					+ start + ", listcnt=" + listcnt + "]";
 		}
 	    
 	    

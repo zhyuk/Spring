@@ -19,7 +19,13 @@ public class ChatServiceImpl implements ChatService {
     @Autowired
     private ChatDAOMybatis chatDAO;
     
-    // roomId 타입을 int로 변경하고 chatDAO 사용
+    
+    @Override
+    public int getChatRoomCountByTradeNo(int tNo) {
+        return chatDAO.getChatRoomCountByTradeNo(tNo);
+    }
+    
+    
     public boolean markRoomAsDeleted(int roomId, String userId) {
         ChatRoomVO room = chatDAO.getChatRoom(roomId);
         if (room == null) {

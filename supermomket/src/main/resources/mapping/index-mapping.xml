@@ -35,4 +35,9 @@
 	<select id="getUserListAdmin" resultType="user">
 		select * from user order by u_date desc limit 5;
 	</select>
+	
+	<!-- 차트에 들어갈 사용자 수 가져오기 -->
+	<select id="getChartAdmin" resultType="user">
+		select u_date, count(*) as u_count from user group by u_date;
+	</select>
 </mapper>

@@ -6,6 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.mom.vo.Comment_noriterVO;
+import com.spring.mom.vo.Comment_shoppingVO;
+import com.spring.mom.vo.Comment_yookaVO;
 import com.spring.mom.vo.Community_noriterVO;
 import com.spring.mom.vo.Community_shoppingVO;
 import com.spring.mom.vo.Community_yookaVO;
@@ -227,19 +230,85 @@ public class CommunityDAO {
 			return mybatis.update("CommunityDAO.updateUpDownShopping", vo);
 		}
 	}
-	
+	//관리자 목록 리스트
 	public List<Community_yookaVO> getYookaAdmin(Community_yookaVO vo){
-		System.out.println("getYookaAdmin dao 입장");
+//		System.out.println("getYookaAdmin dao 입장");
 		return mybatis.selectList("CommunityDAO.getYookaAdmin",vo);
 	}
+	public List<Community_noriterVO> getNoriterAdmin(Community_noriterVO vo){
+//		System.out.println("getYookaAdmin dao 입장");
+		return mybatis.selectList("CommunityDAO.getNoriterAdmin",vo);
+	}
+	public List<Community_shoppingVO> getShoppingAdmin(Community_shoppingVO vo){
+//		System.out.println("getYookaAdmin dao 입장");
+		return mybatis.selectList("CommunityDAO.getShoppingAdmin",vo);
+	}
 	
+	//관리자 댓글 리스트
+	public List<Comment_yookaVO> getYookaAdminCom(Comment_yookaVO vo){
+//		System.out.println("getYookaAdminCom dao 입장");
+		return mybatis.selectList("CommunityDAO.getYookaAdminCom",vo);
+	}
+	public List<Comment_noriterVO> getNoriterAdminCom(Comment_noriterVO vo){
+//		System.out.println("getYookaAdminCom dao 입장");
+		return mybatis.selectList("CommunityDAO.getNoriterAdminCom",vo);
+	}
+	public List<Comment_shoppingVO> getShoppingAdminCom(Comment_shoppingVO vo){
+//		System.out.println("getYookaAdminCom dao 입장");
+		return mybatis.selectList("CommunityDAO.getShoppingAdminCom",vo);
+	}
+	
+	//해당 글번호의 댓글리스트
+	public List<Comment_yookaVO> getYookaAdminCmno(Comment_yookaVO vo){
+//		System.out.println("getYookaAdminCmno dao 입장 : " + vo);
+		return mybatis.selectList("CommunityDAO.getYookaAdminCmno",vo);
+	}
+	public List<Comment_noriterVO> getNoriterAdminCmno(Comment_noriterVO vo){
+//		System.out.println("getYookaAdminCmno dao 입장 : " + vo);
+		return mybatis.selectList("CommunityDAO.getNoriterAdminCmno",vo);
+	}
+	public List<Comment_shoppingVO> getShoppingAdminCmno(Comment_shoppingVO vo){
+//		System.out.println("getYookaAdminCmno dao 입장 : " + vo);
+		return mybatis.selectList("CommunityDAO.getShoppingAdminCmno",vo);
+	}
+	
+	//관리자 글 수정
 	public int updateYookaAdmin(Community_yookaVO vo) {
-		System.out.println("updateYookaAdmin dao 입장");
+		System.out.println("updateYookaAdmin dao 입장 : " + vo);
 		return mybatis.update("CommunityDAO.updateYookaAdmin", vo);
 	}
-
+	public int updateNoriterAdmin(Community_noriterVO vo) {
+		System.out.println("updateNoriterAdmin dao 입장 : " + vo);
+		return mybatis.update("CommunityDAO.updateNoriterAdmin", vo);
+	}
+	public int updateShoppingAdmin(Community_shoppingVO vo) {
+		System.out.println("updateShoppingAdmin dao 입장 : " + vo);
+		return mybatis.update("CommunityDAO.updateShoppingAdmin", vo);
+	}
+	//관리자 글 삭제
 	public int deleteYookaAdmin(Community_yookaVO vo) {
-		System.out.println("deleteYookaAdmin dao 입장");
+//		System.out.println("deleteYookaAdmin dao 입장");
 		return mybatis.delete("CommunityDAO.deleteYookaAdmin", vo);
+	}
+	public int deleteNoriterAdmin(Community_noriterVO vo) {
+//		System.out.println("deleteYookaAdmin dao 입장");
+		return mybatis.delete("CommunityDAO.deleteNoriterAdmin", vo);
+	}
+	public int deleteShoppingAdmin(Community_shoppingVO vo) {
+//		System.out.println("deleteYookaAdmin dao 입장");
+		return mybatis.delete("CommunityDAO.deleteShoppingAdmin", vo);
+	}
+	//관리자 댓글 삭제
+	public int deleteYookaComDel(Comment_yookaVO vo) {
+//		System.out.println("deleteYookaAdmin dao 입장");
+		return mybatis.delete("CommunityDAO.deleteYookaComDel", vo);
+	}
+	public int deleteNoriterComDel(Comment_noriterVO vo) {
+//		System.out.println("deleteYookaAdmin dao 입장");
+		return mybatis.delete("CommunityDAO.deleteNoriterComDel", vo);
+	}
+	public int deleteShoppingComDel(Comment_shoppingVO vo) {
+//		System.out.println("deleteYookaAdmin dao 입장");
+		return mybatis.delete("CommunityDAO.deleteShoppingComDel", vo);
 	}
 }
