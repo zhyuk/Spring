@@ -103,8 +103,8 @@
 	<select id="getBuyList" resultType="orderlist">
        SELECT A.C_NO 
             , A.O_TOTAL_PRICE
-            , A.O_TOTAL_CNT  
-            , DATE_FORMAT(A.O_INPUT_DATE, '%Y-%m-%d') AS O_INPUT_DATE 
+            , (SELECT SUM(P_COUNT) FROM O_DETAIL WHERE MERCHANT_UID = A.MERCHANT_UID) AS O_TOTAL_CNT
+            , DATE_FORMAT(A.O_INPUT_DATE, '%Y-%m-%d') AS O_INPUT_DATE
             , A.MERCHANT_UID
             , A.O_STATUS
             , A.O_CANCEL_YN
@@ -119,7 +119,7 @@
                        WHERE 1=1
                          and C.P_NO = B.P_NO 
 							    LIMIT 1)
-                     , ' 외', A.O_TOTAL_CNT, '건') AS P_NAME
+                     , ' 외') AS P_NAME
         FROM ORDERLIST A JOIN O_DETAIL B ON A.C_NO = B.C_NO
        WHERE A.U_ID = #{u_id}
          AND IFNULL(A.O_DELETE_YN, '결제취소') = 'N'
@@ -129,45 +129,45 @@
 	
 	<!-- 주문 상세 페이지(사용자) -->
 	<select id="getBuyListDetail" resultType="orderlist">
-	 	SELECT    
-		          A.MERCHANT_UID
-		        , MAX(A.O_TOTAL_PRICE) AS O_TOTAL_PRICE
-		        , SUM(B.P_COUNT) AS O_TOTAL_CNT
-		        , MAX(DATE_FORMAT(A.O_INPUT_DATE, '%Y-%m-%d')) AS O_INPUT_DATE
-		        , MAX(A.O_STATUS) AS O_STATUS
-		        , MAX(A.O_CANCEL_YN) AS O_CANCEL_YN
-		        , B.P_NO
-		        , MAX((SELECT C.P_NAME 
-			             FROM PRODUCT C 
-				         WHERE C.P_NO = B.P_NO
-				         LIMIT 1)) AS P_NAME
-			     , MAX((SELECT C.P_IMG 
-					       FROM PRODUCT C 
-					      WHERE C.P_NO = B.P_NO
-					      LIMIT 1)) AS P_IMG
-			     , MAX(A.O_STATUS) AS O_STATUS
-			     , MAX(A.O_PAY_TYPE) AS O_PAY_TYPE
-			     , MAX(A.O_ADDRESS) AS O_ADDRESS
-		        , MAX(A.O_RECEIVER) AS O_RECEIVER
-		        , MAX(A.O_RECEIVER_CONTACT) AS O_RECEIVER_CONTACT
-		        , MAX(B.P_COUNT) AS P_COUNT
-		        , MAX(B.P_TOTAL) AS P_TOTAL
-				  , MAX(CASE WHEN
-				   			(SELECT COUNT(1) 
-					           FROM REVIEW C
-							  WHERE 1=1
-							   AND C.MERCHANT_UID = A.MERCHANT_UID
-							   AND C.C_NO = B.P_NO
-							   AND C.C_ID = A.U_ID
-							   AND IFNULL(C.C_DELETE,'N') = 'N'
-							 ) > 0 THEN 'Y' ELSE 'N' END) AS P_REVIEW_YN
-		        
-	    FROM ORDERLIST A 
-	     JOIN O_DETAIL B ON A.MERCHANT_UID = B.MERCHANT_UID
-	    WHERE A.U_ID = #{u_id}
-	      AND IFNULL(A.O_DELETE_YN, 'N') = 'N'
-	      AND A.MERCHANT_UID = #{merchant_uid}
-	    GROUP BY A.MERCHANT_UID, B.P_NO
+		 SELECT    
+		    A.MERCHANT_UID,
+		    MAX(A.O_TOTAL_PRICE) AS O_TOTAL_PRICE,
+		    SUM(B.P_COUNT) AS O_TOTAL_CNT,
+		    MAX(DATE_FORMAT(A.O_INPUT_DATE, '%Y-%m-%d')) AS O_INPUT_DATE,
+		    MAX(A.O_STATUS) AS O_STATUS,
+		    MAX(A.O_CANCEL_YN) AS O_CANCEL_YN,
+		    B.P_NO,
+		    MAX(C.P_NAME) AS P_NAME,
+		    MAX(C.P_IMG) AS P_IMG,
+		    MAX(A.O_PAY_TYPE) AS O_PAY_TYPE,
+		    MAX(A.O_ADDRESS) AS O_ADDRESS,
+		    MAX(A.O_RECEIVER) AS O_RECEIVER,
+		    MAX(A.O_RECEIVER_CONTACT) AS O_RECEIVER_CONTACT,
+		    MAX(B.P_COUNT) AS P_COUNT,
+		    MAX(B.P_TOTAL) AS P_TOTAL,
+		    MAX(CASE 
+		        WHEN 
+		            (SELECT COUNT(1) 
+		             FROM REVIEW C
+		             WHERE C.C_NO = B.P_NO
+		               AND C.C_ID = A.U_ID
+		               AND IFNULL(C.C_DELETE, 'N') = 'N') > 0 
+		        THEN 'Y' 
+		        ELSE 'N' 
+		    END) AS P_REVIEW_YN
+		FROM 
+		    ORDERLIST A 
+		JOIN 
+		    O_DETAIL B ON A.MERCHANT_UID = B.MERCHANT_UID
+		LEFT JOIN 
+		    PRODUCT C ON C.P_NO = B.P_NO
+		WHERE 
+		    A.U_ID = #{u_id}
+		    AND IFNULL(A.O_DELETE_YN, 'N') = 'N'
+		    AND A.MERCHANT_UID = #{merchant_uid}
+		GROUP BY 
+		    A.MERCHANT_UID, B.P_NO;
+
 	</select>
 	
 	

@@ -48,12 +48,10 @@ public class AdminController {
 
 	@GetMapping("/admin_index.do")
 	public String adminIndex(Community_vsVO CommunityVo, ProductVO productVO, UserVO userVO,HttpSession session, Model model) {
-//		System.out.println("admin 로그인완료");
 
 		model.addAttribute("boardList" , svc.getCommunityList(CommunityVo));
 		model.addAttribute("productList", svc.getProductListAdmin(productVO));
 		model.addAttribute("userList", svc.getUserListAdmin(userVO));
-		model.addAttribute("chartList", svc.getChartAdmin(userVO));
 		return "admin/index";
 	}
 	

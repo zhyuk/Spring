@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,7 @@
         }
 
         .admin-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -159,9 +159,25 @@
     width: auto;              
     white-space: nowrap;        
 }
+.trade-table td.a {  
+    max-width: 200px; 
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.trade-table td.b {
+    max-width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
     </style>
 </head>
 <body>
+<%@ include file="menu.jsp" %>
     <div class="admin-container">
         <div class="admin-header">
             <h1 class="admin-title">중고거래 관리</h1>
@@ -225,14 +241,14 @@
                                  alt="상품이미지" 
                                  style="width: 50px; height: 50px; object-fit: cover;">
                         </td>
-                        <td>${trade.t_product}</td>
+                        <td class="a">${trade.t_product}</td>
                         <td><fmt:formatNumber value="${trade.t_price}" pattern="#,###"/>원</td>
                         <td>${trade.t_writer}</td>
                         <td>${trade.t_class}</td>
                         <td>
   <span class="status-badge status-${trade.t_status.toLowerCase()}">${trade.t_status}</span>
 </td>
-                        <td>${trade.t_date}</td>
+                        <td class="b">${trade.t_date}</td>
                         <td>${trade.t_cnt}</td>
                         <td>
                             <button class="admin-btn detail-btn" onclick="viewDetail(${trade.t_no})">상세</button>

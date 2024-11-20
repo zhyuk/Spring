@@ -56,13 +56,10 @@
 				<c:if test="${userId ne null }">
 					<div class="userInfo-box m-hide">
 						<p>
-							<%=session.getAttribute("userNickname")%>
-								님
+							<%=session.getAttribute("userNickname")%> 님
 						</p>
-						<button class="login-menu">
-							<a href="cartList.do?c_payment=ready"> <i class="fa-solid fa-cart-shopping"></i>
+							<a href="cartList.do?c_payment=ready"><i class="fa-solid fa-cart-shopping"></i>
 							</a>
-						</button>
 					</div>
 				</c:if>
 			</nav>

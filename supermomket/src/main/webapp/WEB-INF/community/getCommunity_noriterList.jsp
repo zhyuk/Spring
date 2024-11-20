@@ -5,13 +5,28 @@
 
 
 <style>
+
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1{
+	font-family: 'yg-jalnan' ;
+	text-align: center;
+	}
 #searchNav {
 	-webkit-justify-content: flex-end;
 	justify-content: flex-end;
 }
 
+.form-inline {
+	border-bottom: 1px solid #aaa;
+}
 button {
-	background-color: #FFD26E;
+	background-color: #FFDE95;
 	border: none;
 	padding: 3px;
 	border-radius: 5px;
@@ -22,11 +37,13 @@ button {
 }
 
 .pagination {
-	margin-top : 30px;
+	margin-top: 30px;
 	justify-content: center;
 }
 
 table, th, td, tr {
+	height: 50px;
+	font-size: 18px;
 	border-bottom: 1px solid #000;
 	border-collapse: collapse;
 	text-align: center;
@@ -36,12 +53,13 @@ input[type="text"] {
 	border: none;
 	outline: none;
 }
+
 .no {
 	width: 70px;
 }
 
 table th {
-	background-color: #FFD26E;
+	background-color: #FFDE95;
 }
 
 .table-responsive {
@@ -59,55 +77,77 @@ table th, table td {
 	text-align: center;
 }
 
-.NoriterMain {
+.YookaMain {
 	margin: 0 auto;
 }
 
 .selectm {
-	height: 30px;
+	height: 40px;
 	padding: 0 5px;
-	border: solid 1px var(--color-main);
+	border: solid 1px #ddd;
+	border-radius: 4px;
 }
 
 .searchKeyword {
-	text-align: center;
+	text-align: right;
 	width: 100%;
 }
 
 .searchKeyword button {
-	height: 30px;
+	height: 40px;
 	padding: 0 10px;
 	border-radius: 10px;
 }
 
 .searchKeyword button[type="button"] {
-	margin-top: 10px;
+	margin-left: 20px;
 	margin-bottom: 10px;
 	float: right;
 }
-
+.searchKeyword button[type="submit"] {
+    border: 1px solid #ddd;
+    height: 40px;
+    border-left: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    padding: 10px 10px 10px 40px;
+    font-size: 16px;
+    border-left: none;
+    cursor: pointer;
+    background-color: #fff;
+    float: right;
+    border-radius: 0px 4px 4px 0px;
+	margin-bottom: 10px;
+	float: right;
+	background-image: url(https://cdn-icons-png.flaticon.com/512/622/622669.png);
+}
 .searchKeyword input[name="searchKeyword"] {
-	width: 60%;
-	height: 30px;
-	border: solid 1px var(--color-main);
-	margin-bottom: 10px;	
+	width: 20%;
+	height: 40px;
+	border: solid 1px #ddd;
+	margin-bottom: 10px;
+	border-radius: 4px 0 0 4px;
 }
 
-.pc-v, .m-v{
-	margin:0;
-	display: none;
+.m-v {
+	margin-top: 0;
 }
 
 .detail-box {
 	font-size: 18px;
 	width: 1200px;
-	margin: 0 auto; 
+	height: 120px;
+	margin: 0 auto;
 	flex-direction: column;
 	padding: 10px 15px;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	background-color: #f9f9f9;
+	background-color: #fff;
+	border-bottom: 1px solid #aaa;
 	display: flex;
+}
+
+.info12 {
+	margin-top: auto;
 }
 
 .category-title {
@@ -120,15 +160,15 @@ table th, table td {
 .detail-box .category {
 	font-weight: bold;
 	color: #007bff;
-	margin-bottom: 5px;
 }
 
 .detail-box .title {
+	font-size: 20px;
 	font-weight: bold;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: calc(100% - 50px);
+	max-width: calc(100% - 100px);
 }
 
 .detail-box .info12 {
@@ -137,32 +177,47 @@ table th, table td {
 	gap: 10px;
 	color: #666;
 }
+h1{
+	text-align: center;
+	margin-top: 20px;
+	
+}
 
 .detail-box .info12 span {
 	white-space: nowrap;
 }
 
-.titleflow{
+.titleflow {
 	display: inline-block;
-    max-width: 500px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-@media screen and (min-width: 426px) {
-	.pc-v {
-		display: block;
-	}
+	max-width: 500px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
+.comCnt {
+	color: red;
+	font-size: 24px;
+}
+
+span.writer{
+	font-weight: 900;
+}
+
+
 @media screen and (max-width: 425px) {
-	.m-v {
-		display: block;
-	}
-	
-	.detail-box{
+	.detail-box {
+		margin-top: 100px;
 		width: 100%;
+		height: 70px;
 		font-size: 14px;
+		margin: 0 auto;
+		flex-direction: column;
+		padding: 10px 15px;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		background-color: #f9f9f9;
+		display: flex;
 	}
 	table {
 		width: 100%;
@@ -174,6 +229,10 @@ table th, table td {
 		word-wrap: break-word;
 		border: 1px solid #ddd;
 	}
+	
+	.form-inline{
+		border-bottom: none;
+	}	
 	table th:nth-child(2), table td:nth-child(2) {
 		width: 50%;
 	}
@@ -196,113 +255,28 @@ table th, table td {
 	.NoriterMain {
 		width: 100%;
 	}
+	.writer {
+		font-weight: 900;
+	}
+	.detail-box .title, .comCnt {
+		font-size: 14px;
+	}
+	.searchKeyword {
+		margin-bottom: 0;
+	}
+	.searchKeyword input[name="searchKeyword"]{
+		width: 40%;
+	}
+}
 }
 </style>
 
 <body>
 	<%@ include file="../view/menu.jsp"%>
-	<main class="pc-v">
-		<section>
-			<div class="NoriterMain">
-				<br> <br>
-				<div >
-					<nav id="" class="">
-						<form class="form-inline" action="getCommunity_noriterList.do"
-							method="post">
-							<div class="searchKeyword">
-								<select class="selectm" id="sel1" name="searchCondition">
-									<c:forEach items="${conditionMap}" var="condition">
-										<option value="${condition.value}">${condition.key}</option>
-									</c:forEach>
-								</select> <input class="" type="text" name="searchKeyword"
-									placeholder="검색어를 입력하세요.">
-								<button type="submit">검색</button>
-								<button type="button" id="conWrite" class="">글쓰기</button>
-							</div>
-						</form>
-					</nav>
-
-					<table class="tableNoriter">
-						<tr style="background-color: #FFFFFF;">
-							<th>번호</th>
-							<th style="width: 550px;">제목</th>
-							<th>작성자</th>
-							<th>등록일</th>
-							<th>조회수</th>
-							<th>추천</th>
-							<th>비추천</th>
-						</tr>
-						<tbody>
-							<c:forEach items="${noriterList}" var="noriterList">
-								<tr
-									onclick="noriterList(${noriterList.cm_no}, '${searchCondition}', '${searchKeyword}', ${paging.nowPage})"
-									style="cursor: pointer; border-bottom: 1px solid #fff;">
-									<td class="tdCenter">${noriterList.cm_no}</td>
-									<td class="title" style="text-align: left;">
-										<span class="titleflow">${noriterList.cm_title}</span> 
-										<span class="titleflow" style="color: red; font-style: bold;">[${noriterList.cot_cnt}]</span>
-									</td>
-									<td class="tdCenter">${noriterList.cm_writer}</td>
-									<td class="tdCenter">${noriterList.cm_date}</td>
-									<td class="tdCenter">${noriterList.cm_view}</td>
-									<td class="tdCenter">${noriterList.likecnt}</td>
-									<td class="tdCenter">${noriterList.hatecnt}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<div class="m-v">
-						<c:forEach items="${noriterList}" var="noriterList">
-							<div class="detail-box">
-								<div class="category-title">
-									<div class="category">[놀이터]</div>
-									<div class="title">${noriterList.cm_title}</div>
-								</div>
-								<div class="info12">
-									<span class="writer">${noriterList.cm_writer}</span> <span
-										class="comments">조회: ${noriterList.cm_view}</span> <span
-										class="views">추천: ${noriterList.likecnt}</span> <span class="likes">비추천:
-										${noriterList.hatecnt}</span> <span class="date">${noriterList.cm_date}</span>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-
-
-					<ul class="pagination">
-						<c:if
-							test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
-							<li class="page-item"><a class="page-link"
-								href="getCommunity_noriterList.do?nowPage=${paging.nowPage-1}">&lt;&lt;</a></li>
-						</c:if>
-						<c:forEach var="i" begin="${paging.startBtn}"
-							end="${paging.endBtn}" step="1">
-							<c:choose>
-								<c:when test="${paging.nowPage==i}">
-									<li class=""><a class="page-link">${i}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class=""><a class="page-link"
-										href="getCommunity_noriterList.do?nowPage=${i}">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if
-							test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
-							<li class=""><a class="page-link"
-								href="getCommunity_noriterList.do?nowPage=${paging.nowPage+1}">&gt;&gt;</a></li>
-						</c:if>
-					</ul>
-
-					<br> <br>
-				</div>
-			</div>
-		</section>
-	</main>
 	<main class="m-v">
 	<section>
 			<div class="NoriterMain">
-				<br> <br>
+			<h1>놀이터</h1>
 				<div style="margin: 5px;">
 					<nav id="" class="">
 						<form class="form-inline" action="getCommunity_noriterList.do"
@@ -314,8 +288,8 @@ table th, table td {
 									</c:forEach>
 								</select> <input class="" type="text" name="searchKeyword"
 									placeholder="검색어를 입력하세요.">
-								<button type="submit">검색</button>
-								<button type="button" id="conWrite" class="">글쓰기</button>
+								<button type="button" id="conWrite">글쓰기</button>
+								<button type="submit"></button>
 							</div>
 						</form>
 					</nav>
@@ -326,6 +300,7 @@ table th, table td {
 								<div class="category-title">
 									<div class="category">[놀이터]</div>
 									<div class="title">${noriterList.cm_title}</div>
+									<span class="comCnt">[${noriterList.cot_cnt }]</span>
 								</div>
 								<div class="info12">
 									<span class="writer">${noriterList.cm_writer}</span> <span
@@ -368,12 +343,5 @@ table th, table td {
 			</div>
 		</section>
 	</main>
-	<script>
-	if (window.innerWidth <= 425) {
-	    document.div.classList.add('m-v');
-	} else {
-	    document.div.classList.add('pc-v');
-	}
-	</script>
 	</div>
 </body>

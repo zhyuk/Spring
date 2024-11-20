@@ -4,10 +4,35 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../admin/header.jsp"%>
 <head>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/community_vs.css">
-</head>
 <style>
+#scrollTopBtn {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 50px;
+	height: 50px;
+	background-color: rgba(255, 255, 255, 0.5);
+	color: black;
+	border-radius: 50%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	transition: opacity 0.3s, transform 0.3s;
+}
+
+#scrollTopBtn:hover {
+	opacity: 0.8;
+	transform: scale(1.1);
+}
+
+#scrollTopBtn:active {
+	transform: scale(0.9);
+}
+
 .modal {
 	position: fixed;
 	top: 0;
@@ -21,6 +46,9 @@
 	z-index: 1000;
 }
 
+h1 {
+	font-size: 30px;
+}
 .hideCom {
 	background-color: #fff;
 	width: 80%;
@@ -32,11 +60,21 @@
 	position: relative;
 }
 
+.modaltable{
+background-color: #fff;
+	width: 80%;
+	max-width: 800px;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1001;
+	position: relative;
+}
 #closeModal {
 	position: absolute;
 	top: 10px;
-	right: 10px;
-	font-size: 24px;
+	right: 25px;
+	font-size: 35px;
 	color: #333;
 	cursor: pointer;
 	font-weight: bold;
@@ -57,18 +95,37 @@
 	font-weight: bold;
 }
 
+table, tr, td, th{
+	height: 56px;
+}
+
+
 .hideContent {
 	display: none;
 }
 
-.inner tr {
-	height: 20px !important;
-}
 
 .cm_no {
 	width: 50px;
 }
 
+.admin_table{
+	background-color: #f4f4f4;
+}
+
+.inner tr {
+	height: 56px !important;
+}
+
+button{
+	padding: 0 10px;
+}
+
+.inner table button{
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+}
 section#admin .button_list, 
 section#admin1 .button_list {
     float: right;
@@ -79,6 +136,9 @@ section#admin .button_list button,
 section#admin1 .button_list button {
     width: 55px;
     height: 30px;
+    border-radius: 5px;
+	background-color: black;
+	color: white;
 }
 
 section#admin div.inner table, 
@@ -95,7 +155,7 @@ section#admin div.inner table tr td,
 section#admin1 div.inner table tr,
 section#admin1 div.inner table tr th,
 section#admin1 div.inner table tr td {
-    border: solid 1px black;
+    border: solid 1px #e3e3e3;
 }
 
 section#admin div.inner table tr:nth-of-type(1), 
@@ -119,11 +179,17 @@ section#admin1 div.inner table tr td > input[type=text], section#admin1 div.inne
 	font-size: 16px;
 }
 
-section#admin div.inner table tr td input[type=text], 
-section#admin1 div.inner table tr td input[type=text] {
+section#admin div.inner table tr td input[type=text] 
+ {	
+ 	height: 100%;
     width: 100%;
     border: none;
     text-align: center;
+}
+section#admin1 div.inner table tr td input[type=text]{
+	width: 100%;
+    border: none;
+    text-align: center
 }
 
 section#admin div.inner table tr td textarea, 
@@ -139,23 +205,26 @@ section#admin1 div.inner table tr td img {
     width: 50%;
 }
 
+section#admin div.inner table tr td textarea {
+	background-color: #ddd;
+}
+
 section#admin div.inner table tr input:read-only, 
 section#admin1 div.inner table tr input:read-only {
     outline: none;
 }
 
-h1{
-	font-size: 30px;
+#admin1 {
+	margin-top : 40px;
 }
 
-button{
-	background: var(--ad-color-lightgray);
+.inner tr{
+	font-size: 20px;
 }
 
-table, tr, th, td{
-	height: 50px;
+.inner th input, .inner td input{
+	font-size: 18px;	
 }
-
 </style>
 <body>
 	<%@ include file="../admin/menu.jsp"%>
@@ -192,20 +261,22 @@ table, tr, th, td{
 								value="${shoppingList.cm_date}" readonly>
 							<td>
 								<button style="cursor: pointer;"
-									onclick="ShowComment(${shoppingList.cm_no})">댓글보기</button>
-								<button style="margin: 0 2px; cursor: pointer;"
-									onclick="ContentTog(${shoppingList.cm_no})">상세보기</button>
+									onclick="ShowComment(${shoppingList.cm_no})">댓글</button>
+								<button style="cursor: pointer;"
+									onclick="ContentTog(${shoppingList.cm_no})">상세</button>
 							</td>
 						</tr>
 						<tr class="hideContent${shoppingList.cm_no} hideContent">
-							<td colspan="3"><textarea id="content" class="inputData"
+							<td colspan="2">수정하기</td>
+							<td colspan="4"><textarea id="content" class="inputData"
 									name="cm_content" placeholder="내용 입력">${shoppingList.cm_content}</textarea></td>
-							<td colspan="2" style="display: flex; border: none;"
-								class="hide content"><c:choose>
+						</tr>
+						<tr class="hideContent${shoppingList.cm_no} hideContent">
+							<td colspan="6" style="border: none;" class="hide content"><c:choose>
 									<c:when test="${not empty shoppingList.cm_img}">
 										<c:forEach items="${fn:split(shoppingList.cm_img, ',')}"
 											var="img">
-											<img style="width: 100px; height: 100px; display: inline;"
+											<img style="width: 300px; height: 300px; display: inline;"
 												src="${pageContext.request.contextPath}/resources/img/community/${img.trim()}">
 										</c:forEach>
 									</c:when>
@@ -245,7 +316,7 @@ table, tr, th, td{
 									<td><input type="text" name="co_date"
 										value="${shoppingCom.co_date }" readonly></td>
 									<td><button type="button"
-											onclick="deleteCom(${shoppingCom.cm_no})">삭제</button></td>
+											onclick="deleteCom(${shoppingCom.cm_no}, ${shoppingCom.co_no})">삭제</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -319,27 +390,31 @@ table, tr, th, td{
 											con += '<td><input type="text" name="cm_title" value="' + data[i].cm_title + '"></td>';
 											con += '<td><input type="text" name="cm_date" value="' + data[i].cm_date + '" readonly>';
 											con += '<td>';
-											con += '<button style="cursor: pointer;" onclick="ShowComment('+data[i].cm_no +')">댓글보기</button>'
-											con += '<button style="margin: 0 2px; cursor: pointer;" onclick="ContentTog('+data[i].cm_no+')">상세보기</button>';
+											con += '<button style="cursor: pointer;" onclick="ShowComment('+data[i].cm_no +')">댓글</button>';
+											con += '<button style="margin-left: 5px; cursor: pointer;" onclick="ContentTog('+data[i].cm_no+')">상세</button>';
 											con += '</td>';
 											con += '</tr>';
 											con += '<tr class="hideContent' +data[i].cm_no +' hideContent">';
-											con += '<th></th>';
-											con += '<td><textarea id="content" class="inputData" name="cm_content" placeholder="내용 입력">'+ data[i].cm_content +'</textarea></td>'
+											con += '<td colspan="2">수정하기</td>';
+											con += '<td colspan="4" style="vertical-align: top; height: inherit;">';
+											con += '<textarea style="height: 100%;"id="content" class="inputData" name="cm_content" placeholder="내용 입력">'+ data[i].cm_content +'</textarea></td>';
+											con += '</tr>';
+											con += '<tr class="hideContent'+data[i].cm_no +' hideContent">';
+											
 											if(data[i].cm_img != null){
 												console.log(data[i].cm_img, "if문");
-												con += '<td colspan="2" style="border: none;">'
+												con += '<td colspan="6" style="border: none;" class="hide content">';
 													
 												 const imgArray = data[i].cm_img.split(',');
 												 console.log('imgArray',imgArray);	
 												 
 												 imgArray.forEach(function(img)  {	
-												        con += '<img style="width: 100px; height: 100px; display: inline;" src="${pageContext.request.contextPath}/resources/img/community/' + img.trim() + '">';
+													 con += '<img style="width: 300px; height: 300px;display: inline;"	src="${pageContext.request.contextPath}/resources/img/community/'+ img.trim() + '">';
 												        console.log('img',img.trim());
 												    });
 												 con += '</td>';
 											} else {
-												con += '<td colspan="4"><p></p></td>';
+												con += '<td colspan="6"><p></p></td>';
 											}
 											con += '</tr>';
 										}
@@ -451,27 +526,31 @@ table, tr, th, td{
 											con += '<td><input type="text" name="cm_title" value="' + data[i].cm_title + '"></td>';
 											con += '<td><input type="text" name="cm_date" value="' + data[i].cm_date + '" readonly>';
 											con += '<td>';
-											con += '<button style="cursor: pointer;" onclick="ShowComment('+data[i].cm_no +')">댓글보기</button>'
-											con += '<button style="margin: 0 2px; cursor: pointer;" onclick="ContentTog('+data[i].cm_no+')">상세보기</button>';
+											con += '<button style="cursor: pointer;" onclick="ShowComment('+data[i].cm_no +')">댓글</button>';
+											con += '<button style="margin-left: 5px; cursor: pointer;" onclick="ContentTog('+data[i].cm_no+')">상세</button>';
 											con += '</td>';
 											con += '</tr>';
 											con += '<tr class="hideContent' +data[i].cm_no +' hideContent">';
-											con += '<th></th>';
-											con += '<td><textarea id="content" class="inputData" name="cm_content" placeholder="내용 입력">'+ data[i].cm_content +'</textarea></td>';
+											con += '<td colspan="2">수정하기</td>';
+											con += '<td colspan="4" style="vertical-align: top; height: inherit;">';
+											con += '<textarea style="height: 100%;"id="content" class="inputData" name="cm_content" placeholder="내용 입력">'+ data[i].cm_content +'</textarea></td>';
+											con += '</tr>';
+											con += '<tr class="hideContent'+data[i].cm_no +' hideContent">';
+											
 											if(data[i].cm_img != null){
 												console.log(data[i].cm_img, "if문");
-												con += '<td colspan="2" style="border: none;">'
+												con += '<td colspan="6" style="border: none;" class="hide content">';
 													
 												 const imgArray = data[i].cm_img.split(',');
 												 console.log('imgArray',imgArray);	
 												 
 												 imgArray.forEach(function(img)  {	
-												        con += '<img style="width: 100px; height: 100px; display: inline;" src="${pageContext.request.contextPath}/resources/img/community/' + img.trim() + '">';
+													 con += '<img style="width: 300px; height: 300px;display: inline;"	src="${pageContext.request.contextPath}/resources/img/community/'+ img.trim() + '">';
 												        console.log('img',img.trim());
 												    });
 												 con += '</td>';
 											} else {
-												con += '<td colspan="4"><p></p></td>';
+												con += '<td colspan="6"><p></p></td>';
 											}
 											con += '</tr>';
 										}
@@ -492,12 +571,12 @@ table, tr, th, td{
 					});
 		});
 		
-		function deleteCom(cm_no){
+		function deleteCom(cm_no, co_no){
 			if(confirm("정말 삭제하시겠습니까?")){
 			$.ajax({
 				type : "post",
 				url : "/adminShoppingComDel.do",
-				data : {cm_no : cm_no},
+				data : {cm_no : cm_no, co_no : co_no},
 				cache : false,
 				
 				success : function(data){
@@ -515,7 +594,7 @@ table, tr, th, td{
 							com += '<td><input type="text" name="co_writer"	value="'+data[i].co_writer+'" readonly></td>'
 							com += '<td><input type="text" name="co_content" value="'+data[i].co_content+'" readonly></td>'
 							com += '<td><input type="text" name="co_date" value="'+data[i].co_date+'" readonly></td>'
-							com += '<td><button type="button" onclick="deleteCom'+data[i].cm_no+'">삭제</button></td>'
+							com += '<td><button type="button" onclick="deleteCom('+data[i].cm_no+ ', '+data[i].co_no+')">삭제</button></td>'
 							com += '</tr>'
 						}
 					} else {

@@ -10,7 +10,7 @@
     </select>
 
 	<select id="getUser" resultType="user" parameterType="String">
-		SELECT * FROM user WHERE u_id=#{u_id} AND u_role = 'user' AND  u_type = 'g'
+		SELECT * FROM user WHERE u_id=#{u_id} AND  u_type = 'g'
 	</select>
 	
 	<insert id="joinUser">

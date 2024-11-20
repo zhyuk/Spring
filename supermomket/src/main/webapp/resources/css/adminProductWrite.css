@@ -13,7 +13,7 @@ body {
 }
 
 .container-inner {
-	width: 1200px; /* 좌측 사이드바를 기준으로 고정 너비 */
+	width: 500px; /* 좌측 사이드바를 기준으로 고정 너비 */
     margin: 0px auto;
     padding: 20px 10px;
     position: relative;

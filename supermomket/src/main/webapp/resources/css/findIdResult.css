@@ -38,19 +38,11 @@ body {
     margin-top: 20px;
 }
 
-.result-table th, .result-table td {
-    padding: 12px;
-    text-align: left;
-    font-size: 16px;
-}
-
-.result-table th {
-    background-color: #faecbf;
-    font-weight: bold;
-}
-
 .result-table td {
-    border-bottom: 1px solid black;	
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: none;
 }
 
 .no-result {
@@ -78,20 +70,4 @@ body {
 
 .login-button:hover {
     background-color: #ffd26e;
-}
-
-/* 모바일 반응형 */
-@media screen and (max-width: 768px) {
-    .find-container {
-        padding: 15px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    .result-table th, .result-table td {
-        font-size: 14px;
-        padding: 10px;
-    }
 }

@@ -11,7 +11,7 @@ idInput.addEventListener('focus', () => {
 idInput.addEventListener('blur', () => {
     idImg.src = 'resources/img/login/id.png'; 
     const idFormField = idInput.closest('.form-field');
-    idFormField.style.borderBottom = '1px solid #000';
+    idFormField.style.borderBottom = '2px solid #000';
 });
 
 pwInput.addEventListener('focus', () => {
@@ -22,7 +22,7 @@ pwInput.addEventListener('focus', () => {
 pwInput.addEventListener('blur', () => {
     pwImg.src = 'resources/img/login/pw.png'; 
     const pwFormField = pwInput.closest('.form-field');
-    pwFormField.style.borderBottom = '1px solid #000';
+    pwFormField.style.borderBottom = '2px solid #000';
 });
 
 

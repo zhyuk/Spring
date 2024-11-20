@@ -15,23 +15,18 @@
         <h2>비밀번호 찾기</h2>
         <form action="/findPw.do" method="POST" id="pwFindForm">
             <div class="form-field">
-            	<img src="resources/img/login/name.png" id="nameimg" class="find-image">
-				<input type="text" name="u_name" id="u_name" placeholder="이름입력"autocomplete="off"/> 
-            </div>
-            <div class="form-field">
-            	<img src="resources/img/login/id.png" id="idimg" class="find-image">
+            	<input type="text" name="u_name" id="u_name" placeholder="이름입력"autocomplete="off"/> 
 				<input type="text" name="u_id" id="u_id" placeholder="아이디입력" autocomplete="off"/> 
-            </div>
-            <div class="form-field">
-            	<img src="resources/img/login/phone.png" id="phoneimg" class="find-image">
                 <div class="btn"><input id="u_pno" type="text" name="u_pno" title="전화번호 입력" placeholder="전화번호 입력" />
 				<span id="phoneChk" class="doubleChk">인증번호 받기</span></div>
 				<div class="btn"><input id="phone2" type="text" name="phone2" title="인증번호 입력" placeholder="인증번호" disabled  /> 
 				<span id="phoneChk2" class="doubleChk">인증번호 확인</span></div>
-				<span class="point successPhoneChk">휴대폰 번호 입력후 인증번호 보내기를 눌러주세요.</span>
 				<input type="hidden" id="phoneDoubleChk"/>
             </div>
-            <div id="form-error" class="error-message"></div>
+            <div class="tbtn">
+	            <div id="form-error" class="error-message"></div>
+            	<span id="timer" class="timer" style="display: none;">02:00</span>
+            </div>
             <button type="submit" class="find-button">비밀번호찾기</button>
         </form>
     </div>  

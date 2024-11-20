@@ -6,7 +6,7 @@
 <style>
 .mp_page-container {
     margin: 0 auto;
-    margin-top: 46px;
+    margin-top: 30px;
 /* 	display: flex; */
 	justify-content: center;
 	gap: 20px;
@@ -19,7 +19,7 @@
     max-width: 500px;
     margin: 0 auto; 
     margin-left: 250px;
-    margin-top: 167px;
+  	margin-top: -15px;
 }
 
 
@@ -48,15 +48,11 @@
 }
 
 .title_hr {
-    width: 100%;
-    border: 0;
-    height: 1px;
-    background-color: lightgray;
+    margin: 19px auto;
 }
-
-.mp_form-container input[readonly] {
-	color: #333;
+.mp_updateForm input[readonly] {
     color: #333 !important;
+    background-color: #FFFCF6 !important;
     cursor: not-allowed;
 }
 
@@ -69,24 +65,29 @@
 	padding: 0 10px;
 }
 	
-.mp_updateForm {
-    width: 95%;
-   	margin: auto;
-	width: 95%; 
+.mp_form-container {
+    width: 90%;
+   	margin: 0 auto;
 	font-size: 14px;
-	width: 100%;
 	padding: 10px;
+    margin-top: 130px;
 }
+	
+.mp_updateForm{
+    width: 95%;
+    margin: 15px auto;
+}	
 	
 .form-control {
 	width: 100%;
 	font-size: 10px;
+	margin-top"
 }
 	
-.btn {
+.w-100 {
 	width: 100%;
 	height: 50px;
-	font-size: 12px;
+	font-size: 18px !important;
 }
 	
 p {
@@ -95,24 +96,25 @@ p {
 	
 .title_h4{
 	font: bolder;
-	width: 90%;
-	margin: 0 auto;
-	margin-top: 100px;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 115px;
 }
 
 .title_hr{
-	width: 90%;
-	margin: 0 auto;
+    margin: 23px auto;
+    width: 95%;
 }
 
 </style>
 <body>
 	<%@ include file="../view/menu.jsp"%>
 	<div class="mp_page-container">
-		<h4 class="title_h4">비밀번호 수정</h4><br>
+		<div name="mp_form-container" onsubmit="return goChkChk(event)" action="setNewPassword.do" method="POST">
+		
+		<h4 class="title_h4">비밀번호 수정</h4>
 		<hr class="title_hr">
-
-		<form name="mp_updateForm" onsubmit="return goChkChk(event)" action="setNewPassword.do" method="POST">
+		<form class="mp_updateForm">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" id="u_id" name="u_id"
 					value="${userId}" style="height: 70px; display: inline-block;" readonly>
@@ -143,6 +145,7 @@ p {
 			<%-- 					<input type="hidden" id="hidden_userId" name="userId" value="${userId}"> --%>
 			<!-- 				</div> -->
 		</form>
+		</div>
 	</div>
 	<!-- menu.jsp 내 <div id="wrap> 닫는 태그 -->
 

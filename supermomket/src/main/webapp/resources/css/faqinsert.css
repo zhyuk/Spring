@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+/* 공통 스타일 */
+*{
+	font-size: 18px!important;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+h1{
+	margin-bottom: 30px;
+}
+
+main {
+    margin-top: 20px;
+}
+
+fieldset {
+	margin-bottom: 10px;
+	border-radius: 10px;
+	border: 1px solid #F8F8F8;
+	padding: 20px 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+legend {
+	font-weight: bold;
+	font-size: 18px;
+	width: fit-content;
+	color: black;
+	padding: 0px 20px;
+	border-radius: 5px;
+}
+
+.selectfiedset{
+	width: 200px;
+}
+
+fieldset:hover {
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+	background-color: #FFFAF0;
+}
+
+/* 메인 섹션 스타일 */
+.faqinsert_mainsection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.faqtable{
+	width: 100%;
+	height: 100%;
+}
+select.form-control.faqinsert{
+	width: 150px;
+	height:40px;
+	font-size: 14px
+}
+.faqinsert_maindiv {
+ 	width: 100%;
+ 	padding: 10px;
+	max-width:1300px;
+ 	background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq_ainput{
+	width: 100%;
+	height: 380px;
+	resize: none;
+	padding: 10px; 
+	border:1px solid #aaa; 
+}
+
+
+
+/* 제목과 선택 영역 */
+.faqinsert_selectdiv {
+    margin-bottom: 20px;
+}
+
+.faqinsert_selectdiv .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* 자주 묻는 질문 및 답변 입력 영역 */
+.faq_qadiv {
+    margin-bottom: 20px;
+}
+
+.faq_qdiv, .faq_adiv {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.faq_qinput{
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.faq_qinput:focus, .faq_ainput:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* 하단 버튼 스타일 */
+#footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+#footer .btn {
+    width: 120px;
+    height: 45px;
+    background-color: #FFDE95;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 발표용 */
+textarea.form-control.faq_ainput {
+    font-size: 18px;
+/*     font-size: 16px; */
+}
+
+
+#footer .btn:hover {
+    background-color: #FFD26E;
+}

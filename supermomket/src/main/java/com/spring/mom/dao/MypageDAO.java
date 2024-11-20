@@ -50,31 +50,26 @@ public class MypageDAO {
     
 	// 사용자 정보 수정(관리자)
 	public void selUser(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis selUser");
 		mybatis.update("MypageDAO.selUser", uvo);
 	}
 	
 	// 사용자 삭제(관리자)
 	public void delUser(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis delUser");
 		mybatis.update("MypageDAO.delUser", uvo);
 	}
 	
 	// 현재 비밀번호 체크(관리자)
 	public UserVO updateAdminChk(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis updateAdminChk");
 		return mybatis.selectOne("MypageDAO.updateAdminChk", uvo);
 	} 
 	
 	// 비밀번호 변경 상세페이지(관리자)
 	public UserVO updateAdminDetail(String u_id) {
-		System.out.println("===>MypageDAO : mybatis updateAdminDetail");
 		return mybatis.selectOne("MypageDAO.updateAdminDetail", u_id);
 	}
 	
 	// 새 비밀번호로 업데이트(관리자)
 	public void setNewAdminPw(UserVO uvo) {
-	    System.out.println("===>MypageDAO : mybatis setNewAdminPw");
 	    mybatis.update("MypageDAO.setNewAdminPw", uvo); // 
 	}
 	
@@ -91,13 +86,11 @@ public class MypageDAO {
 	// 사용자 메뉴
 	// 주문목록 조회
 	public List<OrderVO> getBuyList(OrderVO olvo) {
-		System.out.println("===>MypageDAO : mybatis getBuyList");
 		return mybatis.selectList("MypageDAO.getBuyList", olvo);
 	}
 	
 	// 주문목록 상세조회
 	public List<OrderVO> getBuyListDetail(OrderVO olvo) {
-		System.out.println("===>MypageDAO : mybatis getBuyListDetail");
 		return mybatis.selectList("MypageDAO.getBuyListDetail", olvo);
 	}
 	
@@ -109,55 +102,46 @@ public class MypageDAO {
 	
 	// 마이페이지 비밀번호 확인(사용자)
 	public UserVO updateMypageChk(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis updateMypageChk");
 		return mybatis.selectOne("MypageDAO.updateMypageChk", uvo);
 	}
 	
 	// 마이페이지 정보 수정(사용자)
 	public UserVO updateMypageDetail(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis updateMypageDetail");
 		return mybatis.selectOne("MypageDAO.updateMypageDetail", uvo);
 	}
 	
 	// 마이페이지 정보 수정 - 닉네임 중복 쳌(사용자)
 	public int nickCheck(String u_nickname) {
-		System.out.println("===>MypageDAO : mybatis nickCheck");
 		return mybatis.selectOne("MypageDAO.nickCheck", u_nickname);
 	}
 	
 	// 마이페이지 새 정보 업데이트(사용자)
 	public void setNewMypage(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis setNewMypage");
 		mybatis.update("MypageDAO.setNewMypage", uvo);
 	}
 	
 	// 비밀번호 수정 조회(사용자)
 	public UserVO updatePasswordChk(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis updatePasswordChk");
 		return mybatis.selectOne("MypageDAO.updatePasswordChk", uvo);
 	}
 	
 	// 비밀번호 수정 상세(사용자)
 	public UserVO updatePasswordDetail(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis updatePasswordDetail");
 		return mybatis.selectOne("MypageDAO.updatePasswordDetail", uvo);
 	}
 	
 	// 새 비밀번호로 업데이트(사용자)
 	public void setNewPassword(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis setNewPassword");
 		mybatis.update("MypageDAO.setNewPassword", uvo);
 	}
 
 	// 마이페이지 회원 탈퇴(사용자)
 	public void taltaeUser(UserVO uvo) {
-		System.out.println("===>MypageDAO : mybatis taltaeUser");
 		mybatis.update("MypageDAO.taltaeUser", uvo);
 	}
 
 	// 리뷰 쓰러 가기
 	public OrderVO goWriteRv(OrderVO ovo) {
-		System.out.println("===>MypageDAO : mybatis goWriteRv");
 		return mybatis.selectOne("MypageDAO.taltaeUser", ovo);
 	}
 

@@ -11,7 +11,7 @@
 					<main>
 						<section id="admin">
 							<div class="inner">
-								<h3>고민거리 페이지 게시글 관리</h3>
+								<h3>고민거리 관리</h3>
 								<div class="button_list">
 									<button id="update_button" class="pointer">수정</button>
 									<button id="delete_button" class="pointer">삭제</button>
@@ -41,37 +41,30 @@
 												</td>
 												<td><input type="text" name="vs_title" value="${board.vs_title}"></td>
 												<td>
-													<input type="text" name="vs_writer" value="${board.vs_writer}"
-														readonly>
+													<input type="text" name="vs_writer" value="${board.vs_writer}" readonly>
 												</td>
 												<td>
 													<input type="text" name="vs_date" value="${board.vs_date}" readonly>
 												</td>
 												<td>
-													<button onclick="showContentInfo(${board.vs_no})">상세보기</button>
-													<button onclick="showCommentInfo(${board.vs_no})">댓글보기</button>
+													<button onclick="showCommentInfo(${board.vs_no})">댓글</button>
+													<button onclick="showContentInfo(${board.vs_no})">상세</button>
 												</td>
 											</tr>
 
 											<tr class="content_info${board.vs_no} content_info">
-												<td></td>
-												<td></td>
+												<td colspan="2" rowspan="2">데이터 수정</td>
 												<td colspan="4">
-													<textarea id="content" class="inputData"
-														name="vs_content">${board.vs_content}</textarea>
+													<textarea id="content" class="inputData" name="vs_content">${board.vs_content}</textarea>
 												</td>
 											</tr>
 
 											<tr class="img_info${board.vs_no} img_info">
-												<td></td>
-												<td></td>
 												<td colspan="2">
-													<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}"
-														alt="투표에 사용된 이미지 1">
+													<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 이미지 1">
 												</td>
 												<td colspan="2">
-													<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}"
-														alt="투표에 사용된 이미지 2">
+													<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 이미지 2">
 												</td>
 											</tr>
 

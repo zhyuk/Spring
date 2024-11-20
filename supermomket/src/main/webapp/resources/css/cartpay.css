@@ -1,11 +1,39 @@
 @charset "UTF-8";
+
+/* 발표용 */
+*{
+	font-size: 18px!important;
+}
+h1{
+	font-size: 2.5rem!important;
+	font-weight: 600;
+	margin: 0 auto;
+}
+
+
+:root {
+    --color-light-main: #FFDE95;
+    --color-main: #FFD26E;
+    --color-blk: #000;
+    --color-white: #fff;
+    --color-gray: #D9D9D9;
+    --ad-color-darkgray: #212121;
+    --ad-color-gray: #444;
+    --ad-color-semigray: #808080;
+    --ad-color-lightgray: #D9D9D9;
+}
+
+#mobilepayButton{
+	display:none;
+}
+
+
  .payment-page {
             max-width: 800px;
             margin: 0 auto;
             font-family: Arial, sans-serif;
         }
         .cart-container, .payment-form {
-            border: 1px solid #ddd;
             padding: 20px;
             margin-bottom: 20px;
         }
@@ -48,8 +76,18 @@
     height: auto; /* 비율 유지 */
 }
         
-        .payment-form {
-    max-width: 600px;
+        .addressbtn{
+        	background-color: #6c757d;
+        	border:none;
+        	color:#fff;
+        	border-radius:5px;
+        	padding: 5px; 
+        
+        }
+        
+        
+.payment-form {
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #e0e0e0;
@@ -78,14 +116,35 @@
 }
 
 .payment-form input[type="text"],
-.payment-form input[type="number"],
-.payment-form input[type="button"] {
+.payment-form input[type="number"]{
     width: 100%;
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+input[type="number"]{
+	text-align: center;
+}
+
+.cart_List input[type="button"]{
+    padding: 8px 15px;
+    background-color: var(--color-main);
+    border:none; 
+    
+}
+.cart_List input[type="button"]:hover{
+	background-color: var(--ad-color-lightgray);
+	
+}
+.cart_List th:first-child{
+	background-color:#fff 
+}
+
+
+th{
+	background-color: var(--color-light-main);
 }
 
 .payment-form input[type="text"]:focus,
@@ -106,7 +165,11 @@
 }
 
 .payment-form #sample4_postcode {
-    width: calc(40% - 5px);
+    width: calc(50% - 5px);
+}
+input.addressbtn {
+    margin-left: 161px;
+    padding: 6px;
 }
 
 .payment-form #sample4_postcode + input[type="button"] {
@@ -210,10 +273,41 @@
 
 /* 미디어 쿼리: 화면 너비가 375px 이하일 때 */
 @media (max-width: 375px) {
-    .cart-table {
-        display: block; /* 테이블 스크롤 허용 */
-        overflow-x: auto; /* 가로 스크롤 활성화 */
-    }
+	
+	*{
+	font: 16px!important;
+	}
+	
+	input.addressbtn {
+    padding: 6px;
+    margin-right: 200px;
+	}
+	
+	.mocount{
+		display: none;
+	}
+	
+	#payButton{
+		display: none;
+	}
+	
+	#mobilepayButton{
+		display:block;
+	}
+	
+	.cart_List input[type="button"] {
+    padding: 4px 10px;
+    background-color: var(--color-main);
+    border: none;
+}
+	
+	
+	.cart-container, .payment-form {
+ 	border:none;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+	
 
     .cart-table img {
         max-width: 80px; /* 이미지 크기 축소 */
@@ -222,11 +316,11 @@
 
     .cart-table th, .cart-table td {
         font-size: 12px; /* 글자 크기 축소 */
-        padding: 5px; /* 패딩 축소 */
+        padding: 2px; /* 패딩 축소 */
     }
 
     .cart-container {
-        padding: 10px; /* 컨테이너 패딩 조정 */
+        padding:0px; /* 컨테이너 패딩 조정 */
     }
 
     .payment-form {

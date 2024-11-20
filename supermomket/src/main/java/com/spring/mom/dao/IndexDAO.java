@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.OrderVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
 import com.spring.mom.vo.UserVO;
@@ -49,7 +50,7 @@ public class IndexDAO {
 	}
 
 	// 차트에 들어갈 사용자 수 가져오기
-	public List<UserVO> getChartAdmin(UserVO vo) {
+	public List<UserVO> getChartAdmin(OrderVO vo) {
 //		System.out.println("IndexDAO getChartAdmin() 실행");
 		return mybatis.selectList("IndexDAO.getChartAdmin", vo);
 	}

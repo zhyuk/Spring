@@ -31,20 +31,6 @@ public class CartController {
 	private CartService cartService;
 
 
-	// 로그인 - 차후 삭제할 데이터
-	// @RequestMapping("/login.do")
-	// public String login(HttpSession session) {
-	// 	session.setAttribute("uId", "admin");
-	// 	return "redirect:/index.jsp";
-	// }
-
-	// // 로그아웃 - 차후 삭제할 데이터
-	// @RequestMapping("/logout.do")
-	// public String logout(HttpSession session) {
-	// 	session.invalidate();
-	// 	return "redirect:/index.jsp";
-	// }
-
 	@RequestMapping("/cartList.do")
 	public String getcartList(CartVO cvo, Model model, HttpSession session) {
 		try {
@@ -145,7 +131,7 @@ public class CartController {
 	   @RequestMapping("/insertproduct.do")
 	   public String insertProduct(@ModelAttribute("pvo") ProductVO pvo, CartVO cvo, HttpSession session) {
 	      
-	      System.out.println("pvo: "+pvo);
+//	      System.out.println("pvo: "+pvo);
 	      
 	       // 세션에서 userId 가져오기
 	       String userId = (String) session.getAttribute("userId");
@@ -170,13 +156,13 @@ public class CartController {
 //	장바구니 창 물품삭제 메소드
 	@RequestMapping(value = "/deletcart.do", method = RequestMethod.GET)
 	public String deletcart(Model model, CartVO cvo) {
-		System.out.println("cvo: " + cvo);
+//		System.out.println("cvo: " + cvo);
 		
 		int[] cNoArrList = cvo.getC_noarr();
 //		System.out.println("c_payment:"+cvo.getC_payment());
 		// 각 선택된 c_no에 대해 cartService 호출
 		for (Integer c_no : cNoArrList) {
-			System.out.println("for문 c_no: " + c_no);
+//			System.out.println("for문 c_no: " + c_no);
 			cvo.setC_no(c_no);
 			cartService.deletcart(cvo);
 }

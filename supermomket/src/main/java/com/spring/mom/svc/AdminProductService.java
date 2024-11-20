@@ -6,7 +6,7 @@ import com.spring.mom.vo.ReviewVO;
 
 public interface AdminProductService {
 
-    List<ProductVO> getProductsByPage(int page, int pageSize, String category, String sortType, String searchQuery);
+    List<ProductVO> getAdminProductsByPage(int page, int pageSize, String category, String sortType, String searchQuery);
 
     int getProductCountByCategory(String category, String searchQuery);
 

@@ -28,11 +28,12 @@ body {
 }
 
 .form-field {
-	margin-top: 15px;
-	display: flex;
-	margin-bottom: 15px;
-	text-align: left;
-	border-bottom: 1px solid #000;
+   margin-top: 15px;
+   display: flex;
+   margin-bottom: 15px;
+   text-align: left;
+   border-bottom: 2px solid #000;
+   align-items: center;
 }
 
 .login-image {
@@ -103,11 +104,6 @@ body {
 	width: 200px;
 	height: 49px;
 }
-
-/* .kakao-login {
-	width: 8%;
-	margin-top: 20px;
-} */
 
 .helper-links {
 	text-align: center;

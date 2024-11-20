@@ -69,7 +69,6 @@ aside nav ul li {
     font-size: 18px;
     line-height: 50px;
 }
-
 aside nav ul li:hover {
     background: var(--ad-color-semigray);
 }
@@ -78,7 +77,9 @@ aside nav ul li a {
     display: block;
 }
 
-
+li.community_sub_menu {
+	background-color: #000;	
+}
 aside nav ul.sub-menu {
     display: none;
 }
@@ -164,12 +165,14 @@ main section#admin_index_section .inner .row_section .card .content_box table tr
     height: 50px;
 }
 
-main section#admin_index_section .inner .row_section .card .content_box table td  {
-	max-width: 150px;
-	overflow-x: hidden;
-	white-space: nowrap;
+main section#admin_index_section .inner .row_section .card .content_box table td {
+    max-width: 150px;
+    padding: 5px;
+    overflow-x: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 main section#admin_index_section .inner .row_section .card .content_box table td input[type="text"] {
     width: 100%;
     height: 50px;

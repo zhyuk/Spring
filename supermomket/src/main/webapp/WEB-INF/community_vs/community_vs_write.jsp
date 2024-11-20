@@ -3,11 +3,6 @@
 
 		<head>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community_vs.css">
-			<script>
-				$('link[href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"]').remove();
-				$('link[href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"]').remove();
-				$('script[src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"]').remove();
-			</script>
 		</head>
 
 		<body>
@@ -22,27 +17,23 @@
 
 								<div class="input-group">
 									<label for="img1" id="img1-label" class="img-label pointer">이미지 등록</label>
-									<input type="file" id="img1" class="inputData" name="vs_img1_file"
-										accept=".gif, .jpg, .png" onchange="readURL(this)">
+									<input type="file" id="img1" class="inputData" name="vs_img1_file" accept=".gif, .jpg, .png" onchange="readURL(this)">
 									<label for="img2" id="img2-label" class="img-label pointer">이미지 등록</label>
-									<input type="file" id="img2" class="inputData" name="vs_img2_file"
-										accept=".gif, .jpg, .png" onchange="readURL(this)">
+									<input type="file" id="img2" class="inputData" name="vs_img2_file" accept=".gif, .jpg, .png" onchange="readURL(this)">
 								</div>
-
+								
 								<div class="preview_box">
 									<div><img id="img1_preview" class="preview_img"></div>
 									<div><img id="img2_preview" class="preview_img"></div>
 								</div>
 
 								<div class="input-group">
-									<textarea id="content" class="inputData" name="vs_content"
-										placeholder="내용 입력"></textarea>
+									<textarea id="content" class="inputData" name="vs_content" placeholder="내용 입력"></textarea>
 								</div>
 
 								<div class="btn-area">
 									<button type="submit" id="btn" class="pointer">등록</button>
-									<button type="button" class="pointer"
-										onclick="location.href = '/vs_index.do'">취소</button>
+									<button type="button" class="pointer" onclick="location.href = '/vs_index.do'">취소</button>
 								</div>
 							</form>
 						</div>

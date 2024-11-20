@@ -28,7 +28,7 @@ public class FaqController {
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("답변", "CONTENT");
+		conditionMap.put("분류", "CLASS");
 		conditionMap.put("질문", "TITLE");
 		return conditionMap;
 	}
@@ -36,6 +36,8 @@ public class FaqController {
 	@RequestMapping("/searchfaq.do")
 	public String searchfaq(HttpServletRequest req, @RequestParam(value="nowPage", required = false) String nowPage, 
 	                        FaqVO fvo, PagingVO pv, Model model) {
+//		System.out.println("condition 시작:"+fvo.getSearchCondition());
+//		System.out.println("key 시작:"+fvo.getSearchKeyword());
 	    String cntPerPage = "10"; // 한 페이지당 항목 수
 	   
 		if (fvo.getSearchKeyword() == null)
@@ -48,7 +50,7 @@ public class FaqController {
 		
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pv);
-		System.out.println("pagingVO: "+pv);
+//		System.out.println("pagingVO: "+pv);
 		fvo.setStart(pv.getStart());
 		fvo.setListcnt(Integer.parseInt(cntPerPage));
 
@@ -56,7 +58,9 @@ public class FaqController {
 	    model.addAttribute("searchCondition", fvo.getSearchCondition());
 	    model.addAttribute("searchKeyword", fvo.getSearchKeyword());
 	    model.addAttribute("fvo", faqService.searchfaq(fvo));
-	    
+//		System.out.println("condition 끝:"+fvo.getSearchCondition());
+//		System.out.println("key 끝:"+fvo.getSearchKeyword());
+//		System.out.println("fvo : "+fvo);
 		return "FAQ/faqUserList";
 		
 	}
@@ -65,16 +69,16 @@ public class FaqController {
 	
 	@RequestMapping("/getFaqAdminList.do")
 	public String getFaqList(@RequestParam(value="nowPage", required = false) String nowPage,PagingVO pv, FaqVO fvo, Model model) {
-		System.out.println("컨트롤러 진입");
+//		System.out.println("컨트롤러 진입");
 		String cntPerPage = "10";
 		if (fvo.getSearchCondition() == null) {
-			System.out.println("fvo.if 컨디션:"+fvo.getSearchCondition());
+//			System.out.println("fvo.if 컨디션:"+fvo.getSearchCondition());
 			fvo.setSearchCondition("TITLE");
 			
 		}
 		else {
 			fvo.setSearchCondition(fvo.getSearchCondition());
-			System.out.println("fvo.컨디션:"+fvo.getSearchCondition());
+//			System.out.println("fvo.컨디션:"+fvo.getSearchCondition());
 		}
 		if (fvo.getSearchKeyword() == null)
 			fvo.setSearchKeyword("");
@@ -88,7 +92,7 @@ public class FaqController {
 		
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pv);
-		System.out.println("pagingVO: "+pv);
+//		System.out.println("pagingVO: "+pv);
 		fvo.setStart(pv.getStart());
 		fvo.setListcnt(Integer.parseInt(cntPerPage));
 
@@ -123,7 +127,7 @@ public class FaqController {
 		
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pv);
-		System.out.println("pagingVO: "+pv);
+//		System.out.println("pagingVO: "+pv);
 		fvo.setStart(pv.getStart());
 		fvo.setListcnt(Integer.parseInt(cntPerPage));
 
@@ -137,32 +141,32 @@ public class FaqController {
 	@RequestMapping("/getFaq.do")
 	public String getFaq(FaqVO fvo, Model model ,@RequestParam(value="nowPage", required = false) String nowPage) {
 	
-		System.out.println("컨트롤러 진입");
+//		System.out.println("컨트롤러 진입");
 		model.addAttribute("fvo", faqService.getFaq(fvo));
 		model.addAttribute("searchCondition", fvo.getSearchCondition());
 		model.addAttribute("searchKeyword", fvo.getSearchKeyword());
 		model.addAttribute("nowPage", nowPage);
-		System.out.println("fvo: " + fvo.toString());
+//		System.out.println("fvo: " + fvo.toString());
 		return "FAQ/faq";
 	}
 
 	@RequestMapping("/updatefaq.do")
 	public String updatefaq(@ModelAttribute("faq") FaqVO fvo) {
-		System.out.println("updatefaq.do  컨트롤러");
+//		System.out.println("updatefaq.do  컨트롤러");
 		faqService.updatefaq(fvo);
 		return "redirect:getFaqAdminList.do";
 	}
 
 	@RequestMapping("/deletefaq.do")
 	public String deletefaq(@ModelAttribute("faq") FaqVO fvo) {
-		System.out.println("deletefaq.do 컨트롤러");
+//		System.out.println("deletefaq.do 컨트롤러");
 		faqService.deletefaq(fvo);
 		return "redirect:getFaqAdminList.do";
 	}
 
 	@RequestMapping(value = "/insertfaq.do" ,method = RequestMethod.POST)
 	public String insertfaq(@ModelAttribute("fvo") FaqVO vo) {
-		System.out.println("insertfaq.do 컨트롤러");
+//		System.out.println("insertfaq.do 컨트롤러");
 			int cnt = faqService.insertfaq(vo);
 			if (cnt == 1) {
 				return "redirect:getFaqAdminList.do";

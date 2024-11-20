@@ -354,13 +354,22 @@
 	
 	<!-- 관리자 댓글 삭제 -->
 	<delete id="deleteYookaComDel">
-		delete from comment_yooka where cm_no = #{cm_no}
+		delete from comment_yooka where
+		 cm_no = #{cm_no} and 
+		 <if test="co_no2 == null"> co_no = #{co_no}</if>
+		 <if test="co_no2 != null"> co_no2 = #{co_no2}</if>
+		
+		
 	</delete>
 	<delete id="deleteNoriterComDel">
-		delete from comment_noriter where cm_no = #{cm_no}
+		delete from comment_noriter where cm_no = #{cm_no} and 
+		<if test="co_no2 == null"> co_no = #{co_no}</if>
+		<if test="co_no2 != null"> co_no2 = #{co_no2}</if>
 	</delete>
 	<delete id="deleteShoppingComDel">
-		delete from comment_shopping where cm_no = #{cm_no}
+		delete from comment_shopping where cm_no = #{cm_no} and 
+		<if test="co_no2 == null"> co_no = #{co_no}</if>
+		<if test="co_no2 != null"> co_no2 = #{co_no2}</if>
 	</delete>
 
 </mapper>

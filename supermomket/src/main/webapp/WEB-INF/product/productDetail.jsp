@@ -310,169 +310,170 @@ $(document).ready(function() {
 </head>
 <body>
 	<%@ include file="../view/menu.jsp"%>
-
-	<!-- 주문하기에 필요한 hidden 필드를 포함한 form -->
-	<form id="orderForm" action="" method="post">
-		<input type="hidden" name="u_id" value="${sessionScope.userId}"> 
-		<input type="hidden" name="p_no" value="${product.p_no}"> 
-		<input type="hidden"name="p_count" value="${product.p_count}"> 
-		<input type="hidden" name="p_price" value="${product.p_price}"> 
-		<input type="hidden" name="p_discount" value="${product.p_discount}"> 
-		<input type="hidden" name="p_name" value="${product.p_name}">
-		<input type="hidden" name="p_img" value="${product.p_img}"> 
-		<input type="hidden" name="p_callno" value="${product.p_callno}">
-	</form>
-
-	<form id="productForm">
-		<div class="product-detail-container"> 
-			<div class="product-image">
-				<img
-					src="${pageContext.request.contextPath}/resources/img/product/${product.p_img}"
-					alt="${product.p_name}">
-			</div>
-
-			<div class="product-info">
-				<h1 class="product-name">${product.p_name}</h1>
-				<hr class="name-divider">
-				<c:if test="${product.p_stock > 0}">
-					<div class="product-price-info">
-						<p class="product-price">
-							판매가: <span class="strike"> <fmt:formatNumber
-									value="${product.p_price}" type="number" groupingUsed="true" />원
-							</span>
-						</p>
-						<p class="product-discount">
-							<span class="discounted-price" data-price="${product.p_discount}">
-								할인가: <fmt:formatNumber value="${product.p_discount}"
-									type="number" groupingUsed="true" />원
-							</span> <span class="discount-rate" data-rate="${product.p_dr}">
-								<fmt:formatNumber value="${product.p_dr}" type="number"
-									maxFractionDigits="0" />% 할인
-							</span>
-						</p>
-					</div>
-				</c:if>
-				<c:if test="${product.p_stock <= 0}">
-					<div class="soldout">품절</div>
-				</c:if>
-
-				<hr class="divider-line">
-
-				<div class="additional-info">
-					<p>상품번호: ${product.p_callno}</p>
-					<p>브랜드: ${product.p_brand}</p>
-					<p>원산지: ${product.p_made}</p>
-					<p>배송비: ${product.p_delivery}</p>
-				</div>
-
-				<hr class="divider-line">
-
-				<div class="quantity-shipping-container">
-					<div class="quantity-container">
-						<label for="quantity" class="option-label">수량 선택</label>
-						<button type="button" onclick="decreaseQuantity()">-</button>
-						<input type="text" id="quantity" value="1"
-							oninput="updateTotalPrice()" onchange="updateTotalPrice()">
-						<button type="button" onclick="increaseQuantity()">+</button>
-					</div>
-				</div>
-
-				<!-- 총 금액 영역을 수량 선택 영역 밑으로 이동 -->
-				<div class="total-price-container" style="margin-top: 15px;">
-					<span>총 금액: </span> <span id="total-price"> <fmt:formatNumber
-							value="${product.p_discount}" type="number" groupingUsed="true" />원
-					</span>
-				</div>
-
-				<c:if test="${product.p_stock > 0}">
-					<div class="action-buttons">
-						<button type="button" class="cart-button" onclick="addToCart()">
-							<span class="button-text-bold">장바구니</span>
-						</button>
-						<button type="button" class="order-button"
-							onclick="orderProduct()">
-							<span class="button-text-bold">주문하기</span>
-						</button>
-					</div>
-				</c:if>
-
-			</div>
-		</div>
-
-		<input type="hidden" name="p_no" value="${product.p_no}"> <input
-			type="hidden" name="p_count" value="${product.p_count}"> 
+	<div class="detail_inner">
+		<!-- 주문하기에 필요한 hidden 필드를 포함한 form -->
+		<form id="orderForm" action="" method="post">
+			<input type="hidden" name="u_id" value="${sessionScope.userId}"> 
+			<input type="hidden" name="p_no" value="${product.p_no}"> 
+			<input type="hidden"name="p_count" value="${product.p_count}"> 
 			<input type="hidden" name="p_price" value="${product.p_price}"> 
-<%-- 			<input type="hidden" name="p_discount" value="${product.p_discount}">  --%>
-			<input type="hidden" name="p_name" value="${product.p_name}"> 
+			<input type="hidden" name="p_discount" value="${product.p_discount}"> 
+			<input type="hidden" name="p_name" value="${product.p_name}">
 			<input type="hidden" name="p_img" value="${product.p_img}"> 
-			<input type="hidden" name="p_callno" value="${product.p_callno}"> 
-			<input type="hidden" name="u_id" value="${sessionScope.userId}">
-	</form>
-
-
-
-	<div class="tab-container">
-		<button class="tab-button active" onclick="openTab(event, 'details')">상품상세</button>
-		<button class="tab-button" onclick="openTab(event, 'reviews')">상품후기</button>
-		<button class="tab-button" onclick="openTab(event, 'inquiry')">상품안내</button>
-	</div>
-
-	<div id="details" class="tab-content" style="display: block;">
-		<div id="detail-images" class="detail-images-container">
-			<div class="cont">
-				<table border="0" cellpadding="0" cellspacing="0">
-					<tbody>
-						<tr>
-							<td align="center"><br></td>
-						</tr>
-						<tr>
-							<td align="center"><img
-								src="${pageContext.request.contextPath}/resources/img/product/${product.d_content}"></td>
-						</tr>
-					</tbody>
-				</table>
+			<input type="hidden" name="p_callno" value="${product.p_callno}">
+		</form>
+	
+		<form id="productForm">
+			<div class="product-detail-container"> 
+				<div class="product-image">
+					<img
+						src="${pageContext.request.contextPath}/resources/img/product/${product.p_img}"
+						alt="${product.p_name}">
+				</div>
+	
+				<div class="product-info">
+					<h1 class="product-name">${product.p_name}</h1>
+					<hr class="name-divider">
+					<c:if test="${product.p_stock > 0}">
+						<div class="product-price-info">
+							<p class="product-price">
+								판매가: <span class="strike"> <fmt:formatNumber
+										value="${product.p_price}" type="number" groupingUsed="true" />원
+								</span>
+							</p>
+							<p class="product-discount">
+								<span class="discounted-price" data-price="${product.p_discount}">
+									할인가: <fmt:formatNumber value="${product.p_discount}"
+										type="number" groupingUsed="true" />원
+								</span> <span class="discount-rate" data-rate="${product.p_dr}">
+									<fmt:formatNumber value="${product.p_dr}" type="number"
+										maxFractionDigits="0" />% 할인
+								</span>
+							</p>
+						</div>
+					</c:if>
+					<c:if test="${product.p_stock <= 0}">
+						<div class="soldout">품절</div>
+					</c:if>
+	
+					<hr class="divider-line">
+	
+					<div class="additional-info">
+						<p>상품번호: ${product.p_callno}</p>
+						<p>브랜드: ${product.p_brand}</p>
+						<p>원산지: ${product.p_made}</p>
+						<p>배송비: ${product.p_delivery}</p>
+					</div>
+	
+					<hr class="divider-line">
+	
+					<div class="quantity-shipping-container">
+						<div class="quantity-container">
+							<label for="quantity" class="option-label">수량 선택</label>
+							<button type="button" onclick="decreaseQuantity()">-</button>
+							<input type="text" id="quantity" value="1"
+								oninput="updateTotalPrice()" onchange="updateTotalPrice()">
+							<button type="button" onclick="increaseQuantity()">+</button>
+						</div>
+					</div>
+	
+					<!-- 총 금액 영역을 수량 선택 영역 밑으로 이동 -->
+					<div class="total-price-container" style="margin-top: 15px;">
+						<span>총 금액: </span> <span id="total-price"> <fmt:formatNumber
+								value="${product.p_discount}" type="number" groupingUsed="true" />원
+						</span>
+					</div>
+	
+					<c:if test="${product.p_stock > 0}">
+						<div class="action-buttons">
+							<button type="button" class="cart-button" onclick="addToCart()">
+								<span class="button-text-bold">장바구니</span>
+							</button>
+							<button type="button" class="order-button"
+								onclick="orderProduct()">
+								<span class="button-text-bold">주문하기</span>
+							</button>
+						</div>
+					</c:if>
+	
+				</div>
+			</div>
+	
+			<input type="hidden" name="p_no" value="${product.p_no}"> <input
+				type="hidden" name="p_count" value="${product.p_count}"> 
+				<input type="hidden" name="p_price" value="${product.p_price}"> 
+	<%-- 			<input type="hidden" name="p_discount" value="${product.p_discount}">  --%>
+				<input type="hidden" name="p_name" value="${product.p_name}"> 
+				<input type="hidden" name="p_img" value="${product.p_img}"> 
+				<input type="hidden" name="p_callno" value="${product.p_callno}"> 
+				<input type="hidden" name="u_id" value="${sessionScope.userId}">
+		</form>
+	
+	
+	
+		<div class="tab-container">
+			<button class="tab-button active" onclick="openTab(event, 'details')">상품상세</button>
+			<button class="tab-button" onclick="openTab(event, 'reviews')">상품후기</button>
+			<button class="tab-button" onclick="openTab(event, 'inquiry')">상품안내</button>
+		</div>
+	
+		<div id="details" class="tab-content" style="display: block;">
+			<div id="detail-images" class="detail-images-container">
+				<div class="cont">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td align="center"><br></td>
+							</tr>
+							<tr>
+								<td align="center"><img
+									src="${pageContext.request.contextPath}/resources/img/product/${product.d_content}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div id="reviews" class="tab-content" style="display: none;">
-		<div class="review-section">
-			<button class="review-write-button" onclick="openReviewsWrite();">리뷰 작성하기</button>
-			<div id="reviewList"></div>
+	
+		<div id="reviews" class="tab-content" style="display: none;">
+			<div class="review-section">
+				<button class="review-write-button" onclick="openReviewsWrite();">리뷰 작성하기</button>
+				<div id="reviewList"></div>
+			</div>
 		</div>
-	</div>
-	<div class="reviews_write-overlay" style="display: none;">
-		<div class="reviews_write">
-			<button class="reviews_write-close" onclick="closeReviewsWrite()">✖</button>
-			<form id="reviewForm" enctype="multipart/form-data">
-				<div class="star-ratings">
-					<input type="radio" name="c_avg" value="5" id="rate1"> <label
-						for="rate1">★</label> <input type="radio" name="c_avg" value="4"
-						id="rate2"> <label for="rate2">★</label> <input
-						type="radio" name="c_avg" value="3" id="rate3"> <label
-						for="rate3">★</label> <input type="radio" name="c_avg" value="2"
-						id="rate4"> <label for="rate4">★</label> <input
-						type="radio" name="c_avg" value="1" id="rate5"> <label
-						for="rate5">★</label>
-				</div>
-
-				<div class="writeBox">
-					<!-- 댓글 작성창에서 좌측 작성자, 아이디 숨기기 -->
-					<input type="hidden" id="review_p_no" name="p_no"
-						value="${product.p_no}">
-					<%--                 <label>작성자: ${sessionScope.userId}</label> --%>
-					<input type="hidden" name="c_id" value="${sessionScope.userId}">
-					<textarea name="c_text" placeholder="리뷰를 작성하세요" rows="4" cols="50"></textarea>
-
-					<input type="file" name="c_img" accept="image/*">
-					<button type="button" onclick="submitReview()">리뷰 등록</button>
-				</div>
-			</form>
+		<div class="reviews_write-overlay" style="display: none;">
+			<div class="reviews_write">
+				<button class="reviews_write-close" onclick="closeReviewsWrite()">✖</button>
+				<form id="reviewForm" enctype="multipart/form-data">
+					<div class="star-ratings">
+						<input type="radio" name="c_avg" value="5" id="rate1"> <label
+							for="rate1">★</label> <input type="radio" name="c_avg" value="4"
+							id="rate2"> <label for="rate2">★</label> <input
+							type="radio" name="c_avg" value="3" id="rate3"> <label
+							for="rate3">★</label> <input type="radio" name="c_avg" value="2"
+							id="rate4"> <label for="rate4">★</label> <input
+							type="radio" name="c_avg" value="1" id="rate5"> <label
+							for="rate5">★</label>
+					</div>
+	
+					<div class="writeBox">
+						<!-- 댓글 작성창에서 좌측 작성자, 아이디 숨기기 -->
+						<input type="hidden" id="review_p_no" name="p_no"
+							value="${product.p_no}">
+						<%--                 <label>작성자: ${sessionScope.userId}</label> --%>
+						<input type="hidden" name="c_id" value="${sessionScope.userId}">
+						<textarea name="c_text" placeholder="리뷰를 작성하세요" rows="4" cols="50"></textarea>
+	
+						<input type="file" name="c_img" accept="image/*">
+						<button type="button" onclick="submitReview()">리뷰 등록</button>
+					</div>
+				</form>
+			</div>
 		</div>
+		<div id="inquiry" class="tab-content" style="display: none;">
+			${product.d_info}</div>
 	</div>
-	<div id="inquiry" class="tab-content" style="display: none;">
-		${product.d_info}</div>
-
 	<%@ include file="../view/footer.jsp"%>
+	
 </body>
 </html>

@@ -6,13 +6,16 @@
 
 <body>
 	<style>
+#wrap{
+	margin-bottom: 50px;
+}
 #scrollTopBtn {
 	position: fixed;
 	bottom: 20px;
-	right: 20px;
+	left: 43%;
 	width: 50px;
 	height: 50px;
-	background-color: #FFD26E;
+	background-color: rgba(255,255,255,0.5);
 	color: black;
 	border-radius: 50%;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -132,7 +135,7 @@ h1 {
 	margin-left: 50px;
 }
 
-.repTogYooka {
+.repTogShopping {
 	display: none;
 }
 
@@ -174,6 +177,7 @@ h1 {
 	width: 1200px;
 	text-align: left;
 	margin: 0 auto;
+	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
 }
 
 #commentUpDel {
@@ -188,6 +192,20 @@ h1 {
 	padding: 8px;
 }
 
+.form-control:disabled, .form-control[readonly]{
+	background-color: white;
+	border: none;
+}
+
+.form-control[readonly]:focus{
+	border:none;
+}
+#footer{
+	width: 1200px;
+    margin: 0 auto;
+	text-align: right;
+}
+
 #commentReplyUpDel {
 	display: flex;
 	align-items: center;
@@ -196,13 +214,13 @@ h1 {
 	align-items: normal;
 }
 
-#replyYooka {
+#replyShopping {
 	padding: 8px;
 	float: right;
 }
 
-#deleteCommentYooka, #updateCommentYooka, #deleteReplyYooka,
-	#updateReplyYooka {
+#deleteCommentShopping, #updateCommentShopping, #deleteReplyShopping,
+	#updateReplyShopping {
 	width: 50px;
 	margin: 0 3px;
 }
@@ -267,6 +285,7 @@ ul {
 }
 
 .detail-box .title {
+	font-size: 20px;
 	font-weight: bold;
 	white-space: nowrap;
 	overflow: hidden;
@@ -290,9 +309,19 @@ ul {
     border-radius: 10px;
 }
 
+.mt-0, .writer{
+	font-weight: 900; 
+}
+
+#commentinput button{
+	float: right;
+}
+
+.cotent12 {
+	font-size: 18px;
+}
 @media screen and (max-width: 425px) {
 	.detail-box{
-		margin-top : 110px;
 		font-size: 14px;
 		text-align: left;
 		width: 100%;
@@ -332,7 +361,7 @@ ul {
 		list-style-type: none;
 		padding-left: 0;
 	}
-	#deleteReplyYooka, #updateReplyYooka {
+	#deleteReplyShopping, #updateReplyShopping {
 		font-size: 14px;
 	}
 }
@@ -342,10 +371,12 @@ ul {
 		<form name="fm" action="/updateShopping.do" method="get" class="form1"
 			enctype="multipart/form-data">
 			<input type="hidden" name="cm_no" value="${shopping.cm_no}">
-
+			<input type="hidden" name="cm_writer" value="${shopping.cm_writer}">
+			
+			
 			<div class="detail-box">
 				<div class="category-title">
-					<div class="category">[육아]</div>
+					<div class="category">[쇼핑]</div>
 					<div class="title">${shopping.cm_title}</div>
 				</div>
 				<div class="info12">
@@ -372,29 +403,29 @@ ul {
 						<p></p>
 					</c:otherwise>
 				</c:choose>
-			</div>
-			<p class="cotent12">${Shopping.cm_content}</p>
+			</div>	
+			<p class="cotent12">${shopping.cm_content}</p>
 			<br> <br>
 			<ul class="upDown">
 				<li class="likeUp"><button type="button" id="likebtn"
 						name="likebtn"
 						style="background-image: url('${pageContext.request.contextPath}/resources/img/community/like.png'); background-size: contain; background-repeat: no-repeat;height: 50px; border: none;"
-						onclick="UpDownStsShopping(${Shopping.cm_no}, 1)"></button>
+						onclick="UpDownStsShopping(${shopping.cm_no}, 1)"></button>
 					<p>${likeResult}</p></li>
 
 
 				<li class="hateDown"><button type="button" id="hatebtn"
 						name="hatebtn"
 						style="background-image: url('${pageContext.request.contextPath}/resources/img/community/hate.png'); background-size: contain; background-repeat: no-repeat; height: 50px; border: none;"
-						onclick="UpDownStsShopping(${Shopping.cm_no}, 2)"></button>
+						onclick="UpDownStsShopping(${shopping.cm_no}, 2)"></button>
 					<p>${hateResult}</p></li>
 			</ul>
 			<br> <br>
 			<div id="footer">
-				<c:if test="${sessionScope.userId == yooka.cm_writer }">
-					<button type="submit" class="">글수정</button>
+				<c:if test="${sessionScope.userId == shopping.cm_writer }">
+					<button type="submit" >글수정</button>
 					<button id="conWrite" type="button">글쓰기</button>
-					<button id="conDelYooka" type="button">글삭제</button>
+					<button id="conDelShopping" type="button">글삭제</button>
 				</c:if>
 				<button id="shoppingList" type="button">글목록</button>
 			</div>
@@ -465,7 +496,7 @@ ul {
 
 									<c:choose>
 										<c:when
-											test="${sessionScope.userId == commentYooka.co_writer}">
+											test="${sessionScope.userId == commentShopping.co_writer}">
 											<input id="Comment" type="text" class="form-control innm"
 												name="co_content" value="${commentShopping.co_content}">
 										</c:when>
@@ -479,7 +510,7 @@ ul {
 							</div>
 							<!-- 대댓글 입력 폼 (초기에는 숨김) -->
 							<div class="reply-form mt-2">
-								<form class="replyForm${commentShopping.co_no} replyForm"
+								<form class="replyFormShopping${commentShopping.co_no} replyFormShopping"
 									action="/insertReplyShopping.do" id="replyForm">
 									<input type="hidden" name="co_no2"
 										value="${commentShopping.co_no}" />
@@ -487,7 +518,7 @@ ul {
 										<textarea class="form-control" rows="2"
 											placeholder="대댓글을 입력하세요" name="co_content" required></textarea>
 									</div>
-									<input type="hidden" name="cm_no" value="${yooka.cm_no}">
+									<input type="hidden" name="cm_no" value="${shopping.cm_no}">
 									<button type="submit" 
 										id="inputbtn">등록</button>
 								</form>
@@ -495,9 +526,9 @@ ul {
 
 							<!-- 대댓글 목록 -->
 							<c:forEach items="${commentShopping1}" var="replyShopping">
-								<c:if test="${replyYooka.co_no2 == commentShopping.co_no }">
+								<c:if test="${replyShopping.co_no2 == commentShopping.co_no }">
 									<div
-										class="media mt-3 repTogYooka${commentShopping.co_no} repTogYooka">
+										class="media mt-3 repTogShopping${commentShopping.co_no} repTogShopping">
 										<div class="media-body reply2">
 											<span class="mt-0">${replyShopping.co_writer}</span>
 											<p class="text-muted">

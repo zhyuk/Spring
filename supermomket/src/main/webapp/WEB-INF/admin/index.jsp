@@ -1,4 +1,4 @@
-b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 		<%@ include file="header.jsp" %>
@@ -10,13 +10,17 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 							<div class="inner">
 								<div class="row_section">
 									<div id="chart_card" class="card">
-										<h3>오늘 가입한 사용자</h3>
+										<div class="title-box">
+											<h3>상품 매출현황</h3>
+										</div>
 										<canvas id="chart" class="content_box">
 										</canvas>
 									</div>
 
 									<div id="product_card" class="card">
-										<div class="title-box"><h3>상품 관리</h3> <a href="/productsList.do">더보기</a></div>
+										<div class="title-box">
+											<h3>상품 관리</h3> <a href="/productsList.do">더보기</a>
+										</div>
 										<div class="content_box">
 											<table>
 												<thead>
@@ -45,7 +49,9 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 								</div>
 								<div class="second_row row_section">
 									<div id="board_card" class="card">
-										<div class="title-box"><h3>게시글 관리</h3> <a href="/adminYooka.do">더보기</a></div>
+										<div class="title-box">
+											<h3>게시글 관리</h3> <a href="/adminYooka.do">더보기</a>
+										</div>
 										<div class="content_box">
 											<table>
 												<thead>
@@ -71,7 +77,9 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 									</div>
 
 									<div id="user_card" class="card">
-										<div class="title-box"><h3>사용자 관리</h3> <a href="/userList.do">더보기</a></div>
+										<div class="title-box">
+											<h3>사용자 관리</h3> <a href="/userList.do">더보기</a>
+										</div>
 										<div class="content_box">
 											<table>
 												<thead>
@@ -107,15 +115,17 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 				const chart = $("#chart");
 
 				const labels = [];
-				const data = [];
+				const datas = [];
 
 				<c:forEach items="${chartList}" var="chart">
-					labels.push('${chart.u_date}');
-					data.push('${chart.u_count}');
+					var data = "${chart.o_input_date}";
+					var output = data.slice(5);
+					labels.push(output);
+					datas.push('${chart.o_total_price}');
 				</c:forEach>
 				
-				console.log(labels);
-				console.log(data);
+				// console.log(labels);
+				// console.log(datas);
 
 				new Chart(chart, {
 					type: 'line',
@@ -123,19 +133,32 @@ b<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 						labels: labels,
 						datasets: [{
 // 							label: '',
-							data: data,
+							data: datas, // Y축 데이터
 // 							backgroundColor: '#FFD26E', // 라벨배경색
 							borderColor: '#FFD26E', // 선 색상
 							borderWidth: 2, // 선 굵기
 							pointBackgroundColor: '#FFD26E', // 포인트 배경색
 							pointRadius: 5, // 포인트 크기
-							tension: 0.4, // 선의 곡선
+							// 							tension: 0.4, // 선의 곡선
 						}]
 					},
 					options: {
 						scales: {
+							x: {
+								ticks: {
+									font: {
+										size: 15
+									}
+								}
+							},
 							y: {
-								beginAtZero: true
+								beginAtZero: true,
+								ticks: {
+									stepSize: 250,
+									font: {
+										size: 14
+									}
+								}
 							}
 						},
 						plugins: {

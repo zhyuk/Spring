@@ -26,7 +26,10 @@ $(document).ready(function(){
 		let con_test = confirm("정말로 삭제하시겠습니까?");
 		if(con_test == true){
 			let s = document.fm.cm_no.value;
+			console.log(s);
 			let w = document.fm.cm_writer.value;
+			alert("삭제가 완료되었습니다.");
+			
 			
 			location.href = "/deleteYooka.do?cm_no="+s+"&cm_writer="+w;
 		}
@@ -37,6 +40,7 @@ $(document).ready(function(){
 	$("#conDelNoriter").click(function(){
 		let con_test = confirm("정말로 삭제하시겠습니까?");
 		if(con_test == true){
+			alert("삭제가 완료되었습니다.");
 			let s = document.fm.cm_no.value;
 			let w = document.fm.cm_writer.value;
 			
@@ -49,6 +53,7 @@ $(document).ready(function(){
 	$("#conDelShopping").click(function(){
 		let con_test = confirm("정말로 삭제하시겠습니까?");
 		if(con_test == true){
+			alert("삭제가 완료되었습니다.");
 			let s = document.fm.cm_no.value;
 			let w = document.fm.cm_writer.value;
 			
@@ -86,31 +91,41 @@ $(document).ready(function(){
 	function delCommentYooka(cm_no, co_no, co_writer, co_content){
 	const con = confirm('정말삭제하시겠습니까?');
 	if(con == true){
+		alert("삭제가 완료되었습니다.");
 		location.href="/deleteCommentYooka.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer + "&co_content=" + co_content;
 	} else if(con == false){
 		return false;
 	}
 }
-	function delCommentNoriter(cm_no, co_no, co_writer,co_content){
+
+
+	function delCommentNoriter(cm_no, co_no, co_writer, co_content){
 	const con = confirm('정말삭제하시겠습니까?');
 	if(con == true){
-		location.href="/deleteCommentNoriter.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer+ "&co_content=" + co_content;
+		alert("삭제가 완료되었습니다.");
+		location.href="/deleteCommentNoriter.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer+"&co_content=" + co_content;
 	} else if(con == false){
 		return false;
 	}
 }
+
+
 	function delCommentShopping(cm_no, co_no, co_writer ,co_content){
 	const con = confirm('정말삭제하시겠습니까?');
 	if(con == true){
+		alert("삭제가 완료되었습니다.");
 		location.href="/deleteCommentShopping.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer + "&co_content=" + co_content;
 	} else if(con == false){
 		return false;
 	}
 }
+
+
 	//대댓글 삭제
 	function delReplyYooka(cm_no, co_no, co_writer, co_content){
 	const conR = confirm('정말삭제하시겠습니까?');
 	if(conR == true){
+		alert("삭제가 완료되었습니다.");
 		location.href="/deleteReplyYooka.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer+"&co_content=" + co_content;
 	} else if(conR == false){
 		return false;
@@ -119,6 +134,7 @@ $(document).ready(function(){
 	function delReplyNoriter(cm_no, co_no, co_writer, co_content){
 	const conR = confirm('정말삭제하시겠습니까?');
 	if(conR == true){
+		alert("삭제가 완료되었습니다.");
 		location.href="/deleteReplyNoriter.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer+"&co_content=" + co_content;
 	} else if(conR == false){
 		return false;
@@ -127,6 +143,7 @@ $(document).ready(function(){
 	function delReplyShopping(cm_no, co_no, co_writer){
 	const conR = confirm('정말삭제하시겠습니까?');
 	if(conR == true){
+		alert("삭제가 완료되었습니다.");
 		location.href="/deleteReplyShopping.do?cm_no=" + cm_no +"&co_no=" + co_no + "&co_writer=" + co_writer;
 	} else if(conR == false){
 		return false;
@@ -239,23 +256,3 @@ $(document).ready(function(){
         }
     });
 }
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

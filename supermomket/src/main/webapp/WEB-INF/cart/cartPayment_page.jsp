@@ -156,7 +156,7 @@
      addInputRestrictions(); // 입력 제한 이벤트 리스너 추가
  };
     
-    
+//     윈도우 결제
     IMP.init("${portOneNeeds.impCode}");
     function payFnc() {
         const fullAddress = setFullAddress();
@@ -195,6 +195,68 @@
             buyer_addr: fullAddress,
             buyer_email: $("#buyer_email").val(),
             products: productArr
+        }, async function (response) { 
+        	
+        	console.log("response: ",response);
+        	
+            if (response.error_code != null) {
+                alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);
+                return;
+            }
+
+            const frmData = {
+                pvo: response,
+                mydata: JSON.stringify($("#payForm").serializeArray())
+            };
+
+            await fetch('preparcartList.do', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(frmData)
+            });
+            location.reload();
+        });
+    }
+    
+//     모바일결제
+    function MobilepayFnc() {
+        const fullAddress = setFullAddress();
+        const firstname = $("tr[name='cart_List']:eq(0) input[name='p_name']").val();
+        const rowCount = $("tr[name='cart_List']").length;
+        const nm = rowCount > 1 ? `${firstname} 외 ${rowCount - 1}개` : firstname;
+
+        $("#orderName").val(nm);
+
+        const productArr = $("tr[name='cart_List']").map(function () {
+            return {
+                id: $(this).find("input[name='p_no']").val(),
+                img: $(this).find("input[name='p_img']").val(),
+                name: $(this).find("input[name='p_name']").val(),
+                code: $(this).find("input[name='c_no']").val(),
+               	price: $(this).find("input[name='p_price']").val(),
+                unitPrice: parseInt($(this).find(".p_total").text().replace(/,/g, ''), 10),
+                quantity: parseInt($(this).find("input[name='p_count']").val(), 10)
+            
+            };
+        }); 
+        
+        
+       
+        
+        console.log("productArr: ",productArr);
+
+        IMP.request_pay({
+            channelKey: "channel-key-816ec3e5-9e11-449f-856b-2ea72dd01600",
+            pay_method: "card",
+            merchant_uid: `payment-` + new Date().getTime(),
+            name: nm,
+            amount: $("#totalAmount").val(),
+            buyer_name: $("#buyer_name").val(),
+            buyer_tel: $("#buyer_tel").val(),
+            buyer_addr: fullAddress,
+            buyer_email: $("#buyer_email").val(),
+            products: productArr ,
+            m_redirect_url:"preparcartList"
         }, async function (response) { 
         	
         	console.log("response: ",response);
@@ -262,6 +324,49 @@
         // 모든 필드가 유효하면 결제 함수 호출
         payFnc();
     }
+    function mobilevalidateForm() {
+        const buyerName = document.getElementById('buyer_name');
+        const buyerEmail = document.getElementById('buyer_email');
+        const receiveName = document.getElementById('receive_name');
+        const buyerTel = document.getElementById('buyer_tel');
+        const postcode = document.getElementById('sample4_postcode');
+        const roadAddress = document.getElementById('sample4_roadAddress');
+        const jibunAddress = document.getElementById('sample4_jibunAddress');
+
+        if (!buyerName.value.trim()) {
+            alert("주문자명을 입력하세요.");
+            buyerName.focus();
+            return false;
+        }
+        if (!buyerEmail.value.trim()) {
+            alert("이메일을 입력하세요.");
+            buyerEmail.focus();
+            return false;
+        }
+        if (!receiveName.value.trim()) {
+            alert("수취인 이름을 입력하세요.");
+            receiveName.focus();
+            return false;
+        }
+        if (!buyerTel.value.trim()) {
+            alert("연락처를 입력하세요.");
+            buyerTel.focus();
+            return false;
+        }
+        if (!postcode.value.trim()) {
+            alert("우편번호를 입력하세요.");
+            postcode.focus();
+            return false;
+        }
+        if (!roadAddress.value.trim() && !jibunAddress.value.trim()) {
+            alert("주소를 입력하세요.");
+            roadAddress.focus();
+            return false;
+        }
+        
+        // 모든 필드가 유효하면 결제 함수 호출
+        MobilepayFnc();
+    }
     
     
     
@@ -270,29 +375,29 @@
 
 		<main>
 		<section>
+			
 			<div class="pcdiv">
 				<form id="payForm" name="payForm">
 					<input type="hidden" name="u_id" value="${userId}"> <input
 						type="hidden" name="c_payment" value="${c_payment}">
 					<div class="cart-container">
-						<h2>결재화면</h2>
 						<table class="cart-table">
 							<thead>
 								<tr>
-									<th>상품제거</th>
-									<th>번호</th>
-									<th>상품이미지</th>
+									<th>취소</th>
+									<th class="mocount">번호</th>
+									<th>이미지</th>
 									<th>상품명</th>
 									<th>수량</th>
-									<th>상품금액</th>
-									<th>합계금액</th>
+									<th class="mocount">상품금액</th>
+									<th>합계</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:set var="counter" value="1" scope="page" />
 								<c:forEach items="${paymentcartList}" var="cvo">
-									<tr name="cart_List">
-										<th><input type="button" name="c_noarr" value="삭제"
+									<tr class="cart_List" name="cart_List">
+										<th><input type="button" name="c_noarr" value="취소"
 											onclick="deletePayCart(${cvo.c_no}, ${cvo.p_no}, '${userId}')">
 											<input type="hidden" name="p_no" value="${cvo.p_no}">
 											<input type="hidden" name="c_no" value="${cvo.c_no}">
@@ -301,7 +406,7 @@
 											type="hidden" name="p_img" value="${cvo.p_img}"> <input
 											type="hidden" name="p_price" value="${cvo.p_price}">
 										</th>
-										<td class="tdCenter">${counter}</td>
+										<td class="tdCenter mocount">${counter}</td>
 										<c:set var="counter" value="${counter + 1}" />
 										<td class="tdCenter" onclick="cart_imglink(${cvo.p_no})">
 											<img style="width: 100px"
@@ -315,8 +420,8 @@
 											data-uid="${cvo.u_id}" data-payment="${cvo.c_payment}"
 											min="1" max="50" oninput="validateNumberInput(this)">
 										</td>
-										<td class="tdCenter"><fmt:formatNumber
-												value="${cvo.p_price}" type="number" groupingUsed="true" /></td>
+										<td class="tdCenter mocount"><fmt:formatNumber
+												value="${cvo.p_price}" type="number" groupingUsed="true" />원</td>
 										<td class="tdCenter p_total" id="total_${cvo.c_no}"><fmt:formatNumber
 												value="${cvo.p_total}" type="number" groupingUsed="true" />원</td>
 									</tr>
@@ -360,10 +465,10 @@
 						</div>
 						<div class="form-group">
 							<div class="address-fields">
-								<label for="address">배송 주소: </label> <input type="text"
-									id="sample4_postcode" placeholder="우편번호"> <input
-									type="button" onclick="sample4_execDaumPostcode()"
-									value="우편번호 찾기"> <input type="text"
+								<label for="address">배송 주소: <br></label>
+								<input class="addressbtn" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"> 
+								<input type="text" id="sample4_postcode" placeholder="우편번호"> 
+									<input type="text"
 									id="sample4_roadAddress" placeholder="도로명주소"> <input
 									type="text" id="sample4_jibunAddress" placeholder="지번주소">
 								<input type="text" id="sample4_detailAddress" placeholder="상세주소">
@@ -391,6 +496,9 @@
 						<div class="form-group text-center">
 							<button type="button" onclick="validateForm()"
 								class="btn btn-primary" id="payButton" disabled>결제하기</button>
+							<button type="button" onclick="mobilevalidateForm()"
+								class="btn btn-primary" id="mobilepayButton"  disabled>결제하기</button>
+						</div>
 						</div>
 					</div>
 
@@ -432,6 +540,7 @@
 				function agreeToTerms() {
 				    document.getElementById('termsCheckbox').checked = true;
 				    document.getElementById('payButton').disabled = false;
+				    document.getElementById('mobilepayButton').disabled = false;
 				    
 				    const agreeButton = document.getElementById('agreeButton');
 				    if (agreeButton) { // agreeButton이 존재할 때만 classList 수정

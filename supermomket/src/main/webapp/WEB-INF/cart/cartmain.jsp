@@ -11,7 +11,6 @@
 <main style="margin-top: 50px;justify-items: center;">
 	<div class="cart-container">
 		<h2>장바구니</h2>
-		<a href="preparcartList.do">결제창(임시)</a>
 		<form name="cartList">
 			<input 	type="hidden" name="u_id" value="${userId}">
 			<input 	type="hidden" name="c_payment" value="${c_payment}">
@@ -19,23 +18,23 @@
 			<table class="cart-table">
 				<thead>
 					<tr class="cartth">
-						<th><input id="cart_allChk" type="checkbox">전체선택</th>
-						<th>번호
+						<th><input id="cart_allChk" type="checkbox"></th>
+						<th class="mocount">번호
 						<th>상품이미지</th>
 						<th>상품명</th>
 						<th class="cart_numberinput">수량</th>
-						<th>상품금액</th>
-						<th>합계금액</th>
+						<th class="mocount">상품금액</th>
+						<th>합계</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:set var="counter" value="1" scope="page" />
 					<!-- 초기 값 설정 -->
 					<c:forEach items="${cartList}" var="cvo">
-						<tr name="cart_List">
+						<tr class="cart_List" name="cart_List">
 							<th><input id="cart_chkVal" name="c_noarr" type="checkbox" value="${cvo.c_no }">
 							<input type="hidden" name="p_no" value="${cvo.p_no}"></th>
-							<td class="tdCenter">${counter}</td>
+							<td class="tdCenter mocount">${counter}</td>
 							<!-- 현재 숫자 표시 -->
 							<c:set var="counter" value="${counter + 1}" />
 							<!-- counter 값 증가 -->
@@ -44,7 +43,7 @@
 							<td class="tdCenter"><input type="number" name="p_count" value="${cvo.p_count}"
 							data-price="${cvo.p_price}" data-cno="${cvo.c_no}" data-pno="${cvo.p_no}" data-uid="${cvo.u_id}"
 							data-payment="${cvo.c_payment}" min="1" max="50" oninput="validateNumberInput(this)"></td>
-							<td class="tdCenter"><span><fmt:formatNumber value="${cvo.p_price}" type="number" groupingUsed="true" />원</span></td>
+							<td class="tdCenter mocount"><span><fmt:formatNumber value="${cvo.p_price}" type="number" groupingUsed="true" />원</span></td>
 							<td class="tdCenter" id="total_${cvo.c_no}"><span><fmt:formatNumber value="${cvo.p_total}" type="number" groupingUsed="true" />원</span></td>
 						</tr>
 					</c:forEach>
@@ -56,9 +55,11 @@
 			</div>
 
 			<div class="cart-buttons">
-				<button type="button" onclick="cartsubmit(1)" class="delete-btn">선택상품삭제</button>
+			<div class="purchasediv">
+				<button type="button" onclick="cartsubmit(1)" class="delete-btn">선택삭제</button>
 				<button type="button" onclick="cartsubmit(2)" class="select-purchase-btn">선택구매</button>
 			<button  type="button" onclick="cartsubmit(4)"  id="allsellbtn" class="all-purchase-btn">전체구매</button>
+			</div>
 			</div>
 		</form>
 	</div>

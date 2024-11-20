@@ -127,19 +127,28 @@ input:read-only {
 	margin: 0 auto;
 }
 
+.btn btn-del{
+    height: 45px;
+    width: 100%;
+    margin: 13px 0px;
+    border: none;
+    background-color: #F6F6F6;
+}
+
+
 @media screen and (max-width : 426px) {
 	.mp_updateForm {
 		margin-top: 50px;
 		width: 95%;
 	}
+	
 	input[type="text"], button {
 		font-size: 14px;
 		padding: 6px;
 	}
+	
 	legend {
-		font-size: 12px;
-		!
-		important;
+		font-size: 15px;
 	}
 	fieldset {
 		padding: 5px;
@@ -261,10 +270,9 @@ input:read-only {
 
 				<div class="text-end">
 					<button type="submit" class="btn"
-						style="width: 100%; height: 70px; background-color: #FFD26E;">수
-						정</button>
-					<button type="button" onclick="confirmTaltae()" class="btn del-btn"
-						style="width: 100%; margin: 20px 0px; border: none; background-color: #F6F6F6;">회원탈퇴</button>
+						style="width: 100%; height: 70px; background-color: #FFD26E;">수 정</button>
+					<button type="button" class="btn del-btn" onclick="confirmTaltae()" 
+						style="width: 100%; height: 40px; margin: 13px 0px; border: none; background-color: #F6F6F6;">회원탈퇴</button>
 				</div>
 			</form>
 

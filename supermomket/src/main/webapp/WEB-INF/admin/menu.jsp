@@ -8,7 +8,7 @@
         <nav class="pointer">
             <ul>
                 <li class="main-menu"><a href="/admin/trade">중고거래</a></li>
-                <li class="main-menu"><a href="productsList.do">새상품</a></li>
+                <li class="main-menu"><a href="/productsList.do">새상품</a></li>
                 <li id="community_nav" class="main-menu">커뮤니티</li>
                 <ul class="community_sub_nav sub-menu">
                     <li class="community_sub_menu"><a href="/adminYooka.do">육아정보</a></li>
@@ -16,8 +16,8 @@
                     <li class="community_sub_menu"><a href="/adminShopping.do">쇼핑정보</a></li>
                     <li class="community_sub_menu"><a href="/vs_admin.do">고민거리</a></li>
                 </ul>
-                <li class="main-menu"><a href="getFaqAdminList.do">FAQ</a></li>
-                <li class="main-menu"><a href="adminorderList.do">결제 유저정보확인</a></li>
+                <li class="main-menu"><a href="/getFaqAdminList.do">FAQ</a></li>
+                <li class="main-menu"><a href="/adminorderList.do">결제 유저정보확인</a></li>
                 <li class="main-menu"><a href="/userList.do">사용자관리</a></li>
                 <li class="main-menu"><a href="/updateAdmin.do">관리자 비밀번호 변경</a></li>
             </ul>

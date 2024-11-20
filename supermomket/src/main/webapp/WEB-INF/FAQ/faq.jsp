@@ -11,24 +11,21 @@
 <main>
 <section>
 <div id="faq_maindiv">
+<h1>FAQ 글정보</h1>
 	<form name="fm" action="updatefaq.do" method="POST">
 		<input type="hidden" name="faq_no" value="${fvo.faq_no}">
-		<!-- 여기서 textarea 값들을 hidden input에 담기 위한 숨겨진 필드를 추가 -->
-		<div class="input-group">
-			<div class="input-group-prepend">
-				<span class="input-group-text">자주묻는 질문</span>
-			</div>
-			<input type="text" class="form-control innm" name="faq_q"
-				value="${fvo.faq_q}">
-		</div>
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<span class="input-group-text">답변</span>
-			</div>
-			<input type="text" class="form-control innm" name="faq_a"
-				value="${fvo.faq_a}">
-		</div>
-
+	<!-- select 태그의 name을 faq_class로 수정하여 서버에서 해당 값을 받을 수 있도록 함 -->
+      	<div class="faq_qadiv">
+				
+							 <fieldset>
+							 <legend class="faq_q">자주 묻는 질문</legend>
+							<input type="text" class="form-control faq_qinput"  placeholder="자주 묻는 질문" name="faq_q" value="${fvo.faq_q}"></td>
+							 </fieldset>
+							<fieldset>
+							 <legend class="faq_a">자주 묻는 답변</legend>
+							<textarea maxlength="2048"class="form-control faq_ainput" name="faq_a">${fvo.faq_a}</textarea>
+							</fieldset>
+	</div>
 		<div id="footer">
 			<button type="submit" class="btn btn-primary">수정완료</button>
 			<button id="faq_conDel" type="button" class="btn btn-primary">글삭제</button>

@@ -7,7 +7,18 @@
 	<%@ include file="../view/menu.jsp" %>
 	
 <main>
-	<section class="faq_section">
+<section class="faq_section">
+ <form action="searchfaq.do">
+ <div class="faqu_selectdiv">
+  	<select class="form-control" id="sel1" name="searchCondition" >
+        <c:forEach items="${conditionMap}" var="option">
+	        <option value="${option.value}">${option.key}</option>
+        </c:forEach>
+    </select>
+    <input  id="searchinput" class="form-control search" type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+    <button class="btn search-btn" type="submit">검색</button>
+ </div>
+ </form>
 <div id="faq_btndiv" class="cartu_btn">
 <form name="frm" method="post" style="display:none" >
 <input type="hidden" name="faq_class" value="">
@@ -19,21 +30,12 @@
 </div>
 <div class="faqu_maindiv">
  <form class="form-inline" action="getFaqUserList.do" method="post">
- <div class="faqu_selectdiv">
-  	<select class="form-control" id="sel1" name="searchCondition" >
-        <c:forEach items="${conditionMap}" var="option">
-	        <option value="${option.value}">${option.key}</option>
-        </c:forEach>
-    </select>
-    <input class="form-control mr-sm-2" type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
-    <button class="btn search-btn" type="submit">검색</button>
- </div>
   </form>
 
 
 <div class="cartu_tablediv">
     <table class="faquserList_table">
-    <thead>
+    <thead class="faqtheadhead">
         <tr>
             <th class="cartu_thtop">분류</th>
             <th class="cartu_thmiddle">질문</th>
@@ -47,8 +49,7 @@
     </tr>
     <!-- 답변 행 (처음에는 숨겨진 상태) -->
     <tr class="answer-row" style="display: none;">
-        <th class="cartu_thbttom">답변</th>
-        <td colspan="2" class="faqu_tdbttom answer-content">
+        <td colspan="3" class="faqu_tdbttom answer-content">
             ${fvo.faq_a}
         </td>
     </tr>
@@ -62,7 +63,7 @@
     
     	<ul class="faqtpage-item">
 		<c:if test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
-			<li class="faqtpage-li"><a class="faqpage-link" href="${searchURI }?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이전</a></li>
+			<li class="faqtpage-li"><a class="faqpage-link" href="${searchURI }?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">&lt;&lt;</a></li>
 		</c:if>
 		<c:forEach var="i" begin="${paging.startBtn}" end="${paging.endBtn}" step="1">
 			<c:choose>
@@ -71,7 +72,7 @@
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
-			<li class="faqtpage-li"><a class="faqpage-link" href="${searchURI }?nowPage=${paging.nowPage+1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이후</a></li>
+			<li class="faqtpage-li"><a class="faqpage-link" href="${searchURI }?nowPage=${paging.nowPage+1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">&gt;&gt;</a></li>
 		</c:if>
 	</ul>
     

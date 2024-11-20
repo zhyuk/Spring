@@ -6,6 +6,11 @@
     font-family: 'Quicksand', 'Noto Sans KR', sans-serif; /* 외부 글꼴 설정 */
 }
 
+strong {
+   font-weight: bolder;
+   font-size: 18px;
+}
+
 /* 상품 상세 컨테이너 */
 .product-detail-container {
     display: flex;
@@ -13,6 +18,11 @@
     margin: 0px auto;
     padding: 20px;
     background-color: #fff;
+}
+
+
+.detail_inner {
+	min-height: 1050px;
 }
 
 /* 리뷰 작성 버튼 스타일 */
@@ -35,7 +45,7 @@
     flex: 2;
     padding: 20px;
     text-align: center;
-    width: 500px;
+/*     width: 500px; 모바일 반응형에서 오른쪽 여백으로 인한 주석 처리*/ 
     height: 500px;
     box-sizing: border-box;
     display: flex;
@@ -180,7 +190,7 @@
 
 /* 수량 및 배송 정보 */
 .quantity-shipping-container {
-    display: flex;
+/*     display: flex; */ /* 모바일에서 수량 선택 버튼 위치를 가운데 배치하느라 주석 처리함 */
     align-items: center;
     gap: 15px;
     margin-top: 15px;
@@ -611,7 +621,7 @@
 
 
 .soldout {
-	display: flex;
+   display: flex;
     align-items: center;
     color : red;
     font-weight: bold;
@@ -643,6 +653,7 @@
     .product-info {
         width: 100%; /* 상품 정보가 화면에 맞게 */
         text-align: center;
+        margin-top: 0px;
     }
 
     .product-name {
@@ -809,4 +820,5 @@
         width: 100%;
         height: auto;
     }
+    
 }

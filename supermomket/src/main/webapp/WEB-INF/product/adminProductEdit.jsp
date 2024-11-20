@@ -32,7 +32,7 @@
 	            <input type="number" name="p_price" id="p_price" value="${product.p_price}" oninput="calculateDiscountPrice()" /><br/>
 	
 	            <label>할인률:</label>
-	            <input type="number" name="p_dr" id="p_dr" value="${product.p_dr}" step="0.01" oninput="calculateDiscountPrice()" /> %<br/>
+	            <input type="number" name="p_dr" id="p_dr" value="${product.p_dr}" step="0.01" oninput="calculateDiscountPrice()" /><br/>
 	
 	            <label>할인가격:</label>
 	            <input type="number" name="p_discount" id="p_discount" value="${product.p_discount}" readonly/><br/>
@@ -49,8 +49,8 @@
 	            <label>제조국가:</label>
 	            <input type="text" name="p_made" value="${product.p_made}" /><br/>
 	
-	            <label>평점:</label>
-	            <input type="number" name="review_avg" value="${product.review_avg}" readonly/><br/>
+<!-- 	            <label>평점:</label> -->
+<%-- 	            <input type="number" name="review_avg" value="${product.review_avg}" readonly/><br/> --%>
 	
 	            <!-- 상품 이미지 파일 첨부 -->
 	            <label>상품 이미지:</label>

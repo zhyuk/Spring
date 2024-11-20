@@ -4,6 +4,9 @@
 	padding: 0;
 	box-sizing: border-box;
 	list-style: none;
+}
+
+body {
 	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
 }
 
@@ -27,7 +30,6 @@
 :root {
 	--color-light-main: #FFDE95;
 	--color-main: #FFD26E;
-/* 	--color-main: #FFC219; */
 	--color-blk: #000;
 	--color-white: #fff;
 	--color-gray: #D9D9D9;
@@ -148,6 +150,8 @@ header nav>ul {
 }
 
 header nav .userInfo-box {
+	display: flex;
+	align-items: center;
 	position: absolute;
 	top: 50%;
 	right: 0;
@@ -160,20 +164,24 @@ header nav .userInfo-box p {
 	margin-right: 10px;
 }
 
-header nav .userInfo-box button {
-	border: none;
-	background: transparent;
+header nav .userInfo-box a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+	margin-bottom: 0;
 }
 
-header nav .userInfo-box button i {
+header nav .userInfo-box a i {
 	font-size: 26px;
 }
-
 
 header .main-menu {
 	display: flex;
 	justify-content: center;
-	font-weight: 500;
+	color: #000;
+/* 	font-weight: 500; */
 }
 
 header .main-menu li {
@@ -264,7 +272,7 @@ main {
 	width: 100%;
 	min-height: calc(100vh - 300px);
 	height: fit-content;
-	margin-top: 50px;
+	margin-top: 0;
 	/* border: solid 1px red; */
 }
 
@@ -272,6 +280,10 @@ main section {
 	max-width: 1200px;
 	margin: 0 auto;
 	/* border: solid 1px blue; */
+}
+
+main section#user_index_section h3 {
+	color: #000;
 }
 
 main section#user_index_section .inner #product_box {
@@ -323,10 +335,19 @@ main section#user_index_section .inner .content_box {
 	/* 	border: solid 1px green; */
 }
 
-main section#user_index_section .inner .content_box h3 {
-	width: 100%;
-	padding-bottom: 10px;
-	border-bottom: solid 1px #d9d9d9;
+main section#user_index_section .inner .content_box div.title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: solid 1px #D9D9D9;
+}
+
+main section#user_index_section .inner .content_box div.title h3 {
+	margin-bottom: 0;
+}
+
+main section#user_index_section .inner .content_box div.title p {
+	margin-bottom: 0;
 }
 
 main section#user_index_section .inner .content_box ul {
@@ -365,6 +386,7 @@ main section#user_index_section .inner .content_box ul li p.title {
 
 main section#user_index_section .inner .content_box ul li p.title span{
 	margin-right: 10px;
+	color: #007bff;
 }
 
 main section#user_index_section .inner .content_box ul li p.date {
@@ -389,6 +411,10 @@ footer {
 	margin-top: 40px;
 	background: var(--color-main);
 	font-size: 16px;
+}
+
+footer > * {
+	color: #000;
 }
 
 footer .inner {
@@ -454,7 +480,7 @@ footer .inner p:nth-of-type(2) {
 	}
 
 	main {
-		margin-top: 150px;
+		margin-top: 110px !important;
 	}
 
 	main section#user_index_section .inner {

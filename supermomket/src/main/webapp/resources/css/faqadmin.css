@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 :root {
 	--color-light-main: #FFDE95;
 	--color-main: #FFD26E;
@@ -15,12 +16,61 @@
 
 
 * {
+	box-sizing:border-box;
 	white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+	/* font-size: 18px!important; */
+}
+
+.faqinsert_maindiv{
+	width: 100%;
+	height: 100%;
 }
 
 .faqAdminsearchdiv{
 	margin-bottom: 5px;
+	display: flex;
+	float: right;
 }
+.faqAdminsearchdiv select{
+	padding: 5px;
+	font-size: 14px;
+}
+.faqAdminsearchdiv input[type="text"]{
+	padding: 5px;
+	font-size: 14px;
+}
+.faqAdminsearchdiv button{
+	padding: 5px 10px;
+    font-size: 14px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.faqAdminsearchdiv button:hover{
+	 background-color: #c0c0c0;
+}
+table{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    clear: both;
+}
+th, td {
+    padding: 1px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+button#faqadminbtn {
+    margin: 0;
+    color: #000;
+}
+
+.line{
+	vertical-align: bottom;
+}
+
+
 
 .faqAdminmaindiv {
 	width: 100%;
@@ -36,16 +86,40 @@
 	width: 100%;
 	border-collapse: collapse;
 }
-
-.faqadminList_table th, .faqadminList_table td {
-	border: 1px solid #000;
-	padding: 10px;
-	text-align: center;
+.faqtable{
+	width: 100%;
+	height: 100%;
 }
 
+.faqadminList_table th, .faqadminList_table td {
+	border: 1px solid #ddd;
+	padding: 1px;
+	text-align: center;
+}
+.faqadminList_table th:first-child{
+	border-left: none;
+}
+.faqadminList_table th:last-child{
+	border-right: none;
+}
+.faqadminList_table td:first-child{
+	border-left: none;
+}
+.faqadminList_table td:last-child{
+	border-right: none;
+}
+
+
 .faqadminList_table th {
+	border-top:none;
+	border-bottom:none; 
 	background-color: var(--ad-color-lightgray); /* 약간 연한 배경색 */
+	padding:10px;
 	color: #000000;
+}
+.faq-row tr:first-child{
+	margin-top: none;
+	
 }
 #faqadminbtn{
 	background-color: var(--ad-color-lightgray);
@@ -64,9 +138,9 @@
 /* FAQ 관리 버튼 스타일 */
 .faqadminbtn {
 	margin: 5px 0;
-	background-color: #fff; /* 사이드바 색상과 일치 */
+	background-color: var(--ad-color-lightgray); /* 사이드바 색상과 일치 */
 	color: #000000;
-	border: 1px solid #fff; /* 테두리 색상을 배경과 통일 */
+	border: 1px #fff; /* 테두리 색상을 배경과 통일 */
 	padding: 8px 16px;
 	border-radius: 4px;
 	font-size: 14px;
@@ -129,6 +203,8 @@
 	background-color: var(--ad-color-lightgray); /* 활성화된 페이지는 호버 시 변화 없음 */
 	color: #000;
 }
+
+
 
 
 

@@ -13,6 +13,20 @@
     --ad-color-lightgray: #D9D9D9;
 }
 
+h1{
+	margin-bottom: 30px;
+}
+
+
+/* 발표용 */
+*{
+	font-size: 18px!important;
+}
+textarea.form-control.faq_ainput {
+    font-size: 18px!important;
+/*     font-size: 16px; */
+}
+
 /* 전체 폰트와 레이아웃 */
 body {
     font-family: Arial, sans-serif;
@@ -20,12 +34,26 @@ body {
     justify-content: center;
     background-color: #f9f9f9;
 }
-
-
-#faq_maindiv{
-	width: 900px;
+fieldset {
+	margin-bottom: 20px;
+	border-radius: 10px;
+	border: 1px solid #F8F8F8;
+	padding: 20px 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
 }
-
+legend {
+	font-weight: bold;
+	font-size: 18px;
+	width: fit-content;
+	color: black;
+	padding: 0px 20px;
+	border-radius: 5px;
+}
+fieldset:hover {
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+	background-color: #FFFAF0;
+}
 main {
     width: 100%;
     background-color: #fff;
@@ -34,27 +62,68 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.input-group {
-    margin-bottom: 20px;
+/* 메인 섹션 스타일 */
+.faqinsert_mainsection {
     display: flex;
+    justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
-.input-group-prepend .input-group-text {
-    width: 800px;
-    background-color: #FFD26E;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 5px 0 0 5px;
-    text-align: center;
+
+.faqinsert_maindiv {
+ 	width: 100%;
+ 	padding: 10px;
+	max-width:1300px;
+	height:800px;
+ 	background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-control.innm {
-    height: 45px;
+.faq_ainput{
+	width: 100%;
+	height: 400px;
+	resize: none;
+	padding: 10px; 
+	border: 1px solid #aaa; 
+}
+
+
+
+/* 제목과 선택 영역 */
+.faqinsert_selectdiv {
+    margin-bottom: 20px;
+}
+
+.faqinsert_selectdiv .form-control {
+    width: 100%;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #D9D9D9;
-    border-radius: 0 5px 5px 0;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* 자주 묻는 질문 및 답변 입력 영역 */
+.faq_qadiv {
+    margin-bottom: 20px;
+}
+
+.faq_qdiv, .faq_adiv {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.faq_qinput{
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 /* 하단 버튼 스타일 */

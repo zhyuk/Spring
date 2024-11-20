@@ -3,6 +3,7 @@ package com.spring.mom.svc;
 import java.util.List;
 
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.OrderVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
 import com.spring.mom.vo.UserVO;
@@ -26,6 +27,6 @@ public interface IndexService {
 	public List<UserVO> getUserListAdmin(UserVO vo);
 	
 	// 차트에 들어갈 사용자 수 가져오기
-	public List<UserVO> getChartAdmin(UserVO vo);
+	public List<UserVO> getChartAdmin(OrderVO vo);
 
 }

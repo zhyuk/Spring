@@ -27,6 +27,17 @@ public class ProductDAO {
         params.put("searchQuery", searchQuery);
         return sqlSession.selectList("ProductDAO.getProductsByPage", params);
     }
+    
+ // 페이징, 정렬, 카테고리, 검색 필터링을 처리하는 메서드
+    public List<ProductVO> getAdminProductsByPage(int limit, int offset, String sortType, String category, String searchQuery) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("limit", limit);
+        params.put("offset", offset);
+        params.put("sortType", sortType);
+        params.put("category", category);
+        params.put("searchQuery", searchQuery);
+        return sqlSession.selectList("ProductDAO.getAdminProductsByPage", params);
+    }
 
     // 특정 카테고리의 전체 상품 수를 가져오는 메서드
     public int getProductCountByCategory(String category, String searchQuery) {

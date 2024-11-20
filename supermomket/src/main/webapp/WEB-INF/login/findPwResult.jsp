@@ -13,7 +13,6 @@
         <div class="logo-box"><a href="/"><img src="/resources/img/logo/logo1.png" alt="로고"></a></div>    
         <h2>비밀번호 찾기 결과</h2>
         
-        <!-- 임시 비밀번호가 발급되었을 때 -->
         <c:if test="${not empty tempPassword}">
             <div class="form-field">
                 <p>새로운 임시 비밀번호는 <strong>${tempPassword}</strong> 입니다.</p>
@@ -21,7 +20,6 @@
             </div>
         </c:if>
 
-        <!-- 일치하는 정보가 없으면 -->
         <c:if test="${empty tempPassword}">
             <div class="form-field">
                 <p>일치하는 정보가 없습니다. 다시 시도해주세요.</p>

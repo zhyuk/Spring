@@ -40,7 +40,7 @@
 .btn {
 	background-color: darkgray !important;
 	border: none !important;
-	font-size: 20px;
+	font-size: 18px !important;
 /* 	font-weight: 600 !important; */
 }
 

@@ -103,14 +103,14 @@ VALUES(
 <!-- 	어드민 오더리스트 -->
 	<select id="adminorderList" resultType="orderList">
 	select * from orderList where 1=1
-	<if test="searchCondition == 'ID' "> AND U_ID LIKE CONCAT('%',#{searchKeyword},'%') </if>
-	<if test="searchCondition == 'STATUS' "> AND O_CANCEL_YN CONCAT('%',#{searchKeyword},'%') </if>
+	<if test="searchCondition == 'null' "> and 1=1  </if>
+	<if test="searchCondition == 'ID' "> AND U_ID = #{searchKeyword}  </if>
 	</select>
 <!-- 	어드민  리스트 페이징 행수 처리 -->
 <select id="countorderlist" resultType="int">
 		SELECT COUNT(*) FROM orderlist WHERE 1=1
-		<if test="searchCondition == 'ID'">  AND U_ID = #{searchKeyword}  </if>
-		<if test="searchCondition == 'STATUS' "> AND O_CANCEL_YN CONCAT('%',#{searchKeyword},'%') </if>
+		<if test="searchCondition == 'null' "> and 1=1  </if>
+		<if test="searchCondition == 'ID' "> AND U_ID = #{searchKeyword}  </if>
 	</select>
 
 

@@ -20,15 +20,12 @@ public class CommentDAO {
 		
 	// 댓글 목록
 	public List<Comment_yookaVO> getCommentYookaList(Comment_yookaVO vo) {
-//		System.out.println("CommentYookaList 등록 : " + vo);
 		return mybatis.selectList("CommentDAO.getCommentYookaList", vo);
 	}
 	public List<Comment_noriterVO> getCommentNoriterList(Comment_noriterVO vo) {
-//		System.out.println("CommentYookaList 등록 : " + vo);
 		return mybatis.selectList("CommentDAO.getCommentNoriterList", vo);
 	}
 	public List<Comment_shoppingVO> getCommentShoppingList(Comment_shoppingVO vo) {
-//		System.out.println("CommentYookaList 등록 : " + vo);
 		return mybatis.selectList("CommentDAO.getCommentShoppingList", vo);
 	}
 
@@ -67,15 +64,12 @@ public class CommentDAO {
 
 	// 대댓글 등록
 	public int insertReplyYooka(Comment_yookaVO vo) {
-//		System.out.println("대댓글등록 다오입장");
 		return mybatis.insert("CommentDAO.insertReplyYooka", vo);
 	}
 	public int insertReplyNoriter(Comment_noriterVO vo) {
-//		System.out.println("대댓글등록 다오입장");
 		return mybatis.insert("CommentDAO.insertReplyNoriter", vo);
 	}
 	public int insertReplyShopping(Comment_shoppingVO vo) {
-//		System.out.println("대댓글등록 다오입장");
 		return mybatis.insert("CommentDAO.insertReplyShopping", vo);
 	}
 
@@ -103,15 +97,12 @@ public class CommentDAO {
 	
 	// 전체 댓글수
 	public int replyCntYooka(Comment_yookaVO vo) {
-//		System.out.println("replyCntYooka DAO: "+ vo);
 		return mybatis.selectOne("CommentDAO.replyCntYooka", vo);
 	}
 	public int replyCntNoriter(Comment_noriterVO vo) {
-//		System.out.println("replyCntYooka DAO: "+ vo);
 		return mybatis.selectOne("CommentDAO.replyCntNoriter", vo);
 	}
 	public int replyCntShopping(Comment_shoppingVO vo) {
-//		System.out.println("replyCntYooka DAO: "+ vo);
 		return mybatis.selectOne("CommentDAO.replyCntShopping", vo);
 	}
 }

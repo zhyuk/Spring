@@ -86,7 +86,6 @@ public class PortOnePayController {
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new HashMap<String, String>();
 		conditionMap.put("ID", "ID");
-		conditionMap.put("결제 방식", "STATUS");
 		return conditionMap;
 	}
 	
@@ -98,7 +97,7 @@ public class PortOnePayController {
 	// 인증 관련 API => 액세스토큰 사용하기 => 속성명 : Authorization , 속성값: Bearer 액세스토큰값
 	@RequestMapping("/getTocken")
 	public String getTocken() {
-		System.out.println("access_token 발급 API");
+//		System.out.println("access_token 발급 API");
 
 		String token = "";
 		String url = hostname + "/users/getToken";
@@ -211,7 +210,7 @@ public class PortOnePayController {
 	    }
 
 	    // cvo 객체에서 c_no, p_no, u_id 값을 사용하여 삭제 로직 처리
-	    System.out.println("삭제 요청 - c_no: " + cvo.getC_no() + ", p_no: " + cvo.getP_no() + ", u_id: " + cvo.getU_id());
+//	    System.out.println("삭제 요청 - c_no: " + cvo.getC_no() + ", p_no: " + cvo.getP_no() + ", u_id: " + cvo.getU_id());
 	    cartService.deletcart(cvo);
 
 	    // 성공 메시지 반환
@@ -231,12 +230,12 @@ public class PortOnePayController {
 		
 		// PortOnePayRequestVO에서 주요 결제 정보를 가져와 OrderListVO에 설정
 	    PortOnePayRequestVO pvo = fvo.getPvo();
-	    System.out.println("pvo :" +pvo);
+//	    System.out.println("pvo :" +pvo);
 
 		
 		// mydata를 통해 추가 데이터 설정
 	    String mydata = (String) fvo.getMydata();
-	    System.out.println("mydata:" + mydata);
+//	    System.out.println("mydata:" + mydata);
 	
 	    if (pvo != null) {
 	        ovo.setImp_uid(pvo.getImp_uid());
@@ -336,7 +335,7 @@ public class PortOnePayController {
 	            	}
 	            	break;
 	        }  
-	        System.out.println("dataMap: "+dataMap);
+//	        System.out.println("dataMap: "+dataMap);
 	        			if(dataMap.get("p_count") !=null) {
 	        			  orderService.insertorderdetail(ovo); 
 	        			  orderService.productstockdown(ovo); 
@@ -499,7 +498,7 @@ public class PortOnePayController {
 		int code = -1;
 		String url = hostname + "/payments/cancel";
 		String query ="{\"merchant_uid\" : \"" + vo.getMerchant_uid() + "\"}";
-		System.out.println("query: "+query);
+//		System.out.println("query: "+query);
 
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).headers("Content-Type", "application/json", "Authorization", "Bearer " + getTocken()).method("POST", HttpRequest.BodyPublishers.ofString(query)).build();
 
@@ -507,13 +506,13 @@ public class PortOnePayController {
 			HttpResponse<String> response = HttpClient.newHttpClient().send(request,
 					HttpResponse.BodyHandlers.ofString());
 			String jsonString = response.body(); // 필요한 응답데이터
-			System.out.println("jsonString: " + jsonString);
+//			System.out.println("jsonString: " + jsonString);
 
 			// String to JSON으로 변환하기 위한 작업
 			// 참고 : https://www.baeldung.com/jackson-deserialize-json-unknown-properties
 			ObjectMapper mapper = new ObjectMapper();
 			ResponseVO rvo = mapper.readValue(jsonString, ResponseVO.class);
-			 System.out.println(rvo.getMessage());
+//			 System.out.println(rvo.getMessage());
 
 			code = rvo.getCode();
 			// System.out.println("code: "+rvo.getCode());
@@ -542,17 +541,17 @@ public class PortOnePayController {
 //			return "";
 //		}
 		String cntPerPage = "20";
-		if (ovo.getSearchCondition() == null) {
+		if (ovo.getSearchKeyword() == null) {
+			ovo.setSearchCondition("null");
+		}else {
 			ovo.setSearchCondition("ID");
-			
 		}
-		else {
-			ovo.setSearchCondition(ovo.getSearchCondition());
-		}
-		if (ovo.getSearchKeyword() == null)
+		
+		if (ovo.getSearchKeyword() == null) 
 			ovo.setSearchKeyword("");
 		else
 			ovo.setSearchKeyword(ovo.getSearchKeyword());
+		
 
 		int total = orderService.countorderlist(ovo); 
 		if (nowPage == null) {
@@ -561,7 +560,7 @@ public class PortOnePayController {
 		
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pv);
-		System.out.println("pagingVO: "+pv);
+//		System.out.println("pagingVO: "+pv);
 		ovo.setStart(pv.getStart());
 		ovo.setListcnt(Integer.parseInt(cntPerPage));
 

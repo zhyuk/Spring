@@ -67,50 +67,70 @@
 	gap: 30px;
 }
 
+strong{
+	margin-right: 10px;
+}
+
 @media screen and (max-width: 426px) {
 	.mp_page-container {
 		flex-direction: column;
 		width: 100%;
-		margin-top: 30px;
+		margin-top: 15px;
 		padding: 0 10px;
+	}
+	
+	.mp_form-container{
+	    margin-top: 15px;
 	}
 	.order-item {
 		flex-direction: column;
 		align-items: flex-start;
 		height: 200px;
+		justify-content: center;
 	}
 	.title_h4 {
 		width: 90%;
 		margin: 0;
+        margin-top: 115px !important;
+        margin-left: 10px !important;
 	}
+	
 	.title_hr {
 		width: 95%;
+		margin: 8px auto !important;
 	}
+	
 	.order-item img {
 		width: 120px;
 		height: 120px;
 		object-fit: cover;
 		border-radius: 0px;
 	}
+	
 	.mp_goBuydetail {
 		right: -6px;
 		bottom: 15px;
 		padding: 16px 23px;
 	}
+	
 	.d-flex.align-items-center {
 		gap: 10px;
 	}
+	
 	.buy_date {
 		font-size: 14px;
 		font-weight: 400;
 	}
+	
 	.buy_num {
 		font-size: 13px;
 		color: #4B4B4B;
 	}
+	
 	.pd_name, .pd_count, .pd_sum {
 		font-size: 13px;
 	}
+	
 	.order-item p {
 		margin-bottom: 3px;
 	}
@@ -118,6 +138,32 @@
 	.buybox{
 		height: 200px;
 	}
+	
+	strong{
+		margin-right: 5px;
+	}
+	
+	.more-btn{
+		width: 100% !important;
+		height: 50px !important;
+	}
+	
+/* 	.pd_name { */
+/* 	    font-size: 13px; */
+/* 	    white-space: nowrap; */
+/* 	    overflow: hidden; */
+/* 	    text-overflow: ellipsis; */
+/* 	    width: 70%; */
+/* 	    display: block; */
+/* 	} */
+	
+ 	.order-list mt-3{ 
+	    padding-top: 30px !important; 
+ 	} 
+ 	
+ 	.content_hr{
+ 		margin: 6px;
+ 	}
 }
 </style>
 
@@ -139,22 +185,22 @@
 								alt="상품 이미지">
 							<div class="buy_contents">
 								<p class="buy_date">
-									<strong>주문일자:</strong> ${item.o_input_date} <a
+									<strong>주문일자 :</strong> ${item.o_input_date} <a
 										href="buyListDetail.do?c_no=${item.c_no}"
-										class="mp_goBuydetail"> ➕ </a>
+										class="mp_goBuydetail" style="text-decoration: none !important;"> ➕ </a>
 								</p>
 								<p class="buy_num">
-									<strong>주문번호:</strong> ${item.merchant_uid}
+									<strong>주문번호 :</strong> ${item.merchant_uid}
 								</p>
-								<hr>
+								<hr class="content_hr">
 								<p class="pd_name">
-									<strong>상품명:</strong> ${item.p_name}
+									<strong>상품명 :</strong> ${item.p_name}
 								</p>
 								<p class="pd_count">
-									<strong>구매 수량:</strong> ${item.o_total_cnt}개
+									<strong>구매 수량 :</strong> ${item.o_total_cnt}개
 								</p>
 								<p class="pd_sum">
-									<strong>구매 합계:</strong> ${item.o_total_price}원
+									<strong>구매 합계 :</strong> ${item.o_total_price}원
 								</p>
 							</div>
 						</div>
@@ -163,7 +209,7 @@
 			</div>
 			<!-- 더보기 버튼 -->
 			<div class="text-center mt-4" style="margin-bottom: 20px;">
-				<button id="loadMoreBtn" class="btn btn-primary" style="background-color: darkgray; color:white; border: none;">더보기</button>
+				<button id="loadMoreBtn" class="btn more-btn" style="background-color: darkgray; color:white; border: none;">더보기</button>
 			</div>
 		</div>
 	</div>

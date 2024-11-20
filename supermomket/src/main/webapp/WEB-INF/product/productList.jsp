@@ -79,6 +79,20 @@ $(document).ready(function() {
 			discountRates[m].textContent = Math.floor(rateText) + '%';
 		}
 	} 
+	
+	$(document).ready(function () {
+        $('.sort-select').change(function () {
+        	const sortType = $(this).find(":selected").val();
+
+            // 숨겨진 category 값 가져오기
+            const category = $('#categoryField').val();
+
+            // URL 변경 및 페이지 이동
+           
+            window.location.href = 'products.do?page=1&sortType='+sortType + '&category=' +category
+                
+        });
+    });
 
 	window.onload = formatProductInfo;
 </script>
@@ -99,14 +113,15 @@ $(document).ready(function() {
 		    <!-- 검색 기능 폼 -->
 		    <div class="search-container">
 		        <!-- 정렬 셀렉트 박스 -->
-		        <select class="sort-select" onchange="location = this.value;">
-		            <option value="products.do?page=1&sortType=최신순&category=${category}" ${sortType == '최신순' ? 'selected' : ''}>최신순</option>
-		            <option value="products.do?page=1&sortType=인기순&category=${category}" ${sortType == '인기순' ? 'selected' : ''}>인기순</option>
-		            <option value="products.do?page=1&sortType=낮은가격순&category=${category}" ${sortType == '낮은가격순' ? 'selected' : ''}>낮은가격순</option>
-		            <option value="products.do?page=1&sortType=높은가격순&category=${category}" ${sortType == '높은가격순' ? 'selected' : ''}>높은가격순</option>
-		        </select>
-		        <form action="products.do" method="get">
-		            <input type="hidden" name="category" value="${category}">
+		         <form action="products.do" method="get">
+			        <select class="sort-select"  name="sortType" >
+					    <option value="최신순" ${sortType == '최신순' ? 'selected' : ''}>최신순</option>
+					    <option value="인기순" ${sortType == '인기순' ? 'selected' : ''}>인기순</option>
+					    <option value="낮은가격순" ${sortType == '낮은가격순' ? 'selected' : ''}>낮은가격순</option>
+					    <option value="높은가격순" ${sortType == '높은가격순' ? 'selected' : ''}>높은가격순</option>
+					</select>
+		       
+		            <input type="hidden"  id="categoryField" name="category" value="${category}">
 		            <input type="text" name="searchQuery" placeholder="상품명을 입력하세요" class="search-input" value="${searchQuery}">
 		            <button type="submit" class="search-button"></button>
 		        </form>

@@ -10,9 +10,6 @@ public class KakaoOAuth {
 
     private static final String REST_API_KEY = "c51dc8cbf39989606e8b1ae468eaee37";  // 카카오 REST API Key
     private static final String REDIRECT_URI = "http://localhost:8090/login/kakaoLogin";  // 카카오 로그인 리디렉션 URI
-//    private static final String LOGOUT_REDIRECT_URI = "http://localhost:8090/login/kakaoLogout";  // 카카오 로그아웃 리디렉션 URI
-    
-    // 카카오 인증 코드로 액세스 토큰을 받아오는 메소드
     public static String getAccessToken(String code) {
         String accessToken = null;
         String url = "https://kauth.kakao.com/oauth/token";
@@ -50,8 +47,6 @@ public class KakaoOAuth {
         HttpEntity<String> entity = new HttpEntity<>(headers);
         
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        
-        System.out.println("\n\n" + response.getBody() + "\n\n");
         
         if (response.getStatusCode() == HttpStatus.OK) {
             JSONObject jsonResponse = new JSONObject(response.getBody());

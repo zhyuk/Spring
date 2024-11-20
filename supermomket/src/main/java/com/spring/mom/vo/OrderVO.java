@@ -40,6 +40,7 @@ public class OrderVO {
 		private int start;
 		private int listcnt;
 
+	    private String p_review_yn; 
 	    
 	    
 	    
@@ -222,6 +223,18 @@ public class OrderVO {
 			this.p_img = p_img;
 		}
 		
+		
+			
+		
+		public String getP_review_yn() {
+			return p_review_yn;
+		}
+		public void setP_review_yn(String p_review_yn) {
+			this.p_review_yn = p_review_yn;
+		}
+		
+		
+		
 		@Override
 		public String toString() {
 			return "OrderVO [c_no=" + c_no + ", u_id=" + u_id + ", o_receiver_contact=" + o_receiver_contact
@@ -233,8 +246,11 @@ public class OrderVO {
 					+ ", p_no=" + p_no + ", p_total=" + p_total + ", p_price=" + p_price + ", p_count=" + p_count
 					+ ", p_name=" + p_name + ", p_img=" + p_img + ", c_payment=" + c_payment + ", searchCondition="
 					+ searchCondition + ", searchKeyword=" + searchKeyword + ", searchClass=" + searchClass + ", start="
-					+ start + ", listcnt=" + listcnt + "]";
+					+ start + ", listcnt=" + listcnt + ", p_review_yn=" + p_review_yn + "]";
 		}
+		
+		
+	
 	    
 	    
 		

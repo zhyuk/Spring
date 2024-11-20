@@ -15,9 +15,8 @@
 									<div class="list">
 										<c:forEach items="${productList}" var="product">
 											<div class="card">
-												<a href="/detail.do?p_no=${product.p_no}"> <img
-														src="resources/img/product/${product.p_img}"
-														alt="${product.p_name}">
+												<a href="/detail.do?p_no=${product.p_no}">
+													<img src="resources/img/product/${product.p_img}" alt="${product.p_name}">
 												</a>
 											</div>
 										</c:forEach>
@@ -26,8 +25,9 @@
 
 								<div id="list_box">
 									<div id="used_box" class="content_box">
-										<div>
+										<div class="title">
 											<h3>중고상품</h3>
+											<p><a href="/trade.do">더보기</a></p>
 										</div>
 										<div class="clear"></div>
 
@@ -43,8 +43,9 @@
 									</div>
 
 									<div id="community_box" class="content_box">
-										<div>
-											<h3>게시판</h3>		
+										<div class="title">
+											<h3>게시판</h3>
+											<p><a href="/getCommunity_yookaList.do">더보기</a></p>
 										</div>
 										<div class="clear"></div>
 
@@ -52,41 +53,37 @@
 											<c:forEach items="${boardList}" var="board">
 												<li>
 													<c:choose>
-														<c:when test="${board.source eq 'vs'}">
-															<a
-																href="/vs_info.do?vs_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
+														<c:when test="${board.source eq '고민'}">
+															<a href="/vs_info.do?vs_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>[ 고민거리 ]</span>${board.vs_title}
+																	<span>[${board.source}]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>
 														</c:when>
 
-														<c:when test="${board.source eq 'yooka'}">
-															<a
-																href="/getYooka.do?cm_no=${board.vs_no}&searchCondition=cm_title&searchKeyword=&nowPage=1">
+														<c:when test="${board.source eq '육아'}">
+															<a href="/getYooka.do?cm_no=${board.vs_no}&searchCondition=cm_title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>[ 육아정보 ]</span>${board.vs_title}
+																	<span>[${board.source}]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>
 														</c:when>
 
-														<c:when test="${board.source eq 'noriter'}">
-															<a
-																href="/getNoriter.do?cm_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
+														<c:when test="${board.source eq '놀이터'}">
+															<a href="/getNoriter.do?cm_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>[ 놀이터 ]</span>${board.vs_title}
+																	<span>[${board.source}]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>
 														</c:when>
 
 														<c:otherwise>
-															<a
-																href="/getShopping.do?cm_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
+															<a href="/getShopping.do?cm_no=${board.vs_no}&searchCondition=title&searchKeyword=&nowPage=1">
 																<p class="title">
-																	<span>[ 쇼핑정보 ]</span>${board.vs_title}
+																	<span>[${board.source}]</span>${board.vs_title}
 																</p>
 																<p class="date">${board.vs_date}</p>
 															</a>

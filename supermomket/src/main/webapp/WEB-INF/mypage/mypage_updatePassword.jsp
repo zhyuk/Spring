@@ -14,6 +14,7 @@
 	width: 100%;
 	max-width: 500px;
 	margin: auto;
+/*     margin-top: 60px; */
 }
 
 .mp_updateForm {
@@ -27,9 +28,27 @@
 }
 
 .form-control:focus {
-	border: 2px black !important;
+	border: 3px #FAE6BF !important;
 	box-shadow: 0 0 5px rgba(250, 230, 191, 0.5) !important;
-	outline: 1px black !important;
+	outline: none !important;
+}
+
+.w-100 {
+	background-color: #FFD26E;
+	border: none;
+	font-size: 18px !important;
+/* 	font-weight: 600 !important; */
+}
+
+.title_h4 {
+	/* 	width: 50%; */
+	margin: 0 auto;
+	font-weight: 700;
+}
+
+.title_hr {
+	/* 	width: 1000%; */
+	margin: 0 auto;
 }
 
 .form-control[readonly] {
@@ -44,72 +63,60 @@
 	cursor: not-allowed;
 }
 
-.w-100 {
-	background-color: #FFD26E !important;
-	border: none !important;
-	font-size: 18px !important;
-}
-
-.p_kakaoMent{
+.p_kakaoMent {
 	font-size: 14px;
 }
 
-.title_h4 {
-	/* 	width: 50%; */
-	margin: 0 auto;
-	margin-top: 0px;
-	font-weight: 700;
-}
-
-.title_hr {
-	/* 	width: 1000%; */
-	margin: 0 auto;
-}
-
-@media screen and (max-width : 426px) {s
+@media screen and (max-width : 426px) {
 	.mp_page-container {
 		flex-direction: column;
 		width: 100%;
 		margin-top: 30px;
 		padding: 0 10px;
 	}
+	
 	.mp_form-container {
 		width: 100%;
-		width: 100%;
 		padding: 10px;
+	    margin-top: 75px;
 	}
+	
 	.mp_updateForm {
-		margin-top: 50px;
+        margin-top: 45px;
 	}
+	
 	.form-control {
 		width: 100%;
 		/* 	font-size: 10px; */
 	}
 	.w-100 {
 		width: 100%;
-		font-size: 18px;
 		height: 70px;
 		background-color: #FFD26E;
 	}
+	
 	p_kakaoMent {
-		font-size: 12px;
+		font-size: 14px;
 	}
+	
 	.title_h4 {
 		font: bolder;
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 	}
+	
 	.title_hr {
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 	}
 }
 </style>
+
 <body>
 	<%@ include file="../view/menu.jsp"%>
 
 	<div class="mp_page-container">
-		<div class="mp_form-container mt-3">
+		<div class="mp_form-container">
 
 			<h4 class="title_h4">비밀번호 수정</h4>
 			<br>

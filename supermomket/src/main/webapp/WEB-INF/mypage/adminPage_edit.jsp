@@ -36,7 +36,7 @@
 .btn {
 	background-color: darkgray !important;
 	border: none !important;
-	font-size: 20px;
+	font-size: 18px;
 /* 	font-weight: 600 !important; */
 }
 
@@ -82,7 +82,7 @@
 					<div id="newPwChk_error" style="color:red; font-size:12px; margin-top: 7px;" ></div>
 				</div>
 				<div class="text-end">
-					<button type="submit" class="btn w-100" style="height: 70px; display: inline-block;">확인</button>
+					<button type="submit" class="btn w-100" style="height: 70px; display: inline-block;">확 인</button>
 				</div>
 <!-- 				<div> -->
 <%-- 					<input type="hidden" id="hidden_userId" name="userId" value="${userId}"> --%>

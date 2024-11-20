@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 textarea {
 	resize: none;
@@ -8,7 +14,6 @@ textarea {
 :root {
 	--color-light-main: #FFDE95;
 	--color-main: #FFD26E;
-/* 	--color-main: #FFC219; */
 	--color-blk: #000;
 	--color-white: #fff;
 	--color-gray: #D9D9D9;
@@ -31,94 +36,137 @@ button:hover {
 	background: var(--color-light-main);
 }
 
+section pre, section textarea, section p, section select, section input, section button {
+	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+	margin-bottom: 0;
+}
+
 /* 인덱스 페이지 */
-section#index div.inner .search-form {
+section#index p {
+	margin-bottom: 0;
+}
+
+section#index div.inner h1{
+	margin-top: 10px;
+	margin-bottom: .5rem;
 	text-align: center;
+	font-size: 2.5rem;
+	font-weight: 500;
+	font-family: 'yg-jalnan' !important;
+}
+
+section#index div.inner .search-form {
+	margin-top: 5px;
+	text-align: right;
+	/* border: solid 1px red; */
 }
 
 section#index div.inner .search-form>* {
 	display: inline-block;
 	vertical-align: middle;
+	font-size: 16px;
 }
 
 section#index div.inner .search-form select {
+	width: 80px;
 	height: 40px;
 	padding: 0 5px;
-	border: solid 1px var(--color-main);
+	border: solid 1px #ddd;
+	border-radius: 4px;
 }
 
 section#index div.inner .search-form input[name=searchKeyword] {
-	width: 60%;
+	width: 20%;
 	height: 40px;
-	border: solid 1px var(--color-main);
+	padding: 0 5px;
+	border: solid 1px #ddd;
+	border-right: none;
+	border-radius: 4px 0 0 4px;
 }
 
 section#index div.inner .search-form button.search-btn {
 	height: 40px;
+	margin-left: -5px;
 	padding: 0 10px;
+	background: transparent;
+	border: solid 1px #ddd;
+	border-left: none;
+	border-radius: 0 4px 4px 0;
 }
 
 section#index div.inner .search-form button.write-btn {
 	float: right;
 	height: 40px;
+	margin-left: 20px;
 }
 
 section#index div.inner table {
 	width: 100%;
-	margin-top: 30px;
+	margin-top: 10px;
 	font-size: 18px;
 	border-collapse: collapse;
 }
 
 section#index div.inner table tr {
 	height: 50px;
-	border-bottom: solid 2px var(--color-gray);
+/* 	border-bottom: solid 2px var(--color-gray); */
 }
 
-section#index div.inner table thead tr {
-	background: var(--color-light-main);
-	border-bottom: solid 1px var(--color-blk);
+section#index div.inner table tr:nth-of-type(1) td {
+	border-top: solid 1px var(--ad-color-semigray);
 }
 
 section#index div.inner table td {
-	text-align: center;
+	display: flex;
+	flex-direction: column;
+	height: 120px;
+	padding: 10px 15px;
+	/* background: #F9F9F9; */
+	/* 	border-top: solid 1px var(--ad-color-semigray); */
+	border-bottom: solid 1px var(--ad-color-semigray);
 }
 
-section#index div.inner table td.title div {
+section#index div.inner table td p.title {
 	display: flex;
 	align-items: center;
-	/* border: solid 1px red; */
+	margin-top: 5px;
+	font-weight: 500;
 }
 
-section#index div.inner table td.title span.title-span {
+section#index div.inner table td p.title span.category {
 	display: inline-block;
-	max-width: 650px;
+	width: 50px;
+	color: #007bff;
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+section#index div.inner table td p.title span.title {
+	display: inline-block;
+	max-width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	font-size: 20px;
+	font-weight: bold;
+	/* border: solid 1px red; */
 }
 
-section#index div.inner table td.title span.comment-span {
+section#index div.inner table td p.title span.comment {
+	display: inline-block;
 	margin-left: 5px;
-	font-size: 16px;
-	font-weight: 600;
 	color: red;
+	font-weight: bold;
 }
 
-section#index div.inner table th:nth-of-type(1) {
-	width: 100px;
+section#index div.inner table td div.info-box {
+	margin-top: auto;
+	font-size: 18px;
+	color: #666;
 }
 
-section#index div.inner table th:nth-of-type(2) {
-	width: 700px;
-}
-
-section#index div.inner table th:nth-of-type(3) {
-	width: 250px;
-}
-
-section#index div.inner table th:nth-of-type(4) {
-	width: 250px;
+section#index div.inner table td div.info-box span.writer {
+	font-weight: 900;
 }
 
 section#index div.inner .pagination {
@@ -133,6 +181,11 @@ section#index div.inner .pagination li {
 	padding: 10px 15px;
 	font-size: 20px;
 	font-weight: 600;
+}
+
+
+section#index div.inner .pagination li .page-link {
+	border: none;
 }
 
 section#index div.inner .pagination li.active {
@@ -202,13 +255,17 @@ section#write div.inner form .preview_box img {
 
 section#write div.inner form .input-group label {
 	display: inline-block;
-	width: 100px;
 	height: 30px;
+	padding: 0 10px;
 	line-height: 30px;
 	text-align: center;
 	font-size: 14px;
 	border-radius: 5px;
 	background: var(--color-main);
+}
+
+section#write div.inner form .input-group label:nth-of-type(1) {
+	margin-right: 15px;
 }
 
 section#write div.inner form .input-group input[type="file"] {
@@ -228,7 +285,7 @@ section#write div.inner form .btn-area button {
 
 /* 글 세부 페이지 */
 section#info div.inner div.container {
-	width: 100%;
+	width: 100% !important;
 	/* padding: 20px; */
 }
 
@@ -238,43 +295,40 @@ section#info div.inner div.container .text-group {
 	/* border: solid 1px green */
 }
 
-section#info div.inner div.container .text-group p {
-	display: inline-block;
+section#info div.inner div.container .text-group.borad_info {
+	padding: 10px 15px;
+	background: #f9f9f9;
+	border: solid 1px #DDD;
+	border-radius: 8px;
 }
 
-section#info div.inner div.container .board_info {
-	position: relative;
+section#info div.inner div.container .text-group p.title_box {
+	width: 100%;
+	font-size: 20px;
+	font-weight: bold;
+	/* 	border: solid 1px red; */
+}
+
+section#info div.inner div.container .text-group p.title_box span.category {
+	margin-right: 5px;
+	color: #007bff;
+}
+
+section#info div.inner div.container .text-group.borad_info div {
 	display: flex;
 	align-items: center;
-	height: 50px;
-	/* border-top: solid 2px red; */
-}
-
-section#info div.inner div.container .board_info:nth-of-type(2) {
-	/* border-top: solid 1px var(--color-main); */
-	border-top: solid 1px var(--color-blk);
-}
-
-section#info div.inner div.container .board_info p.title {
-	float: left;
-	width: calc(100% - 150px);
-	font-size: 28px;
-}
-
-section#info div.inner div.container .board_info p.date {
-	position: absolute;
-	top: 50%;
-	right: 0;
-	width: 150px;
-	text-align: right;
-	font-size: 20px;
-	transform: translate(0, -50%);
-	/* border: solid 1px red; */
-}
-
-section#info div.inner div.container .board_info p.writer {
-	float: left;
+	margin-top: 10px;
+	color: #666;
 	font-size: 18px;
+}
+
+section#info div.inner div.container .text-group.borad_info div span:nth-of-type(1) {
+	margin-right: 5px;
+	font-weight: 900;
+}
+
+section#info div.inner div.container .text-group.board_content_box {
+	margin-top: 15px;
 }
 
 section#info div.inner div.container .text-group .btn-area {
@@ -282,22 +336,6 @@ section#info div.inner div.container .text-group .btn-area {
 	top: 50%;
 	right: 0;
 	transform: translate(0, -50%);
-}
-
-/* section#info div.inner div.container .text-group .btn-area button { */
-/* 	height: 30px; */
-/* } */
-
-section#info div.inner div.container .board_content_box {
-	min-height: 400px;
-	height: fit-content;
-	padding: 10px 0;
-	/* background: beige; */
-	border-top: solid 2px var(--color-main);
-	border-bottom: solid 2px var(--color-main);
-
-	border-top: solid 2px var(--color-gray);
-	border-bottom: solid 2px var(--color-gray);
 }
 
 section#info div.inner div.container .text-group .img-box {
@@ -329,12 +367,14 @@ section#info div.inner div.container .text-group .vote_box li:nth-of-type(4) {
 }
 
 section#info div.inner div.container .text-group pre {
+	width: 100%;
+	white-space: pre-line;
 	margin-top: 30px;
 	font-size: 18px;
 }
 
 section#info div.inner>.btn-area {
-	text-align: center;
+	text-align: right;
 }
 
 section#info div.inner .fm_comment_write {
@@ -491,10 +531,9 @@ section#modify div.inner form .input-group {
 	padding-bottom: 15px;
 }
 
-/* section#modify div.inner form .input-group>button { */
-/* 	width: 100px; */
-/* 	height: 30px; */
-/* } */
+section#modify div.inner form .input-group .btn_list {
+	display: inline-block;
+}
 
 section#modify div.inner form .input-group input[type='text'] {
 	width: 100%;
@@ -550,13 +589,13 @@ section#modify div.inner form .input-group .img_select {
 
 section#modify div.inner form .input-group .img_select label {
 	display: inline-block;
-	width: 100px;
 	height: 30px;
+	padding: 0 10px;
 	text-align: center;
 	line-height: 30px;
 	font-size: 14px;
 	background: var(--color-main);
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 section#modify div.inner form .input-group .img_select input[type="file"] {
@@ -670,6 +709,7 @@ section#admin div.inner table#admin_list_table tbody tr td input[type=text] {
 }
 
 section#admin div.inner table#admin_list_table tbody tr td button {
+	margin: 0 5px;
 	background: var(--color-blk);
 	color: var(--color-white);
 }
@@ -680,7 +720,7 @@ section#admin div.inner table#admin_list_table tbody tr td button:hover {
 
 section#admin div.inner table#admin_list_table tbody tr td textarea {
 	width: 100%;
-	height: fit-content;
+	height: 100px;
 	padding: 5px;
 	border: none;
 	vertical-align: middle;
@@ -742,6 +782,11 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 	height: 50px;
 }
 
+section#admin #modal .inner table#admin_comment_table tbody tr td button {
+	background: #000;
+	color: #fff;
+}
+
 /* 모바일버전 */
 @media screen and (max-width: 425px) {
 	.mobile {
@@ -756,10 +801,14 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 	.mobile-hide {
 		display: none;
 	}
+	
+	button {
+		font-size: 14px;
+	}
 
 	/* 글 목록페이지 */
 	section#index div.inner .search-form select {
-		width: 55px;
+		width: 70px;
 	}
 
 	section#index div.inner .search-form input[name=searchKeyword] {
@@ -780,23 +829,54 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 		font-size: 16px;
 	}
 
+	/* 
 	section#index div.inner table td.number,
 	section#index div.inner table td.date {
 		font-size: 14px;
 	}
 
-	section#index div.inner table th:nth-of-type(2) {
+	section#index div.inner table td:nth-of-type(2) {
 		width: 300px;
 	}
 
 	section#index div.inner table td.title span.title-span {
 		max-width: 230px;
 		font-size: 14px;
+	} */
+
+	section#index div.inner table td {
+		height: 70px;
+		padding: 0;
+	}
+
+	section#index div.inner table td p.title {
+		width: 100%;
+		max-width: 350px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	section#index div.inner table td p.title span.category {
+		width: fit-content;
+	}
+
+	section#index div.inner table td p.title span.title {
+		width: fit-content;
+		max-width: calc(100% - 100px);
+		font-size: 16px;
+	}
+
+	section#index div.inner table td div.info-box {
+		font-size: 16px;
+		margin-top: 10px;
 	}
 
 	/* 세부 글 보기 */
 	section#info div.inner div.container .board_info p.title {
 		width: calc(100% - 100px);
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		font-size: 18px;
 	}
 
@@ -819,7 +899,20 @@ section#admin #modal .inner table#admin_comment_table tbody tr td {
 
 	section#info div.inner div.container .text-group pre {
 		width: 100%;
-		white-space: normal;
+		font-size: 16px;
+	}
+
+	section#info div.inner #comment_area pre {
+		width: calc(100% - 80px);
+		font-size: 14px;
+	}
+
+	section#info div.inner #comment_area textarea[name="vs_comment"] {
+		width: calc(100% - 80px);
+		font-size: 14px;
+	}
+
+	section#info div.inner #comment_area .comment_info p.writer {
 		font-size: 16px;
 	}
 

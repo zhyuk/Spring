@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/*     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; */
 }
 
 body {
@@ -103,7 +103,7 @@ body {
 }
 
 .filter-option {
-     padding: 12px 16px;
+     padding: 10px 8px;
     border-radius: 8px;
     cursor: pointer;
     color: #666;
@@ -254,6 +254,9 @@ body {
 
 .item-info {
     padding: 20px;
+    height: 120px; /* 고정된 높이 설정 */
+    display: flex;
+    flex-direction: column;
 }
 
 .item-title {
@@ -265,6 +268,8 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    flex: 1;
+    word-break: break-word;
 }
 
 .item-price {
@@ -445,6 +450,7 @@ body {
         cursor: pointer;
         font-size: 14px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-top:150px;
     }
    .filter-close {
         display: block !important; /* !important로 강제 적용 */
@@ -520,8 +526,9 @@ body {
         font-size: 14px;
     }
 
-       .item-info {
+      .item-info {
         padding: 8px 10px;
+        height: 100px;
     }
 
        .item-title {

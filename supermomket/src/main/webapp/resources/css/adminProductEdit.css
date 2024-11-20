@@ -1,15 +1,18 @@
-/* adminProductEdit.css */
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    width: 1200px; /* 좌측 사이드바를 기준으로 고정 너비 */
-    margin-left: 500px; /* 좌측 사이드바 너비만큼 왼쪽으로 여백 추가 */
+    width: calc(100% - 250px) !important;
+    margin-left: 250px;
+}
+
+.container-inner {
+    width: 500px; /* 좌측 사이드바를 기준으로 고정 너비 */
+    margin: 0px auto;
     padding: 20px 10px;
     position: relative;
     box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
@@ -20,7 +23,7 @@ h1 {
     font-weight: bold;
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px; /* 간격 줄임 */
 }
 
 form {
@@ -32,7 +35,7 @@ label {
     font-size: 14px;
     font-weight: bold;
     color: #555;
-    margin-top: 10px;
+    margin-top: 5px; /* 간격 줄임 */
 }
 
 input[type="text"],
@@ -40,7 +43,7 @@ input[type="number"] {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 5px; /* 간격 줄임 */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
@@ -52,7 +55,6 @@ button[type="submit"] {
     color: #ffffff;
     background-color: #000000;
     border: none;
-/*     border-radius: 4px; */
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

@@ -38,56 +38,108 @@
 
 	<!-- 상품을 페이징, 정렬, 카테고리, 검색 필터링하여 가져오는 쿼리 -->
 	<select id="getProductsByPage" resultType="com.spring.mom.vo.ProductVO">
-    SELECT
-        p.p_no, 
-        p.p_callno, 
-        p.p_count, 
-        p.p_class, 
-        p.p_name, 
-        p.p_price, 
-        p.p_dr,
-        ROUND(p.p_price * (1 - p.p_dr / 100), 0) AS p_discount,
-        p.p_img, 
-        p.p_content, 
-        p.p_good, 
-        p.p_stock, 
-        p.p_view, 
-        review_avg.review_avg, 
-        IFNULL(review_count.reviewCount, 0) AS reviewCount
-    FROM product p
-    LEFT JOIN 
-        (SELECT c_no, ROUND(AVG(c_avg), 1) AS review_avg FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_avg 
-        ON p.p_no = review_avg.c_no
-    LEFT JOIN 
-        (SELECT c_no, COUNT(*) AS reviewCount FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_count
-        ON p.p_no = review_count.c_no
-    <where>
-        <if test="category != null">
-            p.p_class = #{category}
-        </if>
-        <if test="searchQuery != null and searchQuery != ''">
-            AND p.p_name LIKE CONCAT('%', #{searchQuery}, '%')
-        </if>
-    </where>
-    <choose>
-        <when test="sortType == '최신순'">
-             ORDER BY p.p_no DESC <!-- 최신순: p_no가 큰 값이 먼저 오도록 정렬 -->
-        </when>
-        <when test="sortType == '낮은가격순'">
-            ORDER BY p_discount ASC
-        </when>
-        <when test="sortType == '높은가격순'">
-            ORDER BY p_discount DESC
-        </when>
-        <when test="sortType == '인기순'">
-             ORDER BY review_avg.review_avg DESC, review_count.reviewCount DESC <!-- 인기순: 평점 높은 순으로 정렬, 동일 평점일 경우 리뷰 수 기준으로 정렬 -->
-        </when>
-        <otherwise>
-            ORDER BY p.p_no DESC
-        </otherwise>
-    </choose>
-    LIMIT #{limit} OFFSET #{offset}
-</select>
+	    SELECT
+	        p.p_no, 
+	        p.p_callno, 
+	        p.p_count, 
+	        p.p_class, 
+	        p.p_name, 
+	        p.p_price, 
+	        p.p_dr,
+	        ROUND(p.p_price * (1 - p.p_dr / 100), 0) AS p_discount,
+	        p.p_img, 
+	        p.p_content, 
+	        p.p_good, 
+	        p.p_stock, 
+	        p.p_view, 
+	        review_avg.review_avg, 
+	        IFNULL(review_count.reviewCount, 0) AS reviewCount
+	    FROM product p
+	    LEFT JOIN 
+	        (SELECT c_no, ROUND(AVG(c_avg), 1) AS review_avg FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_avg 
+	        ON p.p_no = review_avg.c_no
+	    LEFT JOIN 
+	        (SELECT c_no, COUNT(*) AS reviewCount FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_count
+	        ON p.p_no = review_count.c_no
+	    <where>
+	        <if test="searchQuery == null or searchQuery == '' and category != null">
+	            p.p_class = #{category}
+	        </if>
+	        <if test="searchQuery != null and searchQuery != ''">
+	            AND p.p_name LIKE CONCAT('%', #{searchQuery}, '%')
+	        </if>
+	    </where>
+	    <choose>
+	        <when test="sortType == '최신순'">
+	             ORDER BY p.p_no DESC <!-- 최신순: p_no가 큰 값이 먼저 오도록 정렬 -->
+	        </when>
+	        <when test="sortType == '낮은가격순'">
+	            ORDER BY p_discount ASC
+	        </when>
+	        <when test="sortType == '높은가격순'">
+	            ORDER BY p_discount DESC
+	        </when>
+	        <when test="sortType == '인기순'">
+	             ORDER BY review_avg.review_avg DESC, review_count.reviewCount DESC <!-- 인기순: 평점 높은 순으로 정렬, 동일 평점일 경우 리뷰 수 기준으로 정렬 -->
+	        </when>
+	        <otherwise>
+	            ORDER BY p.p_no DESC
+	        </otherwise>
+	    </choose>
+	    LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="getAdminProductsByPage" resultType="com.spring.mom.vo.ProductVO">
+	    SELECT
+	        p.p_no, 
+	        p.p_callno, 
+	        p.p_count, 
+	        p.p_class, 
+	        p.p_name, 
+	        p.p_price, 
+	        p.p_dr,
+	        ROUND(p.p_price * (1 - p.p_dr / 100), 0) AS p_discount,
+	        p.p_img, 
+	        p.p_content, 
+	        p.p_good, 
+	        p.p_stock, 
+	        p.p_view, 
+	        review_avg.review_avg, 
+	        IFNULL(review_count.reviewCount, 0) AS reviewCount
+	    FROM product p
+	    LEFT JOIN 
+	        (SELECT c_no, ROUND(AVG(c_avg), 1) AS review_avg FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_avg 
+	        ON p.p_no = review_avg.c_no
+	    LEFT JOIN 
+	        (SELECT c_no, COUNT(*) AS reviewCount FROM review WHERE c_delete = 'N' GROUP BY c_no) AS review_count
+	        ON p.p_no = review_count.c_no
+	    <where>
+	        <if test="category != null">
+	            p.p_class = #{category}
+	        </if>
+	        <if test="searchQuery != null and searchQuery != ''">
+	            AND p.p_name LIKE CONCAT('%', #{searchQuery}, '%')
+	        </if>
+	    </where>
+	    <choose>
+	        <when test="sortType == '최신순'">
+	             ORDER BY p.p_no DESC <!-- 최신순: p_no가 큰 값이 먼저 오도록 정렬 -->
+	        </when>
+	        <when test="sortType == '낮은가격순'">
+	            ORDER BY p_discount ASC
+	        </when>
+	        <when test="sortType == '높은가격순'">
+	            ORDER BY p_discount DESC
+	        </when>
+	        <when test="sortType == '인기순'">
+	             ORDER BY review_avg.review_avg DESC, review_count.reviewCount DESC <!-- 인기순: 평점 높은 순으로 정렬, 동일 평점일 경우 리뷰 수 기준으로 정렬 -->
+	        </when>
+	        <otherwise>
+	            ORDER BY p.p_no DESC
+	        </otherwise>
+	    </choose>
+	    LIMIT #{limit} OFFSET #{offset}
+	</select>
 
 	<!-- 특정 카테고리의 전체 상품 수를 가져오는 쿼리 -->
 	<select id="getProductCountByCategory" parameterType="map"

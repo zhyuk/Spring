@@ -6,7 +6,8 @@
 
 	<select id="searchfaq" resultType="faq">
 		SELECT * FROM FAQ WHERE 1=1
-		AND FAQ_CLASS LIKE CONCAT('%',#{searchKeyword},'%')
+		<if test="searchCondition == 'CLASS' "> AND FAQ_CLASS LIKE CONCAT('%',#{searchKeyword},'%')</if>
+		<if test="searchCondition == 'TITLE' "> AND FAQ_Q LIKE CONCAT('%',#{searchKeyword},'%')</if>
 		ORDER BY FAQ_NO DESC
 		limit #{listcnt} offset #{start}
 	</select>
@@ -16,7 +17,6 @@
 		SELECT * FROM FAQ WHERE 1=1
 		<if test="searchCondition == 'CLASS' "> AND FAQ_CLASS LIKE CONCAT('%',#{searchKeyword},'%')</if>
 		<if test="searchCondition == 'TITLE' "> AND FAQ_Q LIKE CONCAT('%',#{searchKeyword},'%')</if>
-		<if test="searchCondition == 'CONTENT' "> AND FAQ_A LIKE CONCAT('%',#{searchKeyword},'%')</if>
 		ORDER BY FAQ_NO DESC
 		limit #{listcnt} offset #{start}
 	</select>
@@ -25,7 +25,6 @@
 		SELECT COUNT(*) FROM FAQ WHERE 1=1
 		<if test="searchCondition == 'CLASS' "> AND FAQ_CLASS LIKE CONCAT('%',#{searchKeyword},'%') </if>
 		<if test="searchCondition == 'TITLE' "> AND FAQ_Q LIKE CONCAT('%',#{searchKeyword},'%') </if>
-		<if test="searchCondition == 'CONTENT' "> AND FAQ_A LIKE CONCAT('%',#{searchKeyword},'%') </if>
 	</select>
 	<select id="countFaqclass" resultType="int">
 		SELECT COUNT(*) FROM FAQ WHERE 1=1

@@ -30,7 +30,7 @@ public class AdminProductController {
         Model model
     ) {
         int pageSize = 15;
-        List<ProductVO> products = productService.getProductsByPage(page, pageSize, null, null, searchQuery);
+        List<ProductVO> products = productService.getAdminProductsByPage(page, pageSize, null, null, searchQuery);
         model.addAttribute("ProductList", products);
         model.addAttribute("currentPage", page);
         model.addAttribute("searchQuery", searchQuery);

@@ -52,7 +52,6 @@ public class CommunityController {
 		conditionMap.put("제목", "title");
 		conditionMap.put("작성자","writer");
 		
-		System.out.println(conditionMap);
 		return conditionMap;
 	}
 
@@ -61,7 +60,6 @@ public class CommunityController {
 	public String insertCommunity(Community_yookaVO vo, Community_noriterVO nvo, Community_shoppingVO svo,
 			@RequestParam("communityID") String communityID, HttpSession session,
 			@RequestParam("uploadFiles") List<MultipartFile> uploadFiles) throws Exception {
-		System.out.println("insertCommunity post 실행 : " + vo);
 		if (session.getAttribute("userId") != null) {
 			vo.setCm_writer((String) session.getAttribute("userId"));
 		}
@@ -72,7 +70,6 @@ public class CommunityController {
 	            String fileName = uploadFile.getOriginalFilename();
 	            cm_img.append(fileName).append(","); 
 	            uploadFile.transferTo(new File(realPath + fileName));
-	            System.out.println("Uploaded File: " + fileName);
 	        }
 	    }
 
@@ -105,17 +102,14 @@ public class CommunityController {
 
 	@RequestMapping(value = "/insertCommunity.do", method = RequestMethod.GET)
 	public String insertView(Community_yookaVO vo) throws Exception {
-		System.out.println("insertCommunity get 실행");
 		return "community/insertCommunity";
 	}
 
 	// 글 수정
 	@RequestMapping(value = "/updateYooka.do", method=RequestMethod.GET)
 	public String updateYooka(Community_yookaVO vo, Model model) {
-		System.out.println("updateYooka 실행");
 		Community_yookaVO upyooka = communityService.getYooka(vo);
 		model.addAttribute("yookaList1", upyooka);
-		System.out.println(" update get vo : " + vo);
 		return "community/updateYooka";
 	}
 	
@@ -127,7 +121,6 @@ public class CommunityController {
 	                          HttpSession session, Model model) throws Exception {
 		
 		Community_yookaVO upyooka = communityService.getYooka(vo);
-		System.out.println("update post vo: " + vo);
 	    // 기존 이미지 삭제 처리
 	    if (deleteOldImage && vo.getCm_img() != null) {
 	        File oldFile = new File(realPath + vo.getCm_img());
@@ -145,7 +138,6 @@ public class CommunityController {
 	                String fileName = uploadFile.getOriginalFilename();
 	                cm_img.append(fileName).append(","); 
 	                uploadFile.transferTo(new File(realPath + fileName));
-	                System.out.println("Uploaded File: " + fileName);
 	            }
 	        }
 
@@ -156,7 +148,6 @@ public class CommunityController {
 	    }
 
 	    // 게시글 업데이트 처리
-	    System.out.println("getYooka: " + vo);
 	    communityService.updateYooka(vo);
 
 	    model.addAttribute("yookaList1", upyooka);
@@ -164,10 +155,8 @@ public class CommunityController {
 	}
 	@RequestMapping(value = "/updateNoriter.do", method=RequestMethod.GET)
 	public String updateNoriter(Community_noriterVO vo, Model model) {
-		System.out.println("updateNoriter 실행");
 		Community_noriterVO upnoriter = communityService.getNoriter(vo);
 		model.addAttribute("noriterList1", upnoriter);
-		System.out.println(" update get vo : " + vo);
 		return "community/updateNoriter";
 	}
 	
@@ -178,7 +167,6 @@ public class CommunityController {
 			HttpSession session, Model model) throws Exception {
 		
 		Community_noriterVO upnoriter = communityService.getNoriter(vo);
-		System.out.println("update post vo: " + vo);
 		// 기존 이미지 삭제 처리
 		if (deleteOldImage && vo.getCm_img() != null) {
 			File oldFile = new File(realPath + vo.getCm_img());
@@ -196,7 +184,6 @@ public class CommunityController {
 					String fileName = uploadFile.getOriginalFilename();
 					cm_img.append(fileName).append(","); 
 					uploadFile.transferTo(new File(realPath + fileName));
-					System.out.println("Uploaded File: " + fileName);
 				}
 			}
 			
@@ -207,7 +194,6 @@ public class CommunityController {
 		}
 		
 		// 게시글 업데이트 처리
-		System.out.println("getNoriter: " + vo);
 		communityService.updateNoriter(vo);
 		
 		model.addAttribute("noriterList1", upnoriter);
@@ -215,10 +201,8 @@ public class CommunityController {
 	}
 	@RequestMapping(value = "/updateShopping.do", method=RequestMethod.GET)
 	public String updateShopping(Community_shoppingVO vo, Model model) {
-		System.out.println("updateShopping 실행");
 		Community_shoppingVO upshopping = communityService.getShopping(vo);
-		model.addAttribute("yookaShopping1", upshopping);
-		System.out.println(" update get vo : " + vo);
+		model.addAttribute("shoppingList1", upshopping);
 		return "community/updateShopping";
 	}
 	
@@ -229,7 +213,6 @@ public class CommunityController {
 			HttpSession session, Model model) throws Exception {
 		
 		Community_shoppingVO upshopping = communityService.getShopping(vo);
-		System.out.println("update post vo: " + vo);
 		// 기존 이미지 삭제 처리
 		if (deleteOldImage && vo.getCm_img() != null) {
 			File oldFile = new File(realPath + vo.getCm_img());
@@ -247,7 +230,7 @@ public class CommunityController {
 					String fileName = uploadFile.getOriginalFilename();
 					cm_img.append(fileName).append(","); 
 					uploadFile.transferTo(new File(realPath + fileName));
-					System.out.println("Uploaded File: " + fileName);
+//					System.out.println("Uploaded File: " + fileName);
 				}
 			}
 			
@@ -258,7 +241,6 @@ public class CommunityController {
 		}
 		
 		// 게시글 업데이트 처리
-		System.out.println("getShopping: " + vo);
 		communityService.updateShopping(vo);
 		
 		model.addAttribute("shoppingList1", upshopping);
@@ -277,12 +259,10 @@ public class CommunityController {
 		}
 		
 		communityService.deleteYooka(vo);
-//		System.out.println("삭제 : " +cvo);
 		
 		if (cvo.getCm_no() == cvo.getCm_no()) {
 			commentService.deleteCommentYooka(cvo);
 		}
-//			System.out.println("여기탔음");
 		return "redirect:getCommunity_yookaList.do";
 
 	}
@@ -291,7 +271,6 @@ public class CommunityController {
 	public String deleteNoriter(Community_noriterVO vo, HttpServletRequest request, Comment_noriterVO cvo) {
 		realPath = request.getSession().getServletContext().getRealPath("/resources/img/community/");
 		if (vo.getCm_img() != null) {
-//			System.out.println("파일삭제" + realPath + vo.getCm_img());
 			File file = new File(realPath + vo.getCm_img());
 			file.delete();
 		}
@@ -308,7 +287,6 @@ public class CommunityController {
 	public String deleteShopping(Community_shoppingVO vo, HttpServletRequest request, Comment_shoppingVO cvo) {
 		realPath = request.getSession().getServletContext().getRealPath("/resources/img/community/");
 		if (vo.getCm_img() != null) {
-//			System.out.println("파일삭제" + realPath + vo.getCm_img());
 			File file = new File(realPath + vo.getCm_img());
 			file.delete();
 		}
@@ -317,7 +295,7 @@ public class CommunityController {
 		if (cvo.getCm_no() == cvo.getCm_no()) {
 			commentService.deleteCommentShopping(cvo);
 		}
-		return "community/getCommunity_shoppingList";
+		return "redirect:getCommunity_shoppingList.do";
 
 	}
 
@@ -376,7 +354,6 @@ public class CommunityController {
 			@RequestParam(value = "cm_no") int cm_no,
 			Community_yookaVO vo, Model model, 
 			Comment_yookaVO cvo, Updown_YookaVO updown) {
-//		System.out.println("yooka상세조회vo : " + vo);
 		vo.setCm_no(cm_no);
 		Community_yookaVO yooka = communityService.getYooka(vo);
 
@@ -394,19 +371,14 @@ public class CommunityController {
 
 		model.addAttribute("yooka", yooka);
 		model.addAttribute("commentList", commentList);
-//		System.out.println("yooka :" + yooka);
 		
 		model.addAttribute("likeResult", communityService.getLikeYooka(updown));
 		model.addAttribute("hateResult", communityService.getHateYooka(updown));
-//		 System.out.println("like"+communityService.getLikeYooka(updown));
-//		 System.out.println("hate" +communityService.getHateYooka(updown));
 		
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
-//		System.out.println("vo.getSearchCondition() : " +vo);
 		model.addAttribute("commentYooka", commentService.getCommentYookaList(cvo));
 		model.addAttribute("commentYooka1", commentService.getCommentYookaList(cvo));
-//		System.out.println("commentYooka : " + commentService.getCommentYookaList(cvo));
 
 		model.addAttribute("nowPage", nowPage);
 		return "community/getYooka";
@@ -418,7 +390,6 @@ public class CommunityController {
 			@RequestParam(value = "cm_no") int cm_no,
 			Community_noriterVO vo, Model model, Comment_noriterVO cvo,
 			Updown_NoriterVO updown) {
-//		System.out.println("noriter상세조회vo : " + vo);
 
 		vo.setCm_no(cm_no);
 		Community_noriterVO noriter = communityService.getNoriter(vo);
@@ -440,7 +411,6 @@ public class CommunityController {
 		model.addAttribute("likeResult", communityService.getLikeNoriter(updown));
 		model.addAttribute("hateResult", communityService.getHateNoriter(updown));
 		
-//		System.out.println("noriter :" + noriter);
 		
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
@@ -449,7 +419,6 @@ public class CommunityController {
 		
 		model.addAttribute("commentNoriter", commentService.getCommentNoriterList(cvo));
 		model.addAttribute("commentNoriter1", commentService.getCommentNoriterList(cvo));
-//		System.out.println("commentNoriter : " + commentService.getCommentNoriterList(cvo));
 		return "community/getNoriter";
 	}
 
@@ -460,7 +429,6 @@ public class CommunityController {
 			Model model, Comment_shoppingVO cvo, 
 			@RequestParam(value = "cm_no") int cm_no,
 			Updown_ShoppingVO updown) {
-//		System.out.println("상세조회vo : " + vo);
 		vo.setCm_no(cm_no);
 		Community_shoppingVO shopping = communityService.getShopping(vo);
 		if (!(error == null || error.equals("")))
@@ -480,9 +448,6 @@ public class CommunityController {
 		model.addAttribute("likeResult", communityService.getLikeShopping(updown));
 		model.addAttribute("hateResult", communityService.getHateShopping(updown));
 		
-//		System.out.println("shopping :" + shopping);
-		
-		
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
 		model.addAttribute("nowPage", nowPage);
@@ -490,7 +455,6 @@ public class CommunityController {
 
 		model.addAttribute("commentShopping", commentService.getCommentShoppingList(cvo));
 		model.addAttribute("commentShopping1", commentService.getCommentShoppingList(cvo));
-//		System.out.println("commentShopping : " + commentService.getCommentShoppingList(cvo));
 		return "community/getShopping";
 	}
 	// 글 목록
@@ -500,7 +464,6 @@ public class CommunityController {
 			Comment_yookaVO cvo, Community_yookaVO vo, Model model, HttpSession session,
 			Updown_YookaVO uvo, @RequestParam(value = "nowPage", required = false) String nowPage
 			) {
-//		System.out.println("yooka목록");
 		
 		String cntPerPage = "10";
 		if (vo.getSearchCondition() == null)
@@ -511,10 +474,7 @@ public class CommunityController {
 		
 		cvo.getCm_no();
 		int replyCnt = commentService.replyCntYooka(cvo);
-//		System.out.println("컨트롤러 cvo : " + cvo );
-//		System.out.println("replyCnt : " + replyCnt);
 		int total = communityService.countYooka(vo);
-//		System.out.println("total :" + total);
 		if (nowPage == null) {
 			nowPage = "1";
 		}
@@ -529,13 +489,11 @@ public class CommunityController {
 		model.addAttribute("searchKeyword", vo.getSearchKeyword());
 		model.addAttribute("searchCondition", vo.getSearchCondition());
 		model.addAttribute("yookaList", communityService.getYookaList(vo));
-		System.out.println("vo: " + vo);
 		return "community/getCommunity_yookaList";
 	}
 
 	@RequestMapping("/getCommunity_noriterList.do")
 	public String getCommunityNoriter(PagingVO pv, Community_noriterVO vo, Model model, @RequestParam(value = "nowPage", required = false) String nowPage) {
-//		System.out.println("noriter목록");
 
 		String cntPerPage = "10";
 		if (vo.getSearchCondition() == null)
@@ -548,7 +506,6 @@ public class CommunityController {
 			vo.setSearchKeyword(vo.getSearchKeyword());
 
 		int total = communityService.countNoriter(vo);
-//		System.out.println("total :" + total);
 		if (nowPage == null) {
 			nowPage = "1";
 		}
@@ -566,7 +523,6 @@ public class CommunityController {
 
 	@RequestMapping("/getCommunity_shoppingList.do")
 	public String getCommunityShopping(PagingVO pv, Community_shoppingVO vo, Model model, @RequestParam(value = "nowPage", required = false) String nowPage) {
-//		System.out.println("shopping목록");
 
 		String cntPerPage = "10";
 		if (vo.getSearchCondition() == null)
@@ -579,7 +535,6 @@ public class CommunityController {
 			vo.setSearchKeyword(vo.getSearchKeyword());
 
 		int total = communityService.countShopping(vo);
-		System.out.println("total :" + total);
 		if (nowPage == null) {
 			nowPage = "1";
 		}
@@ -605,7 +560,6 @@ public class CommunityController {
 			vo.setCo_writer((String) session.getAttribute("userId"));
 		}
 		String url = "";
-//		System.out.println("댓글등록");
 		communityService.getYooka(cvo);
 		int result = commentService.insertCommentYooka(vo);
 
@@ -621,7 +575,6 @@ public class CommunityController {
 			vo.setCo_writer((String) session.getAttribute("userId"));
 		}
 		String url = "";
-//		System.out.println("댓글등록");
 		communityService.getNoriter(cvo);
 		int result = commentService.insertCommentNoriter(vo);
 
@@ -637,7 +590,6 @@ public class CommunityController {
 			vo.setCo_writer((String) session.getAttribute("userId"));
 		}
 		String url = "";
-//		System.out.println("댓글등록");
 		communityService.getShopping(cvo);
 		int result = commentService.insertCommentShopping(vo);
 
@@ -650,11 +602,9 @@ public class CommunityController {
 	// 댓글 수정
 	@RequestMapping("/updateCommentYooka.do")
 	public String updateCommentYooka(Comment_yookaVO vo, HttpSession session, @RequestParam(value = ("co_date2"), required = false) String co_date2) {
-//		System.out.println("댓글수정 controller : " + vo);
 		vo.setCo_date2(co_date2);
 		String url = "";
 		int result = commentService.updateCommentYooka(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getYooka.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -665,10 +615,8 @@ public class CommunityController {
 
 	@RequestMapping("/updateCommentNoriter.do")
 	public String updateCommentNoriter(Comment_noriterVO vo, HttpSession session) {
-//		System.out.println("댓글수정 controller : " + vo);
 		String url = "";
 		int result = commentService.updateCommentNoriter(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getNoriter.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -679,10 +627,8 @@ public class CommunityController {
 
 	@RequestMapping("/updateCommentShopping.do")
 	public String updateCommentShopping(Comment_shoppingVO vo, HttpSession session) {
-//		System.out.println("댓글수정 controller : " + vo);
 		String url = "";
 		int result = commentService.updateCommentShopping(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getShopping.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -694,10 +640,8 @@ public class CommunityController {
 	// 댓글 삭제
 	@RequestMapping("/deleteCommentYooka.do")
 	public String deleteCommentYooka(Comment_yookaVO vo, HttpSession session) {
-//		System.out.println("댓글 삭제 cotroller : " + vo);
 		String url = "";
 		int result = commentService.deleteCommentYooka(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getYooka.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -709,24 +653,20 @@ public class CommunityController {
 
 	@RequestMapping("/deleteCommentNoriter.do")
 	public String deleteCommentNoriter(Comment_noriterVO vo, HttpSession session) {
-//		System.out.println("댓글 삭제 cotroller : " + vo);
 		String url = "";
 		int result = commentService.deleteCommentNoriter(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
-			url = "redirect:getYooka.do?cm_no=" + vo.getCm_no();
+			url = "redirect:getNoriter.do?cm_no=" + vo.getCm_no();
 		} else {
-			url = "community/getYooka";
+			url = "community/getNoriter";
 		}
 		return url;
 	}
 
 	@RequestMapping("/deleteCommentShopping.do")
 	public String deleteCommentShopping(Comment_shoppingVO vo, HttpSession session) {
-//		System.out.println("댓글 삭제 cotroller : " + vo);
 		String url = "";
 		int result = commentService.deleteCommentShopping(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getShopping.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -743,7 +683,6 @@ public class CommunityController {
 		}
 		String url = "";
 		communityService.getYooka(cvo);
-//		System.out.println("대댓글등록");
 		int result = commentService.insertReplyYooka(vo);
 
 		if (result > 0) {
@@ -759,7 +698,6 @@ public class CommunityController {
 		}
 		String url = "";
 		communityService.getNoriter(cvo);
-		System.out.println("대댓글등록");
 		int result = commentService.insertReplyNoriter(vo);
 
 		if (result > 0) {
@@ -775,7 +713,6 @@ public class CommunityController {
 		}
 		String url = "";
 		communityService.getShopping(cvo);
-//		System.out.println("대댓글등록");
 		int result = commentService.insertReplyShopping(vo);
 
 		if (result > 0) {
@@ -786,10 +723,8 @@ public class CommunityController {
 	// 대댓글 수정
 	@RequestMapping("/updateReplyYooka.do")
 	public String updateReplyYooka(Comment_yookaVO vo, HttpSession session) {
-//		System.out.println("대댓글수정 controller : " + vo);
 		String url = "";
 		int result = commentService.updateReplyYooka(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getYooka.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -800,10 +735,8 @@ public class CommunityController {
 
 	@RequestMapping("/updateReplyNoriter.do")
 	public String updateReplyNoriter(Comment_noriterVO vo, HttpSession session) {
-//		System.out.println("대댓글수정 controller : " + vo);
 		String url = "";
 		int result = commentService.updateReplyNoriter(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getNoriter.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -814,10 +747,8 @@ public class CommunityController {
 
 	@RequestMapping("/updateReplyShopping.do")
 	public String updateReplyShopping(Comment_shoppingVO vo, HttpSession session) {
-//		System.out.println("대댓글수정 controller : " + vo);
 		String url = "";
 		int result = commentService.updateReplyShopping(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getShopping.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -829,10 +760,8 @@ public class CommunityController {
 	// 대댓글 삭제
 	@RequestMapping("/deleteReplyYooka.do")
 	public String deleteReplyYooka(Comment_yookaVO vo, HttpSession session) {
-//		System.out.println("대댓글 삭제 cotroller : " + vo);
 		String url = "";
 		int result = commentService.deleteReplyYooka(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getYooka.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -857,10 +786,8 @@ public class CommunityController {
 
 	@RequestMapping("/deleteReplyShopping.do")
 	public String deleteReplyShopping(Comment_shoppingVO vo, HttpSession session) {
-//		System.out.println("대댓글 삭제 cotroller : " + vo);
 		String url = "";
 		int result = commentService.deleteReplyShopping(vo);
-//		System.out.println("result :" + result);
 		if (result > 0) {
 			url = "redirect:getShopping.do?cm_no=" + vo.getCm_no();
 		} else {
@@ -879,7 +806,6 @@ public class CommunityController {
 		}
 		
 		Integer[] resultarr = new Integer[2];
-		System.out.println(vo);
 		
 		int result = communityService.insertUpDownYooka(vo);
 		
@@ -900,7 +826,6 @@ public class CommunityController {
 		}
 		
 		Integer[] resultarr = new Integer[2];
-//		System.out.println(vo);
 		
 		int result = communityService.insertUpDownNoriter(vo);
 		
@@ -920,7 +845,6 @@ public class CommunityController {
 		}
 		
 		Integer[] resultarr = new Integer[2];
-		System.out.println(vo);
 		
 		int result = communityService.insertUpDownShopping(vo);
 		
@@ -935,49 +859,37 @@ public class CommunityController {
 	// 관리자 페이지 리스트
 	@RequestMapping("/adminYooka.do")
 	public String adminYookaList(Community_yookaVO vo, Model model, Comment_yookaVO cvo) {
-//		System.out.println("관리자 페이지 ㄱㄱ");
 		model.addAttribute("yookaList", communityService.getYookaAdmin(vo));
 		model.addAttribute("yookaListCom", communityService.getYookaAdminCom(cvo));
-//		System.out.println("cvo : " + cvo);
 		return "community/admin_yooka";
 	}
 	@RequestMapping("/adminYookaCom.do")
 	@ResponseBody
 	public List<Comment_yookaVO> adminYookaCom(Comment_yookaVO vo){
-//		System.out.println("adminYookaCom 탔음");
-//		System.out.println("vo: " + vo);
 		return communityService.getYookaAdminCmno(vo); 
 	}
 
 	@RequestMapping("/adminNoriter.do")
 	public String adminNoriterList(Community_noriterVO vo, Model model, Comment_noriterVO cvo) {
-//		System.out.println("관리자 페이지 ㄱㄱ");
 		model.addAttribute("noriterList", communityService.getNoriterAdmin(vo));
 		model.addAttribute("noriterListCom", communityService.getNoriterAdminCom(cvo));
-//		System.out.println("cvo : " + cvo);
 		return "community/admin_noriter";
 	}
 	@RequestMapping("/adminNoriterCom.do")
 	@ResponseBody
 	public List<Comment_noriterVO> adminNoriterCom(Comment_noriterVO vo){
-//		System.out.println("adminNoriterCom 탔음");
-//		System.out.println("vo: " + vo);
 		return communityService.getNoriterAdminCmno(vo); 
 	}
 	
 	@RequestMapping("/adminShopping.do")
 	public String adminShoppingList(Community_shoppingVO vo, Model model, Comment_shoppingVO cvo) {
-//		System.out.println("관리자 페이지 ㄱㄱ");
 		model.addAttribute("shoppingList", communityService.getShoppingAdmin(vo));
 		model.addAttribute("shoppingListCom", communityService.getShoppingAdminCom(cvo));
-//		System.out.println("cvo : " + cvo);
 		return "community/admin_shopping";
 	}
 	@RequestMapping("/adminShoppingCom.do")
 	@ResponseBody
 	public List<Comment_shoppingVO> adminShoppingCom(Comment_shoppingVO vo){
-		System.out.println("adminShoppingCom 탔음");
-		System.out.println("vo: " + vo);
 		return communityService.getShoppingAdminCmno(vo); 
 	}
 	
@@ -985,25 +897,20 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("adminYookaUpdate.do")
 	public List<Community_yookaVO> updateYookaAdmin(Community_yookaVO vo, Model model){
-		System.out.println("관리자 수정!");
 		List<Community_yookaVO> yookaList = null;
 		
 		int result = communityService.updateYookaAdmin(vo);
 		
-		System.out.println("result : " + result);
 		if(result > 0) {
 			yookaList = communityService.getYookaAdmin(vo);
 		}
 		
-		System.out.println("controller: " + vo);
-		System.out.println("yookaList : " + yookaList);
 		return yookaList;
 	}
 	// 관리자 페이지 수정
 	@ResponseBody
 	@RequestMapping("adminNoriterUpdate.do")
 	public List<Community_noriterVO> updateNoriterAdmin(Community_noriterVO vo, Model model){
-//		System.out.println("관리자 수정!");
 		List<Community_noriterVO> noriterList = null;
 		
 		int result = communityService.updateNoriterAdmin(vo);
@@ -1012,14 +919,12 @@ public class CommunityController {
 			noriterList = communityService.getNoriterAdmin(vo);
 		}
 		
-//		System.out.println("controller: " + vo);
 		return noriterList;
 	}
 	// 관리자 페이지 수정
 	@ResponseBody
 	@RequestMapping("adminShoppingUpdate.do")
 	public List<Community_shoppingVO> updateShoppingAdmin(Community_shoppingVO vo, Model model){
-//		System.out.println("관리자 수정!");
 		List<Community_shoppingVO> shoppingList = null;
 		
 		int result = communityService.updateShoppingAdmin(vo);
@@ -1028,7 +933,6 @@ public class CommunityController {
 			shoppingList = communityService.getShoppingAdmin(vo);
 		}
 		
-		System.out.println("controller: " + vo);
 		return shoppingList;
 	}
 	
@@ -1036,7 +940,6 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("adminYookaDelete.do")
 	public List<Community_yookaVO> deleteYookaAdmin(Community_yookaVO vo, Model model){
-//		System.out.println("관리자 삭제!");
 		List<Community_yookaVO> deleteList = null;
 		
 		int result = communityService.deleteYookaAdmin(vo);
@@ -1050,7 +953,6 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("adminNoriterDelete.do")
 	public List<Community_noriterVO> deleteNoriterAdmin(Community_noriterVO vo, Model model){
-//		System.out.println("관리자 삭제!");
 		List<Community_noriterVO> deleteList = null;
 		
 		int result = communityService.deleteNoriterAdmin(vo);
@@ -1064,7 +966,6 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("adminShoppingDelete.do")
 	public List<Community_shoppingVO> deleteShoppingAdmin(Community_shoppingVO vo, Model model){
-//		System.out.println("관리자 삭제!");
 		List<Community_shoppingVO> deleteList = null;
 		
 		int result = communityService.deleteShoppingAdmin(vo);
@@ -1080,12 +981,13 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("/adminYookaComDel.do")
 	public List<Comment_yookaVO> deleteYookaComDel(Comment_yookaVO vo, Model model){
-//		System.out.println("관리자 댓글 삭제!");
 		List<Comment_yookaVO> delcom = null;
-		
+		Integer rep = vo.getCo_no();
 		int result = communityService.deleteYookaComDel(vo);
 		
 		if(result > 0) {
+			vo.setCo_no2(rep);
+			communityService.deleteYookaComDel(vo);
 			delcom = communityService.getYookaAdminCmno(vo);
 		}
 		
@@ -1095,12 +997,13 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("/adminNoriterComDel.do")
 	public List<Comment_noriterVO> deleteNoriterComDel(Comment_noriterVO vo, Model model){
-//		System.out.println("관리자 댓글 삭제!");
 		List<Comment_noriterVO> delcom = null;
-		
+		Integer rep = vo.getCo_no();
 		int result = communityService.deleteNoriterComDel(vo);
 		
 		if(result > 0) {
+			vo.setCo_no2(rep);
+			communityService.deleteNoriterComDel(vo);
 			delcom = communityService.getNoriterAdminCmno(vo);
 		}
 		
@@ -1110,12 +1013,13 @@ public class CommunityController {
 	@ResponseBody
 	@RequestMapping("/adminShoppingComDel.do")
 	public List<Comment_shoppingVO> deleteShoppingComDel(Comment_shoppingVO vo, Model model){
-//		System.out.println("관리자 댓글 삭제!");
 		List<Comment_shoppingVO> delcom = null;
-		
+		Integer rep = vo.getCo_no();
 		int result = communityService.deleteShoppingComDel(vo);
 		
 		if(result > 0) {
+			vo.setCo_no2(rep);
+			communityService.deleteShoppingComDel(vo);
 			delcom = communityService.getShoppingAdminCmno(vo);
 		}
 		

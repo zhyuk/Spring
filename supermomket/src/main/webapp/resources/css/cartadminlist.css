@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+	white-space: nowrap;
+}
+
+h1{
+	margin-bottom: 20px;
+}
+.adminserch{
+	display: flex;
+	float: right;
+	margin-bottom: 5px;
+}
+
+th.payth {
+    padding: 10px 3px;
+}
+td.paytd {
+    padding: 5px 5px;
+}
+
+table{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    clear: both;
+}
+th, td {
+    padding: 1px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+th {
+    background-color: #f4f4f4;
+}
+
+
+.paytdtr td:last-child{
+	text-align: left;
+} 
+
+.adminserch select{
+	margin-right:0px;
+	padding: 5px;
+	font-size: 14px;
+}
+.adminserch input[type="text"]{
+	padding: 5px;
+	font-size: 14px;
+}
+.adminserch button{
+	padding: 5px 10px;
+    font-size: 14px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.adminserch button:hover{
+	 background-color: #c0c0c0;
+}
+
+
+
+/* 페이지네이션 스타일 */
+.paylisypageing {
+	margin-top:20px;
+	display: flex;
+	list-style: none;
+	justify-content: center;
+	padding: 0;
+	margin-top: 20px;
+	top: 0px;
+	left: 80%;
+	right: 50%;
+}
+
+.paylisypageing .adminpage-item {
+	margin: 0 5px;
+}
+
+.paylisypageing .adminpage-item a {
+	display: block;
+	padding: 8px 12px;
+	border: 1px solid #fff; /* 사이드바와 동일한 색상 */
+	border-radius: 4px;
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.paylisypageing .adminpage-item a:hover {
+	background-color: var(--ad-color-lightgray); /* 호버 시 배경 색상 변경 */
+	color: #000;
+}
+
+.paylisypageing .adminpage-item.active a {
+	background-color:var(--ad-color-lightgray); /* 활성화된 페이지의 배경색 */
+	color: #000; /* 활성화된 페이지의 텍스트 색상 */
+	cursor: default;
+}
+
+.paylisypageing .adminpage-item.active a:hover {
+	background-color: var(--ad-color-lightgray); /* 활성화된 페이지는 호버 시 변화 없음 */
+	color: #000;
+}

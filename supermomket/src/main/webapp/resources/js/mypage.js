@@ -26,6 +26,10 @@ function goEditTable(td) {
 
 // 사용자 정보 수정(관리자)
 function selUser(userId) {
+	if(userId === "admin"){
+		alert("관리자 계정은 수정할 수 없습니다.");
+		return;
+	}
     if (confirm("수정하시겠습니까?")) {
         submitForm(userId);
     }

@@ -1,3 +1,26 @@
+const idInput = document.getElementById('uid');
+const idImg = document.getElementById('idimg');
+const pwInput = document.getElementById('upw');
+const pwImg = document.getElementById('pwimg');
+
+idInput.addEventListener('focus', () => {
+    const idFormField = idInput.closest('.form-field');
+    idFormField.style.borderBottom = '2px solid #fff';
+});
+idInput.addEventListener('blur', () => {
+    const idFormField = idInput.closest('.form-field');
+    idFormField.style.borderBottom = '2px solid #000';
+});
+
+pwInput.addEventListener('focus', () => {
+    const pwFormField = pwInput.closest('.form-field');
+    pwFormField.style.borderBottom = '2px solid #fff';
+});
+pwInput.addEventListener('blur', () => {
+    const pwFormField = pwInput.closest('.form-field');
+    pwFormField.style.borderBottom = '2px solid #000'; 
+});
+
 
 document.getElementById('eye').addEventListener('click', function () {
     const passwordInput = document.getElementById('upw');
@@ -5,7 +28,7 @@ document.getElementById('eye').addEventListener('click', function () {
     passwordInput.setAttribute('type', passwordType);
 
     const img = this.querySelector('img');
-    img.src = passwordType === 'password' ? 'resources/img/login/ceye.png' : 'resources/img/login/aeye.png'; 
+    img.src = passwordType === 'password' ? 'resources/img/login/aceye.png' : 'resources/img/login/aeye.png'; 
 });
 
 window.onload = function() {

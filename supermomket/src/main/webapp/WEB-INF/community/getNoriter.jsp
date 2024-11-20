@@ -6,13 +6,17 @@
 
 <body>
 	<style>
+#wrap{
+	margin-bottom: 50px;
+}
+	
 #scrollTopBtn {
 	position: fixed;
 	bottom: 20px;
-	right: 20px;
+	left: 43%;
 	width: 50px;
 	height: 50px;
-	background-color: #FFD26E;
+	background-color: rgba(255,255,255,0.5);
 	color: black;
 	border-radius: 50%;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -174,6 +178,7 @@ h1 {
 	width: 1200px;
 	text-align: left;
 	margin: 0 auto;
+	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
 }
 
 #commentUpDel {
@@ -184,8 +189,22 @@ h1 {
 	align-items: normal;
 }
 
+.form-control:disabled, .form-control[readonly]{
+	background-color: white;
+	border: none;
+}
+
+.form-control[readonly]:focus{
+	border:none;
+}
+
 #footer button {
 	padding: 8px;
+}
+#footer{
+	width: 1200px;
+    margin: 0 auto;
+	text-align: right;
 }
 
 #commentReplyUpDel {
@@ -267,6 +286,7 @@ ul {
 }
 
 .detail-box .title {
+	font-size: 20px;
 	font-weight: bold;
 	white-space: nowrap;
 	overflow: hidden;
@@ -290,9 +310,19 @@ ul {
     border-radius: 10px;
 }
 
+.mt-0, .writer{
+	font-weight: 900; 
+}
+
+#commentinput button{
+	float: right;
+}
+	
+.cotent12 {
+	font-size: 18px;
+}
 @media screen and (max-width: 425px) {
 	.detail-box{
-		margin-top : 20px;
 		font-size: 14px;
 		text-align: left;
 		width: 100%;
@@ -342,17 +372,19 @@ ul {
 		<form name="fm" action="/updateNoriter.do" method="get" class="form1"
 			enctype="multipart/form-data">
 			<input type="hidden" name="cm_no" value="${noriter.cm_no}">
-
+			<input type="hidden" name="cm_writer" value="${noriter.cm_writer}">
+			
 			<div class="detail-box">
 				<div class="category-title">
 					<div class="category">[놀이터]</div>
 					<div class="title">${noriter.cm_title}</div>
 				</div>
 				<div class="info12">
-					<span class="writer">${noriter.cm_writer}</span> <span
-						class="comments">조회: ${noriter.cm_view}</span> <span class="views">추천:
-						${likeResult}</span> <span class="likes">비추천: ${hateResult}</span> <span
-						class="date">${noriter.cm_date}</span>
+					<span class="writer">${noriter.cm_writer}</span>
+					<span class="vie">조회: ${noriter.cm_view}</span>
+					<span class="up">추천: ${likeResult}</span> 
+					<span class="likes">비추천: ${hateResult}</span> 
+					<span class="date">${noriter.cm_date}</span>
 				</div>
 			</div>
 			<br> <br>
@@ -372,25 +404,25 @@ ul {
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<p class="cotent12">${Noriter.cm_content}</p>
+			<p class="cotent12">${noriter.cm_content}</p>
 			<br> <br>
 			<ul class="upDown">
 				<li class="likeUp"><button type="button" id="likebtn"
 						name="likebtn"
 						style="background-image: url('${pageContext.request.contextPath}/resources/img/community/like.png'); background-size: contain; background-repeat: no-repeat;height: 50px; border: none;"
-						onclick="UpDownStsNoriter(${Noriter.cm_no}, 1)"></button>
+						onclick="UpDownStsNoriter(${noriter.cm_no}, 1)"></button>
 					<p>${likeResult}</p></li>
 
 
 				<li class="hateDown"><button type="button" id="hatebtn"
 						name="hatebtn"
 						style="background-image: url('${pageContext.request.contextPath}/resources/img/community/hate.png'); background-size: contain; background-repeat: no-repeat; height: 50px; border: none;"
-						onclick="UpDownStsNoriter(${Noriter.cm_no}, 2)"></button>
+						onclick="UpDownStsNoriter(${noriter.cm_no}, 2)"></button>
 					<p>${hateResult}</p></li>
 			</ul>
 			<br> <br>
 			<div id="footer">
-				<c:if test="${sessionScope.userId == Noriter.cm_writer }">
+				<c:if test="${sessionScope.userId == noriter.cm_writer }">
 					<button type="submit" class="">글수정</button>
 					<button id="conWrite" type="button">글쓰기</button>
 					<button id="conDelNoriter" type="button">글삭제</button>
@@ -415,7 +447,7 @@ ul {
 							<textarea class="form-control" id="comment" rows="3"
 								placeholder="댓글을 입력하세요" name="co_content" required></textarea>
 						</div>
-						<input type="hidden" name="cm_no" value="${Noriter.cm_no}">
+						<input type="hidden" name="cm_no" value="${noriter.cm_no}">
 						<button type="submit">등록</button>
 					</form>
 				</div>
@@ -478,7 +510,7 @@ ul {
 							</div>
 							<!-- 대댓글 입력 폼 (초기에는 숨김) -->
 							<div class="reply-form mt-2">
-								<form class="replyForm${commentNoriter.co_no} replyForm"
+								<form class="replyFormNoriter${commentNoriter.co_no} replyFormNoriter"
 									action="/insertReplyNoriter.do" id="replyForm">
 									<input type="hidden" name="co_no2"
 										value="${commentNoriter.co_no}" />
@@ -486,7 +518,7 @@ ul {
 										<textarea class="form-control" rows="2"
 											placeholder="대댓글을 입력하세요" name="co_content" required></textarea>
 									</div>
-									<input type="hidden" name="cm_no" value="${Noriter.cm_no}">
+									<input type="hidden" name="cm_no" value="${noriter.cm_no}">
 									<button type="submit" 
 										id="inputbtn">등록</button>
 								</form>
@@ -570,6 +602,15 @@ ul {
 	    behavior: "smooth", 
 	  });
 	}
+	
+	document.querySelector('#comment').addEventListener('keydown', function(event) {
+	    if (event.key === 'Enter' && !event.shiftKey) {
+	        event.preventDefault(); // 기본 동작 막기
+	        submitComment();
+	    } else {
+	    	
+	    }
+	});
 	</script>
 </body>
 </html>

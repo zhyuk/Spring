@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.mom.dao.IndexDAO;
 import com.spring.mom.svc.IndexService;
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.OrderVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.TradeVO;
 import com.spring.mom.vo.UserVO;
@@ -57,8 +58,8 @@ public class IndexServiceImpl implements IndexService{
 
 	// 차트에 들어갈 사용자 수 가져오기
 	@Override
-	public List<UserVO> getChartAdmin(UserVO vo) {
-		System.out.println("IndexSVC getChartAdmin() 실행");
+	public List<UserVO> getChartAdmin(OrderVO vo) {
+//		System.out.println("IndexSVC getChartAdmin() 실행");
 		return dao.getChartAdmin(vo);
 	}
 

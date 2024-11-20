@@ -10,16 +10,18 @@
 <main>
 <section id="admin">
 <div class="faqAdminmaindiv">
+<h1>FAQ 관리자 목록</h1>
 <div class="faqAdminsearchdiv">
-<!--  <form class="form-inline" action="getFaqAdminList.do" method="post"> -->
-<!--   	<select class="form-control" id="sel1" name="searchCondition"> -->
-<%--         <c:forEach items="${conditionMap}" var="option"> --%>
-<%-- 	        <option value="${option.value}">${option.key}</option> --%>
-<%--         </c:forEach>         --%>
-<!--     </select> -->
-<!--     <input class="form-control mr-sm-2" type="text" name="searchKeyword" placeholder="검색어를 입력하세요."> -->
-<!--     <button class="btn btn-success" type="submit">검색</button> -->
-<!--   </form> -->
+ <form class="form-inline" action="getFaqAdminList.do" method="post">
+  	<select class="form-control line" id="sel1" name="searchCondition">
+        <c:forEach items="${conditionMap}" var="option">
+	        <option value="${option.value}">${option.key}</option>
+        </c:forEach>        
+    </select>
+    <input class="form-control line" type="text" name="searchKeyword" placeholder="검색어를 입력하세요.">
+    <button class="btn btn-success line" type="submit">검색</button>
+    <button type="button" id="faqadminbtn" class="faqadminbtn line" onclick="insertbtn()">글쓰기</button>
+  </form>
 </div>
 
 
@@ -45,10 +47,9 @@
 </c:forEach>
     </tbody>
     </table>
-     <button id="faqadminbtn" class="faqadminbtn" onclick="insertbtn()">글쓰기</button>
      <ul class="adminpagination">
 		<c:if test="${paging.nowPage > 1 && paging.lastBtn > paging.viewBtnCnt}">
-			<li class="adminpage-item"><a class="adminpage-link" href="getFaqAdminList.do?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이전</a></li>
+			<li class="adminpage-item"><a class="adminpage-link" href="getFaqAdminList.do?nowPage=${paging.nowPage-1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">&lt;&lt;</a></li>
 		</c:if>
 		<c:forEach var="i" begin="${paging.startBtn}" end="${paging.endBtn}" step="1">
 			<c:choose>
@@ -57,7 +58,7 @@
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.nowPage < paging.lastBtn  && paging.lastBtn > paging.viewBtnCnt}">
-			<li class="adminpage-item"><a class="adminpage-link" href="getFaqAdminList.do?nowPage=${paging.nowPage+1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">이후</a></li>
+			<li class="adminpage-item"><a class="adminpage-link" href="getFaqAdminList.do?nowPage=${paging.nowPage+1}&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}">&gt;&gt;</a></li>
 		</c:if>
 	</ul>
 </div>

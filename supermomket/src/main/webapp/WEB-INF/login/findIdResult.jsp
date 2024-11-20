@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,23 +16,17 @@
         <c:if test="${not empty userList}">
             <div class="result-box">
                 <table class="result-table">
-                    <thead>
-                        <tr>
-                            <th>아이디</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <c:forEach var="user" items="${userList}">
                             <tr>
-                                <td>${user.u_id}</td>
+                                <td>${fn:substring(user.u_id, 0, 3)}${fn:substring('*****************', 0, fn:length(user.u_id) - 3)}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
             </div>
         </c:if>
-        
-        <!-- 사용자 정보가 없으면 안내 메시지 -->
+
         <c:if test="${empty userList}">
             <div class="no-result">
                 <p>일치하는 정보가 없습니다. 다시 확인해 주세요.</p>

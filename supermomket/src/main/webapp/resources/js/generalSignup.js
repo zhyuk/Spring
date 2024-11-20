@@ -1,3 +1,134 @@
+const idInput = document.getElementById('id');
+const pwInput = document.getElementById('password');
+const cpwInput = document.getElementById('password2');
+const nameInput = document.getElementById('name');
+const nicknameInput = document.getElementById('nickname');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('u_pno');
+const phoneInput2 = document.getElementById('phone2');
+const postcodeInput = document.getElementById('sample4_postcode');
+const roadAddressInput = document.getElementById('sample4_roadAddress');
+const jibunAddressInput = document.getElementById('sample4_jibunAddress');
+const detailAddressInput = document.getElementById('sample4_detailAddress');
+const extraAddressInput = document.getElementById('sample4_extraAddress');
+
+idInput.addEventListener('focus', () => {
+    const idInputText = idInput.closest('.signup-container input[type="text"]');
+    idInputText.style.border = '2px solid #ffd26e';
+});
+idInput.addEventListener('blur', () => {
+    const idInputText = idInput.closest('.signup-container input[type="text"]');
+    idInputText.style.border = '2px solid #ccc';
+});
+
+pwInput.addEventListener('focus', () => {
+    const pwInputText = pwInput.closest('.signup-container input[type="password"]');
+    pwInputText.style.border = '2px solid #ffd26e';
+});
+pwInput.addEventListener('blur', () => {
+    const pwInputText = pwInput.closest('.signup-container input[type="password"]');
+    pwInputText.style.border = '2px solid #ccc';
+});
+
+cpwInput.addEventListener('focus', () => {
+    const cpwInputText = cpwInput.closest('.signup-container input[type="password"]');
+    cpwInputText.style.border = '2px solid #ffd26e';
+});
+cpwInput.addEventListener('blur', () => {
+    const cpwInputText = cpwInput.closest('.signup-container input[type="password"]');
+    cpwInputText.style.border = '2px solid #ccc';
+});
+
+nameInput.addEventListener('focus', () => {
+    const nameInputText = nameInput.closest('.signup-container input[type="text"]');
+    nameInputText.style.border = '2px solid #ffd26e';
+});
+nameInput.addEventListener('blur', () => {
+	const nameInputText = nameInput.closest('.signup-container input[type="text"]');
+    nameInputText.style.border = '2px solid #ccc';
+});
+
+nicknameInput.addEventListener('focus', () => {
+    const nicknameInputText = nicknameInput.closest('.signup-container input[type="text"]');
+    nicknameInputText.style.border = '2px solid #ffd26e';
+});
+nicknameInput.addEventListener('blur', () => {
+	const nicknameInputText = nicknameInput.closest('.signup-container input[type="text"]');
+    nicknameInputText.style.border = '2px solid #ccc';
+});
+
+emailInput.addEventListener('focus', () => {
+    const emailInputText = emailInput.closest('.signup-container input[type="text"]');
+    emailInputText.style.border = '2px solid #ffd26e';
+});
+emailInput.addEventListener('blur', () => {
+	const emailInputText = emailInput.closest('.signup-container input[type="text"]');
+    emailInputText.style.border = '2px solid #ccc';
+});
+
+phoneInput.addEventListener('focus', () => {
+	const phoneInputText = phoneInput.closest('.signup-container input[type="text"]');
+    phoneInputText.style.border = '2px solid #ffd26e';
+});
+phoneInput.addEventListener('blur', () => {
+	const phoneInputText = phoneInput.closest('.signup-container input[type="text"]');
+    phoneInputText.style.border = '2px solid #ccc';
+});
+
+phoneInput2.addEventListener('focus', () => {
+	const phoneInputText2 = phoneInput2.closest('.signup-container input[type="text"]');
+    phoneInputText2.style.border = '2px solid #ffd26e';
+});
+phoneInput2.addEventListener('blur', () => {
+	const phoneInputText2 = phoneInput2.closest('.signup-container input[type="text"]');
+    phoneInputText2.style.border = '2px solid #ccc';
+});
+
+postcodeInput.addEventListener('focus', () => {
+	const postcodeInputText = postcodeInput.closest('.signup-container input[type="text"]');
+    postcodeInputText.style.border = '2px solid #ffd26e';
+});
+postcodeInput.addEventListener('blur', () => {
+	const postcodeInputText = postcodeInput.closest('.signup-container input[type="text"]');
+    postcodeInputText.style.border = '2px solid #ccc';
+});
+
+roadAddressInput.addEventListener('focus', () => {
+	const roadAddressInputText = roadAddressInput.closest('.signup-container input[type="text"]');
+    roadAddressInputText.style.border = '2px solid #ffd26e';
+});
+roadAddressInput.addEventListener('blur', () => {
+	const roadAddressInputText = roadAddressInput.closest('.signup-container input[type="text"]');
+    roadAddressInputText.style.border = '2px solid #ccc';
+});
+
+jibunAddressInput.addEventListener('focus', () => {
+	const jibunAddressInputText = jibunAddressInput.closest('.signup-container input[type="text"]');
+    jibunAddressInputText.style.border = '2px solid #ffd26e';
+});
+jibunAddressInput.addEventListener('blur', () => {
+	const jibunAddressInputText = jibunAddressInput.closest('.signup-container input[type="text"]');
+    jibunAddressInputText.style.border = '2px solid #ccc';
+});
+
+detailAddressInput.addEventListener('focus', () => {
+	const detailAddressInputText = detailAddressInput.closest('.signup-container input[type="text"]');
+    detailAddressInputText.style.border = '2px solid #ffd26e';
+});
+detailAddressInput.addEventListener('blur', () => {
+	const detailAddressInputText = detailAddressInput.closest('.signup-container input[type="text"]');
+    detailAddressInputText.style.border = '2px solid #ccc';
+});
+
+extraAddressInput.addEventListener('focus', () => {
+	const extraAddressInputText = extraAddressInput.closest('.signup-container input[type="text"]');
+    extraAddressInputText.style.border = '2px solid #ffd26e';
+});
+extraAddressInput.addEventListener('blur', () => {
+	const extraAddressInputText = extraAddressInput.closest('.signup-container input[type="text"]');
+    extraAddressInputText.style.border = '2px solid #ccc';
+});
+
 function clearErrorMessages() {
     const errorMessages = document.querySelectorAll('.error-message');
     errorMessages.forEach(msg => msg.textContent = '');
@@ -6,14 +137,14 @@ function clearErrorMessages() {
 function validateId() {
     const id = document.querySelector('input[name="u_id"]');
     const idError = document.querySelector('#id-error');
-    const idRegex = /^[a-z][a-z0-9]{5,9}$/;
+    const idRegex = /^[a-z][a-z0-9]{5,19}$/;
     
     idError.className = 'error-message'; 
 
     if (id.value.includes('admin')) {
         idError.textContent = '아이디에 "admin"을 포함할 수 없습니다.';
     } else if (!idRegex.test(id.value)) {
-        idError.textContent = '아이디는 영문으로 시작하고, 영문 소문자와 숫자로 6~10자 입력하세요.';
+        idError.textContent = '아이디는 영문으로 시작하고, 영문 소문자와 숫자로 6~20자 입력하세요.';
     } else {
         idError.textContent = '';
     }
@@ -22,10 +153,10 @@ function validateId() {
 function validatePassword() {
     const password = document.querySelector('input[name="u_pw"]');
     const passwordError = document.querySelector('#password-error');
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d|.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d|.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
 
     if (!passwordRegex.test(password.value)) {
-        passwordError.textContent = '비밀번호는 영문 대/소문자, 숫자, 특수문자 중 2가지 이상으로 8~12자 입력하세요.';
+        passwordError.textContent = '비밀번호는 영문 대/소문자, 숫자, 특수문자 중 2가지 이상으로 8~20자 입력하세요.';
     } else {
         passwordError.textContent = '';
     }
@@ -172,47 +303,77 @@ document.getElementById('eye2').addEventListener('click', function () {
 });
 
 $(function () {
-	//휴대폰 번호 인증 
-	var code2 = ""; 
-	$("#phoneChk").click(function(){ 
-		alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주세요."); 
-		var u_pno = $("#u_pno").val(); 
-		
-		$.ajax({ 
-			type:"GET", 
-			url:"phoneCheck.do?u_pno=" + u_pno, 
-			cache : false, 
-			success:function(data){ 
-				if(data == "error"){ 
-					alert("휴대폰 번호가 올바르지 않습니다.") 
-					$(".successPhoneChk").text("유효한 번호를 입력해주세요."); 
-					$(".successPhoneChk").css("color","red"); 
-					$("#u_pno").attr("autofocus",true); 
-				}else{ 
-					$("#phone2").attr("disabled",false); 
-					$("#phoneChk2").css("display","inline-block"); 
-					$(".successPhoneChk").text("인증번호를 입력한 뒤 본인인증을 눌러주세요."); 
-					$(".successPhoneChk").css("color","blue"); 
-					$("#u_pno").attr("readonly",true); 
-					code2 = data; 
-				} 
-			} 
-		}); 
-	});
-	
-	$("#phoneChk2").click(function(){ 
-		if($("#phone2").val() == code2){ 
-			$(".successPhoneChk").text("인증번호가 일치합니다."); 
-			$(".successPhoneChk").css("color","blue"); 
-			$("#phoneDoubleChk").val("true"); 
-			$("#phone2").attr("disabled",true); 
-		}else{ $(".successPhoneChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다."); 
-			$(".successPhoneChk").css("color","red"); 
-			$("#phoneDoubleChk").val("false"); 
-			$(this).attr("autofocus",true); 
-		} 
-	});
+    var code2 = ""; 
+    var timerInterval = null; 
+    var timeLeft = 120; 
 
+    function updateTimer() {
+        var minutes = Math.floor(timeLeft / 60);
+        var seconds = timeLeft % 60;
+        if (seconds < 10) {
+            seconds = "0" + seconds; 
+        }
+        $('#timer').text("0" + minutes + ":" + seconds); 
+        timeLeft--; 
+        if (timeLeft < 0) {
+            clearInterval(timerInterval); 
+            $('#phone2').prop('disabled', true); 
+            $('#phoneChk2').prop('disabled', true); 
+            $("#phone-error").text("인증번호 입력 시간이 초과되었습니다.").addClass("error").removeClass("success");
+            $("#phone-error").css("color", "red");
+        }
+    }
+
+    $("#phoneChk").click(function(){ 
+        alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주세요."); 
+        var u_pno = $("#u_pno").val(); 
+        
+        $.ajax({ 
+            type:"GET", 
+            url:"phoneCheck.do?u_pno=" + u_pno, 
+            cache : false, 
+            success:function(data){ 
+                if(data == "error"){ 
+                    alert("휴대폰 번호가 올바르지 않습니다."); 
+                    $("#phone-error").text("유효한 번호를 입력해주세요.").addClass("error").removeClass("success"); 
+                    $("#u_pno").attr("autofocus",true); 
+                    $("#phone-error").css("color", "red");
+                } else { 
+                    $("#phone2").attr("disabled", false); 
+                    $("#phoneChk2").css("display", "inline-block");
+                    $("#phone-error").text("인증번호를 입력한 뒤 확인을 눌러주세요.").addClass("success").removeClass("error"); 
+                    $("#u_pno").attr("readonly", true); 
+                    $("#phone-error").css("color", "black");
+
+                    // 타이머 시작
+                    $('#timer').show();
+                    timeLeft = 120; 
+                    updateTimer();  
+                    timerInterval = setInterval(updateTimer, 1000); 
+                    code2 = data; 
+                } 
+            } 
+        }); 
+    });
+
+    $("#phoneChk2").click(function(){ 
+        if($("#phone2").val() == "") { 
+            $("#phone-error").text("인증번호를 입력해주세요.").addClass("error").removeClass("success"); 
+            $("#phone-error").css("color", "red");
+        } else if($("#phone2").val() == code2){ 
+            $("#phone-error").text("인증번호가 일치합니다.").addClass("success").removeClass("error"); 
+            $("#phone-error").css("color", "blue");
+            $("#phoneDoubleChk").val("true"); 
+            $("#phone2").attr("disabled", true); 
+            clearInterval(timerInterval); 
+            $("#timer").hide();
+        } else { 
+            $("#phone-error").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.").addClass("error").removeClass("success"); 
+            $("#phone-error").css("color", "red");
+            $("#phoneDoubleChk").val("false"); 
+            $(this).attr("autofocus", true); 
+        }
+    });
 });
 
 function sample4_execDaumPostcode() {

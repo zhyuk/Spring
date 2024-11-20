@@ -18,43 +18,43 @@ public class FaqServiceImpl implements FaqService {
 	
 	@Override
 	public List<FaqVO> searchfaq(FaqVO vo) {
-		System.out.println("서비스 임플 searchfaq");
+//		System.out.println("서비스 임플 searchfaq");
 		return faqDAO.searchfaq(vo);
 	}
 
 	@Override
 	public List<FaqVO> getFaqList(FaqVO vo) {
-		System.out.println("서비스 임플 getFaqList");
+//		System.out.println("서비스 임플 getFaqList");
 		return faqDAO.getFaqList(vo);
 	}
 
 	@Override
 	public int insertfaq(FaqVO vo) {
-		System.out.println("서비스 임플 insertfaq");
+//		System.out.println("서비스 임플 insertfaq");
 	 return  faqDAO.insertfaq(vo);
 	}
 
 	@Override
 	public void updatefaq(FaqVO vo) {
-		System.out.println("서비스 임플 updatefaq");
+//		System.out.println("서비스 임플 updatefaq");
 		faqDAO.updatefaq(vo);
 	}
 
 	@Override
 	public void deletefaq(FaqVO vo) {
-		System.out.println("서비스 임플 deletefaq");
+//		System.out.println("서비스 임플 deletefaq");
 		faqDAO.deletefaq(vo);
 	}
 
 	@Override
 	public FaqVO getFaq(FaqVO vo) {	
-		System.out.println("서비스 임플 getFaq");
+//		System.out.println("서비스 임플 getFaq");
 		return faqDAO.getFaq(vo);
 	}
 
 	@Override
 	public int countFaq(FaqVO vo) {
-		System.out.println("서비스 임플 countFaq");
+//		System.out.println("서비스 임플 countFaq");
 		return faqDAO.countFaq(vo);
 	}
 

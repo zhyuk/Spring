@@ -17,9 +17,9 @@ public class AdminProductServiceImpl implements AdminProductService {
     private ProductDAO productDAO;
 
     @Override
-    public List<ProductVO> getProductsByPage(int page, int pageSize, String category, String sortType, String searchQuery) {
+    public List<ProductVO> getAdminProductsByPage(int page, int pageSize, String category, String sortType, String searchQuery) {
         int offset = (page - 1) * pageSize;
-        return productDAO.getProductsByPage(pageSize, offset, sortType, category, searchQuery);
+        return productDAO.getAdminProductsByPage(pageSize, offset, sortType, category, searchQuery);
     }
 
     @Override

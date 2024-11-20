@@ -1,27 +1,28 @@
-// splitAddress: DB에서 불러온 전체 주소를 우편번호, 도로명, 추가주소, 상세주소로 분리
+
 function splitAddress(fullAddress) {
-    const zipCodeMatch = fullAddress.match(/^\d{5}/); // 우편번호 추출
+    const zipCodeMatch = fullAddress.match(/^\d{5}/);
     const zipCode = zipCodeMatch ? zipCodeMatch[0] : '';
 
-    const remainingAddress = fullAddress.replace(zipCode, '').trim(); // 우편번호 제거
-    const extraAddressMatch = remainingAddress.match(/\((.*?)\)/);    // 추가 주소 추출
+    const remainingAddress = fullAddress.replace(zipCode, '').trim();
+    const extraAddressMatch = remainingAddress.match(/\((.*?)\)/);
     const extraAddress = extraAddressMatch ? extraAddressMatch[1] : '';
 
-    const addressWithoutExtra = remainingAddress.replace(/\(.*?\)/, '').trim(); // 추가 주소 제거
+    const addressWithoutExtra = remainingAddress.replace(/\(.*?\)/, '').trim();
     const parts = addressWithoutExtra.split(' ');
 
-    const roadAddress = parts.slice(0, -1).join(' ') || '';  // 도로명 주소
-    const detailAddress = parts[parts.length - 1] || '';     // 상세주소
+    const roadAddress = parts.slice(0, -1).join(' ') || '';
+    const detailAddress = parts[parts.length - 1] || '';
 
     return { zipCode, roadAddress, extraAddress, detailAddress };
 }
 
-// sample4_execDaumPostcode: 우편번호 검색 후 주소 필드 업데이트
+
+
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {
-            let roadAddr = data.roadAddress;  // 도로명 주소
-            let extraRoadAddr = '';  // 추가 주소 (건물명, 아파트명 등)
+            let roadAddr = data.roadAddress;
+            let extraRoadAddr = '';
 
             if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
                 extraRoadAddr += data.bname;
@@ -35,9 +36,9 @@ function sample4_execDaumPostcode() {
                 extraRoadAddr = ` (${extraRoadAddr})`;
             }
 
-            document.getElementById('sample4_postcode').value = data.zonecode;  // 우편번호
-            document.getElementById('sample4_roadAddress').value = roadAddr + extraRoadAddr;   // 도로명 주소 + 추가 주소
-            document.getElementById('sample4_detailAddress').value = '';       // 상세주소 초기화
+            document.getElementById('sample4_postcode').value = data.zonecode;
+            document.getElementById('sample4_roadAddress').value = roadAddr + extraRoadAddr;
+            document.getElementById('sample4_detailAddress').value = ''; 
 
             const fullAddress = `${data.zonecode} ${roadAddr}${extraRoadAddr}`;
             document.getElementById('u_address').value = fullAddress;
@@ -47,18 +48,20 @@ function sample4_execDaumPostcode() {
     }).open();
 }
 
-// form 초기화 시, DB의 주소를 필드에 나눠서 넣어줌
+
+
 document.addEventListener("DOMContentLoaded", function () {
     if (typeof uAddress !== 'undefined' && uAddress) {
         const { zipCode, roadAddress, extraAddress, detailAddress } = splitAddress(uAddress);
         document.getElementById("sample4_postcode").value = zipCode || "";
         document.getElementById("sample4_roadAddress").value = `${roadAddress} ${extraAddress}`.trim();
         document.getElementById("sample4_detailAddress").value = detailAddress || "";
-        document.getElementById("u_address").value = uAddress; // hidden 필드에 전체 주소 저장
+        document.getElementById("u_address").value = uAddress; 
     }
 });
 
-// form 제출 시 주소 조합
+
+
 document.querySelector("form[name='mp_updateForm']").addEventListener("submit", function() {
     const zipcode = document.getElementById("sample4_postcode").value;
     const roadAddress = document.getElementById("sample4_roadAddress").value;
@@ -111,6 +114,7 @@ function goValidateForm(event) {
     alert("수정이 완료되었습니다.");
     return true;
 }
+
 
 function validateNickname(nickname) {
     const nicknameRegex = /^(?:(?=.*[가-힣]{2,8})[가-힣]{2,8}|(?=.*[a-zA-Z]{2,24})[a-zA-Z]{2,24})$/;

@@ -6,10 +6,10 @@
 
 	<!-- 최근 작성된 게시글 가져오기 -->
 	<select id="getCommunityList" resultType="vs">
-		select vs.vs_no, vs.vs_title, vs.vs_writer, vs.vs_date as vs_date, 'vs' as source from community_vs as vs union all
-		select yooka.cm_no, yooka.cm_title, yooka.cm_writer, yooka.cm_date as vs_date, 'yooka' as source from community_yooka as yooka union all
-		select noriter.cm_no, noriter.cm_title, noriter.cm_writer, noriter.cm_date as vs_date, 'noriter' as source from community_noriter as noriter union all 
-		select shopping.cm_no, shopping.cm_title, shopping.cm_writer, shopping.cm_date as vs_date, 'shopping' as source from community_shopping as shopping
+		select vs.vs_no, vs.vs_title, vs.vs_writer, vs.vs_date as vs_date, '고민' as source from community_vs as vs union all
+		select yooka.cm_no, yooka.cm_title, yooka.cm_writer, yooka.cm_date as vs_date, '육아' as source from community_yooka as yooka union all
+		select noriter.cm_no, noriter.cm_title, noriter.cm_writer, noriter.cm_date as vs_date, '놀이터' as source from community_noriter as noriter union all 
+		select shopping.cm_no, shopping.cm_title, shopping.cm_writer, shopping.cm_date as vs_date, '쇼핑' as source from community_shopping as shopping
 		order by vs_date desc limit 5;
 	</select>
 	
@@ -37,7 +37,7 @@
 	</select>
 	
 	<!-- 차트에 들어갈 사용자 수 가져오기 -->
-	<select id="getChartAdmin" resultType="user">
-		select u_date, count(*) as u_count from user group by u_date;
+	<select id="getChartAdmin" resultType="orderlist">
+		select o_input_date, sum(o_total_price)as o_total_price from orderList group by o_input_date order by o_input_date;
 	</select>
 </mapper>

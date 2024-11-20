@@ -10,17 +10,17 @@
 </head>
 <body>
 	<div class="login-container">
-		<div class="logo-box"><a href="/"><img src="/resources/img/logo/logo1.png" alt="로고"></a></div>
+		<div class="logo-box"><a href="/"><img src="/resources/img/logo/admin_logo.png" alt="로고"></a></div>
 		<form action="admin_login.do" method="POST" id="loginForm" >
 			<div class="form-field">
-				<img src="resources/img/login/id.png" id="idimg" class="login-image">
+				<img src="resources/img/login/aid.png" id="idimg" class="login-image">
 				<input type="text" name="u_id" id="uid" placeholder="아이디입력" autocomplete="off"/> 
 			</div>
 			<div class="form-field">
-				<img src="resources/img/login/pw.png" id="pwimg" class="login-image">	
+				<img src="resources/img/login/apw.png" id="pwimg" class="login-image">	
 				<input type="password" name="u_pw" id="upw" placeholder="비밀번호입력" autocomplete="off"/> 
 				<button type="button" id="eye" class="eye-btn">
-                	<img src="resources/img/login/ceye.png" class="eye-image">
+                	<img src="resources/img/login/aceye.png" class="eye-image">
                 </button>
 			</div>
 	        <c:if test="${not empty loginError}">

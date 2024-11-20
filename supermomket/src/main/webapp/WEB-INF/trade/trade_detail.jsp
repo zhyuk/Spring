@@ -224,7 +224,6 @@
 
 
 .buttons {
-    
     position: relative;
     padding: 12px 16px;
     background-color: white;
@@ -428,18 +427,25 @@ select.button option {
         width: 100%;
         max-width: 100%;
         padding: 12px 16px;
-        gap: 6px;
+        gap: 4px;
         margin: 0;
+        flex-wrap: wrap; 
+        justify-content: center; 
     }
 
-    select.button {
-        flex: 1;
+        select.button {
+        flex: 0 1 auto; 
         min-width: auto;
+        width: calc(50% - 4px); 
     }
 
     .button {
-        padding: 8px 12px;
-        font-size: 13px;
+        padding: 8px 8px;
+        font-size: 12px; 
+        width: calc(50% - 4px); 
+        min-width: unset; 
+        margin: 2px; 
+        white-space: nowrap; 
     }
 
     .slider-dots {

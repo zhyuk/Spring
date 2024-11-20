@@ -6,7 +6,7 @@
 
 <style>
 .mp_page-container {
-	margin-top: 30px;
+/* 	margin-top: 30px; */
 	display: flex;
 	justify-content: center;
 	gap: 20px;
@@ -16,6 +16,7 @@
 	width: 100%;
 	max-width: 500px;
 	margin: auto;
+    margin-top: 30px;
 }
 
 .mp_updateForm {
@@ -78,13 +79,12 @@
 	
 	.mp_form-container {
 		width: 100%;
-		/* 	font-size: 12px; */
-		width: 100%;
 		padding: 10px;
+	    margin-top: 75px;
 	}
 	
 	.mp_updateForm {
-		margin-top: 50px;
+        margin-top: 45px;
 	}
 	
 	.form-control {
@@ -103,12 +103,12 @@
 	
 	.title_h4 {
 		font: bolder;
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 	}
 	
 	.title_hr {
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 	}
 }
@@ -118,7 +118,7 @@
 	<%@ include file="../view/menu.jsp"%>
 
 	<div class="mp_page-container">
-		<div class="mp_form-container mt-3">
+		<div class="mp_form-container">
 
 			<h4 class="title_h4">개인정보 수정</h4>
 			<br>

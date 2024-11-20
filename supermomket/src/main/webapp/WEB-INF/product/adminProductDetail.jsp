@@ -30,19 +30,20 @@
 	            <p><strong>배송비:</strong> ${product.p_delivery}</p>
 	            <p><strong>제조국가:</strong> ${product.p_made}</p>
 	<%--             <p><strong>평점:</strong> ${product.review_avg}점</p> --%>
-	            <p><strong>리뷰 개수:</strong> 
-	                <a href="javascript:void(0);" onclick="openReviewModal()">${reviewCount}개</a>
-	            </p>
-	            <p><strong>상품 이미지:</strong> 
-	                <a href="javascript:void(0);" onclick="showImageModal('${pageContext.request.contextPath}/resources/img/product/${product.p_img}')">
-	                    ${product.p_img}
-	                </a>
-	            </p>
-	            <p><strong>상세 이미지:</strong>
-	                <a href="javascript:void(0);" onclick="showImageModal('${pageContext.request.contextPath}/resources/img/product/${product.d_content}')">
-	                    ${product.d_content}
-	                </a>
-	            </p>
+<p><strong>리뷰 개수:</strong> 
+    <a href="javascript:void(0);" onclick="openReviewModal()">${reviewCount}개</a>
+</p>
+<p><strong>상품 이미지:</strong> 
+    <a href="javascript:void(0);" onclick="showImageModal('${pageContext.request.contextPath}/resources/img/product/${product.p_img}')">
+        ${product.p_img}
+    </a>
+</p>
+<p><strong>상세 이미지:</strong>
+    <a href="javascript:void(0);" onclick="showImageModal('${pageContext.request.contextPath}/resources/img/product/${product.d_content}')">
+        ${product.d_content}
+    </a>
+</p>
+
 	        </div>
 	
 	        <div class="action-buttons">
