@@ -15,9 +15,12 @@
 }
 
 .title_h4 {
+	font-size: 40px;
 	margin: 0 auto;
 	margin-top: 30px;
 	font-weight: 700;
+	font-family: 'yg-jalnan' !important;
+	text-align: center;
 }
 
 .title_hr {
@@ -71,16 +74,35 @@ strong{
 	margin-right: 10px;
 }
 
-@media screen and (max-width: 426px) {
+.more-btn{
+	width: 100px !important;
+    height: 60px !important;
+    background-color: #FFD26E !important;
+    color: black !important;
+    font-size: 18px !important;
+}
+
+
+/* 발표용 폰트 크기 변경 */
+.p18 p{
+	font-size: 18px !important;
+}
+
+.p22 {
+	font-size: 22px !important;
+}
+
+
+@media screen and (max-width: 425px) {
 	.mp_page-container {
 		flex-direction: column;
 		width: 100%;
-		margin-top: 15px;
+		margin-top: 130px;
 		padding: 0 10px;
 	}
 	
 	.mp_form-container{
-	    margin-top: 15px;
+	    margin-top: 0px;
 	}
 	.order-item {
 		flex-direction: column;
@@ -89,28 +111,29 @@ strong{
 		justify-content: center;
 	}
 	.title_h4 {
+		font-size: 24px;
 		width: 90%;
 		margin: 0;
-        margin-top: 115px !important;
+        margin-top: 40px !important;
         margin-left: 10px !important;
 	}
 	
 	.title_hr {
-		width: 95%;
-		margin: 8px auto !important;
+		width: 0;
+		margin: 0;
 	}
 	
 	.order-item img {
 		width: 120px;
 		height: 120px;
 		object-fit: cover;
-		border-radius: 0px;
+/* 		border-radius: 0px; */
 	}
 	
 	.mp_goBuydetail {
 		right: -6px;
 		bottom: 15px;
-		padding: 16px 23px;
+		padding: 5px 20px;
 	}
 	
 	.d-flex.align-items-center {
@@ -144,8 +167,12 @@ strong{
 	}
 	
 	.more-btn{
-		width: 100% !important;
-		height: 50px !important;
+		width: 95% !important;
+		height: 70px !important;
+		background-color: #FFD26E !important;
+	    color: black !important;
+	    border: none;
+	    font-size: 18px !important;
 	}
 	
 /* 	.pd_name { */
@@ -159,11 +186,22 @@ strong{
 	
  	.order-list mt-3{ 
 	    padding-top: 30px !important; 
+      	width: 95%;
+	    margin: 0 auto;
  	} 
  	
  	.content_hr{
  		margin: 6px;
  	}
+ 	
+    .buybox {
+        height: 230px;
+        width: 95%;
+        margin: 0 auto;
+    }
+ 	
+ 
+ 	
 }
 </style>
 
@@ -183,11 +221,11 @@ strong{
 							<img
 								src="${pageContext.request.contextPath}/resources/img/product/${item.p_img}"
 								alt="상품 이미지">
-							<div class="buy_contents">
+							<div class="p18 buy_contents">
 								<p class="buy_date">
 									<strong>주문일자 :</strong> ${item.o_input_date} <a
 										href="buyListDetail.do?c_no=${item.c_no}"
-										class="mp_goBuydetail" style="text-decoration: none !important;"> ➕ </a>
+										class="p22 mp_goBuydetail" style="text-decoration: none !important;"> ➕ </a>
 								</p>
 								<p class="buy_num">
 									<strong>주문번호 :</strong> ${item.merchant_uid}

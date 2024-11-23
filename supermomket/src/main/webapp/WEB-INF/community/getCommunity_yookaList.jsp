@@ -12,6 +12,15 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Arita-dotum-Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Arita-dotum-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+	font-family: 'Arita-dotum-Medium' !important;
+}
 
 h1{
 	font-family: 'yg-jalnan' !important;

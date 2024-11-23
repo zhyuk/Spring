@@ -20,7 +20,7 @@
 }
 
 .mp_updateForm {
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 .form-control {
@@ -44,8 +44,11 @@
 
 .title_h4 {
 	/* 	width: 50%; */
+	font-size: 40px;
+	font-family: 'yg-jalnan' !important;
 	margin: 0 auto;
 	font-weight: 700;
+	text-align: center !important;
 }
 
 .title_hr {
@@ -69,23 +72,26 @@
 	font-size: 14px;
 }
 
-@media screen and (max-width : 426px) {
+@media screen and (max-width : 425px) {
 	.mp_page-container {
 		flex-direction: column;
 		width: 100%;
-		margin-top: 30px;
+/* 		margin-top: 30px; */
 		padding: 0 10px;
 	}
 	
 	.mp_form-container {
 		width: 100%;
 		padding: 10px;
-	    margin-top: 75px;
+	    margin-top: 125px;
 	}
 	
 	.mp_updateForm {
-        margin-top: 45px;
+	    margin-top: 40px;
 	}
+/* 	.mp_updateForm { */
+/*         margin-top: 45px; */
+/* 	} */
 	
 	.form-control {
 		width: 100%;
@@ -102,14 +108,15 @@
 	}
 	
 	.title_h4 {
+		font-size: 24px;
 		font: bolder;
 		width: 100%;
 		margin: 0 auto;
 	}
 	
 	.title_hr {
-		width: 100%;
-		margin: 0 auto;
+		width: 0;
+		margin: 0;
 	}
 }
 </style>
@@ -127,12 +134,12 @@
 				onsubmit="return goUpdateInfo(event)" method="POST"
 				name="mp_updateForm" method="post">
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id=u_id name="u_id"
+					<input type="text" class="p18 form-control" id=u_id name="u_id"
 						value="${userId}" style="height: 70px; display: inline-block;"
 						readonly>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="u_pw" name="u_pw"
+					<input type="password" class="p18 form-control" id="u_pw" name="u_pw"
 						aria-describedby="passwordHelpBlock" placeholder="현재 비밀번호"
 						style="height: 70px; display: inline-block;">
 				</div>

@@ -145,85 +145,70 @@ public class CommunityServiceImpl implements CommunityService {
 	//좋아요
 	@Override
 	public int likeYooka(Community_yookaVO vo) {
-//		System.out.println("SVC 탐");
 		return communityDAO.likeYooka(vo);
 	}
 	@Override
 	public int likeNoriter(Community_noriterVO vo) {
-//		System.out.println("SVC 탐");
 		return communityDAO.likeNoriter(vo);
 	}
 	@Override
 	public int likeShopping(Community_shoppingVO vo) {
-//		System.out.println("SVC 탐");
 		return communityDAO.likeShopping(vo);
 	}
 	
 	//싫어요
 	@Override
 	public int hateYooka(Community_yookaVO vo) {
-//		System.out.println("SVC 탐");
 		return communityDAO.hateYooka(vo);
 	}
 	@Override
 	public int hateNoriter(Community_noriterVO vo) {
-//		System.out.println("SVC 탐");
 		return communityDAO.hateNoriter(vo);
 	}
 	@Override
 	public int hateShopping(Community_shoppingVO vo) {
-//		System.out.println("SVC 탐");
 		return communityDAO.hateShopping(vo);
 	}
 	
 	//좋아요 갯수 조회
 	@Override
 	public int getLikeYooka(Updown_YookaVO vo) {
-		System.out.println("SVC getLikeYooka : " + vo);
 		return communityDAO.getLikeYooka(vo);
 	}
 	@Override
 	public int getLikeNoriter(Updown_NoriterVO vo) {
-//		System.out.println("SVC getLikeYooka");
 		return communityDAO.getLikeNoriter(vo);
 	}
 	@Override
 	public int getLikeShopping(Updown_ShoppingVO vo) {
-//		System.out.println("SVC getLikeYooka");
 		return communityDAO.getLikeShopping(vo);
 	}
 	
 	//싫어요 갯수 조회
 	@Override
 	public int getHateYooka(Updown_YookaVO vo) {
-//		System.out.println("SVC getHateYooka");
 		return communityDAO.getHateYooka(vo);
 	}
 	@Override
 	public int getHateNoriter(Updown_NoriterVO vo) {
-//		System.out.println("SVC getHateYooka");
 		return communityDAO.getHateNoriter(vo);
 	}
 	@Override
 	public int getHateShopping(Updown_ShoppingVO vo) {
-//		System.out.println("SVC getHateYooka");
 		return communityDAO.getHateShopping(vo);
 	}
 
 	//좋아요 싫어요 정보 저장
 	@Override
 	public int insertUpDownYooka(Updown_YookaVO vo) {
-//		System.out.println("SVC insertUpDown 탔음");
 		return communityDAO.insertUpDownYooka(vo);
 	}
 	@Override
 	public int insertUpDownNoriter(Updown_NoriterVO vo) {
-//		System.out.println("SVC insertUpDown 탔음");
 		return communityDAO.insertUpDownNoriter(vo);
 	}
 	@Override
 	public int insertUpDownShopping(Updown_ShoppingVO vo) {
-//		System.out.println("SVC insertUpDown 탔음");
 		return communityDAO.insertUpDownShopping(vo);
 	}
 

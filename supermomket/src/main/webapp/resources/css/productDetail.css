@@ -20,6 +20,10 @@ strong {
     background-color: #fff;
 }
 
+/* 상품번호, 브랜드, 원산지, 배송정보 텍스트 */
+p {
+	font-size: 16px;
+}
 
 .detail_inner {
 	min-height: 1050px;
@@ -67,7 +71,7 @@ strong {
 }
 
 .product-name {
-    font-size: 23px;
+    font-size: 22px;
     color: #333;
     margin-bottom: 10px;
 }
@@ -172,11 +176,12 @@ strong {
 .product-price {
     text-decoration: line-through; /* 가운데 줄 추가 */
     color: #888; /* 텍스트 색상 (선택 사항) */
-    font-size: 16px; /* 텍스트 크기 (선택 사항) */
+    font-size: 18px;
 }
 
 .product-discount {
     font-weight: bold; /* 글씨를 진하게 */
+    font-size: 18px;
 }
 
 
@@ -203,7 +208,7 @@ strong {
 }
 
 .option-label {
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
     margin-right: 10px;
 }
@@ -292,7 +297,7 @@ strong {
     background-color: #ffffff;
     text-align: center;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     color: #666666;
     border: none;
     border-bottom: 1px solid #ddd; /* 기본 밑줄 추가 */
@@ -443,7 +448,7 @@ strong {
     left: 0;
     overflow: hidden;
     
-    // Allows us to grab the width of the span elements
+    /* Allows us to grab the width of the span elements */
     span {
       display: inline-block;
     }
@@ -621,8 +626,8 @@ strong {
 
 
 .soldout {
-   display: flex;
-    align-items: center;
+/*    display: flex; */
+    text-align: center;
     color : red;
     font-weight: bold;
 }
@@ -647,6 +652,7 @@ strong {
         max-width: 300px; /* 최대 너비 제한 */
         height: auto;
         border-radius: 5px;
+        margin-top: 20px;
     }
 
     /* 상품 정보 */

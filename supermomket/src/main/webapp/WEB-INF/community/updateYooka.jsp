@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <style>
-
 .card-write {
 	border: 1px solid #999;
 	padding: 10px;
@@ -27,9 +26,10 @@
 	background-color: #e7e4e4;
 }
 
-.modifyBtn{
+.modifyBtn {
 	text-align: center;
 }
+
 h1 {
 	padding: 20px;
 	text-align: center;
@@ -73,8 +73,8 @@ label {
 	border: none;
 }
 
-@media screen and (max-width: 425px){
-	input{
+@media screen and (max-width: 425px) {
+	input {
 		width: 83%
 	}
 }
@@ -93,25 +93,22 @@ label {
 						<input type="text" name="cm_title" value="${yookaList1.cm_title }">
 					</div>
 					<br>
-					<c:choose>
-						<c:when test="${not empty yookaList1.cm_img}">
-							<c:forEach var="image"
-								items="${fn:split(yookaList1.cm_img, ',')}">
-								<img style="width: 80%;"
-									src="${pageContext.request.contextPath}/resources/img/community/${image}"
-									alt="현재 이미지">
-							</c:forEach>
-
-							<div class="textarea">
-								<label><input type="checkbox" name="deleteOldImage"
-									value="true"> 기존이미지 삭제</label>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<p></p>
-						</c:otherwise>
+					<div style="text-align: center;">
+						<c:choose>
+							<c:when test="${not empty yookaList1.cm_img}">
+								<c:forEach var="image"
+									items="${fn:split(yookaList1.cm_img, ',')}">
+									<img style="width: 80%;"
+										src="${pageContext.request.contextPath}/resources/img/community/${image}"
+										alt="현재 이미지">
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<p></p>
+							</c:otherwise>
 					</c:choose>
-					<textarea class="textarea" rows="20" cols="130" id="comment"
+					</div>
+					<textarea class="textarea" rows="20" cols="80" id="comment"
 						name="cm_content">${yookaList1.cm_content }</textarea>
 					<br> <br> <label>사진:</label> <input type="file"
 						name="uploadFiles" multiple>

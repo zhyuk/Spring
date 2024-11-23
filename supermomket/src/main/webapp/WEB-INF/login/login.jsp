@@ -31,7 +31,7 @@
 			<button type="submit" class="login-button">로그인</button>
 		</form>
 		<div class="klogin">
-			<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=c51dc8cbf39989606e8b1ae468eaee37&redirect_uri=http://localhost:8090/login/kakaoLogin">
+			<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=c51dc8cbf39989606e8b1ae468eaee37&redirect_uri=http://supermomket.kro.kr/login/kakaoLogin">
 				<img src="resources/img/login/klogin.png" class="kakao-login">
 			</a>
 		</div>

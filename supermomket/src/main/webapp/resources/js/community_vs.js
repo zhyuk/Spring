@@ -64,9 +64,9 @@ function updateBoard(seq, condition, keyword, nowpage) {
 function deleteBoard(seq) {
     if (confirm("정말 삭제하시겠습니까?")) {
         location.href = "/vs_delete.do?vs_no=" + seq;
-        document.hideFrm.action = "/vs_index.do";
-        document.hideFrm.method = "post";
-        document.hideFrm.submit();
+        // document.hideFrm.action = "/vs_index.do";
+        // document.hideFrm.method = "post";
+        // document.hideFrm.submit();
     }
 }
 

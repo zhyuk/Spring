@@ -197,7 +197,7 @@
             products: productArr
         }, async function (response) { 
         	
-        	console.log("response: ",response);
+//         	console.log("response: ",response);
         	
             if (response.error_code != null) {
                 alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);

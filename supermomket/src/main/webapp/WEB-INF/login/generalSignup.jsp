@@ -69,7 +69,7 @@
 	            </div>
 	            <div class="tbtn">
 		           	<div id="phone-error" class="error-message"></div>
-					<span id="timer" class="timer" style="display: none;">02:00</span>
+					<span id="timer" class="timer" style="display: none;">04:00</span>
 				</div>
    
    				<div class="btn">

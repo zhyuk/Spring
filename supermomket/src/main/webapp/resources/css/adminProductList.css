@@ -1,151 +1,217 @@
+* {
+	font-size: 18px !important;
+}
+
+button {
+	background-color: black !important;
+	height: 40px !important;
+	color: white !important;
+	border: none !important;
+	border-radius: 5px !important;
+	font-size: 16px !important;
+	cursor: pointer;
+	font-weight: normal !important;
+}
+
+button:hover {
+	background-color: #c0c0c0 !important; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+}
+
+h1 {
+	font-size: 23px !important;
+}
+
 .container {
-    
-    width: calc(100% - 250px) !important;
-    margin-left: 250px;
+	width: calc(100% - 250px) !important;
+	margin-left: 250px;
 }
 
 .container-inner {
-	width: 1200px; /* 좌측 사이드바를 기준으로 고정 너비 */
-    margin: 0px auto;
-    padding: 20px 10px;
-    position: relative;
-    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
-	
+	width: 1300px; /* 좌측 사이드바를 기준으로 고정 너비 */
+	margin: 0px auto;
+	padding: 20px 10px;
+	position: relative;
+	box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+}
+
+.admin-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #eee;
 }
 
 /* 검색 폼 스타일 */
 .search-container {
-    display: flex;
-    gap: 5px;
-    float: right; /* 오른쪽 정렬 */
-    margin-bottom: 10px; /* 테이블과의 간격 */
+	display: flex;
+	gap: 5px;
+	float: right; /* 오른쪽 정렬 */
+	margin-bottom: 10px; /* 테이블과의 간격 */
 }
 
 .search-container input[type="text"] {
-    padding: 5px;
-    font-size: 14px;
+	padding: 5px;
+	font-size: 14px;
+	border: 1px solid #000;
+	border-radius: 5px;
 }
 
 .search-container button {
-    padding: 5px 10px;
-    font-size: 14px;
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+	padding: 5px 10px;
+	font-size: 14px;
+	background-color: #000000;
+	color: #fff;
+	border: none;
+	cursor: pointer;
 }
 
 .search-container button:hover {
-    background-color: #c0c0c0;
+	background-color: #c0c0c0;
 }
 
 /* 테이블 스타일 */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    clear: both; /* 검색 폼과 테이블이 겹치지 않도록 설정 */
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	clear: both; /* 검색 폼과 테이블이 겹치지 않도록 설정 */
 }
 
 th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
+	padding: 12px;
+	border: 1px solid #ddd;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 th {
-    background-color: #f4f4f4;
+	background-color: #f4f4f4;
+	line-height: 24px;
+}
+
+td {
+	line-height: 37px;
+}
+
+/* 각 열의 너비를 고정 */
+th:nth-child(1), td:nth-child(1) {
+	width: 5%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+	width: 10%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+	width: 35%;
+}
+
+th:nth-child(4), td:nth-child(4) {
+	width: 10%;
+}
+
+th:nth-child(5), td:nth-child(5) {
+	width: 10%;
+}
+
+th:nth-child(6), td:nth-child(6) {
+	width: 10%;
+}
+
+th:nth-child(7), td:nth-child(7) {
+	width: 10%;
+}
+
+th:nth-child(8), td:nth-child(8) {
+	width: 10%;
 }
 
 /* Action buttons styling */
 .action-buttons button {
-    padding: 6px 12px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
+	padding: 6px 12px;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
 }
 
 .edit-button {
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #000000;
-    padding: 10px 20px;
-/*     border-radius: 4px; */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+	background-color: #ffffff;
+	color: #000000;
+	border: 1px solid #000000;
+	padding: 10px 20px;
+	/*     border-radius: 4px; */
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 .delete-button {
-    background-color: #000000;
-    color: #ffffff;
-    border: 1px solid #000000;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 0; /* 테두리 둥글기 제거 */
+	background-color: #000000;
+	color: #ffffff;
+	border: 1px solid #000000;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 0; /* 테두리 둥글기 제거 */
 }
-
-
 
 .delete-button:hover {
-        background-color: #c0c0c0;
-    color: #ffffff !important; /* 호버 시에도 글씨가 흰색으로 유지되도록 설정 */
+	background-color: #c0c0c0;
+	color: #ffffff !important; /* 호버 시에도 글씨가 흰색으로 유지되도록 설정 */
 }
-
 
 /* 상품명 링크 스타일 */
 .container a {
-    color: #000000; /* 블랙 색상 */
-    text-decoration: none; /* 링크의 밑줄 제거 */
+	color: #000000; /* 블랙 색상 */
+	text-decoration: none; /* 링크의 밑줄 제거 */
 }
 
 .container a:hover {
-    color: #333333; /* 마우스를 올렸을 때 약간 어두운 색상 */
+	color: #333333; /* 마우스를 올렸을 때 약간 어두운 색상 */
 }
-
 
 /* 페이징 및 작성하기 버튼 스타일 */
 .pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+	position: relative;
 }
 
 .pagination a {
-    margin: 0 5px;
-    padding: 8px 16px;
-    color: #333;
-    text-decoration: none;
-    border-radius: 4px;
+	margin: 0 5px;
+	padding: 8px 16px;
+	color: #333;
+	text-decoration: none;
+	border-radius: 4px;
 }
 
 .pagination a.active {
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #ffffff;
-    font-weight: bold; /* 현재 페이지 글씨를 진하게 */
-    text-decoration: underline; /* 현재 페이지에 밑줄 추가 */
+	background-color: #ffffff;
+	color: #000000;
+	border: 1px solid #ffffff;
+	font-weight: bold; /* 현재 페이지 글씨를 진하게 */
+	text-decoration: underline; /* 현재 페이지에 밑줄 추가 */
 }
 
 .pagination a:hover:not(.active) {
-    font-weight: bold; /* 호버 시 글씨를 진하게 */
-    background-color: #ddd;
+	font-weight: bold; /* 호버 시 글씨를 진하게 */
+	background-color: #ddd;
 }
 
-
 .write-button {
-    padding: 5px 13px;
-    background-color: #000000;
-    color: #ffffff !important; /* 글씨 색상을 확실히 흰색으로 설정 */
-    text-decoration: none;
-    position: absolute;
-    right: 0;
-    font-size: 14px;
+	padding: 5px 13px;
+	background-color: #000000;
+	color: #ffffff !important; /* 글씨 색상을 확실히 흰색으로 설정 */
+	text-decoration: none;
+	position: absolute;
+	right: 0;
+	font-size: 14px;
 }
 
 .write-button:hover {
-    background-color: #c0c0c0;
-    color: #ffffff !important; /* 호버 시에도 글씨가 흰색으로 유지되도록 설정 */
+	background-color: #c0c0c0;
+	color: #ffffff !important; /* 호버 시에도 글씨가 흰색으로 유지되도록 설정 */
 }
-

@@ -92,6 +92,7 @@ label {
 						<input type="text" name="cm_title" value="${shoppingList1.cm_title }">
 					</div>
 					<br>
+					<div style="text-align: center;">
 					<c:choose>
 						<c:when test="${not empty shoppingList1.cm_img}">
 							<c:forEach var="image"
@@ -100,16 +101,12 @@ label {
 									src="${pageContext.request.contextPath}/resources/img/community/${image}"
 									alt="현재 이미지">
 							</c:forEach>
-
-							<div class="textarea">
-								<label><input type="checkbox" name="deleteOldImage"
-									value="true"> 기존이미지 삭제</label>
-							</div>
 						</c:when>
 						<c:otherwise>
 							<p></p>
 						</c:otherwise>
 					</c:choose>
+					</div>
 					<textarea class="textarea" rows="20" cols="130" id="comment"
 						name="cm_content">${shoppingList1.cm_content }</textarea>
 					<br> <br> <label>사진:</label> <input type="file"

@@ -9,7 +9,8 @@ import org.json.JSONObject;
 public class KakaoOAuth {
 
     private static final String REST_API_KEY = "c51dc8cbf39989606e8b1ae468eaee37";  // 카카오 REST API Key
-    private static final String REDIRECT_URI = "http://localhost:8090/login/kakaoLogin";  // 카카오 로그인 리디렉션 URI
+    // private static final String REDIRECT_URI = "http://localhost:8090/login/kakaoLogin";  // 카카오 로그인 리디렉션 URI
+    private static final String REDIRECT_URI = "http://supermomket.kro.kr/login/kakaoLogin";  // 카카오 로그인 리디렉션 URI 호스팅
     public static String getAccessToken(String code) {
         String accessToken = null;
         String url = "https://kauth.kakao.com/oauth/token";

@@ -166,7 +166,7 @@ input[type="number"]{
 }
 
 /* Responsive Adjustments */
-@media (max-width: 375px) {
+@media (max-width: 425px) {
 	
 	.mocount{
 		display: none;

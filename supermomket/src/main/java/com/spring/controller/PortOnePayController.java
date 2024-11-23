@@ -540,15 +540,16 @@ public class PortOnePayController {
 //		if(session.getAttribute("userId")=="admin") {
 //			return "";
 //		}
-		String cntPerPage = "20";
-		if (ovo.getSearchKeyword() == null) {
-			ovo.setSearchCondition("null");
+		String cntPerPage = "15";
+		if (ovo.getSearchCondition() == null) {
+//			System.out.println("fvo.if 컨디션:"+fvo.getSearchCondition());
+			ovo.setSearchCondition("TITLE");
+			
 		}else {
-			ovo.setSearchCondition("ID");
+			ovo.setSearchCondition(ovo.getSearchCondition());
 		}
-		
-		if (ovo.getSearchKeyword() == null) 
-			ovo.setSearchKeyword("");
+		if (ovo.getSearchKeyword() == null) {
+			ovo.setSearchKeyword("");}
 		else
 			ovo.setSearchKeyword(ovo.getSearchKeyword());
 		
@@ -558,13 +559,28 @@ public class PortOnePayController {
 			nowPage = "1"; 
 		}
 		
+		// System.out.println("pvo:"+pv);
+		
+		
 		pv = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pv);
-//		System.out.println("pagingVO: "+pv);
+		// System.out.println("pagingVO: "+pv);
+		// System.out.println("getStart:"+pv.getStart());
+		// System.out.println("setListcnt:"+Integer.parseInt(cntPerPage));
 		ovo.setStart(pv.getStart());
 		ovo.setListcnt(Integer.parseInt(cntPerPage));
 
-		model.addAttribute("adminlist",orderService.adminorderList(ovo));
+		// System.out.println("getstart:"+ovo.getStart());
+		// System.out.println("Listcnt:"+ovo.getListcnt());
+		
+		
+		// System.out.println("searchCondition():"+ovo.getSearchCondition());
+		// System.out.println("searchKeyword():"+ovo.getSearchKeyword());
+
+		List<OrderVO> adminlist = orderService.adminorderList(ovo);
+		// System.out.println("ovo:"+adminlist);
+		
+		model.addAttribute("adminlist",adminlist);
 		model.addAttribute("searchCondition", ovo.getSearchCondition());
 		model.addAttribute("searchKeyword", ovo.getSearchKeyword());
 		

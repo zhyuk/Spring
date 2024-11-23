@@ -12,7 +12,7 @@
 #scrollTopBtn {
 	position: fixed;
 	bottom: 20px;
-	left: 43%;
+	left: 20px;
 	width: 50px;
 	height: 50px;
 	background-color: rgba(255,255,255,0.5);
@@ -174,6 +174,7 @@ h1 {
 }
 
 .cotent12 {
+	height: 100%;
 	width: 1200px;
 	text-align: left;
 	margin: 0 auto;
@@ -200,7 +201,7 @@ h1 {
 .form-control[readonly]:focus{
 	border:none;
 }
-#footer{
+#footer-pc{
 	width: 1200px;
     margin: 0 auto;
 	text-align: right;
@@ -320,7 +321,23 @@ ul {
 .cotent12 {
 	font-size: 18px;
 }
+
+#footer-m,#update-m, #conWrite-m, #conDelShopping-m, #shoppingList-m {
+    display: none; 
+  }
+
+#footer-pc {
+    display: block; 
+  }
+
 @media screen and (max-width: 425px) {
+	#footer-m,#update-m, #conWrite-m, #conDelShopping-m, #shoppingList-m {
+    	display: block;
+  	}
+
+ 	 #footer-pc {
+   	 	display: none;
+  	}
 	.detail-box{
 		font-size: 14px;
 		text-align: left;
@@ -364,6 +381,102 @@ ul {
 	#deleteReplyShopping, #updateReplyShopping {
 		font-size: 14px;
 	}
+	#footer-m {
+		width: 100%;
+	}
+	#update-m, #conWrite-m, #conDelShopping-m, #shoppingList-m {
+		display: none;
+	}
+	#update-m {
+		position: fixed;
+		bottom: 39%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		z-index: 1;
+	}
+	#conWrite-m {
+		position: fixed;
+		bottom: 32%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		transition: opacity 0.5s ease, transform 0.5s ease;
+		z-index: 1;
+	}
+	#conDelShopping-m {
+		position: fixed;
+		bottom: 25%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		transition: opacity 0.5s ease, transform 0.5s ease;
+		z-index: 1;
+	}
+	#shoppingList-m {
+		position: fixed;
+		bottom: 18%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		transition: opacity 0.5s ease, transform 0.5s ease;
+		z-index: 1;
+	}
+	#footer-m {
+		position: fixed;
+		bottom: 10%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: rgba(0, 0, 0, 0.5);
+		color: white;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		padding-top: 18px;
+		font-size: 9px;
+		cursor: pointer;
+		transition: height 0.5s ease;
+		z-index: 1;
+}
 }
 </style>
 	<%@ include file="../view/menu.jsp"%>
@@ -421,13 +534,21 @@ ul {
 					<p>${hateResult}</p></li>
 			</ul>
 			<br> <br>
-			<div id="footer">
+			<div id="footer-m"onclick="submenu()">ㅇㅇㅇ</div>
 				<c:if test="${sessionScope.userId == shopping.cm_writer }">
-					<button type="submit" >글수정</button>
-					<button id="conWrite" type="button">글쓰기</button>
-					<button id="conDelShopping" type="button">글삭제</button>
+					<button type="submit"id="update-m" >수정</button>
+					<button id="conWrite-m" type="button">쓰기</button>
+					<button id="conDelShopping-m" type="button">삭제</button>
 				</c:if>
-				<button id="shoppingList" type="button">글목록</button>
+				<button id="shoppingList-m" type="button">목록</button>
+				
+			<div id="footer-pc">
+			<c:if test="${sessionScope.userId == shopping.cm_writer }">
+				<button type="submit" id="update" >수정</button>
+				<button id="conWrite" type="button" >쓰기</button>
+				<button id="conDelShopping" type="button">삭제</button>
+			</c:if>
+			<button id="yookaList" type="button">목록</button>
 			</div>
 		</form>
 		<form name="hideFrm" style="display: none;">
@@ -448,7 +569,7 @@ ul {
 								placeholder="댓글을 입력하세요" name="co_content" required></textarea>
 						</div>
 						<input type="hidden" name="cm_no" value="${shopping.cm_no}">
-						<button type="submit" class="">등록</button>
+						<button type="submit" >등록</button>
 					</form>
 				</div>
 			</div>
@@ -488,9 +609,9 @@ ul {
 										value="${commentShopping.co_writer}">
 
 									<c:if test="${sessionScope.userId == commentShopping.co_writer}">
-										<button id="deleteCommentShopping" type="button" class=""
+										<button id="deleteCommentShopping" type="button"
 											onclick="delCommentShopping(${commentShopping.cm_no},${commentShopping.co_no},'${commentShopping.co_writer}','${commentShopping.co_content}')">삭제</button>
-										<button id="updateCommentShopping" type="submit" class="">수정</button>
+										<button id="updateCommentShopping" type="submit">수정</button>
 									</c:if>
 
 
@@ -601,6 +722,22 @@ ul {
 	    top: 0,
 	    behavior: "smooth", 
 	  });
+	}
+	
+	document.querySelector('#comment').addEventListener('keydown', function(event) {
+	    if (event.key === 'Enter' && !event.shiftKey) {
+	        event.preventDefault(); 
+	        submitComment();
+	    } else {
+	    	
+	    }
+	});
+	
+	function submenu(){
+		$("#update-m").toggle();
+		$("#conWrite-m").toggle();
+		$("#conDelShopping-m").toggle();
+		$("#shoppingList-m").toggle();
 	}
 	</script>
 </body>

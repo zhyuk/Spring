@@ -71,7 +71,6 @@ button:hover {
 	transition: background-color 0.3s, color 0.3s;
 }
 
-
 .faq_section button:hover {
 	background-color: var(--color-main);
 	color: var(--color-white);
@@ -174,6 +173,11 @@ th.cartu_thmiddle,th.cartu_thtop {
 	border-bottom: solid 2px var(--color-gray);
 }
 
+.faquserList_table thead tr:first-child{
+	border-bottom: none;
+}
+
+
 .faquserList_table thead tr {
 	background: var(--color-light-main);
 }
@@ -242,7 +246,7 @@ th.cartu_thmiddle,th.cartu_thtop {
 }
 
 /* 반응형 스타일 */
-@media (max-width : 375px) {
+@media (max-width : 425px) {
 	
 	.faqu_maindiv {
 	white-space: normal;

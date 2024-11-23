@@ -28,8 +28,8 @@ main {
 
 						<div class="text-group board_content_box">
 							<div class="img-box">
-								<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 이미지 1">
-								<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 이미지 2">
+								<img src="/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 이미지 1">
+								<img src="/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 이미지 2">
 							</div>
 							<ul class="vote_box">
 								<li class="leftResult">투표 수 : ${leftResult}</li>

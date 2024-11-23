@@ -325,7 +325,7 @@ public class MypageController {
         
 //        System.out.println("요기 : " + n_pw);
 
-        mypageService.setNewAdminPw(uvo);
+        mypageService.setNewPassword(uvo);
 
         return "redirect:/";
     }

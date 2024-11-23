@@ -201,7 +201,7 @@ function validateNickname() {
 function validateEmail() {
     const email = document.querySelector('input[name="u_email"]');
     const emailError = document.querySelector('#email-error');
-    const emailRegex = /^[a-zA-Z0-9]{1,24}@[a-zA-Z]{1,24}\.[a-zA-Z]{2,6}$/;
+    const emailRegex = /^[a-zA-Z0-9._,+\-=()&;?\/]{1,24}@[a-zA-Z]{1,24}\.[a-zA-Z]{2,6}$/;
 
     if (!emailRegex.test(email.value)) {	
         emailError.textContent = '이메일은 형식에 맞추어 24자 이내로 입력하세요.';
@@ -305,7 +305,7 @@ document.getElementById('eye2').addEventListener('click', function () {
 $(function () {
     var code2 = ""; 
     var timerInterval = null; 
-    var timeLeft = 120; 
+    var timeLeft = 240; 
 
     function updateTimer() {
         var minutes = Math.floor(timeLeft / 60);
@@ -347,7 +347,7 @@ $(function () {
 
                     // 타이머 시작
                     $('#timer').show();
-                    timeLeft = 120; 
+                    timeLeft = 240; 
                     updateTimer();  
                     timerInterval = setInterval(updateTimer, 1000); 
                     code2 = data; 

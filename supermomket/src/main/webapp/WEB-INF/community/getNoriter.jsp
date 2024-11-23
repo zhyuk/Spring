@@ -13,7 +13,7 @@
 #scrollTopBtn {
 	position: fixed;
 	bottom: 20px;
-	left: 43%;
+	left: 20px;
 	width: 50px;
 	height: 50px;
 	background-color: rgba(255,255,255,0.5);
@@ -175,6 +175,7 @@ h1 {
 }
 
 .cotent12 {
+	height: 100%;
 	width: 1200px;
 	text-align: left;
 	margin: 0 auto;
@@ -321,7 +322,22 @@ ul {
 .cotent12 {
 	font-size: 18px;
 }
+#footer-m,#update-m, #conWrite-m, #conDelNoriter-m, #noriterList-m {
+    display: none; 
+  }
+
+#footer-pc {
+    display: block; 
+  }
+
 @media screen and (max-width: 425px) {
+#footer-m,#update-m, #conWrite-m, #conDelNoriter-m, #noriterList-m {
+    	display: block;
+  	}
+
+ 	 #footer-pc {
+   	 	display: none;
+  	}
 	.detail-box{
 		font-size: 14px;
 		text-align: left;
@@ -365,6 +381,102 @@ ul {
 	#deleteReplyNoriter, #updateReplyNoriter {
 		font-size: 14px;
 	}
+	#footer-m {
+		width: 100%;
+	}
+	#update-m, #conWrite-m, #conDelNoriter-m, #noriterList-m {
+		display: none;
+	}
+	#update-m {
+		position: fixed;
+		bottom: 39%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		z-index: 1;
+	}
+	#conWrite-m {
+		position: fixed;
+		bottom: 32%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		transition: opacity 0.5s ease, transform 0.5s ease;
+		z-index: 1;
+	}
+	#conDelNoriter-m {
+		position: fixed;
+		bottom: 25%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		transition: opacity 0.5s ease, transform 0.5s ease;
+		z-index: 1;
+	}
+	#noriterList-m {
+		position: fixed;
+		bottom: 18%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: #FFD26E;
+		color: black;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		transition: opacity 0.5s ease, transform 0.5s ease;
+		z-index: 1;
+	}
+	#footer-m {
+		position: fixed;
+		bottom: 10%;
+		left: 5%;
+		width: 50px;
+		height: 50px;
+		background-color: rgba(0, 0, 0, 0.5);
+		color: white;
+		border-radius: 50%;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		padding-top: 18px;
+		font-size: 9px;
+		cursor: pointer;
+		transition: height 0.5s ease;
+		z-index: 1;
+}
 }
 </style>
 	<%@ include file="../view/menu.jsp"%>
@@ -421,13 +533,21 @@ ul {
 					<p>${hateResult}</p></li>
 			</ul>
 			<br> <br>
-			<div id="footer">
+			<div id="footer-m" onclick="submenu()">ㅇㅇㅇ</div>
 				<c:if test="${sessionScope.userId == noriter.cm_writer }">
-					<button type="submit" class="">글수정</button>
-					<button id="conWrite" type="button">글쓰기</button>
-					<button id="conDelNoriter" type="button">글삭제</button>
+					<button type="submit" id="update-m">수정</button>
+					<button id="conWrite-m" type="button">쓰기</button>
+					<button id="conDelNoriter-m" type="button">삭제</button>
 				</c:if>
-				<button id="noriterList" type="button">글목록</button>
+				<button id="noriterList-m" type="button">목록</button>
+				
+			<div id="footer-pc">
+				<c:if test="${sessionScope.userId == noriter.cm_writer }">
+				<button type="submit" id="update" >수정</button>
+				<button id="conWrite" type="button" >쓰기</button>
+				<button id="conDelNoriter" type="button">삭제</button>
+			</c:if>
+			<button id="noriteraList" type="button">목록</button>
 			</div>
 		</form>
 		<form name="hideFrm" style="display: none;">
@@ -611,6 +731,13 @@ ul {
 	    	
 	    }
 	});
+	
+	function submenu(){
+		$("#update-m").toggle();
+		$("#conWrite-m").toggle();
+		$("#conDelNoriter-m").toggle();
+		$("#noriterList-m").toggle();
+	}
 	</script>
 </body>
 </html>

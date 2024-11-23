@@ -43,7 +43,7 @@
         margin: 3px 0;
     }
 
-    .order-details {
+    div .order-details {
         background-color: #f8f8f8;
         border-radius: 8px;
    	    padding: 15px;	
@@ -51,80 +51,124 @@
         margin-bottom: 17px;
         border: 1px solid #ddd;
         position: relative;
+        font-size: 18px
     }
 
     .order-details p {
         margin-bottom: 5px;
     }
 
+    /* 모달 기본 스타일 */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 600px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+
     .cancelpaymodel {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        background-color: darkgray;
+	margin-top: 20px;
+	margin-right: 10px;
+	background: darkgray;
         color: white;
         border: none;
         padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
-    }
-
-    .cancelpaydiv {
-        display: none;
-        background-color: #f8f8f8;
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        margin-top: 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
     }
 
     .cancelpaydiv input {
-        width: calc(100% - 120px);
+	width: calc(100% - 15px);
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 5px;
     }
+.modaldiv{
+    background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+        position: relative;
+    }
 
     .cancelpaydiv button {
         margin-top: 10px;
-        background-color: #dc3545;
+        background-color: #928788b4;
         color: white;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
     }
+    
+    .cancelpaydiv button:hover{
+    background-color:#61595a;
+    }
+    
+    button#returnbtn{
+    background-color:#007bff; 
+    }
+    
+    button#returnbtn:hover{
+    background-color: #00aaff;
+    }
 
     strong {
         margin-right: 10px;
     }
 
-	.review-btn {
-	    margin-top: 10px;
-	    background-color: #007bff;
-	    color: white;
-	    border: none;
-	    padding: 8px 12px;
-	    border-radius: 5px;
-	    cursor: pointer;
-	    font-size: 14px;
+	.buy_contents {
+	    flex-grow: 1;
+	    display: flex;
+	    flex-direction: row;
+	    justify-content: space-between;
+	    align-items: center;
 	}
 	
 	.buy_contents p {
-	    font-size: 16px;
+	    font-size: 18px;
 	    color: #333;
-	    margin: 3px 0;
+	    margin: 0;
+	    flex-grow: 1;
 	}
 
+	.review-btn {
+	    margin: 0;
+	    background-color: #FFD26E !important;
+	    color: black;
+	    border: none;
+	    padding: 10px 15px;
+	    border-radius: 3px;
+	    cursor: pointer;
+	    font-size: 18px !important;
+	}
+	
+    .price-review {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+        width: 100%;
+    }
 
 
 
 
 
-    @media screen and (max-width: 426px) {
+    @media screen and (max-width: 425px) {
       	.mp_page-container {
             width: 100%;
             padding: 0 10px;
+            margin-top: 95px;
         }
 
 		.mp_form-container{
@@ -143,6 +187,7 @@
 		    border: 1px solid #ddd;
 		    width: 100%;
 		}	
+		
 			
 		.order-item img {
 		    width: 150px;
@@ -155,7 +200,7 @@
 		}
         
         .order-details{
-       	    margin-top: 95px;
+       	    margin-top: 10px;
        	    margin-bottom: -1px;
    	        padding-left: 20px;
         }
@@ -168,28 +213,35 @@
        	    margin-right: 5px;
         }
         
-      	.order-item {
-/*       		flex-direction: column; */
-       		align-items: flex-start;
-	        gap: 10px;
-	        margin-top: -8px;
+
+        .price-review {
+            flex-direction: column;
+            align-items: flex-start; 
+        }
+
+        .review-btn {
+            align-self: flex-end;
+            width: 100%;
+    		margin: 0 auto;
+            margin-top: 10px !important;
         }
         
         .delivery{
         	display: block;
+        	width: 100%;
         	margin-bottom: 2px;
         }
         .content_hr{
    	        margin: 15px 1px;
         	margin-bottom: 20px;
         }
-        
-	    .review-btn {
-	        align-self: flex-end;
-	    }
 	    
     	.buy_contents p b{
 		    margin-right: 5px !important;
+		}
+		
+		.cancelpaymodel{
+			margin-top: 270px;
 		}
     }
 </style>
@@ -206,7 +258,7 @@
                 <c:otherwise>
                     <c:set var="item" value="${buyListDetail[0]}" />
                     <p><strong>주문일자 :</strong> ${item.o_input_date}</p>
-                    <c:if test="${item.o_cancel_yn == '결제완료'}">>
+                    <c:if test="${item.o_cancel_yn == '결제완료'}">
 	                    <button class="cancelpaymodel" onclick="toggleCancelPay()">결제 취소</button>
                     </c:if>
                     <p><strong>주문번호 :</strong> ${item.merchant_uid}</p>
@@ -227,21 +279,27 @@
 		        <img src="${pageContext.request.contextPath}/resources/img/product/${product.p_img}" alt="상품 이미지">
 		    </a>
 		    <div class="buy_contents">
-		        <p><b>상품명 :</b> ${product.p_name}</p>
+			        <p><b>상품명 :</b> ${product.p_name}</p>
 		        <p><b>구매 수량 :</b> ${product.p_count}개</p>
-		        <p><b>금액 :</b> ${product.p_total}원</p>
-		        <c:if test="${product.p_review_yn == 'N'}">
-		            <button type="button" class="review-btn" onclick="location.href='/detail.do?p_no=${product.p_no}'">리뷰쓰기</button>
-		        </c:if>
+		        <div class="price-review">
+			        <p class=""><b>금액 :</b> ${product.p_total}원</p>
+	    		    <c:if test="${product.p_review_yn == 'N'}">
+			            <button type="button" class="review-btn" onclick="location.href='/detail.do?p_no=${product.p_no}'">리뷰 쓰기</button>
+			        </c:if>
+		        </div>
+
 		    </div>
 		</div>
         </c:forEach>
 
-        <div class="cancelpaydiv">
+		<div class="cancelpaydiv modal">
+			<div class="modaldiv">
             <form>
                 취소할 주문번호 입력: <input type="text" id="merchant_uid" name="merchant_uid"><br>
                 <button type="button" onclick="cancelPay()">결제 취소</button>
+					<button type="button" id="returnbtn" onclick="toggleCancelPay()">돌아가기</button>
             </form>
+			</div>
         </div>
     </div>
 

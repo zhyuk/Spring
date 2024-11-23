@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.spring.mom.svc.AdminLoginService;
 import com.spring.mom.svc.IndexService;
 import com.spring.mom.vo.Community_vsVO;
+import com.spring.mom.vo.OrderVO;
 import com.spring.mom.vo.ProductVO;
 import com.spring.mom.vo.UserVO;
 
@@ -47,11 +48,12 @@ public class AdminController {
     }
 
 	@GetMapping("/admin_index.do")
-	public String adminIndex(Community_vsVO CommunityVo, ProductVO productVO, UserVO userVO,HttpSession session, Model model) {
+	public String adminIndex(Community_vsVO CommunityVo, ProductVO productVO, UserVO userVO, OrderVO orderVO, HttpSession session, Model model) {
 
 		model.addAttribute("boardList" , svc.getCommunityList(CommunityVo));
 		model.addAttribute("productList", svc.getProductListAdmin(productVO));
 		model.addAttribute("userList", svc.getUserListAdmin(userVO));
+		model.addAttribute("chartList", svc.getChartAdmin(orderVO));
 		return "admin/index";
 	}
 	

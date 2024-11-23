@@ -22,6 +22,22 @@ $(document).ready(function(){
 			document.hideFrm.submit();
 		});
 		
+	$("#yookaList-m").click(function(){
+			document.hideFrm.action="/getCommunity_yookaList.do";
+			document.hideFrm.method="post";
+			document.hideFrm.submit();
+		});
+	$("#noriterList-m").click(function(){
+			document.hideFrm.action="/getCommunity_noriterList.do";
+			document.hideFrm.method="post";
+			document.hideFrm.submit();
+		});
+	$("#shoppingList-m").click(function(){
+			document.hideFrm.action="/getCommunity_shoppingList.do";
+			document.hideFrm.method="post";
+			document.hideFrm.submit();
+		});
+		
 	$("#conDelYooka").click(function(){
 		let con_test = confirm("정말로 삭제하시겠습니까?");
 		if(con_test == true){
@@ -63,8 +79,52 @@ $(document).ready(function(){
 		  	return false;
 		}
 	});
+	$("#conDelYooka-m").click(function(){
+		let con_test = confirm("정말로 삭제하시겠습니까?");
+		if(con_test == true){
+			let s = document.fm.cm_no.value;
+			console.log(s);
+			let w = document.fm.cm_writer.value;
+			alert("삭제가 완료되었습니다.");
+			
+			
+			location.href = "/deleteYooka.do?cm_no="+s+"&cm_writer="+w;
+		}
+		else if(con_test == false){
+		  	return false;
+		}
+	});
+	$("#conDelNoriter-m").click(function(){
+		let con_test = confirm("정말로 삭제하시겠습니까?");
+		if(con_test == true){
+			alert("삭제가 완료되었습니다.");
+			let s = document.fm.cm_no.value;
+			let w = document.fm.cm_writer.value;
+			
+			location.href = "/deleteNoriter.do?cm_no="+s+"&cm_writer="+w;
+		}
+		else if(con_test == false){
+		  	return false;
+		}
+	});
+	$("#conDelShopping-m").click(function(){
+		let con_test = confirm("정말로 삭제하시겠습니까?");
+		if(con_test == true){
+			alert("삭제가 완료되었습니다.");
+			let s = document.fm.cm_no.value;
+			let w = document.fm.cm_writer.value;
+			
+			location.href = "/deleteShopping.do?cm_no="+s+"&cm_writer="+w;
+		}
+		else if(con_test == false){
+		  	return false;
+		}
+	});
 	
 	$("#conWrite").click(function(){
+		location.href = "insertCommunity.do";
+	});
+	$("#conWrite-m").click(function(){
 		location.href = "insertCommunity.do";
 	});
 	

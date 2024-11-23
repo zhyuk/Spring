@@ -6,9 +6,33 @@
 <head>
 </head>
 <style>
-body{
+body {
 	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
 }
+
+* {
+	font-size: 18px !important;
+}
+
+button {
+	background-color: black !important;
+	height: 40px !important;
+	color: white !important;
+	border: none !important;
+	border-radius: 5px !important;
+	font-size: 16px !important;
+	cursor: pointer;
+	font-weight: normal !important;
+}
+
+button:hover {
+	background-color: #c0c0c0 !important; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+}
+
+h1 {
+	font-size: 23px !important;
+}
+
 #scrollTopBtn {
 	position: fixed;
 	bottom: 20px;
@@ -50,8 +74,24 @@ body{
 	z-index: 1000;
 }
 
+#admin {
+	width: 1300px;
+	margin: 0 auto;
+	padding: 20px 10px;
+	position: relative;
+}
+
+.admin-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #eee;
+}
+
 h1 {
-	font-size: 30px;
+	font-size: 32px;
 }
 
 .hideCom {
@@ -65,8 +105,8 @@ h1 {
 	position: relative;
 }
 
-.modaltable{
-background-color: #fff;
+.modaltable {
+	background-color: #fff;
 	width: 80%;
 	max-width: 800px;
 	padding: 20px;
@@ -106,10 +146,6 @@ background-color: #fff;
 	display: none;
 }
 
-table, tr, td, th {
-	height: 56px;
-}
-
 .cm_no {
 	width: 50px;
 }
@@ -118,32 +154,26 @@ textarea {
 	width: 100%;
 }
 
-button{
+button {
 	padding: 0 10px;
 }
 
-.admin_table{
+.admin_table {
 	background-color: #f3f3f3;
 }
 
-.inner tr {
-	height: 56px !important;
-}
-
-
-
-.inner table button{
+.inner table button {
 	border-radius: 5px;
 	background-color: black;
 	color: white;
 	border: none;
 	padding: 5px;
-	
+	width: 50px;
 }
 
 section#admin .button_list, section#admin1 .button_list {
 	float: right;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 section#admin .button_list button, section#admin1 .button_list button {
@@ -170,21 +200,6 @@ section#admin div.inner table tr, section#admin div.inner table tr th,
 	border: solid 1px #e3e3e3;
 }
 
-section#admin div.inner table tr:nth-of-type(1), section#admin1 div.inner table tr:nth-of-type(1)
-	{
-	height: 30px;
-}
-
-section#admin div.inner table tr:nth-child(even), section#admin1 div.inner table tr:nth-child(even)
-	{
-	height: 50px;
-}
-
-section#admin div.inner table tr td:nth-of-type(1), section#admin1 div.inner table tr td:nth-of-type(1)
-	{
-	width: 50px;
-}
-
 section#admin1 div.inner table tr td>input[type=text], section#admin1 div.inner table tr td textarea,
 	section#admin1 div.inner table tr td>input[type=text], section#admin1 div.inner table tr td textarea
 	{
@@ -192,14 +207,14 @@ section#admin1 div.inner table tr td>input[type=text], section#admin1 div.inner 
 	font-size: 16px;
 }
 
-section#admin div.inner table tr td input[type=text]
-	{
+section#admin div.inner table tr td input[type=text] {
 	height: 100%;
 	width: 100%;
 	border: none;
 	text-align: center;
 }
-section#admin1 div.inner table tr td input[type=text]{
+
+section#admin1 div.inner table tr td input[type=text] {
 	width: 100%;
 	border: none;
 	text-align: center;
@@ -227,23 +242,33 @@ section#admin div.inner table tr input:read-only, section#admin1 div.inner table
 	outline: none;
 }
 
-#admin1 {
-	margin-top : 40px;
+th {
+	line-height: 48px;
 }
 
-.inner tr{
+td {
+	line-height: 61px;
+}
+
+#admin1 {
+	margin-top: 40px;
+}
+
+.inner tr {
 	font-size: 20px;
 }
 
-.inner th input, .inner td input{
-	font-size: 18px;	
+.inner th input, .inner td input {
+	font-size: 18px;
 }
 </style>
 <body>
 	<%@ include file="../admin/menu.jsp"%>
 	<main>
 		<section id="admin">
-			<h1>육아정보 관리</h1>
+			<div class="admin-header">
+				<h1>육아정보 관리</h1>
+			</div>
 			<div class="inner">
 				<div class="button_list">
 					<button class="update_button pointer">수정</button>
@@ -314,7 +339,7 @@ section#admin div.inner table tr input:read-only, section#admin1 div.inner table
 				<div class="inner">
 					<table class="modaltable">
 						<tr>
-							<th>번호</th>
+							<th style="width: 80px;">번호</th>
 							<th style="width: 100px;">작성자</th>
 							<th>댓글내용</th>
 							<th style="width: 180px;">작성일</th>

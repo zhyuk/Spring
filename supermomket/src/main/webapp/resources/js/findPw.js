@@ -82,7 +82,7 @@ function validatePwFindForm() {
 $(function () {
     var code2 = ""; 
     var timerInterval = null; 
-    var timeLeft = 120; 
+    var timeLeft = 240; 
 
     function updateTimer() {
         var minutes = Math.floor(timeLeft / 60);
@@ -123,7 +123,7 @@ $(function () {
                     $("#form-error").css("color", "black");
 
                     $('#timer').show();
-                    timeLeft = 120; 
+                    timeLeft = 240; 
                     updateTimer();  
                     timerInterval = setInterval(updateTimer, 1000); 
                     code2 = data; 

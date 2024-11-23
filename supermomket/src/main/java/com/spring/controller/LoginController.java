@@ -87,7 +87,8 @@ public class LoginController {
 	    
 	    if (accessToken != null) {
 	        // 카카오 로그아웃 URL 생성
-	        String logoutUrl = "https://accounts.kakao.com/logout?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Flogout%2Fcallback%3Fthrough_account%3Dtrue%26logout_redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A8090%252Flogin%252FkakaoLogout%26client_id%3Dc51dc8cbf39989606e8b1ae468eaee37";
+	        String logoutUrl = "\r\n"
+	        		+ "https://kauth.kakao.com/oauth/logout?client_id=c51dc8cbf39989606e8b1ae468eaee37&logout_redirect_uri=http://supermomket.kro.kr/login/kakaoLogout";
 	        
 	        // 액세스 토큰이 있을 경우, 로그아웃 URL로 리디렉션
 	        return "redirect:" + logoutUrl;

@@ -116,10 +116,13 @@ input:read-only {
 }
 
 .title_h4 {
+    text-align: center;
+	font-size: 40px;
 	width: 50%;
 	margin: 0 auto;
 	margin-top: 30px;
 	font-weight: 700;
+	font-family: 'yg-jalnan' !important;
 }
 
 .title_hr {
@@ -136,10 +139,14 @@ input:read-only {
 }
 
 
-@media screen and (max-width : 426px) {
+@media screen and (max-width : 425px) {
 	.mp_updateForm {
 		margin-top: 50px;
 		width: 95%;
+	}
+	
+	.mp_form-container{
+        margin-top: 135px;
 	}
 	
 	input[type="text"], button {
@@ -160,13 +167,14 @@ input:read-only {
 		font-size: 16px;
 	}
 	.title_h4 {
+		font-size: 24px;
 		font: bolder;
 		width: 90%;
 		margin: 0 auto;
 		margin-top: 50px;
 	}
 	.title_hr {
-		width: 90%;
+		width: 0;
 		margin: 0 auto;
 	}
 }

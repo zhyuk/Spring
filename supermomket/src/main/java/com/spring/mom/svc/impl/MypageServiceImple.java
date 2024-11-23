@@ -159,6 +159,10 @@ public class MypageServiceImple implements MypageService{
 	// 새 비밀번호로 업데이트(사용자)
 	@Override
 	public void setNewPassword(UserVO uvo) {
+		
+		String hashedPassword = BCrypt.hashpw(uvo.getU_pw(), BCrypt.gensalt());
+	    uvo.setU_pw(hashedPassword);
+	    
 		mpDAO.setNewPassword(uvo);
 	}
 	
@@ -167,10 +171,5 @@ public class MypageServiceImple implements MypageService{
 	public void taltaeUser(UserVO uvo) {
 		mpDAO.taltaeUser(uvo);
 	}
-
-
-
-
-
 
 }

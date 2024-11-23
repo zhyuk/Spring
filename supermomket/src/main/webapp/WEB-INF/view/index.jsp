@@ -10,7 +10,7 @@
 							<div class=inner>
 
 								<div id="product_box">
-									<h3>오늘의 추천상품</h3>
+									<h3><b>오늘의 추천상품</b></h3>
 
 									<div class="list">
 										<c:forEach items="${productList}" var="product">
@@ -26,8 +26,8 @@
 								<div id="list_box">
 									<div id="used_box" class="content_box">
 										<div class="title">
-											<h3>중고상품</h3>
-											<p><a href="/trade.do">더보기</a></p>
+											<h3><b>중고상품</b></h3>
+											<p><a href="/trade.do"><b>더보기</b></a></p>
 										</div>
 										<div class="clear"></div>
 
@@ -44,8 +44,8 @@
 
 									<div id="community_box" class="content_box">
 										<div class="title">
-											<h3>게시판</h3>
-											<p><a href="/getCommunity_yookaList.do">더보기</a></p>
+											<h3><b>게시판</b></h3>
+											<p><a href="/getCommunity_yookaList.do"><b>더보기</b></a></p>
 										</div>
 										<div class="clear"></div>
 

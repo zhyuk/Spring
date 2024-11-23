@@ -10,6 +10,10 @@
 </head>
 <style>
 
+/*  발표용 css ***************************************************/
+.product-input, .category-list,.price-input, .description-textarea{
+	font-size: 16px !important;
+}
 
 .write-form {
     max-width: 600px;
@@ -194,17 +198,17 @@
 }
 
 .btn {
-padding: 10px 20px;
-    border: 1px solid #000000;
-    border-radius: 4px;
+	padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
     font-size: 16px;
     cursor: pointer;
     margin-right: 10px;
-    background-color: #000000;
+    background-color: #FFD26E;
     font-weight : bold;
-   align-items: center;
-   color : white;
-   margin-top:20px;
+    align-items: center;
+    color : black;
+    margin-top: 20px;	
    
 }
 .btn-container {
@@ -218,11 +222,13 @@ padding: 10px 20px;
         max-width: 100%;
         padding: 16px;
         margin: 0;
+        margin-top: 80px;
     }
 
     .image-upload {
-        width: 80px;
-        height: 80px;
+    	margin: 0 auto;
+        width: 200px;
+        height: 200px;
         margin-top: 20px;
         margin-bottom: 16px;
     }
@@ -266,7 +272,7 @@ padding: 10px 20px;
 
     .category-option {
         padding: 8px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
  
@@ -310,7 +316,7 @@ padding: 10px 20px;
     .btn {
         width: 100%;
         padding: 12px;
-        font-size: 14px;
+        font-size: 16px;
         margin: 0;
     }
 
@@ -322,7 +328,7 @@ padding: 10px 20px;
 
  
     .image-upload-container {
-        margin-bottom: 24px;
+        margin-bottom: -10px;
     }
 }
 

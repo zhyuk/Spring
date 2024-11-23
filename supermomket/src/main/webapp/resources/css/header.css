@@ -1,4 +1,18 @@
 /* 기본 스타일 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arita-dotum-Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Arita-dotum-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -7,7 +21,8 @@
 }
 
 body {
-	font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+	font-family: 'Arita-dotum-Medium' !important;
+	/* font-family: 'Quicksand', 'Noto Sans KR', sans-serif; */
 }
 
 #wrap {
@@ -36,7 +51,8 @@ body {
 }
 
 a {
-	text-decoration: none;
+	text-decoration: none !important;
+	/* text-decoration: none; */
 }
 
 a:hover {
@@ -73,6 +89,7 @@ header .logo-box {
 }
 
 header .logo-box img {
+	width: 250px;
 	width: 150px;
 	cursor: pointer;
 }
@@ -85,11 +102,13 @@ header .logo-box p {
 	float: right;
 	margin-bottom: 0;
 	transform: translate(0, -50%);
+/*    font-family: 'yg-jalnan' !important; */
 }
 
 header .logo-box #ham-btn {
 	position: absolute;
-	top: 50%;
+	top: 53%;
+	/* top: 50%; */
 	left: 20px;
 	width: 50px;
 	height: 50px;
@@ -116,6 +135,8 @@ header .logo-box #m-cart-btn a {
 }
 
 header .logo-box #m-cart-btn a i {
+	font-size: 35px;
+  	margin-top: 8px;
 	font-size: 40px;
 }
 
@@ -161,6 +182,8 @@ header nav .userInfo-box {
 header nav .userInfo-box p {
 	display: inline-block;
 	margin-bottom: 0;
+/* font-family: 'yg-jalnan' !important;  */
+/*    margin-right: 10px; */
 	margin-right: 10px;
 }
 
@@ -189,6 +212,8 @@ header .main-menu li {
 	padding: 0 15px;
 	line-height: 60px;
 	cursor: pointer;
+	/*    font-family: 'yg-jalnan' !important; */
+	font-size: 28px;
 }
 
 header .main-menu li:hover {
@@ -200,7 +225,8 @@ header .sub-menu {
 	position: absolute;
 	top: 50px;
 	display: none;
-	background: rgb(250, 236, 191);
+	/* background: rgb(250, 236, 191); */
+	background: #fff;
 	padding: 10px;
 	border-radius: 5px;
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
@@ -218,6 +244,7 @@ header .sub-menu li:hover {
 header .sub-menu li a {
 	display: block;
 	width: 100%;
+   font-size: 24px;
 }
 
 /* FAQ 서브 메뉴 */
@@ -250,8 +277,9 @@ header #m-main-menu li button {
 	min-width: 100px;
 	max-width: fit-content;
 	background: transparent;
-	font-size: 16px;
+   font-size: 18px;
 	border: none;
+   margin-top: 5px;
 }
 
 header #m-main-menu li button p {
@@ -260,11 +288,18 @@ header #m-main-menu li button p {
 }
 
 header #m-main-menu li button a {
-	font-size: 14px;
+   font-size: 18px;
+   margin-left: 5px;
+   color: darkgray;
 }
 
 header .m-sub-menu {
 	display: none;
+}
+
+header .m-sub-menu li a {
+    font-size: 22px;
+    color: #ffad1a;
 }
 
 /* 사용자 페이지 컨텐츠 너비 설정 */
@@ -282,14 +317,18 @@ main section {
 	/* border: solid 1px blue; */
 }
 
-main section#user_index_section h3 {
+main section#user_index_section h3{
 	color: #000;
 }
+
 
 main section#user_index_section .inner #product_box {
 	width: 100%;
 	height: fit-content;
 	margin-bottom: 50px;
+}
+main section#user_index_section .inner #product_box h3{
+    margin-top: 10px;
 }
 
 main section#user_index_section .inner #product_box .list {
@@ -332,7 +371,7 @@ main section#user_index_section .inner .content_box {
 	width: 48%;
 	height: fit-content;
 	font-size: 18px;
-	/* 	border: solid 1px green; */
+   /*    border: solid 1px green; */
 }
 
 main section#user_index_section .inner .content_box div.title {
@@ -343,7 +382,7 @@ main section#user_index_section .inner .content_box div.title {
 }
 
 main section#user_index_section .inner .content_box div.title h3 {
-	margin-bottom: 0;
+   margin-bottom: 15px;
 }
 
 main section#user_index_section .inner .content_box div.title p {
@@ -381,7 +420,7 @@ main section#user_index_section .inner .content_box ul li p.title {
 	overflow-x: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	/* 	border: solid 1px red; */
+   /*    border: solid 1px red; */
 }
 
 main section#user_index_section .inner .content_box ul li p.title span{
@@ -393,7 +432,7 @@ main section#user_index_section .inner .content_box ul li p.date {
 	width: 30%;
 	float: right;
 	text-align: right;
-	/* 	border: solid 1px blue; */
+   /*    border: solid 1px blue; */
 }
 
 main section#user_index_section .inner .content_box h3 {
@@ -409,8 +448,9 @@ footer {
 	width: 100%;
 	height: fit-content;
 	margin-top: 40px;
-	background: var(--color-main);
+   background-color: #fff;
 	font-size: 16px;
+   border-top: 2px solid darkgray;
 }
 
 footer > * {
@@ -434,12 +474,17 @@ footer .inner p:nth-of-type(2) {
 	float: right;
 }
 
+.gologout-btn{
+	margin-right: 10px;	
+}
+
 /* 모바일 메뉴 */
 @media screen and (max-width: 425px) {
 
 	.m-show {
 		display: initial;
 	}
+   
 
 	.m-hide {
 		display: none !important;
@@ -447,13 +492,17 @@ footer .inner p:nth-of-type(2) {
 
 	header {
 		position: fixed;
-		top: 0;
+      top: -5px;
 		padding-bottom: 0;
 		z-index: 5;
 	}
 
 	header .logo-box p {
 		right: 20px;
+   }
+   
+   header .logo-box img {
+	   width: 150px;
 	}
 
 	header .main-menu,
@@ -472,6 +521,7 @@ footer .inner p:nth-of-type(2) {
 		text-align: center;
 		line-height: 50px;
 	}
+   
 
 	header nav.m-show ul li>a {
 		display: block;
@@ -498,7 +548,6 @@ footer .inner p:nth-of-type(2) {
 		margin-left: auto;
 		margin-right: auto;
 	}
-
 	main section#user_index_section .inner #product_box .list .card:first-child {
 		margin-left: auto;
 	}
@@ -514,6 +563,7 @@ footer .inner p:nth-of-type(2) {
 
 	main section#user_index_section .inner .content_box {
 		width: 100%;
+      margin-bottom: 15px; 
 	}
 
 	main section#user_index_section .inner .content_box ul li p.title {
@@ -524,6 +574,20 @@ footer .inner p:nth-of-type(2) {
 		display: none;
 	}
 
+	main section#user_index_section .inner #product_box h3{
+/* 		font-family: 'yg-jalnan' !important; */
+		font-size: 26px;
+	}
+	
+/* 	.content_box div p a{ */
+/* 		font-family: 'yg-jalnan' !important; */
+/* 	} */
+
+	main section#user_index_section .inner .content_box div.title h3{
+/* 		font-family: 'yg-jalnan' !important; */
+		font-size: 26px;
+		margin-bottom: 8px;
+	}
 
 	footer .inner {
 		padding: 10px;
@@ -542,4 +606,5 @@ footer .inner p:nth-of-type(2) {
 		text-align: center;
 		margin-top: 10px;
 	}
+   
 }

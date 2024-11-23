@@ -1,3 +1,12 @@
+@font-face {
+	font-family: 'yg-jalnan';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 /* 미리보기 상자 스타일 */
 .preview-box {
     position: fixed;
@@ -22,7 +31,7 @@
     padding: 0;
     box-sizing: border-box;
     list-style: none;
-     font-family: 'Quicksand', 'Noto Sans KR', sans-serif; /* 외부 글꼴 설정 */
+/* 	font-family: 'Quicksand', 'Noto Sans KR', sans-serif; 외부 글꼴 설정 */
 }
 
 body {
@@ -62,6 +71,8 @@ body {
     padding: 8px 12px;
     position: relative;
     transition: color 0.3s, border-color 0.3s;
+	font-size: 18px; /* 기존 : 18px , 발표용 : 22px */
+	weight: 1px;
 }
 
 .category-options a::after {
@@ -80,8 +91,8 @@ body {
     color: #000;
 }
 
-.category-options a:hover::after,
-.category-options a.active-category::after {
+.category-options a:hover::after, .category-options a.active-category::after
+	{
     background-color: #000;
 }
 
@@ -111,7 +122,8 @@ body {
     border-radius: 4px;
     appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-image:
+		url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 16px;
@@ -139,19 +151,20 @@ body {
     border: 1px solid #ddd;
     height: 38px;
     border-left: 0px;
-    background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png'); /* 돋보기 이미지 URL */
-    background-repeat: no-repeat;          /* 이미지 반복하지 않음 */
-    background-position: center;           /* 이미지 중앙 배치 */
-    background-size: 20px 20px;            /* 이미지 크기 조정 */
-    padding: 10px 10px 10px 40px;          /* 버튼의 텍스트와 이미지 간 여백 */
-    font-size: 16px;                       /* 버튼 텍스트 크기 */
-    border-left: none;                          /* 버튼 테두리 없애기 */
-    cursor: pointer;                       /* 마우스 커서를 포인터로 */
+	background-image:
+		url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
+	/* 돋보기 이미지 URL */
+	background-repeat: no-repeat; /* 이미지 반복하지 않음 */
+	background-position: center; /* 이미지 중앙 배치 */
+	background-size: 20px 20px; /* 이미지 크기 조정 */
+	padding: 10px 10px 10px 40px; /* 버튼의 텍스트와 이미지 간 여백 */
+	font-size: 16px; /* 버튼 텍스트 크기 */
+	border-left: none; /* 버튼 테두리 없애기 */
+	cursor: pointer; /* 마우스 커서를 포인터로 */
     background-color: #fff;
     float: right;
     border-radius: 0px 4px 4px 0px;
 }
-
 
 /* 상품 리스트 */
 .product-container {
@@ -179,9 +192,8 @@ body {
     margin: 0 auto; /* 가운데 정렬 */
 }
 
-
 .product-card h3 {
-    font-size: 16px;
+	font-size: 20px;
     margin: 15px 0;
     text-align: left;
     color: #000; /* 검정색 */
@@ -194,12 +206,11 @@ body {
 
 /* 별점 숫자 스타일 */
 .avg-review-rating {
-    font-size: 17px;
+	font-size: 18px;
     color: #808080;
     font-weight: bold;
     margin-left: 8px; /* 필요에 따라 약간의 간격 추가 */
 }
-
 
 /* 호버 시 밑줄 제거 유지 */
 .product-card h3 a:hover {
@@ -222,7 +233,7 @@ body {
 }
 
 .product-price {
-    font-size: 16px;
+	font-size: 18px;
     color: #888;
     text-decoration: line-through;
 }
@@ -232,7 +243,6 @@ body {
     color: #000000;
     font-weight: bold;
 }
-
 
 .discount-rate {
    font-size: 18px;
@@ -291,9 +301,7 @@ body {
 }
 
 /* <<, <, >, >> 버튼 스타일 */
-.pagination a:first-child, 
-.pagination a:last-child, 
-.pagination a:nth-child(2), 
+.pagination a:first-child, .pagination a:last-child, .pagination a:nth-child(2),
 .pagination a:nth-last-child(2) {
     font-weight: bold;
 }
@@ -313,10 +321,10 @@ body {
 .soldout {
    display: flex;
     align-items: center;
-    color : red;
+	color: red;
     font-weight: bold;
+	font-size: 18px;
 }
-
 
 @media screen and (max-width: 425px) {
     /* 전체 컨테이너 */
@@ -325,7 +333,6 @@ body {
         margin: 0 auto;
         padding: 0 10px; /* 좌우 여백 추가 */
     }
-
     .category-options {
         margin: 100px 30px 0px;
         display: flex;
@@ -334,14 +341,16 @@ body {
         font-size: 14px; /* 글자 크기 조정 */
         text-align: center;
     }
-    
-    .category-options {
-    font-size: 16px;
-
-}
-
+/* 	.category-options { */
+/* 		font-size: 16px; */
+/* 	} */
+	.category-options a {
+		font-size: 18px !important; /* 모바일에서 글씨 크기 16px로 설정 */
+		margin-top: 20px; /* 상단 카테고리 */
+	}
 .sort-select {
-	width:24%;
+		width: 24%;
+		float: left;
 }
 
 /* 검색 카테고리 (최신순, 인기순, 가격순) */
@@ -349,9 +358,10 @@ body {
     display: flex;
     justify-content: center; /* 중앙 정렬 */
     gap: 3px; /* 카테고리 간격 축소 */
-    margin-bottom: 10px; /* 검색 입력 박스와 간격 */
+		width: 90%;
+		margin: -25px auto;
+		float: none;
 }
-
 .sort-container a {
     padding: 3px 5px; /* 패딩 축소 */
     font-size: 10px; /* 글씨 크기 작게 */
@@ -365,29 +375,21 @@ body {
     width: fit-content; /* 버튼 크기를 텍스트에 맞게 */
     height: auto; /* 높이 자동 조정 */
 }
-
 .sort-container a:hover {
     background-color: #ffd26e; /* 호버 시 배경색 */
     color: #fff; /* 호버 시 텍스트 색상 */
 }
-
 .sort-container a.active-category {
     background-color: #ffd26e; /* 활성화된 카테고리 배경 */
     color: #fff; /* 활성화된 카테고리 텍스트 */
 }
 
-
 /* 검색 입력 박스와 버튼 한 줄 배치 */
 .search-container {
-    display: flex; /* 가로 배치 */
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center; /* 수직 정렬 */
-    gap: 0; /* 버튼과 입력 박스 사이 간격 제거 */
-    margin-bottom: 20px; /* 검색 카테고리와 간격 */
+		height: 100px;
 }
-
 .search-input {
-    width: 48%; /* 입력 박스 너비 */
+		width: 59%; /* 입력 박스 너비 */
     height: 40px; /* 버튼과 같은 높이로 통일 */
     padding: 8px 10px; /* 내부 여백 */
     font-size: 14px; /* 텍스트 크기 */
@@ -395,8 +397,9 @@ body {
     border-right: none; /* 오른쪽 테두리 제거 */
     border-radius: 4px 0 0 4px; /* 왼쪽 모서리 둥글게 */
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
+		float: left;
+		margin-left: 2%;
 }
-
 .search-button {
     width: 15%; /* 버튼 너비 */
     height: 40px; /* 입력 박스와 같은 높이 */
@@ -412,21 +415,19 @@ body {
     justify-content: center;
     align-items: center;
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
-    margin-right: 11%;
     margin-bottom: -19%;
+		padding: 0px;
+		float: left;
 }
-
 .search-button:hover {
     background-color: #ffa726; /* 호버 시 배경색 변경 */
 }
-
 
     /* 상품 리스트 */
     .product-container {
         display: block; /* 세로로 나열 */
         margin: 20px 0; /* 상하 간격 */
     }
-
     .product-card {
         display: flex;
         flex-direction: column; /* 세로 정렬 */
@@ -436,54 +437,45 @@ body {
         border: 1px solid #ddd; /* 테두리 */
         border-radius: 5px;
         width: 90%;
-        max-width: 300px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-
     .product-card img {
         width: 100%; /* 이미지 너비 */
         height: auto; /* 비율 유지 */
         border-radius: 5px; /* 이미지 모서리 둥글게 */
         margin-bottom: 10px;
     }
-
     .product-card h3 {
-        font-size: 14px; /* 제목 크기 */
+		font-size: 18px; /* 제목 크기 */
         color: #333;
         text-align: center;
     }
-
     .product-card p {
         font-size: 12px; /* 설명 크기 */
         color: #666;
         margin-bottom: 10px;
     }
-
     .product-price-info {
         display: flex;
         flex-direction: column; /* 세로 배치 */
         align-items: center;
         gap: 5px;
     }
-
     .product-price {
-        font-size: 12px;
+		font-size: 18px;
         color: #888;
         text-decoration: line-through;
     }
-
     .product-discount {
-        font-size: 14px;
+		font-size: 18px;
         color: #000;
         font-weight: bold;
     }
-
     .discount-rate {
-        font-size: 12px;
+		font-size: 18px;
         color: red;
         font-weight: bold;
     }
-
     .star-rating {
         display: flex;
         justify-content: center;
@@ -492,16 +484,16 @@ body {
         margin-top: 5px;
     }
 
-    .avg-review-rating {
-        font-size: 12px;
-        color: #808080;
-    }
-
+	/*     .avg-review-rating { */
+	/*         font-size: 12px; */
+	/*         color: #808080; */
+	/*     } */
     .soldout {
-        font-size: 14px;
+		font-size: 18px;
         color: red;
         font-weight: bold;
         margin-top: 10px;
+/* 		text-align: center; */
     }
 
     /* 페이징 버튼 제거 */

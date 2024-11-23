@@ -17,14 +17,13 @@
 .mp_form-container {
     width: 100%;
     max-width: 500px;
-    margin: 0 auto; 
-    margin-left: 250px;
-  	margin-top: -15px;
+    margin: auto;
+  	margin-top: 0px;
 }
 
 
 .form-control {
-	width: 100%;
+	width: 100%;`
 	max-width: 100%;
 	box-shadow: none !important;
 }
@@ -42,14 +41,18 @@
 }
 
 .title_h4{
-/* 	width: 50%; */
+	font-size: 40px;
 	margin: 0 auto;
 	font-weight: 700;
+	font-family: 'yg-jalnan' !important;
+	text-align: center;
 }
 
 .title_hr {
     margin: 19px auto;
+    font-size: 40px;
 }
+
 .mp_updateForm input[readonly] {
     color: #333 !important;
     background-color: #FFFCF6 !important;
@@ -57,25 +60,23 @@
 }
 
 
-@media screen and (max-width : 426px) {
+@media screen and (max-width : 425px) {
 
 .mp_page-container {
 	flex-direction: column;
-	margin-top: 50px;
+ 	margin-top: 135px;
 	padding: 0 10px;
 }
 	
 .mp_form-container {
-    width: 90%;
    	margin: 0 auto;
 	font-size: 14px;
-	padding: 10px;
-    margin-top: 130px;
+    margin-top: 40px;
 }
 	
 .mp_updateForm{
     width: 95%;
-    margin: 15px auto;
+    margin: 24px auto;
 }	
 	
 .form-control {
@@ -95,26 +96,27 @@ p {
 }
 	
 .title_h4{
+	font-size: 24px;
 	font: bolder;
     width: 95%;
     margin: 0 auto;
-    margin-top: 115px;
+    margin-top: 0px;
 }
 
 .title_hr{
-    margin: 23px auto;
-    width: 95%;
+    margin: 0;
+    width: 0;
 }
 
 </style>
 <body>
 	<%@ include file="../view/menu.jsp"%>
 	<div class="mp_page-container">
-		<div name="mp_form-container" onsubmit="return goChkChk(event)" action="setNewPassword.do" method="POST">
+		<div class="mp_form-container">
 		
 		<h4 class="title_h4">비밀번호 수정</h4>
 		<hr class="title_hr">
-		<form class="mp_updateForm">
+		<form class="mp_updateForm" onsubmit="return goChkChk(event)" action="setNewPassword.do" method="POST">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" id="u_id" name="u_id"
 					value="${userId}" style="height: 70px; display: inline-block;" readonly>
@@ -131,7 +133,7 @@ p {
 			<div class="form-floating mb-3">
 				<input type="password" class="form-control" id="newPwChk"
 					name="n_pw" onblur="goPwChk();"
-					style="width: 500px; height: 70px; display: inline-block;"
+					style="height: 70px; display: inline-block;"
 					placeholder="새 비밀번호 재입력"> <input type="hidden"
 					class="presentPw" id="u_pw" name="u_pw">
 				<div id="newPwChk_error"

@@ -1,109 +1,203 @@
 @charset "UTF-8";
 
-*{
+* {
 	box-sizing: border-box;
 	white-space: nowrap;
+	font-size: 18px !important;
 }
 
-h1{
-	margin-bottom: 20px;
+button {
+	background-color: black !important;
+	color: white !important;
+	border: none !important;
+	border-radius: 5px !important;
+	font-size: 16px !important;
+	cursor: pointer;
+	font-weight: normal !important;
 }
-.adminserch{
+
+button:hover {
+	background-color: #c0c0c0 !important; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+}
+
+h1 {
+	font-size: 23px !important;
+}
+
+.line {
+	vertical-align: bottom;
+	margin-bottom: 5px;
+}
+
+.mainsection {
+	width: 1300px;
+	margin: 0 auto;
+	padding: 20px 10px;
+	position: relative;
+}
+
+.admin-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #eee;
+}
+
+h1 {
+	font-size: 32px;
+}
+
+.adminserch {
 	display: flex;
 	float: right;
 	margin-bottom: 5px;
 }
 
 th.payth {
-    padding: 10px 3px;
+	padding: 10px 3px;
 }
+
 td.paytd {
-    padding: 5px 5px;
+	padding: 5px 5px;
 }
 
-table{
+table {
 	width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    clear: both;
+	border-collapse: collapse;
+	table-layout: fixed;
 }
+
 th, td {
-    padding: 1px;
-    border: 1px solid #ddd;
-    text-align: center;
+	padding: 8px;
+	border: 1px solid #ddd;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
 }
+
 th {
-    background-color: #f4f4f4;
+	background-color: #f4f4f4;
+	height: 49px;
 }
 
+td {
+	height: 62px;
+}
 
-.paytdtr td:last-child{
+th:nth-child(1), td:nth-child(1) {
+	width: 8%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+	width: 7%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+	width: 15%;
+}
+
+th:nth-child(4), td:nth-child(4) {
+	width: 10%;
+}
+
+th:nth-child(5), td:nth-child(5) {
+	width: 7%;
+}
+
+th:nth-child(6), td:nth-child(6) {
+	width: 10%;
+}
+
+th:nth-child(7), td:nth-child(7) {
+	width: 9%;
+}
+
+th:nth-child(8), td:nth-child(8) {
+	width: 7%;
+}
+
+th:nth-child(9), td:nth-child(9) {
+	width: 27%;
+	text-overflow: ellipsis;
+}
+
+.paytdtr td:last-child {
 	text-align: left;
-} 
+}
 
-.adminserch select{
-	margin-right:0px;
-	padding: 5px;
+.adminserch {
+	display: flex;
+	float: right;
+}
+
+.adminserch select {
+	padding: 8px 12px;
 	font-size: 14px;
+	border: 1px solid #000;
+	border-radius: 5px;
+	background-color: #fff;
+	color: #333;
+	cursor: pointer;
+	height: 40px;
 }
-.adminserch input[type="text"]{
-	padding: 5px;
+
+.adminserch input[type="text"] {
+	padding: 8px 12px;
 	font-size: 14px;
-}
-.adminserch button{
-	padding: 5px 10px;
-    font-size: 14px;
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-.adminserch button:hover{
-	 background-color: #c0c0c0;
+	border: 1px solid #000;
+	border-radius: 5px;
+	width: 200px; /* 입력창 고정 너비 */
+	height: 40px;
+	background-color: #fff;
+	color: #333;
 }
 
+.adminserch button {
+	padding: 8px 15px;
+	font-size: 14px;
+	background-color: #000;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
 
+.adminserch button:hover {
+	background-color: #c0c0c0;
+}
 
 /* 페이지네이션 스타일 */
 .paylisypageing {
-	margin-top:20px;
 	display: flex;
-	list-style: none;
 	justify-content: center;
-	padding: 0;
+	align-items: center;
 	margin-top: 20px;
-	top: 0px;
-	left: 80%;
-	right: 50%;
 }
 
 .paylisypageing .adminpage-item {
 	margin: 0 5px;
+	list-style-type: none;
 }
 
 .paylisypageing .adminpage-item a {
-	display: block;
-	padding: 8px 12px;
-	border: 1px solid #fff; /* 사이드바와 동일한 색상 */
-	border-radius: 4px;
-	color: #000;
+	margin: 0 5px;
+	padding: 8px 16px;
+	color: #333;
 	text-decoration: none;
-	font-weight: bold;
-	transition: background-color 0.3s, color 0.3s;
+	border-radius: 4px;
 }
 
 .paylisypageing .adminpage-item a:hover {
-	background-color: var(--ad-color-lightgray); /* 호버 시 배경 색상 변경 */
+	background-color: var(- -ad-color-lightgray); /* 호버 시 배경 색상 변경 */
 	color: #000;
 }
 
 .paylisypageing .adminpage-item.active a {
-	background-color:var(--ad-color-lightgray); /* 활성화된 페이지의 배경색 */
-	color: #000; /* 활성화된 페이지의 텍스트 색상 */
-	cursor: default;
-}
-
-.paylisypageing .adminpage-item.active a:hover {
-	background-color: var(--ad-color-lightgray); /* 활성화된 페이지는 호버 시 변화 없음 */
-	color: #000;
+	background-color: #ffffff;
+	color: #000000;
+	border: 1px solid #ffffff;
+	font-weight: bold;
+	text-decoration: underline;
 }

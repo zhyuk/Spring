@@ -10,6 +10,13 @@
     <title>${trade.t_product} - 상세 정보</title>
     <style>
     
+    /* 발표용 css *****************/
+    .product-title{
+    	font-size: 28px !important;
+    }
+    .post-time{
+    	font-size: 16px !important;
+    }
     :root {
     
     --primary: #BE8168;
@@ -464,7 +471,7 @@ select.button option {
 <body>
     <%@ include file="../view/menu.jsp"%>
     <div class="navigation-path">
-        <a href="${pageContext.request.contextPath}/index.jsp">홈</a>
+        <a href="${pageContext.request.contextPath}/">홈</a>
         <span>></span>
         <a href="${pageContext.request.contextPath}/trade.do">중고거래</a>
         <span>></span>

@@ -31,7 +31,7 @@
 										<button type="button" id="img1_view_btn" class="img_view_btn pointer">이미지 보기</button>
 										<div id="img1_box" class="img_box">
 											<button type="button" id="img1_close" class="close pointer">X</button>
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 수정 전 이미지 1">
+											<img src="/resources/img/vs/${board.vs_img1}" alt="투표에 사용된 이미지 1">
 											<input type="hidden" name="vs_img1" value="${board.vs_img1}">
 										</div>
 										<button type="button" id="img1_select_btn" class="img_select_btn pointer">이미지 수정</button>
@@ -47,7 +47,7 @@
 												보기</button>
 										<div id="img2_box" class="img_box">
 											<button type="button" id="img2_close" class="close pointer">X</button>
-											<img src="${pageContext.request.contextPath}/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 수정 전 이미지 2">
+											<img src="/resources/img/vs/${board.vs_img2}" alt="투표에 사용된 이미지 2">
 											<input type="hidden" name="vs_img2" value="${board.vs_img2}">
 										</div>
 										<button type="button" id="img2_select_btn" class="img_select_btn pointer">이미지 수정</button>
@@ -87,7 +87,8 @@
 					</section>
 				</main>
 				</div>
-
+				
+				<script src="${pageContext.request.contextPath}/resources/js/community_vs_write.js"></script>
 				<script src="${pageContext.request.contextPath}/resources/js/community_vs.js"></script>
 				<script>
 					$(".img_view_btn").click(function () {

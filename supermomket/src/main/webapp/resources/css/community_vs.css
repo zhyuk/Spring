@@ -164,10 +164,10 @@ section#index div.inner table td div.info-box {
 	font-size: 18px;
 	color: #666;
 }
-
-section#index div.inner table td div.info-box span.writer {
+/* 확인 요청 */
+/* section#index div.inner table td div.info-box span.writer {
 	font-weight: 900;
-}
+} */
 
 section#index div.inner .pagination {
 	display: flex;
@@ -778,6 +778,18 @@ section#admin #modal .inner table#admin_comment_table thead tr th {
 	height: 30px;
 }
 
+section#admin #modal .inner table#admin_comment_table thead tr th:nth-child(1) {
+	width: 200px;
+}
+
+section#admin #modal .inner table#admin_comment_table thead tr th:nth-child(2) {
+	width: 100%;
+}
+
+section#admin #modal .inner table#admin_comment_table thead tr th:nth-child(3) {
+	width: 100px;
+}
+
 section#admin #modal .inner table#admin_comment_table tbody tr td {
 	height: 50px;
 }
@@ -921,18 +933,10 @@ section#admin #modal .inner table#admin_comment_table tbody tr td button {
 		font-size: 26px;
 	}
 
-	section#write div.inner form .input-group input[type='file'] {
-		display: block;
-		width: 100%;
-		margin: 30px 0;
-	}
-
 	/* 글 수정 */
 	section#modify div.inner form .input-group input[type='text'] {
 		font-size: 26px;
 	}
-
-	section#modify div.inner form .input-group>button {}
 
 	section#modify div.inner form .input-group .img_box .close {
 		top: 150px;

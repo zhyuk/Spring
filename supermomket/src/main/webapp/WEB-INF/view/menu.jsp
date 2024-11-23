@@ -13,7 +13,7 @@
 					</c:when>
 					<c:otherwise>
 						<p class="logout-btn m-hide">
-							<a href="/logout.do">로그아웃</a>
+                     <a class="gologout-btn" href="/logout.do">로그아웃</a>
 						</p>
 					</c:otherwise>
 				</c:choose>
@@ -78,14 +78,14 @@
 						<li><a href="/vs_index.do">고민거리</a></li>
 					</ul>
 					<li><a href="getFaqUserList.do">FAQ</a></li>
-					
+               <c:if test="${userId ne null }">
 					<li class="nav-mypage">마이페이지</a></li>
 					<ul class="m-sub-mp-menu m-sub-menu">
 						<li><a href="/buyList.do">주문 목록</a></li>
 						<li><a href="/updateMypage.do">개인정보 수정</a></li>
 						<li><a href="/updatePassword.do">비밀번호 수정</a></li>
-						<li><a href="cartList.do?c_payment=ready">장바구니</a></li>
 					</ul>
+               </c:if>
 					<li>
 						<c:choose>
 							<c:when test="${userId eq null }">
@@ -94,8 +94,7 @@
 								</button>
 							</c:when>
 							<c:otherwise>
-								<button>
-									<%=session.getAttribute("userNickname")%>
+                        <button>🎈<%=session.getAttribute("userNickname")%>
 										님 <a href="/logout.do">로그아웃</a>
 								</button>
 							</c:otherwise>

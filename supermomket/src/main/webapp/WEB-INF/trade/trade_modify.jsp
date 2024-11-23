@@ -9,6 +9,12 @@
 <title>중고거래 수정</title>
 </head>
 <style>
+
+/* 발표용 css ****************/
+
+.product-input, .category-list, .price-input, .description-textarea{
+	font-size: 16px !important;
+}
 .write-form {
     max-width: 600px;
     margin: 0 auto;

@@ -29,7 +29,7 @@ public class AdminProductController {
         @RequestParam(required = false) String searchQuery,
         Model model
     ) {
-        int pageSize = 15;
+        int pageSize = 10;
         List<ProductVO> products = productService.getAdminProductsByPage(page, pageSize, null, null, searchQuery);
         model.addAttribute("ProductList", products);
         model.addAttribute("currentPage", page);

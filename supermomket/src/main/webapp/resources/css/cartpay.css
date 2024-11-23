@@ -168,8 +168,8 @@ th{
     width: calc(50% - 5px);
 }
 input.addressbtn {
-    margin-left: 161px;
-    padding: 6px;
+	margin-right:200px;
+	padding: 6px;
 }
 
 .payment-form #sample4_postcode + input[type="button"] {
@@ -271,8 +271,8 @@ input.addressbtn {
     height: auto; /* 비율 유지 */
 }
 
-/* 미디어 쿼리: 화면 너비가 375px 이하일 때 */
-@media (max-width: 375px) {
+/* 미디어 쿼리: 화면 너비가 425px 이하일 때 */
+@media (max-width: 425px) {
 	
 	*{
 	font: 16px!important;
@@ -281,6 +281,7 @@ input.addressbtn {
 	input.addressbtn {
     padding: 6px;
     margin-right: 200px;
+    margin-left: 0px;
 	}
 	
 	.mocount{
